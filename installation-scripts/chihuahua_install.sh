@@ -29,7 +29,7 @@ jq -S -c -M '' ~/.chihuahua/config/genesis.json | shasum -a 256 # 2d0709eeb6610f
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uhuahua"/g' ~/.chihuahua/config/app.toml
 seeds=""
 peers="c9b1385f81bec76dd6a84311de997d1e783dba53@rpc1.nodejumper.io:29656,584ab034cafa8e9229c2b2fa2eda9ab0bb4e399e@rpc2.nodejumper.io:29656"
-sed -i.bak -e "s/^seeds *=.*/seeds = \"$seeds\"/; s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.chihuahua/config/config.toml
+sed -i -e "s/^seeds *=.*/seeds = \"$seeds\"/; s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.chihuahua/config/config.toml
 
 # in case of pruning
 sed -i 's/pruning = "default"/pruning = "custom"/g' ~/.chihuahua/config/app.toml
@@ -61,7 +61,7 @@ TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.bloc
 
 echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC2\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.chihuahua/config/config.toml
