@@ -23,7 +23,7 @@ desmos version # 2.3.1
 desmos init "${1:-nodejumper}" --chain-id desmos-mainnet
 
 cd && wget https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json
-cp -f genesis.json ~/.desmos/config/genesis.json
+mv -f genesis.json ~/.desmos/config/genesis.json
 jq -S -c -M '' ~/.desmos/config/genesis.json | shasum -a 256 # 619c9462ccd9045522300c5ce9e7f4662cac096eed02ef0535cca2a6826074c4  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001udsm"/g' ~/.desmos/config/app.toml
