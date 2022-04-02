@@ -28,7 +28,7 @@ jq -S -c -M '' ~/.desmos/config/genesis.json | shasum -a 256 # 619c9462ccd904552
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001udsm"/g' ~/.desmos/config/app.toml
 seeds="9bde6ab4e0e00f721cc3f5b4b35f3a0e8979fab5@seed-1.mainnet.desmos.network:26656,5c86915026093f9a2f81e5910107cf14676b48fc@seed-2.mainnet.desmos.network:26656,45105c7241068904bdf5a32c86ee45979794637f@seed-3.mainnet.desmos.network:26656"
-peers="f090ead239426219d605b392314bdd73d16a795f@rpc1.nodejumper.io:32656,dc583d8bfa9971778dc479d8e0f6b9af0cbfe912@rpc2.nodejumper.io:32656"
+peers="f090ead239426219d605b392314bdd73d16a795f@rpc1.nodejumper.io:32656"
 sed -i -e "s/^seeds *=.*/seeds = \"$seeds\"/; s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.desmos/config/config.toml
 
 # in case of pruning
@@ -53,7 +53,6 @@ EOF
 desmos unsafe-reset-all
 
 SNAP_RPC="http://rpc1.nodejumper.io:32657"
-SNAP_RPC2="http://rpc2.nodejumper.io:32657"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
@@ -62,7 +61,7 @@ TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.bloc
 echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 
 sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC2\"| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.desmos/config/config.toml
 

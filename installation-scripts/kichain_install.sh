@@ -28,7 +28,7 @@ jq -S -c -M '' ~/.kid/config/genesis.json | shasum -a 256 # 99855fdf89f5c697f8be
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uxki"/g' ~/.kid/config/app.toml
 seeds="24cbccfa8813accd0ebdb09e7cdb54cff2e8fcd9@51.89.166.197:26656"
-peers="766ed622c79fa9cfd668db9741a1f72a5751e0cd@rpc1.nodejumper.io:28656,9f825f1be8d3d4944f64e37b955f08877a964003@rpc2.nodejumper.io:28656"
+peers="766ed622c79fa9cfd668db9741a1f72a5751e0cd@rpc1.nodejumper.io:28656"
 sed -i -e "s/^seeds *=.*/seeds = \"$seeds\"/; s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.kid/config/config.toml
 
 # in case of pruning
@@ -53,7 +53,6 @@ EOF
 kid unsafe-reset-all
 
 SNAP_RPC="http://rpc1.nodejumper.io:28657"
-SNAP_RPC2="http://rpc2.nodejumper.io:28657"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
@@ -62,7 +61,7 @@ TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.bloc
 echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 
 sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC2\"| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.kid/config/config.toml
 

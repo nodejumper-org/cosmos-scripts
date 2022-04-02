@@ -28,7 +28,7 @@ jq -S -c -M '' ~/.chihuahua/config/genesis.json | shasum -a 256 # 2d0709eeb6610f
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uhuahua"/g' ~/.chihuahua/config/app.toml
 seeds="4936e377b4d4f17048f8961838a5035a4d21240c@chihuahua-seed-01.mercury-nodes.net:29540"
-peers="c9b1385f81bec76dd6a84311de997d1e783dba53@rpc1.nodejumper.io:29656,584ab034cafa8e9229c2b2fa2eda9ab0bb4e399e@rpc2.nodejumper.io:29656"
+peers="c9b1385f81bec76dd6a84311de997d1e783dba53@rpc1.nodejumper.io:29656"
 sed -i -e "s/^seeds *=.*/seeds = \"$seeds\"/; s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.chihuahua/config/config.toml
 
 # in case of pruning
@@ -53,7 +53,6 @@ EOF
 chihuahuad unsafe-reset-all
 
 SNAP_RPC="http://rpc1.nodejumper.io:29657"
-SNAP_RPC2="http://rpc2.nodejumper.io:29657"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
@@ -62,7 +61,7 @@ TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.bloc
 echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 
 sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC2\"| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.chihuahua/config/config.toml
 
