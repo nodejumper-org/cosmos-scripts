@@ -52,7 +52,7 @@ EOF
 
 omniflixhubd unsafe-reset-all
 
-SNAP_RPC="https://rpc2.nodejumper.io:33657"
+SNAP_RPC="http://rpc2.nodejumper.io:33657"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
