@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sudo apt update && sudo apt upgrade -y
 
 version="1.17.2" \
@@ -26,9 +28,7 @@ mv -f genesis.json ~/.osmosisd/config/genesis.json
 jq -S -c -M '' ~/.osmosisd/config/genesis.json | shasum -a 256 # 23fe76392e7535eafb73f6d60f08538b2f35272454b4598b734b4ecb6f5a7c5e  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uosmo"/g' ~/.osmosisd/config/app.toml
-seeds=""
-peers="83c06bc290b6dffe05aa9cec720bedfc118afcbc@rpc2.nodejumper.io:35656"
-sed -i -e "s/^seeds *=.*/seeds = \"$seeds\"/; s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.osmosisd/config/config.toml
+sed -i 's/^snapshot-interval *=.*/snapshot-interval = 0/g' ~/.osmosisd/config/app.toml
 
 # in case of pruning
 sed -i 's/pruning = "default"/pruning = "custom"/g' ~/.osmosisd/config/app.toml
@@ -66,3 +66,11 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.osmosisd/conf
 
 sudo systemctl daemon-reload && sudo systemctl enable osmosisd \
 && sudo systemctl restart osmosisd && sudo journalctl -u osmosisd -f --no-hostname -o cat
+
+
+# fix state sync issue (https://github.com/cosmos/cosmos-sdk/issues/10791) do it after the node is synchronized
+git clone https://github.com/tendermint/tendermint
+cd tendermint
+git checkout callum/app-version
+make install
+tendermint set-app-version 1 --home ~/.osmosisd
