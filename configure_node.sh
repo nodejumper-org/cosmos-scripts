@@ -78,9 +78,6 @@ for config in ${configs[@]}; do
     ##############
     ## config.toml
     ##############
-    sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/" $CHAIN_HOME/config/config.toml
-    sed -i -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CHAIN_HOME/config/config.toml
-
     sed -i 's|laddr = "tcp:\/\/0.0.0.0:26656"|laddr = "tcp:\/\/0.0.0.0:'$PORT_P2P'"|g' $CHAIN_HOME/config/config.toml
     sed -i 's|pprof_laddr = "localhost:6060"|pprof_laddr = "localhost:6060:'$PORT_PPROF'"|g' $CHAIN_HOME/config/config.toml
     sed -i 's|indexer = "kv"|indexer = "'$INDEXER'"|g' $CHAIN_HOME/config/config.toml
@@ -90,6 +87,14 @@ for config in ${configs[@]}; do
 
     sed -i 's|tls_cert_file = ""|tls_cert_file = "'$TSL_CERT'"|g' $CHAIN_HOME/config/config.toml
     sed -i 's|tls_key_file = ""|tls_key_file = "'$TSL_KEY'"|g' $CHAIN_HOME/config/config.toml
+    
+    if [ ! -z "$SEEDS" ]; then
+        sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/" $CHAIN_HOME/config/config.toml
+    fi
+
+    if [ ! -z "$PEERS" ]; then
+        sed -i -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CHAIN_HOME/config/config.toml
+    fi
 
     if [ "$STATE_SYNC_MODE" == "true" ]
     then
