@@ -23,7 +23,7 @@ for config in ${configs[@]}; do
     
     MONIKER=$(jq '.moniker' <<< "$item")
     CHAIN_ID=$(jq '.chainId' <<< "$item")
-    CHAIN_HOME=$(jq '.homePath' <<< "$item")
+    CHAIN_HOME=$(jq '.chainHomePath' <<< "$item")
     MIN_GAS_PRICE=$(jq '.minGasPrice' <<< "$item")
     ENABLE_PRUNING=$(jq '.enableCustomPruning' <<< "$item")
     STATE_SYNC_MODE=$(jq '.stateSyncMode' <<< "$item")
