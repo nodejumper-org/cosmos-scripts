@@ -65,7 +65,8 @@ for config in ${configs[@]}; do
     then
         # set pruning to custom/100/2000/10
         sed -i 's/pruning = "default"/pruning = "custom"/g' $CHAIN_HOME/config/app.toml
-        sed -i 's/pruning-keep-recent = "0"/pruning-keep-recent = "2000"/g' $CHAIN_HOME/config/app.toml
+        sed -i 's/pruning-keep-recent = "0"/pruning-keep-recent = "100"/g' $CHAIN_HOME/config/app.toml
+        sed -i 's/pruning-keep-every = "0"/pruning-keep-recent = "2000"/g' $CHAIN_HOME/config/app.toml
         sed -i 's/pruning-interval = "0"/pruning-interval = "10"/g' $CHAIN_HOME/config/app.toml
         sed -i 's/snapshot-interval = 0/snapshot-interval = 2000/g' $CHAIN_HOME/config/app.toml
     else
@@ -123,24 +124,6 @@ function checkClientToml {
     echo "checking if client toml exist. path: $clientTomlPath"
     if [ ! -f "$clientTomlPath" ]; then
         echo "$clientTomlPath does not exist. creating..."
-        tee $clientTomlPath > /dev/null << EOF
-# This is a TOML config file.
-# For more information, see https://github.com/toml-lang/toml
-
-###############################################################################
-###                           Client Configuration                            ###
-###############################################################################
-
-# The network chain ID
-chain-id = ""
-# The keyring's backend, where the keys are stored (os|file|kwallet|pass|test|memory)
-keyring-backend = "os"
-# CLI output format (text|json)
-output = "text"
-# <host>:<port> to Tendermint RPC interface for this chain
-node = "tcp://localhost:26657"
-# Transaction broadcasting mode (sync|async|block)
-broadcast-mode = "sync"
-EOF
+        curl https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/node-config/client.toml > $CHAIN_HOME/config/client.toml
     fi
 }
