@@ -61,6 +61,8 @@ function configureNode {
 
     local TSL_CERT=$(jq '.tsl.cert' <<< "$config")
     local TSL_KEY=$(jq '.tsl.key' <<< "$config")
+    
+    curl -s $INSTALLATION_SCRIPT | bash
 
     checkClientToml $CHAIN_HOME
 
