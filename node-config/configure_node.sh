@@ -16,47 +16,59 @@ JSON=$(<$CONFIG_PATH)
 
 configs=$(echo "$JSON" | jq -c -r '.[]')
 for config in ${configs[@]}; do
+    echo "Read config: $config"
+    configureNode $config
+done
 
-    echo "config: $config"
+function checkClientToml {
+    local chainHome=$1
+    local clientTomlPath="$chainHome/config/client.toml"
+    echo "Checking if client toml exist. path: $clientTomlPath"
+    if [ ! -f "$clientTomlPath" ]; then
+        echo "File $clientTomlPath does not exist. Creating..."
+        curl https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/node-config/client.toml > $clientTomlPath
+    fi
+}
 
-    # TODO: SET DEFAULTS !
-    
-    MONIKER=$(jq '.moniker' <<< "$item")
-    CHAIN_ID=$(jq '.chainId' <<< "$item")
-    CHAIN_HOME=$(jq '.chainHomePath' <<< "$item")
-    MIN_GAS_PRICE=$(jq '.minGasPrice' <<< "$item")
-    ENABLE_PRUNING=$(jq '.enableCustomPruning' <<< "$item")
-    STATE_SYNC_MODE=$(jq '.stateSyncMode' <<< "$item")
-    INDEXER=$(jq '.indexer' <<< "$item")
+function configureNode {
+    local config=$1
 
-    SEEDS=$(jq '.seeds' <<< "$item")
-    PEERS=$(jq '.peers' <<< "$item")
+    ### general
+    local INSTALLATION_SCRIPT=$(jq '.installationScript' <<< "$config")
+    local CHAIN_HOME=$(jq '.chainHomePath' <<< "$config")
+    local STATE_SYNC_MODE=$(jq '.stateSyncMode' <<< "$config")
 
-    PORT_API=$(jq '.ports.api' <<< "$item")
-    PORT_ROSETTA=$(jq '.ports.rosetta' <<< "$item")
-    PORT_GRPC=$(jq '.ports.grpc' <<< "$item")
-    PORT_GRPC_WEB=$(jq '.ports.grpcWeb' <<< "$item")
+    ### client.toml
+    local CHAIN_ID=$(jq '.chainId' <<< "$config")
 
-    PORT_PROXY_APP=$(jq '.ports.proxyApp' <<< "$item")
-    PORT_RPC=$(jq '.ports.rpc' <<< "$item")
-    PORT_PPROF=$(jq '.ports.pprof' <<< "$item")
-    PORT_P2P=$(jq '.ports.p2p' <<< "$item")
-    PORT_PROMETHEUES=$(jq '.ports.prometheus' <<< "$item")
+    ### app.toml
+    local MIN_GAS_PRICE=$(jq '.minGasPrice' <<< "$config")
+    local PORT_GRPC=$(jq '.ports.grpc' <<< "$config")
+    local PORT_GRPC_WEB=$(jq '.ports.grpcWeb' <<< "$config")
 
-    TSL_CERT=$(jq '.tsl.cert' <<< "$item")
-    TSL_KEY=$(jq '.tsl.key' <<< "$item")
+    ### config.toml
+    local MONIKER=$(jq '.moniker' <<< "$config")
+    local INDEXER=$(jq '.indexer' <<< "$config")
 
-    checkClientToml
+    local SEEDS=$(jq '.seeds' <<< "$config")
+    local PEERS=$(jq '.peers' <<< "$config")
 
-    ##############
-    ## client.toml
-    ##############
+    local PORT_PROXY_APP=$(jq '.ports.proxyApp' <<< "$config")
+    local PORT_RPC=$(jq '.ports.rpc' <<< "$config")
+    local PORT_PPROF=$(jq '.ports.pprof' <<< "$config")
+    local PORT_P2P=$(jq '.ports.p2p' <<< "$config")
+    local PORT_PROMETHEUES=$(jq '.ports.prometheus' <<< "$config")
+
+    local TSL_CERT=$(jq '.tsl.cert' <<< "$config")
+    local TSL_KEY=$(jq '.tsl.key' <<< "$config")
+
+    checkClientToml $CHAIN_HOME
+
+    ### client.toml
     sed -i 's/chain-id = ""/chain-id = "'$CHAIN_ID'"/g' $CHAIN_HOME/config/client.toml
     sed -i 's|node = "tcp:\/\/localhost:26657"|node = "tcp:\/\/localhost:'$PORT_RPC'"|g' $CHAIN_HOME/config/client.toml
 
-    ##############
-    ## app.toml
-    ##############
+    ### app.toml
     sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "'$MIN_GAS_PRICE'"/g' $CHAIN_HOME/config/app.toml
     sed -i 's/address = "0.0.0.0:9090"/address = "0.0.0.0:'$PORT_GRPC'"/g' $CHAIN_HOME/config/app.toml
     sed -i 's/address = "0.0.0.0:9091"/address = "0.0.0.0:'$PORT_GRPC_WEB'"/g' $CHAIN_HOME/config/app.toml
@@ -76,9 +88,7 @@ for config in ${configs[@]}; do
         sed -i 's/pruning-interval = "0"/pruning-interval = "10"/g' $CHAIN_HOME/config/app.toml
     fi
 
-    ##############
-    ## config.toml
-    ##############
+    ### config.toml
     sed -i 's|laddr = "tcp:\/\/0.0.0.0:26656"|laddr = "tcp:\/\/0.0.0.0:'$PORT_P2P'"|g' $CHAIN_HOME/config/config.toml
     sed -i 's|pprof_laddr = "localhost:6060"|pprof_laddr = "localhost:6060:'$PORT_PPROF'"|g' $CHAIN_HOME/config/config.toml
     sed -i 's|indexer = "kv"|indexer = "'$INDEXER'"|g' $CHAIN_HOME/config/config.toml
@@ -107,23 +117,12 @@ for config in ${configs[@]}; do
         sed -i 's|laddr = "tcp:\/\/127.0.0.1:26657"|laddr = "tcp:\/\/127.0.0.1:'$PORT_RPC'"|g' $CHAIN_HOME/config/config.toml
     fi
 
-    ##########
-    ## UFW
-    ##########
+    ### UFW
     sudo ufw allow $LADDR_P2P
     sudo ufw allow from $PROMETHEUS_IP to any port $PORT_PROMETHEUS
     
     if [ "$STATE_SYNC_MODE" == "true" ]
     then
         sudo ufw allow $LADDR_RPC
-    fi
-done
-
-function checkClientToml {
-    clientTomlPath="$CHAIN_HOME/config/client.toml"
-    echo "checking if client toml exist. path: $clientTomlPath"
-    if [ ! -f "$clientTomlPath" ]; then
-        echo "$clientTomlPath does not exist. creating..."
-        curl https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/node-config/client.toml > $CHAIN_HOME/config/client.toml
-    fi
+    fi    
 }
