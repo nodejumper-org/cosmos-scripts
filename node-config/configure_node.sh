@@ -35,6 +35,7 @@ function configureNode {
 
     ### general
     local INSTALLATION_SCRIPT=$(jq '.installationScript' <<< "$config")
+    local SERVICE_NAME=$(jq '.serviceName' <<< "$config")
     local CHAIN_HOME=$(jq '.chainHomePath' <<< "$config")
     local STATE_SYNC_MODE=$(jq '.stateSyncMode' <<< "$config")
 
@@ -126,5 +127,7 @@ function configureNode {
     if [ "$STATE_SYNC_MODE" == "true" ]
     then
         sudo ufw allow $LADDR_RPC
-    fi    
+    fi
+    
+    sudo systemctl restart $SERVICE_NAME
 }
