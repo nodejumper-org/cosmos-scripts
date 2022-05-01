@@ -7,19 +7,6 @@ while getopts c: flag; do
   esac
 done
 
-if [ -z "$CONFIG_PATH" ]; then
-  echo "ERROR: config not provided"
-  exit 1
-fi
-
-JSON=$(<"$CONFIG_PATH")
-
-configs=$(echo "$JSON" | jq -c -r '.[]')
-for config in "${configs[@]}"; do
-  echo "Read config: $config"
-  configureNode "$config"
-done
-
 function checkClientToml {
   local chainHome=$1
   local clientTomlPath="$chainHome/config/client.toml"
@@ -130,3 +117,16 @@ function configureNode {
 
   sudo systemctl restart "$SERVICE_NAME"
 }
+
+if [ -z "$CONFIG_PATH" ]; then
+  echo "ERROR: config not provided"
+  exit 1
+fi
+
+JSON=$(<"$CONFIG_PATH")
+
+configs=$(echo "$JSON" | jq -c -r '.[]')
+for config in "${configs[@]}"; do
+  echo "Read config: $config"
+  configureNode "$config"
+done
