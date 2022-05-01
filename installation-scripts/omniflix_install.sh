@@ -1,15 +1,18 @@
-sudo apt update && sudo apt upgrade -y
+#!/bin/bash
 
-version="1.17.2" \
-&& cd ~ \
-&& wget "https://golang.org/dl/go$version.linux-amd64.tar.gz" \
-&& sudo rm -rf /usr/local/go \
-&& sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz" \
-&& rm "go$version.linux-amd64.tar.gz" \
-&& echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile \
-&& source ~/.bash_profile
+sudo apt update
 
-go version # go version go1.17.2 linux/amd64
+if [ -z "$(go version 2>/dev/null)" ]; then
+  version="1.18.1"
+  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
+  sudo rm -rf /usr/local/go
+  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
+  rm "go$version.linux-amd64.tar.gz"
+  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  source .bash_profile
+fi
+
+go version # go version go1.18.1 linux/amd64
 
 sudo apt install -y make gcc jq
 
@@ -36,7 +39,7 @@ sed -i 's/pruning = "default"/pruning = "custom"/g' ~/.omniflixhub/config/app.to
 sed -i 's/pruning-keep-recent = "0"/pruning-keep-recent = "100"/g' ~/.omniflixhub/config/app.toml
 sed -i 's/pruning-interval = "0"/pruning-interval = "10"/g' ~/.omniflixhub/config/app.toml
 
-sudo tee <<EOF >/dev/null /etc/systemd/system/omniflixhubd.service
+sudo tee /etc/systemd/system/omniflixhubd.service > /dev/null << EOF
 [Unit]
 Description=Omniflix Node
 After=network-online.target
@@ -65,5 +68,6 @@ s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.omniflixhub/config/config.toml
 
-sudo systemctl daemon-reload && sudo systemctl enable omniflixhubd \
-&& sudo systemctl restart omniflixhubd && sudo journalctl -u omniflixhubd -f --no-hostname -o cat
+sudo systemctl daemon-reload
+sudo systemctl enable omniflixhubd
+sudo systemctl restart omniflixhubd

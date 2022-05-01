@@ -1,18 +1,22 @@
-sudo apt update && sudo apt upgrade -y
+#!/bin/bash
 
-version="1.17.2" \
-&& cd ~ \
-&& wget "https://golang.org/dl/go$version.linux-amd64.tar.gz" \
-&& sudo rm -rf /usr/local/go \
-&& sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz" \
-&& rm "go$version.linux-amd64.tar.gz" \
-&& echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile \
-&& source ~/.bash_profile
+sudo apt update
 
-go version # go version go1.17.2 linux/amd64
+if [ -z "$(go version 2>/dev/null)" ]; then
+  version="1.18.1"
+  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
+  sudo rm -rf /usr/local/go
+  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
+  rm "go$version.linux-amd64.tar.gz"
+  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  source .bash_profile
+fi
+
+go version # go version go1.18.1 linux/amd64
 
 sudo apt install -y make gcc jq
-sudo apt install snapd -y && sudo snap install lz4
+sudo apt install -y snapd
+sudo snap install lz4
 
 cd && git clone https://github.com/osmosis-labs/osmosis
 cd osmosis && git checkout v7.0.4 && make install
@@ -37,7 +41,7 @@ sed -i 's/pruning-keep-recent = "0"/pruning-keep-recent = "100"/g' ~/.osmosisd/c
 sed -i 's/pruning-interval = "0"/pruning-interval = "10"/g' ~/.osmosisd/config/app.toml
 sed -i 's/snapshot-interval *=.*/snapshot-interval = 0/g' ~/.osmosisd/config/app.toml
 
-sudo tee <<EOF >/dev/null /etc/systemd/system/osmosisd.service
+sudo tee /etc/systemd/system/osmosisd.service  > /dev/null << EOF
 [Unit]
 Description=Osmosis Node
 After=network-online.target
@@ -56,7 +60,8 @@ osmosisd unsafe-reset-all
 rm -rf ~/.osmosisd/data && cd ~/.osmosisd
 
 SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/osmosis/ | egrep -o ">osmosis-1.*\.tar.lz4" | tr -d ">")
-wget -O - https://snapshots2.nodejumper.io/osmosis/${SNAP_NAME} | lz4 -dc - | tar -xf -
+wget -O - https://snapshots2.nodejumper.io/osmosis/"${SNAP_NAME}" | lz4 -dc - | tar -xf -
 
-sudo systemctl daemon-reload && sudo systemctl enable osmosisd \
-&& sudo systemctl restart osmosisd && sudo journalctl -u osmosisd -f --no-hostname -o cat
+sudo systemctl daemon-reload
+sudo systemctl enable osmosisd
+sudo systemctl restart osmosisd
