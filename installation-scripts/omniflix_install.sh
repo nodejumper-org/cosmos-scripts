@@ -1,15 +1,10 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y make gcc jq wget git
+sudo apt install -y make gcc jq wget curl git
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
-  version="1.18.1"
-  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
-  rm "go$version.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   source .bash_profile
 fi
 
@@ -24,8 +19,7 @@ omniflixhubd version # 0.4.0
 # replace nodejumper with your own moniker, if you'd like
 omniflixhubd init "${1:-nodejumper}" --chain-id omniflixhub-1
 
-cd && wget https://raw.githubusercontent.com/OmniFlix/mainnet/main/omniflixhub-1/genesis.json
-mv -f genesis.json ~/.omniflixhub/config/genesis.json
+curl https://raw.githubusercontent.com/OmniFlix/mainnet/main/omniflixhub-1/genesis.json > ~/.omniflixhub/config/genesis.json
 jq -S -c -M '' ~/.omniflixhub/config/genesis.json | shasum -a 256 # 3c01dd89ae10f3dc247648831ef9e8168afd020946a13055d92a7fe2f50050a0  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uflix"/g' ~/.omniflixhub/config/app.toml

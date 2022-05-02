@@ -1,15 +1,10 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y make gcc jq wget git
+sudo apt install -y make gcc jq wget curl git
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
-  version="1.18.1"
-  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
-  rm "go$version.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   source .bash_profile
 fi
 
@@ -24,8 +19,7 @@ chihuahuad version # v1.1.1
 # replace nodejumper with your own moniker, if you'd like
 chihuahuad init "${1:-nodejumper}" --chain-id chihuahua-1
 
-cd && wget https://raw.githubusercontent.com/ChihuahuaChain/mainnet/main/genesis.json
-mv -f genesis.json ~/.chihuahua/config/genesis.json
+curl https://raw.githubusercontent.com/ChihuahuaChain/mainnet/main/genesis.json > ~/.chihuahua/config/genesis.json
 jq -S -c -M '' ~/.chihuahua/config/genesis.json | shasum -a 256 # 2d0709eeb6610fc41584d2d76ec5c83ba8537dc6615f36c520966eb43dc0b386  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uhuahua"/g' ~/.chihuahua/config/app.toml

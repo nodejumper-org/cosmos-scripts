@@ -1,15 +1,10 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y make gcc jq wget git
+sudo apt install -y make gcc jq wget curl git
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
-  version="1.18.1"
-  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
-  rm "go$version.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   source .bash_profile
 fi
 
@@ -24,8 +19,7 @@ desmos version # 2.3.1
 # replace nodejumper with your own moniker, if you'd like
 desmos init "${1:-nodejumper}" --chain-id desmos-mainnet
 
-cd && wget https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json
-mv -f genesis.json ~/.desmos/config/genesis.json
+curl https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json > ~/.desmos/config/genesis.json
 jq -S -c -M '' ~/.desmos/config/genesis.json | shasum -a 256 # 619c9462ccd9045522300c5ce9e7f4662cac096eed02ef0535cca2a6826074c4  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001udsm"/g' ~/.desmos/config/app.toml

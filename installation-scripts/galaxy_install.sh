@@ -1,15 +1,10 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y make gcc jq wget git
+sudo apt install -y make gcc jq wget curl git
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
-  version="1.18.1"
-  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
-  rm "go$version.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   source .bash_profile
 fi
 
@@ -24,8 +19,7 @@ galaxyd version # launch-gentxs
 # replace nodejumper with your own moniker, if you'd like
 galaxyd init "${1:-nodejumper}" --chain-id galaxy-1
 
-cd && wget https://media.githubusercontent.com/media/galaxies-labs/networks/main/galaxy-1/genesis.json
-mv -f genesis.json ~/.galaxy/config/genesis.json
+curl https://media.githubusercontent.com/media/galaxies-labs/networks/main/galaxy-1/genesis.json > ~/.galaxy/config/genesis.json
 jq -S -c -M '' ~/.galaxy/config/genesis.json | shasum -a 256 # 6cc17dc54dab9a9636b2cd3c08804a52157e27c79cf44475118eb52911d4e17f  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uglx"/g' ~/.galaxy/config/app.toml

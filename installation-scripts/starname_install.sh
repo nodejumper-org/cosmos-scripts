@@ -1,16 +1,11 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y make gcc jq wget git snapd
+sudo apt install -y make gcc jq wget curl git snapd
 sudo snap install lz4
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
-  version="1.18.1"
-  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
-  rm "go$version.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   source .bash_profile
 fi
 
@@ -27,8 +22,7 @@ starnamed version # v0.10.13
 # replace nodejumper with your own moniker, if you'd like
 starnamed init "${1:-nodejumper}" --chain-id iov-mainnet-ibc
 
-cd && wget https://gist.githubusercontent.com/davepuchyr/6bea7bf369064d118195e9b15ea08a0f/raw/cf66fd02ea9336bd79cbc47dd47dcd30aad7831c/genesis.json
-mv -f genesis.json ~/.starnamed/config/genesis.json
+curl https://gist.githubusercontent.com/davepuchyr/6bea7bf369064d118195e9b15ea08a0f/raw/cf66fd02ea9336bd79cbc47dd47dcd30aad7831c/genesis.json > ~/.starnamed/config/genesis.json
 jq -S -c -M '' ~/.starnamed/config/genesis.json | shasum -a 256 # cd07d99c7497ca97f80c9862248d2e3e73e7c435232d401ee7534dda8785838a  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uiov"/g' ~/.starnamed/config/app.toml

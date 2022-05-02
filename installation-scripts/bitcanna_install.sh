@@ -1,15 +1,10 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y make gcc jq wget git
+sudo apt install -y make gcc jq wget curl git
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
-  version="1.18.1"
-  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
-  rm "go$version.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   source .bash_profile
 fi
 
@@ -24,8 +19,7 @@ bcnad version # .1.3.1
 # replace nodejumper with your own moniker, if you'd like
 bcnad init "${1:-nodejumper}" --chain-id bitcanna-1
 
-cd && wget https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json
-mv -f genesis.json ~/.bcna/config/genesis.json
+curl https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json > ~/.bcna/config/genesis.json
 jq -S -c -M '' ~/.bcna/config/genesis.json | shasum -a 256 # 2c8766d7547d6862f776269f67eed86d30d6a3ddfcaf60fe0461aa392060a35f  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001ubcna"/g' ~/.bcna/config/app.toml

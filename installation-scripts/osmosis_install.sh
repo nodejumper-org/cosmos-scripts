@@ -1,16 +1,11 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y make gcc jq wget git snapd
+sudo apt install -y make gcc jq wget curl git snapd
 sudo snap install lz4
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
-  version="1.18.1"
-  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
-  rm "go$version.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   source .bash_profile
 fi
 
@@ -24,8 +19,7 @@ osmosisd version # v7.0.4
 # replace nodejumper with your own moniker, if you'd like
 osmosisd init "${1:-nodejumper}" --chain-id osmosis-1
 
-cd && wget https://github.com/osmosis-labs/networks/raw/main/osmosis-1/genesis.json
-mv -f genesis.json ~/.osmosisd/config/genesis.json
+curl https://github.com/osmosis-labs/networks/raw/main/osmosis-1/genesis.json > ~/.osmosisd/config/genesis.json
 jq -S -c -M '' ~/.osmosisd/config/genesis.json | shasum -a 256 # 23fe76392e7535eafb73f6d60f08538b2f35272454b4598b734b4ecb6f5a7c5e  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uosmo"/g' ~/.osmosisd/config/app.toml
