@@ -47,11 +47,11 @@ function configureNode {
   local PORT_P2P=$(jq -r '.ports.p2p' <<< "$config")
   local PORT_PROMETHEUS=$(jq -r '.ports.prometheus' <<< "$config")
 
-  local TSL_CERT=$(jq -r '.tsl.cert' <<< "$config")
-  local TSL_KEY=$(jq -r '.tsl.key' <<< "$config")
+  local TLS_CERT=$(jq -r '.tls.cert' <<< "$config")
+  local TLS_KEY=$(jq -r '.tls.key' <<< "$config")
 
   if [ -n "$INSTALLATION_SCRIPT" ]; then
-    bash <(curl -s "$INSTALLATION_SCRIPT")
+    . <(curl -s "$INSTALLATION_SCRIPT") "$MONIKER"
   fi
 
   checkClientToml "$CHAIN_HOME"
@@ -87,9 +87,9 @@ function configureNode {
   sed -i 's|prometheus_listen_addr = ":26660"|prometheus_listen_addr = ":'$PORT_PROMETHEUS'"|g' "$CHAIN_HOME/config/config.toml"
   sed -i 's|proxy_app = "tcp:\/\/127.0.0.1:26658\"|proxy_app = "tcp:\/\/127.0.0.1:'$PORT_PROXY_APP'"|g' "$CHAIN_HOME/config/config.toml"
 
-  if [ -n "$TSL_CERT" ] && [ -n "$TSL_KEY" ]; then
-    sed -i 's|tls_cert_file = ""|tls_cert_file = "'"$TSL_CERT"'"|g' "$CHAIN_HOME/config/config.toml"
-    sed -i 's|tls_key_file = ""|tls_key_file = "'"$TSL_KEY"'"|g' "$CHAIN_HOME/config/config.toml"
+  if [ -n "$TLS_CERT" ] && [ -n "$TLS_KEY" ] && [ "$TLS_CERT" != "null" ] && [ "$TLS_KEY" != "null" ]; then
+    sed -i 's|tls_cert_file = ""|tls_cert_file = "'"$TLS_CERT"'"|g' "$CHAIN_HOME/config/config.toml"
+    sed -i 's|tls_key_file = ""|tls_key_file = "'"$TLS_KEY"'"|g' "$CHAIN_HOME/config/config.toml"
   fi
 
   if [ -n "$SEEDS" ]; then
