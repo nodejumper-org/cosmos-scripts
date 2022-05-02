@@ -1,18 +1,21 @@
-sudo apt update && sudo apt upgrade -y
+#!/bin/bash
 
-version="1.17.2" \
-&& cd ~ \
-&& wget "https://golang.org/dl/go$version.linux-amd64.tar.gz" \
-&& sudo rm -rf /usr/local/go \
-&& sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz" \
-&& rm "go$version.linux-amd64.tar.gz" \
-&& echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile \
-&& source ~/.bash_profile
+sudo apt update
+sudo apt install -y make gcc jq wget git
 
-go version # go version go1.17.2 linux/amd64
+if [ ! -f "/usr/local/go/bin/go" ]; then
+  version="1.18.1"
+  cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
+  sudo rm -rf /usr/local/go
+  sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
+  rm "go$version.linux-amd64.tar.gz"
+  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+  source .bash_profile
+fi
 
-sudo apt install -y make gcc jq
+go version # go version goX.XX.X linux/amd64
 
+cd && rm -rf galaxy && rm -rf .galaxy
 cd && git clone https://github.com/galaxies-labs/galaxy
 cd galaxy && git checkout v1.0.0 && make install
 
@@ -35,7 +38,7 @@ sed -i 's/pruning = "default"/pruning = "custom"/g' ~/.galaxy/config/app.toml
 sed -i 's/pruning-keep-recent = "0"/pruning-keep-recent = "100"/g' ~/.galaxy/config/app.toml
 sed -i 's/pruning-interval = "0"/pruning-interval = "10"/g' ~/.galaxy/config/app.toml
 
-sudo tee <<EOF >/dev/null /etc/systemd/system/galaxyd.service
+sudo tee /etc/systemd/system/galaxyd.service > /dev/null << EOF
 [Unit]
 Description=Galaxy Node
 After=network-online.target
@@ -64,5 +67,6 @@ s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.galaxy/config/config.toml
 
-sudo systemctl daemon-reload && sudo systemctl enable galaxyd \
-&& sudo systemctl restart galaxyd && sudo journalctl -u galaxyd -f --no-hostname -o cat
+sudo systemctl daemon-reload
+sudo systemctl enable galaxyd
+sudo systemctl restart galaxyd

@@ -1,8 +1,9 @@
 #!/bin/bash
 
 sudo apt update
+sudo apt install -y make gcc jq wget git
 
-if [ -z "$(go version 2>/dev/null)" ]; then
+if [ ! -f "/usr/local/go/bin/go" ]; then
   version="1.18.1"
   cd && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz"
   sudo rm -rf /usr/local/go
@@ -12,9 +13,7 @@ if [ -z "$(go version 2>/dev/null)" ]; then
   source .bash_profile
 fi
 
-go version # go version go1.18.1 linux/amd64
-
-sudo apt install -y make gcc jq
+go version # go version goX.XX.X linux/amd64
 
 cd && rm -rf desmos && rm -rf .desmos
 git clone https://github.com/desmos-labs/desmos.git
