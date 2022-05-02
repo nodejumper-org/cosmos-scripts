@@ -9,7 +9,7 @@ done
 
 function checkClientToml {
   local chainHome=$1
-  local clientTomlPath="$chainHome/config/client.toml"
+  local clientTomlPath="$HOME/$chainHome/config/client.toml"
   echo "Checking if client toml exist. path: $clientTomlPath"
   if [ ! -f "$clientTomlPath" ]; then
     echo "File $clientTomlPath does not exist. Creating..."
@@ -21,37 +21,37 @@ function configureNode {
   local config=$1
 
   ### general
-  local INSTALLATION_SCRIPT=$(jq '.installationScript' <<<"$config")
-  local SERVICE_NAME=$(jq '.serviceName' <<<"$config")
-  local CHAIN_HOME=$(jq '.chainHomePath' <<<"$config")
-  local STATE_SYNC_MODE=$(jq '.stateSyncMode' <<<"$config")
+  local INSTALLATION_SCRIPT=$(jq -r '.installationScript' <<< "$config")
+  local SERVICE_NAME=$(jq -r '.serviceName' <<< "$config")
+  local CHAIN_HOME=$(jq -r '.chainHomeDir' <<< "$config")
+  local STATE_SYNC_MODE=$(jq -r '.stateSyncMode' <<<" $config")
 
   ### client.toml
-  local CHAIN_ID=$(jq '.chainId' <<<"$config")
+  local CHAIN_ID=$(jq -r '.chainId' <<< "$config")
 
   ### app.toml
-  local MIN_GAS_PRICE=$(jq '.minGasPrice' <<<"$config")
-  local PORT_GRPC=$(jq '.ports.grpc' <<<"$config")
-  local PORT_GRPC_WEB=$(jq '.ports.grpcWeb' <<<"$config")
+  local MIN_GAS_PRICE=$(jq -r '.minGasPrice' <<< "$config")
+  local PORT_GRPC=$(jq -r '.ports.grpc' <<< "$config")
+  local PORT_GRPC_WEB=$(jq -r '.ports.grpcWeb' <<< "$config")
 
   ### config.toml
-  local MONIKER=$(jq '.moniker' <<<"$config")
-  local INDEXER=$(jq '.indexer' <<<"$config")
+  local MONIKER=$(jq -r '.moniker' <<< "$config")
+  local INDEXER=$(jq '.indexer' <<< "$config")
 
-  local SEEDS=$(jq '.seeds' <<<"$config")
-  local PEERS=$(jq '.peers' <<<"$config")
+  local SEEDS=$(jq -r '.seeds' <<< "$config")
+  local PEERS=$(jq -r '.peers' <<< "$config")
 
-  local PORT_PROXY_APP=$(jq '.ports.proxyApp' <<<"$config")
-  local PORT_RPC=$(jq '.ports.rpc' <<<"$config")
-  local PORT_PPROF=$(jq '.ports.pprof' <<<"$config")
-  local PORT_P2P=$(jq '.ports.p2p' <<<"$config")
-  local PORT_PROMETHEUS=$(jq '.ports.prometheus' <<<"$config")
+  local PORT_PROXY_APP=$(jq -r '.ports.proxyApp' <<< "$config")
+  local PORT_RPC=$(jq -r '.ports.rpc' <<< "$config")
+  local PORT_PPROF=$(jq -r '.ports.pprof' <<< "$config")
+  local PORT_P2P=$(jq -r '.ports.p2p' <<< "$config")
+  local PORT_PROMETHEUS=$(jq -r '.ports.prometheus' <<< "$config")
 
-  local TSL_CERT=$(jq '.tsl.cert' <<<"$config")
-  local TSL_KEY=$(jq '.tsl.key' <<<"$config")
+  local TSL_CERT=$(jq -r '.tsl.cert' <<< "$config")
+  local TSL_KEY=$(jq -r '.tsl.key' <<< "$config")
 
   if [ -n "$INSTALLATION_SCRIPT" ]; then
-    curl -s "$INSTALLATION_SCRIPT" | bash
+    bash <(curl -s "$INSTALLATION_SCRIPT")
   fi
 
   checkClientToml "$CHAIN_HOME"
@@ -125,8 +125,7 @@ fi
 
 JSON=$(<"$CONFIG_PATH")
 
-configs=$(echo "$JSON" | jq -c -r '.[]')
-for config in "${configs[@]}"; do
+echo "$JSON" | jq -c -r '.[]' | while read -r config; do
   echo "Read config: $config"
   configureNode "$config"
 done
