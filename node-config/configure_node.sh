@@ -110,14 +110,14 @@ function configureNode {
   fi
 
   ### UFW
-  sudo ufw allow "$LADDR_P2P"
+  sudo ufw allow "$PORT_P2P"
 
   if [ -n "$PROMETHEUS_IP" ]; then
     sudo ufw allow from "$PROMETHEUS_IP" to any port "$PORT_PROMETHEUS"
   fi
 
   if [ "$STATE_SYNC_MODE" == "true" ]; then
-    sudo ufw allow "$LADDR_RPC"
+    sudo ufw allow "$PORT_RPC"
   fi
 
   sudo systemctl restart "$SERVICE_NAME"
