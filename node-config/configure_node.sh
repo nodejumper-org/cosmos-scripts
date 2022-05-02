@@ -36,7 +36,7 @@ function configureNode {
 
   ### config.toml
   local MONIKER=$(jq -r '.moniker' <<< "$config")
-  local INDEXER=$(jq '.indexer' <<< "$config")
+  local INDEXER=$(jq -r '.indexer' <<< "$config")
 
   local SEEDS=$(jq -r '.seeds' <<< "$config")
   local PEERS=$(jq -r '.peers' <<< "$config")
@@ -81,14 +81,16 @@ function configureNode {
 
   ### config.toml
   sed -i 's|laddr = "tcp:\/\/0.0.0.0:26656"|laddr = "tcp:\/\/0.0.0.0:'$PORT_P2P'"|g' "$CHAIN_HOME/config/config.toml"
-  sed -i 's|pprof_laddr = "localhost:6060"|pprof_laddr = "localhost:6060:'$PORT_PPROF'"|g' "$CHAIN_HOME/config/config.toml"
+  sed -i 's|pprof_laddr = "localhost:6060"|pprof_laddr = "localhost:'$PORT_PPROF'"|g' "$CHAIN_HOME/config/config.toml"
   sed -i 's|indexer = "kv"|indexer = "'$INDEXER'"|g' "$CHAIN_HOME/config/config.toml"
   sed -i 's|prometheus = false|prometheus = true|g' "$CHAIN_HOME/config/config.toml"
   sed -i 's|prometheus_listen_addr = ":26660"|prometheus_listen_addr = ":'$PORT_PROMETHEUS'"|g' "$CHAIN_HOME/config/config.toml"
   sed -i 's|proxy_app = "tcp:\/\/127.0.0.1:26658\"|proxy_app = "tcp:\/\/127.0.0.1:'$PORT_PROXY_APP'"|g' "$CHAIN_HOME/config/config.toml"
 
-  sed -i 's|tls_cert_file = ""|tls_cert_file = "'"$TSL_CERT"'"|g' "$CHAIN_HOME/config/config.toml"
-  sed -i 's|tls_key_file = ""|tls_key_file = "'"$TSL_KEY"'"|g' "$CHAIN_HOME/config/config.toml"
+  if [ -n "$TSL_CERT" ] && [ -n "$TSL_KEY" ]; then
+    sed -i 's|tls_cert_file = ""|tls_cert_file = "'"$TSL_CERT"'"|g' "$CHAIN_HOME/config/config.toml"
+    sed -i 's|tls_key_file = ""|tls_key_file = "'"$TSL_KEY"'"|g' "$CHAIN_HOME/config/config.toml"
+  fi
 
   if [ -n "$SEEDS" ]; then
     sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/" "$CHAIN_HOME/config/config.toml"
@@ -109,7 +111,10 @@ function configureNode {
 
   ### UFW
   sudo ufw allow "$LADDR_P2P"
-  sudo ufw allow from "$PROMETHEUS_IP" to any port "$PORT_PROMETHEUS"
+
+  if [ -n "$PROMETHEUS_IP" ]; then
+    sudo ufw allow from "$PROMETHEUS_IP" to any port "$PORT_PROMETHEUS"
+  fi
 
   if [ "$STATE_SYNC_MODE" == "true" ]; then
     sudo ufw allow "$LADDR_RPC"
@@ -126,6 +131,5 @@ fi
 JSON=$(<"$CONFIG_PATH")
 
 echo "$JSON" | jq -c -r '.[]' | while read -r config; do
-  echo "Read config: $config"
   configureNode "$config"
 done
