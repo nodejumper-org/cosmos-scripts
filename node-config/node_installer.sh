@@ -123,6 +123,15 @@ function configureNode {
   sudo systemctl restart "$SERVICE_NAME"
 }
 
+function exists {
+  command -v "$1" >/dev/null 2>&1
+}
+if exists jq; then
+  echo ''
+else
+  sudo apt update && sudo apt install -y jq < "/dev/null"
+fi
+
 if [ -z "$CONFIG_PATH" ]; then
   echo "ERROR: config not provided"
   exit 1
