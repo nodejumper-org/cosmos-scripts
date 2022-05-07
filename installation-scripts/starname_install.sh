@@ -11,7 +11,7 @@ version="1.17.2" \
 
 go version # go version go1.17.2 linux/amd64
 
-sudo apt install -y make gcc jq
+sudo apt install -y make gcc jq git
 sudo apt install snapd -y && sudo snap install lz4
 
 cd && wget https://github.com/CosmWasm/wasmvm/raw/v0.13.0/api/libwasmvm.so
