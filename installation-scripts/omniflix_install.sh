@@ -11,7 +11,7 @@ version="1.17.2" \
 
 go version # go version go1.17.2 linux/amd64
 
-sudo apt install -y make gcc jq
+sudo apt install -y make gcc jq git
 
 cd && rm -rf omniflixhub && rm -rf .omniflixhub
 git clone https://github.com/Omniflix/omniflixhub.git
