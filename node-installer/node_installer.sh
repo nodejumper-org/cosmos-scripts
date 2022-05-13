@@ -115,7 +115,6 @@ function configureNode {
   sudo ufw allow "$portP2P"
 
   if [[ -n "$prometheusIp" && -n "$portPrometheus" && "$prometheusIp" != null && "$portPrometheus" != null ]]; then
-    sudo "echo set ports!"
     sudo ufw allow from "$prometheusIp" to any port "$portPrometheus"
   fi
 
