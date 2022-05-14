@@ -72,10 +72,11 @@ function configureNode {
   sed -i 's|pruning = "default"|pruning = "custom"|g' "$chainHomePath/config/app.toml"
   sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' "$chainHomePath/config/app.toml"
   sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' "$chainHomePath/config/app.toml"
+  sed -i 's|snapshot-interval *=.*|snapshot-interval = 0|g' "$chainHomePath/config/app.toml"
 
   if [ "$stateSyncMode" == true ]; then
     sed -i 's|pruning-keep-every = "0"|pruning-keep-every = "2000"|g' "$chainHomePath/config/app.toml"
-    sed -i 's|snapshot-interval = 0|snapshot-interval = 2000|g' "$chainHomePath/config/app.toml"
+    sed -i 's|snapshot-interval *=.*|snapshot-interval = 2000|g' "$chainHomePath/config/app.toml"
   fi
 
   ### config.toml
