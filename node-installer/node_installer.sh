@@ -72,17 +72,17 @@ function configureNode {
   sed -i 's|pruning = "default"|pruning = "custom"|g' "$chainHomePath/config/app.toml"
   sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' "$chainHomePath/config/app.toml"
   sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' "$chainHomePath/config/app.toml"
-  sed -i 's|snapshot-interval *=.*|snapshot-interval = 0|g' "$chainHomePath/config/app.toml"
+  sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' "$chainHomePath/config/app.toml"
 
   if [ "$stateSyncMode" == true ]; then
     sed -i 's|pruning-keep-every = "0"|pruning-keep-every = "2000"|g' "$chainHomePath/config/app.toml"
-    sed -i 's|snapshot-interval *=.*|snapshot-interval = 2000|g' "$chainHomePath/config/app.toml"
+    sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' "$chainHomePath/config/app.toml"
   fi
 
   ### config.toml
   sed -i 's|laddr = "tcp:\/\/0.0.0.0:26656"|laddr = "tcp:\/\/0.0.0.0:'"$portP2P"'"|g' "$chainHomePath/config/config.toml"
   sed -i 's|pprof_laddr = "localhost:6060"|pprof_laddr = "localhost:'"$portPprof"'"|g' "$chainHomePath/config/config.toml"
-  sed -i 's|indexer = "kv"|indexer = "'"$indexer"'"|g' "$chainHomePath/config/config.toml"
+  sed -i 's|^indexer *=.*|indexer = "'"$indexer"'"|g' "$chainHomePath/config/config.toml"
   sed -i 's|prometheus = false|prometheus = true|g' "$chainHomePath/config/config.toml"
   sed -i 's|prometheus_listen_addr = ":26660"|prometheus_listen_addr = ":'"$portPrometheus"'"|g' "$chainHomePath/config/config.toml"
   sed -i 's|proxy_app = "tcp:\/\/127.0.0.1:26658\"|proxy_app = "tcp:\/\/127.0.0.1:'"$portProxyApp"'"|g' "$chainHomePath/config/config.toml"
@@ -105,8 +105,8 @@ function configureNode {
   if [ "$stateSyncMode" == true ]; then
     sed -i 's|laddr = "tcp:\/\/127.0.0.1:26657"|laddr = "tcp:\/\/0.0.0.0:'"$portRpc"'"|g' "$chainHomePath/config/config.toml"
     sed -i 's|cors_allowed_origins = \[\]|cors_allowed_origins = \["*"\]|g' "$chainHomePath/config/config.toml"
-    sed -i 's|max_num_inbound_peers = 40|max_num_inbound_peers = 400|g' "$chainHomePath/config/config.toml"
-    sed -i 's|max_num_outbound_peers = 10|max_num_outbound_peers = 100|g' "$chainHomePath/config/config.toml"
+    sed -i 's|^max_num_inbound_peers *=.*|max_num_inbound_peers = 400|g' "$chainHomePath/config/config.toml"
+    sed -i 's|^max_num_outbound_peers *=.*|max_num_outbound_peers = 100|g' "$chainHomePath/config/config.toml"
   else
     sed -i 's|laddr = "tcp:\/\/127.0.0.1:26657"|laddr = "tcp:\/\/127.0.0.1:'"$portRpc"'"|g' "$chainHomePath/config/config.toml"
   fi
