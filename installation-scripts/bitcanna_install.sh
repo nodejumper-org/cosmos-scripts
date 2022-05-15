@@ -25,7 +25,7 @@ bcnad init "${1:-nodejumper}" --chain-id bitcanna-1
 
 cd && wget https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json
 mv -f genesis.json ~/.bcna/config/genesis.json
-jq -S -c -M '' ~/.bcna/config/genesis.json | shasum -a 256 # 2c8766d7547d6862f776269f67eed86d30d6a3ddfcaf60fe0461aa392060a35f  -
+sha256sum ~/.bcna/config/genesis.json # cd7449a199e71c400778f894abb00874badda572ac5443b7ec48bb0aad052f29
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001ubcna"/g' ~/.bcna/config/app.toml
 seeds="d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:26656"

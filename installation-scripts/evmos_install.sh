@@ -25,7 +25,7 @@ evmosd init "${1:-nodejumper}" --chain-id evmos_9001-2
 cd && wget https://github.com/tharsis/mainnet/raw/main/evmos_9001-2/genesis.json.zip
 unzip genesis.json.zip && rm -rf genesis.json.zip
 mv -f genesis.json ~/.evmosd/config/genesis.json
-jq -S -c -M '' ~/.evmosd/config/genesis.json | shasum -a 256 # f5553811376ab3cde025a252f0e4d917136aae918718c3fbc71b5034104167b7  -
+sha256sum ~/.evmosd/config/genesis.json # 4aa13da5eb4b9705ae8a7c3e09d1c36b92d08247dad2a6ed1844d031fcfe296c
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001aevmos"/g' ~/.evmosd/config/app.toml
 seeds=""

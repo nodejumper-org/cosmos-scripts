@@ -24,7 +24,7 @@ galaxyd init "${1:-nodejumper}" --chain-id galaxy-1
 
 cd && wget https://media.githubusercontent.com/media/galaxies-labs/networks/main/galaxy-1/genesis.json
 mv -f genesis.json ~/.galaxy/config/genesis.json
-jq -S -c -M '' ~/.galaxy/config/genesis.json | shasum -a 256 # 6cc17dc54dab9a9636b2cd3c08804a52157e27c79cf44475118eb52911d4e17f  -
+sha256sum ~/.galaxy/config/genesis.json # 2003cfaca53c3f9120a36957103fbbe6562d4f6c6c50a3e9502c49dbb8e2ba5b
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uglx"/g' ~/.galaxy/config/app.toml
 seeds=""

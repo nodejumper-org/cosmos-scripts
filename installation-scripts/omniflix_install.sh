@@ -25,7 +25,7 @@ omniflixhubd init "${1:-nodejumper}" --chain-id omniflixhub-1
 
 cd && wget https://raw.githubusercontent.com/OmniFlix/mainnet/main/omniflixhub-1/genesis.json
 mv -f genesis.json ~/.omniflixhub/config/genesis.json
-jq -S -c -M '' ~/.omniflixhub/config/genesis.json | shasum -a 256 # 3c01dd89ae10f3dc247648831ef9e8168afd020946a13055d92a7fe2f50050a0  -
+sha256sum ~/.omniflixhub/config/genesis.json # 4d6b5449d4db78807b634d90d9a92468747c7a6abfb5aa94a3b1198b2a367417
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uflix"/g' ~/.omniflixhub/config/app.toml
 seeds="9d75a06ebd3732a041df459849c21b87b2c55cde@35.187.240.195:26656,19feae28207474eb9f168fff9720fd4d418df1ed@35.240.196.102:26656"

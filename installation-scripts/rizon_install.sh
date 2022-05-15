@@ -25,7 +25,7 @@ rizond init "${1:-nodejumper}" --chain-id titan-1
 
 cd && wget https://raw.githubusercontent.com/rizon-world/mainnet/master/genesis.json
 mv -f genesis.json ~/.rizon/config/genesis.json
-jq -S -c -M '' ~/.rizon/config/genesis.json | shasum -a 256 # 5f00af49e86f5388203b8681f4482673e96acf028a449c0894aa08b69ef58bcb  -
+sha256sum ~/.rizon/config/genesis.json # 6d5602e3746affea1096c729768bffd1f60633dfe88ae705f018d70fd3e90302  -
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uatolo"/g' ~/.rizon/config/app.toml
 seeds="83c9cdc2db2b4eff4acc9cd7d664ad5ae6191080@seed-1.mainnet.rizon.world:26656,ae1476777536e2be26507c4fbcf86b67540adb64@seed-2.mainnet.rizon.world:26656,8abf316257a264dc8744dee6be4981cfbbcaf4e4@seed-3.mainnet.rizon.world:26656"

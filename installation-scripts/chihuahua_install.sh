@@ -25,7 +25,7 @@ chihuahuad init "${1:-nodejumper}" --chain-id chihuahua-1
 
 cd && wget https://raw.githubusercontent.com/ChihuahuaChain/mainnet/main/genesis.json
 mv -f genesis.json ~/.chihuahua/config/genesis.json
-jq -S -c -M '' ~/.chihuahua/config/genesis.json | shasum -a 256 # 2d0709eeb6610fc41584d2d76ec5c83ba8537dc6615f36c520966eb43dc0b386  -
+sha256sum ~/.chihuahua/config/genesis.json # 200a64f201c6b5799d81bcf52a25ce4eb1c0eac3f7c8c5eaa8335e75c5763f91
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uhuahua"/g' ~/.chihuahua/config/app.toml
 seeds="4936e377b4d4f17048f8961838a5035a4d21240c@chihuahua-seed-01.mercury-nodes.net:29540"

@@ -27,7 +27,7 @@ starnamed init "${1:-nodejumper}" --chain-id iov-mainnet-ibc
 
 cd && wget https://gist.githubusercontent.com/davepuchyr/6bea7bf369064d118195e9b15ea08a0f/raw/cf66fd02ea9336bd79cbc47dd47dcd30aad7831c/genesis.json
 mv -f genesis.json ~/.starnamed/config/genesis.json
-jq -S -c -M '' ~/.starnamed/config/genesis.json | shasum -a 256 # cd07d99c7497ca97f80c9862248d2e3e73e7c435232d401ee7534dda8785838a  -
+sha256sum ~/.starnamed/config/genesis.json # e20eb984b3a85eb3d2c76b94d1a30c4b3cfa47397d5da2ec60dca8bef6d40b17
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uiov"/g' ~/.starnamed/config/app.toml
 seeds=""
