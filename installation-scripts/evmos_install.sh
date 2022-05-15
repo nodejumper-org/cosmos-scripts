@@ -53,7 +53,7 @@ EOF
 
 evmosd tendermint unsafe-reset-all --home ~/.evmosd
 
-SNAP_RPC="http://rpc3.nodejumper.io:26657"
+SNAP_RPC="http://rpc3.nodejumper.io:36657"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
