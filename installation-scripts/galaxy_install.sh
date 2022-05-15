@@ -19,6 +19,7 @@ cd galaxy && git checkout v1.0.0 && make install
 galaxyd version # launch-gentxs
 
 # replace nodejumper with your own moniker, if you'd like
+galaxyd config chain-id galaxy-1
 galaxyd init "${1:-nodejumper}" --chain-id galaxy-1
 
 cd && wget https://media.githubusercontent.com/media/galaxies-labs/networks/main/galaxy-1/genesis.json

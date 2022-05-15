@@ -20,6 +20,7 @@ cd chihuahua && git checkout v1.1.1 && make install
 chihuahuad version # v1.1.1
 
 # replace nodejumper with your own moniker, if you'd like
+chihuahuad config chain-id chihuahua-1
 chihuahuad init "${1:-nodejumper}" --chain-id chihuahua-1
 
 cd && wget https://raw.githubusercontent.com/ChihuahuaChain/mainnet/main/genesis.json

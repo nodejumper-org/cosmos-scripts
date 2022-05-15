@@ -20,6 +20,7 @@ cd osmosis && git checkout v7.0.4 && make install
 osmosisd version # v7.0.4
 
 # replace nodejumper with your own moniker, if you'd like
+osmosisd config chain-id osmosis-1
 osmosisd init "${1:-nodejumper}" --chain-id osmosis-1
 
 cd && wget https://github.com/osmosis-labs/networks/raw/main/osmosis-1/genesis.json

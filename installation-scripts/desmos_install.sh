@@ -20,6 +20,7 @@ cd desmos && git checkout tags/v2.3.1 && make install
 desmos version # 2.3.1
 
 # replace nodejumper with your own moniker, if you'd like
+desmos config chain-id desmos-mainnet
 desmos init "${1:-nodejumper}" --chain-id desmos-mainnet
 
 cd && wget https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json

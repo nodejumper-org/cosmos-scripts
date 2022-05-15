@@ -20,6 +20,7 @@ cd rizon && git checkout v0.3.0 && make install
 rizond version # v0.3.0
 
 # replace nodejumper with your own moniker, if you'd like
+rizond config chain-id titan-1
 rizond init "${1:-nodejumper}" --chain-id titan-1
 
 cd && wget https://raw.githubusercontent.com/rizon-world/mainnet/master/genesis.json

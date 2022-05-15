@@ -20,6 +20,7 @@ cd omniflixhub && git checkout v0.4.0 && make install
 omniflixhubd version # 0.4.0
 
 # replace nodejumper with your own moniker, if you'd like
+omniflixhubd config chain-id omniflixhub-1
 omniflixhubd init "${1:-nodejumper}" --chain-id omniflixhub-1
 
 cd && wget https://raw.githubusercontent.com/OmniFlix/mainnet/main/omniflixhub-1/genesis.json

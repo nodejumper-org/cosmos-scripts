@@ -20,6 +20,7 @@ cd bcna && git checkout v.1.3.1 && make install
 bcnad version # .1.3.1
 
 # replace nodejumper with your own moniker, if you'd like
+bcnad config chain-id bitcanna-1
 bcnad init "${1:-nodejumper}" --chain-id bitcanna-1
 
 cd && wget https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json

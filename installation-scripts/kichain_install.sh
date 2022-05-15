@@ -20,6 +20,7 @@ cd ki-tools && git checkout -b v2.0.1 tags/2.0.1 && make install
 kid version # Mainnet-IBC-v2.0.1-889c4a2ca6b228247f5cb9366c3c0c894592da27
 
 # replace nodejumper with your own moniker, if you'd like
+kid config chain-id kichain-2
 kid init "${1:-nodejumper}" --chain-id kichain-2
 
 cd && wget https://raw.githubusercontent.com/KiFoundation/ki-networks/v0.1/Mainnet/kichain-2/genesis.json
