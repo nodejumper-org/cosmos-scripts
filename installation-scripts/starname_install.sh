@@ -17,6 +17,7 @@ sudo apt install snapd -y && sudo snap install lz4
 cd && wget https://github.com/CosmWasm/wasmvm/raw/v0.13.0/api/libwasmvm.so
 sudo mv -f libwasmvm.so /lib/libwasmvm.so
 
+cd && rm -rf starnamed && rm -rf .starnamed
 git clone https://github.com/iov-one/starnamed.git
 cd starnamed && git checkout v0.10.13 && make install
 

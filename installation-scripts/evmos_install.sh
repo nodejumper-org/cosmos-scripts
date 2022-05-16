@@ -13,6 +13,7 @@ go version # go version go1.17.2 linux/amd64
 
 sudo apt install -y make gcc jq git unzip
 
+cd && rm -rf evmos && rm -rf .evmosd
 cd && git clone https://github.com/tharsis/evmos
 cd evmos && git checkout v4.0.1 && make install
 
