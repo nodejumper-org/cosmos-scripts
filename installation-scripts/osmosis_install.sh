@@ -16,9 +16,9 @@ sudo apt install snapd -y && sudo snap install lz4
 
 cd && rm -rf osmosis && rm -rf .osmosisd
 cd && git clone https://github.com/osmosis-labs/osmosis
-cd osmosis && git checkout v7.0.4 && make install
+cd osmosis && git checkout v8.0.0 && make install
 
-osmosisd version # v7.0.4
+osmosisd version # v8.0.0
 
 # replace nodejumper with your own moniker, if you'd like
 osmosisd config chain-id osmosis-1
@@ -53,7 +53,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-osmosisd unsafe-reset-all
+osmosisd unsafe-reset-all --home ~/.osmosisd
 
 rm -rf ~/.osmosisd/data && cd ~/.osmosisd
 
