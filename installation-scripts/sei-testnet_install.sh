@@ -16,7 +16,7 @@ sudo apt install -y make gcc jq git
 cd && rm -rf sei-chain && rm -rf .sei-chain
 cd && git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain && git checkout 1.0.0beta && go build -o build/seid ./cmd/sei-chaind
-sudo mv build/seid $HOME/go/bin
+mkdir -p ~/go/bin && mv build/seid ~/go/bin
 
 seid version
 
