@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y make gcc jq wget curl git
+sudo apt install -y make gcc jq curl git
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
@@ -21,7 +21,7 @@ bcnad config chain-id bitcanna-1
 bcnad init "${1:-nodejumper}" --chain-id bitcanna-1
 
 curl https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json > ~/.bcna/config/genesis.json
-jq -S -c -M '' ~/.bcna/config/genesis.json | shasum -a 256 # cd7449a199e71c400778f894abb00874badda572ac5443b7ec48bb0aad052f29  -
+sha256sum ~/.bcna/config/genesis.json # cd7449a199e71c400778f894abb00874badda572ac5443b7ec48bb0aad052f29
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001ubcna"/g' ~/.bcna/config/app.toml
 seeds="d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:26656"
