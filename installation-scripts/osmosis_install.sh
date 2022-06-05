@@ -11,16 +11,18 @@ fi
 
 go version # go version goX.XX.X linux/amd64
 
+cd && rm -rf osmosis && rm -rf .osmosisd
 cd && git clone https://github.com/osmosis-labs/osmosis
-cd osmosis && git checkout v7.0.4 && make install
+cd osmosis && git checkout v8.0.0 && make install
 
-osmosisd version # v7.0.4
+osmosisd version # v8.0.0
 
 # replace nodejumper with your own moniker, if you'd like
+osmosisd config chain-id osmosis-1
 osmosisd init "${1:-nodejumper}" --chain-id osmosis-1
 
 curl https://github.com/osmosis-labs/networks/raw/main/osmosis-1/genesis.json > ~/.osmosisd/config/genesis.json
-jq -S -c -M '' ~/.osmosisd/config/genesis.json | shasum -a 256 # 23fe76392e7535eafb73f6d60f08538b2f35272454b4598b734b4ecb6f5a7c5e  -
+sha256sum ~/.osmosisd/config/genesis.json # 1cdb76087fabcca7709fc563b44b5de98aaf297eedc8805aa2884999e6bab06d
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uosmo"/g' ~/.osmosisd/config/app.toml
 seeds="21d7539792ee2e0d650b199bf742c56ae0cf499e@162.55.132.230:2000,295b417f995073d09ff4c6c141bd138a7f7b5922@65.21.141.212:2000,ec4d3571bf709ab78df61716e47b5ac03d077a1a@65.108.43.26:2000,4cb8e1e089bdf44741b32638591944dc15b7cce3@65.108.73.18:2000,f515a8599b40f0e84dfad935ba414674ab11a668@osmosis.blockpane.com:26656,6bcdbcfd5d2c6ba58460f10dbcfde58278212833@osmosis.artifact-staking.io:26656"
@@ -47,7 +49,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-osmosisd unsafe-reset-all
+osmosisd unsafe-reset-all --home ~/.osmosisd
 
 rm -rf ~/.osmosisd/data && cd ~/.osmosisd
 

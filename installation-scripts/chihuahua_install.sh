@@ -17,10 +17,11 @@ cd chihuahua && git checkout v1.1.1 && make install
 chihuahuad version # v1.1.1
 
 # replace nodejumper with your own moniker, if you'd like
+chihuahuad config chain-id chihuahua-1
 chihuahuad init "${1:-nodejumper}" --chain-id chihuahua-1
 
 curl https://raw.githubusercontent.com/ChihuahuaChain/mainnet/main/genesis.json > ~/.chihuahua/config/genesis.json
-jq -S -c -M '' ~/.chihuahua/config/genesis.json | shasum -a 256 # 2d0709eeb6610fc41584d2d76ec5c83ba8537dc6615f36c520966eb43dc0b386  -
+sha256sum ~/.chihuahua/config/genesis.json # 2d0709eeb6610fc41584d2d76ec5c83ba8537dc6615f36c520966eb43dc0b386
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uhuahua"/g' ~/.chihuahua/config/app.toml
 seeds="4936e377b4d4f17048f8961838a5035a4d21240c@chihuahua-seed-01.mercury-nodes.net:29540"

@@ -17,10 +17,11 @@ cd desmos && git checkout tags/v2.3.1 && make install
 desmos version # 2.3.1
 
 # replace nodejumper with your own moniker, if you'd like
+desmos config chain-id desmos-mainnet
 desmos init "${1:-nodejumper}" --chain-id desmos-mainnet
 
 curl https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json > ~/.desmos/config/genesis.json
-jq -S -c -M '' ~/.desmos/config/genesis.json | shasum -a 256 # 619c9462ccd9045522300c5ce9e7f4662cac096eed02ef0535cca2a6826074c4  -
+sha256sum ~/.desmos/config/genesis.json # 8301452877607c2637c21073066cf2ac6d1fa6b961ffb73ce974dadafeca7b5b
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001udsm"/g' ~/.desmos/config/app.toml
 seeds="9bde6ab4e0e00f721cc3f5b4b35f3a0e8979fab5@seed-1.mainnet.desmos.network:26656,5c86915026093f9a2f81e5910107cf14676b48fc@seed-2.mainnet.desmos.network:26656,45105c7241068904bdf5a32c86ee45979794637f@seed-3.mainnet.desmos.network:26656"

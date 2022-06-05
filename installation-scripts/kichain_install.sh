@@ -17,10 +17,11 @@ cd ki-tools && git checkout -b v2.0.1 tags/2.0.1 && make install
 kid version # Mainnet-IBC-v2.0.1-889c4a2ca6b228247f5cb9366c3c0c894592da27
 
 # replace nodejumper with your own moniker, if you'd like
+kid config chain-id kichain-2
 kid init "${1:-nodejumper}" --chain-id kichain-2
 
 curl https://raw.githubusercontent.com/KiFoundation/ki-networks/v0.1/Mainnet/kichain-2/genesis.json > ~/.kid/config/genesis.json
-jq -S -c -M '' ~/.kid/config/genesis.json | shasum -a 256 # 99855fdf89f5c697f8be2ecc587d79c77259e05d68268928797083bdaa614a80  -
+sha256sum ~/.kid/config/genesis.json # 0059e1cd40da1ece7f14133509c44980cf6b5c5407a877ce17edd3bc6266708c
 
 sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001uxki"/g' ~/.kid/config/app.toml
 seeds="24cbccfa8813accd0ebdb09e7cdb54cff2e8fcd9@51.89.166.197:26656"
