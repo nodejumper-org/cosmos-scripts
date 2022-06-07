@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/logo/logo.sh)
+
 sudo apt update
 sudo apt install -y make gcc jq curl git snapd
 sudo snap install lz4

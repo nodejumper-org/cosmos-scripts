@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/logo/logo.sh)
+
 while getopts v: flag; do
   case "${flag}" in
   v) VER=$OPTARG ;;
