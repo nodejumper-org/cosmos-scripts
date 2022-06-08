@@ -9,7 +9,7 @@ if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   . .bash_profile
 fi
-go version - go version goX.XX.X linux/amd64
+go version # go version goX.XX.X linux/amd64
 
 cd || return
 rm -rf omniflixhub
@@ -17,7 +17,7 @@ git clone https://github.com/Omniflix/omniflixhub.git
 cd omniflixhub || return
 git checkout v0.4.0
 make install
-omniflixhubd version - 0.4.0
+omniflixhubd version # 0.4.0
 
 # replace nodejumper with your own moniker, if you'd like
 omniflixhubd config chain-id omniflixhub-1

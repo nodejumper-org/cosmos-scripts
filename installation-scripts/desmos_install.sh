@@ -9,7 +9,7 @@ if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   . .bash_profile
 fi
-go version - go version goX.XX.X linux/amd64
+go version # go version goX.XX.X linux/amd64
 
 cd || return
 rm -rf desmos
@@ -17,7 +17,7 @@ git clone https://github.com/desmos-labs/desmos.git
 cd desmos || return
 git checkout tags/v2.3.1
 make install
-desmos version - 2.3.1
+desmos version # 2.3.1
 
 # replace nodejumper with your own moniker, if you'd like
 desmos config chain-id desmos-mainnet

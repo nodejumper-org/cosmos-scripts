@@ -9,7 +9,7 @@ if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   . .bash_profile
 fi
-go version - go version goX.XX.X linux/amd64
+go version # go version goX.XX.X linux/amd64
 
 cd || return
 rm -rf bcna
@@ -17,7 +17,7 @@ git clone https://github.com/BitCannaGlobal/bcna.git
 cd bcna || return
 git checkout v.1.3.1
 make install
-bcnad version - .1.3.1
+bcnad version # .1.3.1
 
 # replace nodejumper with your own moniker, if you'd like
 bcnad config chain-id bitcanna-1

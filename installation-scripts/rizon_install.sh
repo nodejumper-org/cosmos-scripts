@@ -9,7 +9,7 @@ if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   . .bash_profile
 fi
-go version - go version goX.XX.X linux/amd64
+go version # go version goX.XX.X linux/amd64
 
 cd || return
 rm -rf rizon
@@ -17,7 +17,7 @@ git clone https://github.com/rizon-world/rizon.git
 cd rizon || return
 git checkout v0.3.0
 make install
-rizond version - v0.3.0
+rizond version # v0.3.0
 
 # replace nodejumper with your own moniker, if you'd like
 rizond config chain-id titan-1

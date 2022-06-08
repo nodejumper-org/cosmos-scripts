@@ -9,7 +9,7 @@ if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   . .bash_profile
 fi
-go version - go version goX.XX.X linux/amd64
+go version # go version goX.XX.X linux/amd64
 
 cd || return
 rm -rf galaxy
@@ -17,7 +17,7 @@ git clone https://github.com/galaxies-labs/galaxy
 cd galaxy || return
 git checkout v1.0.0
 make install
-galaxyd version - launch-gentxs
+galaxyd version # launch-gentxs
 
 # replace nodejumper with your own moniker, if you'd like
 galaxyd config chain-id galaxy-1

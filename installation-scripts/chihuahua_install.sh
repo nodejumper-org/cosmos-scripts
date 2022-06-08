@@ -9,7 +9,7 @@ if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   . .bash_profile
 fi
-go version - go version goX.XX.X linux/amd64
+go version # go version goX.XX.X linux/amd64
 
 cd || return
 rm -rf chihuahua
@@ -17,7 +17,7 @@ git clone https://github.com/ChihuahuaChain/chihuahua.git
 cd chihuahua || return
 git checkout v1.1.1
 make install
-chihuahuad version - v1.1.1
+chihuahuad version # v1.1.1
 
 # replace nodejumper with your own moniker, if you'd like
 chihuahuad config chain-id chihuahua-1

@@ -10,7 +10,7 @@ if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/installation-scripts/go_install.sh")
   . .bash_profile
 fi
-go version - go version goX.XX.X linux/amd64
+go version # go version goX.XX.X linux/amd64
 
 cd || return
 rm -rf deweb
@@ -18,7 +18,7 @@ git clone https://github.com/deweb-services/deweb.git
 cd deweb || return
 git checkout v0.2
 make install
-dewebd version - 0.2
+dewebd version # 0.2
 
 # replace nodejumper with your own moniker, if you'd like
 dewebd config chain-id deweb-testnet-1
