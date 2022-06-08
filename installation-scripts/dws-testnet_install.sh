@@ -24,21 +24,21 @@ dewebd version - 0.2
 dewebd config chain-id deweb-testnet-1
 dewebd init "${1:-nodejumper}" --chain-id deweb-testnet-1
 
-curl https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json > ~/.deweb/config/genesis.json
-sha256sum ~/.deweb/config/genesis.json # 13bf101d673990cb39e6af96e3c7e183da79bd89f6d249e9dc797ae81b3573c2
+curl https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json > $HOME/.deweb/config/genesis.json
+sha256sum $HOME/.deweb/config/genesis.json # 13bf101d673990cb39e6af96e3c7e183da79bd89f6d249e9dc797ae81b3573c2
 
-curl https://raw.githubusercontent.com/encipher88/deweb/main/addrbook.json > ~/.deweb/config/addrbook.json
-sha256sum ~/.deweb/config/addrbook.json # ba7bea692350ca8918542a26cabd5616dbebe1ff109092cb1e98c864da58dabf
+curl https://raw.githubusercontent.com/encipher88/deweb/main/addrbook.json > $HOME/.deweb/config/addrbook.json
+sha256sum $HOME/.deweb/config/addrbook.json # ba7bea692350ca8918542a26cabd5616dbebe1ff109092cb1e98c864da58dabf
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udws"|g' ~/.deweb/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udws"|g' $HOME/.deweb/config/app.toml
 seeds=""
 peers="9440fa39f85bea005514f0191d4550a1c9d310bb@rpc1-testnet.nodejumper.io:27656"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' ~/.deweb/config/config.toml
+sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
 
 # in case of pruning
-sed -i 's|pruning = "default"|pruning = "custom"|g' ~/.deweb/config/app.toml
-sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' ~/.deweb/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' ~/.deweb/config/app.toml
+sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.deweb/config/app.toml
+sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.deweb/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.deweb/config/app.toml
 
 sudo tee /etc/systemd/system/dewebd.service > /dev/null << EOF
 [Unit]
@@ -55,8 +55,8 @@ WantedBy=multi-user.target
 EOF
 
 dewebd unsafe-reset-all
-rm -rf ~/.deweb/data
-cd ~/.deweb || return
+rm -rf $HOME/.deweb/data
+cd $HOME/.deweb || return
 
 SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/dws-testnet/ | egrep -o ">deweb-testnet-1.*\.tar.lz4" | tr -d ">")
 curl https://snapshots1-testnet.nodejumper.io/dws-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -

@@ -27,18 +27,18 @@ cd || return
 curl -# -L -O https://github.com/tharsis/mainnet/raw/main/evmos_9001-2/genesis.json.zip
 unzip genesis.json.zip
 rm genesis.json.zip
-mv -f genesis.json ~/.evmosd/config/genesis.json
-sha256sum ~/.evmosd/config/genesis.json # 4aa13da5eb4b9705ae8a7c3e09d1c36b92d08247dad2a6ed1844d031fcfe296c
+mv -f genesis.json $HOME/.evmosd/config/genesis.json
+sha256sum $HOME/.evmosd/config/genesis.json # 4aa13da5eb4b9705ae8a7c3e09d1c36b92d08247dad2a6ed1844d031fcfe296c
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001aevmos"|g' ~/.evmosd/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001aevmos"|g' $HOME/.evmosd/config/app.toml
 seeds=""
 peers="b984dc3cb4c9d13546822942ac1213e133373ee6@135.181.139.171:36656"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' ~/.evmosd/config/config.toml
+sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.evmosd/config/config.toml
 
 # in case of pruning
-sed -i 's|pruning = "default"|pruning = "custom"|g' ~/.evmosd/config/app.toml
-sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' ~/.evmosd/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' ~/.evmosd/config/app.toml
+sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.evmosd/config/app.toml
+sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.evmosd/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.evmosd/config/app.toml
 
 sudo tee /etc/systemd/system/evmosd.service > /dev/null << EOF
 [Unit]
@@ -54,7 +54,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-evmosd tendermint unsafe-reset-all --home ~/.evmosd
+evmosd tendermint unsafe-reset-all --home $HOME/.evmosd
 
 SNAP_RPC="http://rpc3.nodejumper.io:36657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
@@ -66,7 +66,7 @@ echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.evmosd/config/config.toml
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.evmosd/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable evmosd

@@ -23,18 +23,18 @@ desmos version - 2.3.1
 desmos config chain-id desmos-mainnet
 desmos init "${1:-nodejumper}" --chain-id desmos-mainnet
 
-curl https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json > ~/.desmos/config/genesis.json
-sha256sum ~/.desmos/config/genesis.json # 8301452877607c2637c21073066cf2ac6d1fa6b961ffb73ce974dadafeca7b5b
+curl https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json > $HOME/.desmos/config/genesis.json
+sha256sum $HOME/.desmos/config/genesis.json # 8301452877607c2637c21073066cf2ac6d1fa6b961ffb73ce974dadafeca7b5b
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udsm"|g' ~/.desmos/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udsm"|g' $HOME/.desmos/config/app.toml
 seeds="9bde6ab4e0e00f721cc3f5b4b35f3a0e8979fab5@seed-1.mainnet.desmos.network:26656,5c86915026093f9a2f81e5910107cf14676b48fc@seed-2.mainnet.desmos.network:26656,45105c7241068904bdf5a32c86ee45979794637f@seed-3.mainnet.desmos.network:26656"
 peers="f090ead239426219d605b392314bdd73d16a795f@rpc1.nodejumper.io:32656"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' ~/.desmos/config/config.toml
+sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.desmos/config/config.toml
 
 # in case of pruning
-sed -i 's|pruning = "default"|pruning = "custom"|g' ~/.desmos/config/app.toml
-sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' ~/.desmos/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' ~/.desmos/config/app.toml
+sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.desmos/config/app.toml
+sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.desmos/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.desmos/config/app.toml
 
 sudo tee /etc/systemd/system/desmosd.service > /dev/null << EOF
 [Unit]
@@ -62,7 +62,7 @@ echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.desmos/config/config.toml
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.desmos/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable desmosd
