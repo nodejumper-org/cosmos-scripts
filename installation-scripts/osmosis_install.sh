@@ -16,9 +16,9 @@ cd || return
 rm -rf osmosis
 git clone https://github.com/osmosis-labs/osmosis
 cd osmosis || return
-git checkout v8.0.0
+git checkout v9.0.0
 make install
-osmosisd version - v8.0.0
+osmosisd version # v9.0.0
 
 # replace nodejumper with your own moniker, if you'd like
 osmosisd config chain-id osmosis-1
