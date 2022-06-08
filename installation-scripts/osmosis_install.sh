@@ -1,6 +1,6 @@
 sudo apt update && sudo apt upgrade -y
 
-version="1.17.2" \
+version="1.18.3" \
 && cd ~ \
 && wget "https://golang.org/dl/go$version.linux-amd64.tar.gz" \
 && sudo rm -rf /usr/local/go \
@@ -9,16 +9,16 @@ version="1.17.2" \
 && echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile \
 && source ~/.bash_profile
 
-go version # go version go1.17.2 linux/amd64
+go version # go version go1.18.3 linux/amd64
 
 sudo apt install -y make gcc jq git
 sudo apt install snapd -y && sudo snap install lz4
 
 cd && rm -rf osmosis && rm -rf .osmosisd
 cd && git clone https://github.com/osmosis-labs/osmosis
-cd osmosis && git checkout v8.0.0 && make install
+cd osmosis && git checkout v9.0.0 && make install
 
-osmosisd version # v8.0.0
+osmosisd version # v9.0.0
 
 # replace nodejumper with your own moniker, if you'd like
 osmosisd config chain-id osmosis-1
