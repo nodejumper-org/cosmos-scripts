@@ -61,6 +61,7 @@ rm -rf $HOME/.sei-chain/data
 cd $HOME/.sei-chain || return
 
 SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/sei-testnet/ | egrep -o ">sei-testnet-1.*\.tar.lz4" | tr -d ">")
+echo "Downloading a snapshot..."
 curl -# https://snapshots1-testnet.nodejumper.io/sei-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
 
 sudo systemctl daemon-reload

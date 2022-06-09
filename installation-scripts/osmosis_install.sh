@@ -57,6 +57,7 @@ rm -rf $HOME/.osmosisd/data
 cd $HOME/.osmosisd || return
 
 SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/osmosis/ | egrep -o ">osmosis-1.*\.tar.lz4" | tr -d ">")
+echo "Downloading a snapshot..."
 curl -# https://snapshots2.nodejumper.io/osmosis/"${SNAP_NAME}" | lz4 -dc - | tar -xf -
 
 sudo systemctl daemon-reload
