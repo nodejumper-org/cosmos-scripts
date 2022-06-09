@@ -1,47 +1,46 @@
-sudo apt update && sudo apt upgrade -y
+#!/bin/bash
 
-version="1.17.2" \
-&& cd ~ \
-&& wget "https://golang.org/dl/go$version.linux-amd64.tar.gz" \
-&& sudo rm -rf /usr/local/go \
-&& sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz" \
-&& rm "go$version.linux-amd64.tar.gz" \
-&& echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile \
-&& source ~/.bash_profile
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
-go version # go version go1.17.2 linux/amd64
+sudo apt update
+sudo apt install -y make gcc jq curl git snapd
+sudo snap install lz4
 
-sudo apt install -y make gcc jq git
+if [ ! -f "/usr/local/go/bin/go" ]; then
+  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
+  . .bash_profile
+fi
+go version # go version goX.XX.X linux/amd64
 
-cd && rm -rf deweb && rm -rf .deweb
-cd && git clone https://github.com/deweb-services/deweb.git
-cd deweb && git checkout v0.2 && make install
-
+cd || return
+rm -rf deweb
+git clone https://github.com/deweb-services/deweb.git
+cd deweb || return
+git checkout v0.2
+make install
 dewebd version # 0.2
 
 # replace nodejumper with your own moniker, if you'd like
 dewebd config chain-id deweb-testnet-1
 dewebd init "${1:-nodejumper}" --chain-id deweb-testnet-1
 
-cd && wget https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json
-mv -f genesis.json ~/.deweb/config/genesis.json
-sha256sum ~/.deweb/config/genesis.json # 13bf101d673990cb39e6af96e3c7e183da79bd89f6d249e9dc797ae81b3573c2
+curl https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json > $HOME/.deweb/config/genesis.json
+sha256sum $HOME/.deweb/config/genesis.json # 13bf101d673990cb39e6af96e3c7e183da79bd89f6d249e9dc797ae81b3573c2
 
-cd && wget https://raw.githubusercontent.com/encipher88/deweb/main/addrbook.json
-mv -f addrbook.json ~/.deweb/config/addrbook.json
-sha256sum ~/.deweb/config/addrbook.json # ba7bea692350ca8918542a26cabd5616dbebe1ff109092cb1e98c864da58dabf
+curl https://raw.githubusercontent.com/encipher88/deweb/main/addrbook.json > $HOME/.deweb/config/addrbook.json
+sha256sum $HOME/.deweb/config/addrbook.json # ba7bea692350ca8918542a26cabd5616dbebe1ff109092cb1e98c864da58dabf
 
-sed -i 's/^minimum-gas-prices *=.*/minimum-gas-prices = "0.0001udws"/g' ~/.deweb/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udws"|g' $HOME/.deweb/config/app.toml
 seeds=""
 peers="9440fa39f85bea005514f0191d4550a1c9d310bb@rpc1-testnet.nodejumper.io:27656"
-sed -i -e "s/^seeds *=.*/seeds = \"$seeds\"/; s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.deweb/config/config.toml
+sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
 
 # in case of pruning
-sed -i 's/pruning = "default"/pruning = "custom"/g' ~/.deweb/config/app.toml
-sed -i 's/pruning-keep-recent = "0"/pruning-keep-recent = "100"/g' ~/.deweb/config/app.toml
-sed -i 's/pruning-interval = "0"/pruning-interval = "10"/g' ~/.deweb/config/app.toml
+sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.deweb/config/app.toml
+sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.deweb/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.deweb/config/app.toml
 
-sudo tee <<EOF >/dev/null /etc/systemd/system/dewebd.service
+sudo tee /etc/systemd/system/dewebd.service > /dev/null << EOF
 [Unit]
 Description=DWS Node
 After=network-online.target
@@ -56,11 +55,13 @@ WantedBy=multi-user.target
 EOF
 
 dewebd unsafe-reset-all
-
-rm -rf ~/.deweb/data && cd ~/.deweb
+rm -rf $HOME/.deweb/data
+cd $HOME/.deweb || return
 
 SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/dws-testnet/ | egrep -o ">deweb-testnet-1.*\.tar.lz4" | tr -d ">")
-wget -O - https://snapshots1-testnet.nodejumper.io/dws-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+echo "Downloading a snapshot..."
+curl -# https://snapshots1-testnet.nodejumper.io/dws-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
 
-sudo systemctl daemon-reload && sudo systemctl enable dewebd \
-&& sudo systemctl restart dewebd && sudo journalctl -u dewebd -f --no-hostname -o cat
+sudo systemctl daemon-reload
+sudo systemctl enable dewebd
+sudo systemctl restart dewebd

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
+
 while getopts c: flag; do
   case "${flag}" in
   c) configPath="$OPTARG" ;;
