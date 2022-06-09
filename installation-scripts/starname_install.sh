@@ -57,7 +57,7 @@ rm -rf $HOME/.starnamed/data
 cd .starnamed || return
 
 SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/starname/ | egrep -o ">iov-mainnet-ibc.*\.tar.lz4" | tr -d ">")
-curl https://snapshots2.nodejumper.io/starname/"${SNAP_NAME}" | lz4 -dc - | tar -xf -
+curl -# https://snapshots2.nodejumper.io/starname/"${SNAP_NAME}" | lz4 -dc - | tar -xf -
 
 sudo systemctl daemon-reload
 sudo systemctl enable starnamed

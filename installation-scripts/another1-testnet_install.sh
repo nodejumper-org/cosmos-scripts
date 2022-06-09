@@ -56,7 +56,7 @@ rm -rf $HOME/.anone/data
 cd $HOME/.anone || return
 
 SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/another1-testnet/ | egrep -o ">anone-testnet-1.*\.tar.lz4" | tr -d ">")
-curl https://snapshots1-testnet.nodejumper.io/another1-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+curl -# https://snapshots1-testnet.nodejumper.io/another1-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
 
 sudo systemctl daemon-reload
 sudo systemctl enable anoned
