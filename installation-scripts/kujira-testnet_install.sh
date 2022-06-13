@@ -15,7 +15,7 @@ go version # go version goX.XX.X linux/amd64
 cd || return
 rm -rf kujira-core
 git clone https://github.com/Team-Kujira/core kujira-core
-cd sei-chain || return
+cd kujira-core || return
 git checkout v0.4.0
 make install
 kujirad version
@@ -58,9 +58,9 @@ kujirad unsafe-reset-all
 rm -rf $HOME/.kujira/data
 cd $HOME/.kujira || return
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/kajira-testnet/ | egrep -o ">kajira-harpoon-4.*\.tar.lz4" | tr -d ">")
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/kujira-testnet/ | egrep -o ">kujira-harpoon-4.*\.tar.lz4" | tr -d ">")
 echo "Downloading a snapshot..."
-curl -# https://snapshots1-testnet.nodejumper.io/sei-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+curl -# https://snapshots1-testnet.nodejumper.io/kujira-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
 
 sudo systemctl daemon-reload
 sudo systemctl enable kujirad
