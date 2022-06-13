@@ -4,7 +4,6 @@
 
 sudo apt update
 sudo apt install -y make gcc jq curl git
-sudo snap install lz4
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
