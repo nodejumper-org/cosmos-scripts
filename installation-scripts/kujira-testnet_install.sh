@@ -54,14 +54,6 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 
-kujirad unsafe-reset-all
-rm -rf $HOME/.kujira/data
-cd $HOME/.kujira || return
-
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/kujira-testnet/ | egrep -o ">kujira-harpoon-4.*\.tar.lz4" | tr -d ">")
-echo "Downloading a snapshot..."
-curl -# https://snapshots1-testnet.nodejumper.io/kujira-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
-
 sudo systemctl daemon-reload
 sudo systemctl enable kujirad
 sudo systemctl restart kujirad
