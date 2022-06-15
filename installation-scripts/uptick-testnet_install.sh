@@ -49,7 +49,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-uptickd unsafe-reset-all
+uptickd tendermint unsafe-reset-all --keep-addr-book
 
 SNAP_RPC="http://rpc1-testnet.nodejumper.io:30657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
