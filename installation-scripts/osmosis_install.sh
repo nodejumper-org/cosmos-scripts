@@ -52,7 +52,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-osmosisd unsafe-reset-all --home $HOME/.osmosisd
+osmosisd unsafe-reset-all --home $HOME/.osmosisd --keep-addr-book
 rm -rf $HOME/.osmosisd/data
 cd $HOME/.osmosisd || return
 

@@ -53,7 +53,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-seid tendermint unsafe-reset-all --home $HOME/.sei
+seid tendermint unsafe-reset-all --home $HOME/.sei --keep-addr-book
 
 SNAP_RPC="http://rpc1-testnet.nodejumper.io:28657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \

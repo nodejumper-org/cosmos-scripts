@@ -53,7 +53,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-kujirad tendermint unsafe-reset-all --home $HOME/.kujira
+kujirad tendermint unsafe-reset-all --home $HOME/.kujira --keep-addr-book
 
 SNAP_RPC="http://rpc1-testnet.nodejumper.io:29657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \

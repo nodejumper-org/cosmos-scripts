@@ -54,7 +54,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-evmosd tendermint unsafe-reset-all --home $HOME/.evmosd
+evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
 
 SNAP_RPC="http://rpc3.nodejumper.io:36657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
