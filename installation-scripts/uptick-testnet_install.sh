@@ -15,8 +15,9 @@ cd || return
 rm -rf uptick
 git clone https://github.com/UptickNetwork/uptick.git
 cd uptick || return
+git checkout v0.2.0
 make install
-uptickd version # v0.1.0
+uptickd version # v0.2.0
 
 # replace nodejumper with your own moniker, if you'd like
 uptickd config chain-id uptick_7776-1
@@ -50,7 +51,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-uptickd tendermint unsafe-reset-all --keep-addr-book
+uptickd tendermint unsafe-reset-all --home $HOME/.uptickd/ --keep-addr-book
 
 SNAP_RPC="http://rpc1-testnet.nodejumper.io:30657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
