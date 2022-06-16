@@ -53,12 +53,18 @@ WantedBy=multi-user.target
 EOF
 
 quicksilverd unsafe-reset-all
-rm -rf $HOME/.quicksilverd/data
-cd $HOME/.quicksilverd || return
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/quicksilver/ | egrep -o ">rhapsody-5.*\.tar.lz4" | tr -d ">")
-echo "Downloading a snapshot..."
-curl -# https://snapshots1-testnet.nodejumper.io/quicksilver/"${SNAP_NAME}" | lz4 -dc - | tar -xf -
+SNAP_RPC="http://rpc1-testnet.nodejumper.io:31657"
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.quicksilverd/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable quicksilverd
