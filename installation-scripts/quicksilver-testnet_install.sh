@@ -15,19 +15,19 @@ go version # go version goX.XX.X linux/amd64
 cd || return
 git clone https://github.com/ingenuity-build/quicksilver.git
 cd quicksilver || return
-git checkout v0.2.0
+git checkout v0.3.0
 make install
-quicksilverd version # v0.2.0
+quicksilverd version # v0.3.0
 
 # replace nodejumper with your own moniker, if you'd like
-quicksilverd config chain-id rhapsody-4
+quicksilverd config chain-id rhapsody-5
 quicksilverd init "${1:-nodejumper}" --chain-id rhapsody-4
 
 curl https://raw.githubusercontent.com/ingenuity-build/testnets/main/rhapsody/genesis.json > $HOME/.quicksilverd/config/genesis.json
 sha256sum $HOME/.quicksilverd/config/genesis.json #
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001qck"|g' $HOME/.quicksilverd/config/app.toml
-seeds="dd3460ec11f78b4a7c4336f22a356fe00805ab64@seed.rhapsody-4.quicksilver.zone:26656"
+seeds="dd3460ec11f78b4a7c4336f22a356fe00805ab64@seed.rhapsody-5.quicksilver.zone:26656,8603d0778bfe0a8d2f8eaa860dcdc5eb85b55982@seed.qscosmos-2.quicksilver.zone:27676"
 peers=""
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.quicksilverd/config/config.toml
 
@@ -55,7 +55,7 @@ quicksilverd unsafe-reset-all
 rm -rf $HOME/.quicksilverd/data
 cd $HOME/.quicksilverd || return
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/quicksilver/ | egrep -o ">rhapsody-4.*\.tar.lz4" | tr -d ">")
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/quicksilver/ | egrep -o ">rhapsody-5.*\.tar.lz4" | tr -d ">")
 echo "Downloading a snapshot..."
 curl -# https://snapshots1-testnet.nodejumper.io/quicksilver/"${SNAP_NAME}" | lz4 -dc - | tar -xf -
 
