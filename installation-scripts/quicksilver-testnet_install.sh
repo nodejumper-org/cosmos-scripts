@@ -24,7 +24,7 @@ quicksilverd config chain-id rhapsody-5
 quicksilverd init "${1:-nodejumper}" --chain-id rhapsody-4
 
 curl https://raw.githubusercontent.com/ingenuity-build/testnets/main/rhapsody/genesis.json > $HOME/.quicksilverd/config/genesis.json
-sha256sum $HOME/.quicksilverd/config/genesis.json #
+sha256sum $HOME/.quicksilverd/config/genesis.json # 541a6546bbdfe96c6b0dbf38425430eb97e8bc026bd1e224ded757a21bfdde49
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uqck"|g' $HOME/.quicksilverd/config/app.toml
 seeds="dd3460ec11f78b4a7c4336f22a356fe00805ab64@seed.rhapsody-5.quicksilver.zone:26656,8603d0778bfe0a8d2f8eaa860dcdc5eb85b55982@seed.qscosmos-2.quicksilver.zone:27676"
