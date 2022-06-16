@@ -52,7 +52,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-quicksilverd unsafe-reset-all
+quicksilverd tendermint unsafe-reset-all --home $HOME/.quicksilverd --keep-addr-book
 
 SNAP_RPC="http://rpc1-testnet.nodejumper.io:31657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
