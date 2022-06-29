@@ -3,8 +3,7 @@
 . <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
 sudo apt update
-sudo apt install -y make gcc jq curl git snapd
-sudo snap install lz4
+sudo apt install -y make gcc jq curl git
 
 if [ ! -f "/usr/local/go/bin/go" ]; then
   . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
