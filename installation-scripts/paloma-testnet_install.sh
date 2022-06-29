@@ -22,8 +22,8 @@ sudo curl -s -L https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64
 palomad version # nothing :/
 
 # replace nodejumper with your own moniker, if you'd like
-palomad config chain-id paloma
-palomad init "${1:-nodejumper}" --chain-id paloma
+palomad config chain-id paloma-testnet-5
+palomad init "${1:-nodejumper}" --chain-id paloma-testnet-5
 
 curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/genesis.json > $HOME/.paloma/config/genesis.json
 curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/addrbook.json > $HOME/.paloma/config/addrbook.json
