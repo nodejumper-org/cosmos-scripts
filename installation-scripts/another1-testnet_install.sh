@@ -28,7 +28,7 @@ sha256sum $HOME/.anone/config/genesis.json # ba7bea692350ca8918542a26cabd5616dbe
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uan1"|g' $HOME/.anone/config/app.toml
 seeds=""
-peers="3137535a0d6cc552bd44512ac6a11f4a41c3b3e4@rpc1-testnet.nodejumper.io:26656,49a49db05e945fc38b7a1bc00352cafdaef2176c@95.217.121.243:2280,80f0ef5d7c432d2bae99dc8437a9c3db464890cd@65.108.128.139:2280"
+peers="3137535a0d6cc552bd44512ac6a11f4a41c3b3e4@rpc1-testnet.nodejumper.io:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.anone/config/config.toml
 
 # in case of pruning
