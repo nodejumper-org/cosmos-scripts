@@ -32,7 +32,7 @@ curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ugrain"|g' $HOME/.paloma/config/app.toml
 seeds=""
-peers="dfaf45e5de50626edd48a866f0ceddf6a1aadab8@rpc1-testnet.nodejumper.io:33656"
+peers="484e0d3cc02ba868d4ad68ec44caf89dd14d1845@rpc1-testnet.nodejumper.io:33656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.paloma/config/config.toml
 
 # in case of pruning
