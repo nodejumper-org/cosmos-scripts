@@ -31,7 +31,7 @@ sha256sum $HOME/.deweb/config/addrbook.json # ba7bea692350ca8918542a26cabd5616db
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udws"|g' $HOME/.deweb/config/app.toml
 seeds=""
-peers="9440fa39f85bea005514f0191d4550a1c9d310bb@rpc1-testnet.nodejumper.io:27656"
+peers="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@rpc1-testnet.nodejumper.io:27656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
 
 # in case of pruning

@@ -28,7 +28,7 @@ sha256sum $HOME/.uptickd/config/genesis.json # 1ca389503310668cad2a38662c7f84045
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001auptick"|g' $HOME/.uptickd/config/app.toml
 seeds="7aad751eb956d65388f0cc37ab2ea179e2143e41@seed0.testnet.uptick.network:26656,7e6c759bcf03641c65659f1b9b2f05ec9de7391b@seed1.testnet.uptick.network:26656"
-peers="ef973b95ebd054ab38248349a5c822b997ed033e@rpc1-testnet.nodejumper.io:30656"
+peers="ce7e61b565292d6606fc0fbf4b2bc364227a1ef0@rpc1-testnet.nodejumper.io:30656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.uptickd/config/config.toml
 
 # in case of pruning

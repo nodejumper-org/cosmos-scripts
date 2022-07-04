@@ -15,7 +15,7 @@ cd || return
 rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain || return
-git checkout 1.0.5beta
+git checkout 1.0.6beta
 make install
 seid version
 
@@ -31,7 +31,7 @@ sha256sum $HOME/.sei/config/addrbook.json # 9058b83fca36c2c09fb2b7c04293382084df
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001usei"|g' $HOME/.sei/config/app.toml
 seeds=""
-peers="f4b1aa3416073a4493de7889505fc19777326825@rpc1-testnet.nodejumper.io:28656"
+peers="6a60f171e8b0c0f0c6a0e5cebd6d3d340764c2f5@rpc1-testnet.nodejumper.io:28656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.sei/config/config.toml
 
 # in case of pruning
