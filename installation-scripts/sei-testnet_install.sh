@@ -31,7 +31,7 @@ sha256sum $HOME/.sei/config/addrbook.json # 9058b83fca36c2c09fb2b7c04293382084df
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001usei"|g' $HOME/.sei/config/app.toml
 seeds=""
-peers="6a60f171e8b0c0f0c6a0e5cebd6d3d340764c2f5@rpc1-testnet.nodejumper.io:28656"
+peers="6a60f171e8b0c0f0c6a0e5cebd6d3d340764c2f5@rpc1-testnet.nodejumper.io:28656,91625e4d655d87a33fd135a91bd74a68e6c448de@167.86.109.17:26656,abf7583be5fb20b3077db8adb119dc84f1da5d22@95.216.212.199:26656,5ab0ab8ff1602aedbd953e2a9758b6a5d950231e@65.108.201.154:26656,257af61598dd3ce190bd7da84c6bcfeb5cbe9a99@65.21.143.79:21156,3506c83f8df3d3c6ef3bee9c92c9687edba3bf99@65.108.14.10:56656,1c6b5b7d880e488e87e86b0de420ad92d4cece50@149.102.158.204:12656,58dc33802d0734c3a6d19e436ce8da8c269fcf3c@38.242.133.155:26656,7562cf38f77708c949add9337bde1ff6246b98c1@88.198.150.22:26656,c5ceddb37070668f323e44d1ea8fc5890e8231d5@138.201.139.175:21006,8b26c7ad8b74608301036ffa69776caff7860f6c@139.59.112.100:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.sei/config/config.toml
 
 # in case of pruning
