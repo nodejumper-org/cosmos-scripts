@@ -2,14 +2,24 @@
 
 . <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
-sudo apt update
-sudo apt install -y make gcc jq curl git
-
-if [ ! -f "/usr/local/go/bin/go" ]; then
-  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
-  . .bash_profile
+if [ ! $NODEMONIKER ]; then
+	read -p "Enter node moniker: " NODEMONIKER
 fi
-go version # go version goX.XX.X linux/amd64
+
+CHAIN_ID="sei-testnet-2"
+BINARY="seid"
+CHEAT_SHEET="https://nodejumper.io/sei-testnet/cheat-sheet"
+
+echo "=================================================================================================="
+echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
+echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
+echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo "=================================================================================================="
+sleep 2
+
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/install_common_packages.sh)
+
+echo -e "\e[1m\e[1;96m4. Building binaries... \e[0m" && sleep 1
 
 cd || return
 rm -rf sei-chain
@@ -20,8 +30,8 @@ make install
 seid version
 
 # replace nodejumper with your own moniker, if you'd like
-seid config chain-id sei-testnet-2
-seid init "${1:-nodejumper}" --chain-id sei-testnet-2 -o
+seid config chain-id $CHAIN_ID
+seid init $NODEMONIKER --chain-id $CHAIN_ID -o
 
 curl https://raw.githubusercontent.com/sei-protocol/testnet/master/sei-testnet-2/genesis.json > $HOME/.sei/config/genesis.json
 sha256sum $HOME/.sei/config/genesis.json # aec481191276a4c5ada2c3b86ac6c8aad0cea5c4aa6440314470a2217520e2cc
@@ -38,6 +48,8 @@ sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persisten
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.sei/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.sei/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.sei/config/app.toml
+
+echo -e "\e[1m\e[1;96m5. Starting service and synchronization... \e[0m" && sleep 1
 
 sudo tee /etc/systemd/system/seid.service > /dev/null << EOF
 [Unit]
@@ -70,3 +82,8 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.sei/confi
 sudo systemctl daemon-reload
 sudo systemctl enable seid
 sudo systemctl restart seid
+
+echo "=================================================================================================="
+echo -e "Check logs:            \e[1m\e[1;96msudo journalctl -u $BINARY -f --no-hostname -o cat \e[0m"
+echo -e "Check synchronization: \e[1m\e[1;96m$BINARY status 2>&1 | jq .SyncInfo.catching_up\e[0m"
+echo -e "More commands:         \e[1m\e[1;96m$CHEAT_SHEET\e[0m"

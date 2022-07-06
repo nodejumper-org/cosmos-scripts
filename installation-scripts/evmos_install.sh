@@ -2,15 +2,24 @@
 
 . <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
-sudo apt update
-sudo apt install -y make gcc jq curl git
-
-if [ ! -f "/usr/local/go/bin/go" ]; then
-  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
-  . .bash_profile
+if [ ! $NODEMONIKER ]; then
+	read -p "Enter node moniker: " NODEMONIKER
 fi
-go version # go version goX.XX.X linux/amd64
 
+CHAIN_ID="evmos_9001-2"
+BINARY="evmosd"
+CHEAT_SHEET="https://nodejumper.io/evmos/cheat-sheet"
+
+echo "=================================================================================================="
+echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
+echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
+echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo "=================================================================================================="
+sleep 2
+
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/install_common_packages.sh)
+
+echo -e "\e[1m\e[1;96m4. Building binaries... \e[0m" && sleep 1
 cd || return
 rm -rf evmos
 git clone https://github.com/tharsis/evmos
@@ -20,8 +29,8 @@ make install
 evmosd version # 6.0.1
 
 # replace nodejumper with your own moniker, if you'd like
-evmosd config chain-id evmos_9001-2
-evmosd init "${1:-nodejumper}" --chain-id evmos_9001-2
+evmosd config chain-id $CHAIN_ID
+evmosd init $NODEMONIKER --chain-id $CHAIN_ID
 
 cd || return
 curl -# -L -O https://github.com/tharsis/mainnet/raw/main/evmos_9001-2/genesis.json.zip
@@ -39,6 +48,8 @@ sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persisten
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.evmosd/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.evmosd/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.evmosd/config/app.toml
+
+echo -e "\e[1m\e[1;96m5. Starting service and synchronization... \e[0m" && sleep 1
 
 sudo tee /etc/systemd/system/evmosd.service > /dev/null << EOF
 [Unit]
@@ -71,3 +82,8 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.evmosd/co
 sudo systemctl daemon-reload
 sudo systemctl enable evmosd
 sudo systemctl restart evmosd
+
+echo "=================================================================================================="
+echo -e "Check logs:            \e[1m\e[1;96msudo journalctl -u $BINARY -f --no-hostname -o cat \e[0m"
+echo -e "Check synchronization: \e[1m\e[1;96m$BINARY status 2>&1 | jq .SyncInfo.catching_up\e[0m"
+echo -e "More commands:         \e[1m\e[1;96m$CHEAT_SHEET\e[0m"

@@ -2,14 +2,24 @@
 
 . <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
-sudo apt update
-sudo apt install -y make gcc jq curl git
-
-if [ ! -f "/usr/local/go/bin/go" ]; then
-  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
-  . .bash_profile
+if [ ! $NODEMONIKER ]; then
+	read -p "Enter node moniker: " NODEMONIKER
 fi
-go version # go version goX.XX.X linux/amd64
+
+CHAIN_ID="desmos-mainnet"
+BINARY="desmosd"
+CHEAT_SHEET="https://nodejumper.io/desmos/cheat-sheet"
+
+echo "=================================================================================================="
+echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
+echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
+echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo "=================================================================================================="
+sleep 2
+
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/install_common_packages.sh)
+
+echo -e "\e[1m\e[1;96m4. Building binaries... \e[0m" && sleep 1
 
 cd || return
 rm -rf desmos
@@ -20,8 +30,8 @@ make install
 desmos version # 2.3.1
 
 # replace nodejumper with your own moniker, if you'd like
-desmos config chain-id desmos-mainnet
-desmos init "${1:-nodejumper}" --chain-id desmos-mainnet
+desmos config chain-id $CHAIN_ID
+desmos init $NODEMONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json > $HOME/.desmos/config/genesis.json
 sha256sum $HOME/.desmos/config/genesis.json # 8301452877607c2637c21073066cf2ac6d1fa6b961ffb73ce974dadafeca7b5b
@@ -35,6 +45,8 @@ sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persisten
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.desmos/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.desmos/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.desmos/config/app.toml
+
+echo -e "\e[1m\e[1;96m5. Starting service and synchronization... \e[0m" && sleep 1
 
 sudo tee /etc/systemd/system/desmosd.service > /dev/null << EOF
 [Unit]
@@ -67,3 +79,8 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.desmos/co
 sudo systemctl daemon-reload
 sudo systemctl enable desmosd
 sudo systemctl restart desmosd
+
+echo "=================================================================================================="
+echo -e "Check logs:            \e[1m\e[1;96msudo journalctl -u $BINARY -f --no-hostname -o cat \e[0m"
+echo -e "Check synchronization: \e[1m\e[1;96m$BINARY status 2>&1 | jq .SyncInfo.catching_up\e[0m"
+echo -e "More commands:         \e[1m\e[1;96m$CHEAT_SHEET\e[0m"

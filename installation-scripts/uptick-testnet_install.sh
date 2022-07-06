@@ -2,14 +2,24 @@
 
 . <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
-sudo apt update
-sudo apt install -y make gcc jq curl git
-
-if [ ! -f "/usr/local/go/bin/go" ]; then
-  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
-  . .bash_profile
+if [ ! $NODEMONIKER ]; then
+	read -p "Enter node moniker: " NODEMONIKER
 fi
-go version # go version goX.XX.X linux/amd64
+
+CHAIN_ID="uptick_7776-1"
+BINARY="uptickd"
+CHEAT_SHEET="https://nodejumper.io/uptick-testnet/cheat-sheet"
+
+echo "=================================================================================================="
+echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
+echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
+echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo "=================================================================================================="
+sleep 2
+
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/install_common_packages.sh)
+
+echo -e "\e[1m\e[1;96m4. Building binaries... \e[0m" && sleep 1
 
 cd || return
 rm -rf uptick
@@ -20,8 +30,8 @@ make install
 uptickd version # v0.2.0
 
 # replace nodejumper with your own moniker, if you'd like
-uptickd config chain-id uptick_7776-1
-uptickd init "${1:-nodejumper}" --chain-id uptick_7776-1
+uptickd config chain-id $CHAIN_ID
+uptickd init $NODEMONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/UptickNetwork/uptick-testnet/main/uptick_7776-1/genesis.json > $HOME/.uptickd/config/genesis.json
 sha256sum $HOME/.uptickd/config/genesis.json # 1ca389503310668cad2a38662c7f84045699839cba48d13ce2af31956442c8b5
@@ -36,6 +46,8 @@ sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.uptickd/config/app.to
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.uptickd/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.uptickd/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.uptickd/config/app.toml
+
+echo -e "\e[1m\e[1;96m5. Starting service and synchronization... \e[0m" && sleep 1
 
 sudo tee /etc/systemd/system/uptickd.service > /dev/null << EOF
 [Unit]
@@ -68,3 +80,8 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.uptickd/c
 sudo systemctl daemon-reload
 sudo systemctl enable uptickd
 sudo systemctl restart uptickd
+
+echo "=================================================================================================="
+echo -e "Check logs:            \e[1m\e[1;96msudo journalctl -u $BINARY -f --no-hostname -o cat \e[0m"
+echo -e "Check synchronization: \e[1m\e[1;96m$BINARY status 2>&1 | jq .SyncInfo.catching_up\e[0m"
+echo -e "More commands:         \e[1m\e[1;96m$CHEAT_SHEET\e[0m"

@@ -2,14 +2,24 @@
 
 . <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
-sudo apt update
-sudo apt install -y make gcc jq curl git
-
-if [ ! -f "/usr/local/go/bin/go" ]; then
-  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
-  . .bash_profile
+if [ ! $NODEMONIKER ]; then
+	read -p "Enter node moniker: " NODEMONIKER
 fi
-go version # go version goX.XX.X linux/amd64
+
+CHAIN_ID="omniflixhub-1"
+BINARY="omniflixhubd"
+CHEAT_SHEET="https://nodejumper.io/omniflix/cheat-sheet"
+
+echo "=================================================================================================="
+echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
+echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
+echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo "=================================================================================================="
+sleep 2
+
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/install_common_packages.sh)
+
+echo -e "\e[1m\e[1;96m4. Building binaries... \e[0m" && sleep 1
 
 cd || return
 rm -rf omniflixhub
@@ -20,8 +30,8 @@ make install
 omniflixhubd version # 0.4.0
 
 # replace nodejumper with your own moniker, if you'd like
-omniflixhubd config chain-id omniflixhub-1
-omniflixhubd init "${1:-nodejumper}" --chain-id omniflixhub-1
+omniflixhubd config chain-id $CHAIN_ID
+omniflixhubd init $NODEMONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/OmniFlix/mainnet/main/omniflixhub-1/genesis.json > $HOME/.omniflixhub/config/genesis.json
 sha256sum $HOME/.omniflixhub/config/genesis.json # 4d6b5449d4db78807b634d90d9a92468747c7a6abfb5aa94a3b1198b2a367417
@@ -35,6 +45,8 @@ sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persisten
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.omniflixhub/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.omniflixhub/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.omniflixhub/config/app.toml
+
+echo -e "\e[1m\e[1;96m5. Starting service and synchronization... \e[0m" && sleep 1
 
 sudo tee /etc/systemd/system/omniflixhubd.service > /dev/null << EOF
 [Unit]
@@ -67,3 +79,8 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.omniflixh
 sudo systemctl daemon-reload
 sudo systemctl enable omniflixhubd
 sudo systemctl restart omniflixhubd
+
+echo "=================================================================================================="
+echo -e "Check logs:            \e[1m\e[1;96msudo journalctl -u $BINARY -f --no-hostname -o cat \e[0m"
+echo -e "Check synchronization: \e[1m\e[1;96m$BINARY status 2>&1 | jq .SyncInfo.catching_up\e[0m"
+echo -e "More commands:         \e[1m\e[1;96m$CHEAT_SHEET\e[0m"

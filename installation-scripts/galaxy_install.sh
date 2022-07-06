@@ -2,14 +2,24 @@
 
 . <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
-sudo apt update
-sudo apt install -y make gcc jq curl git
-
-if [ ! -f "/usr/local/go/bin/go" ]; then
-  . <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh")
-  . .bash_profile
+if [ ! $NODEMONIKER ]; then
+	read -p "Enter node moniker: " NODEMONIKER
 fi
-go version # go version goX.XX.X linux/amd64
+
+CHAIN_ID="galaxy-1"
+BINARY="galaxyd"
+CHEAT_SHEET="https://nodejumper.io/galaxy/cheat-sheet"
+
+echo "=================================================================================================="
+echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
+echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
+echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo "=================================================================================================="
+sleep 2
+
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/install_common_packages.sh)
+
+echo -e "\e[1m\e[1;96m4. Building binaries... \e[0m" && sleep 1
 
 cd || return
 rm -rf galaxy
@@ -20,8 +30,8 @@ make install
 galaxyd version # launch-gentxs
 
 # replace nodejumper with your own moniker, if you'd like
-galaxyd config chain-id galaxy-1
-galaxyd init "${1:-nodejumper}" --chain-id galaxy-1
+galaxyd config chain-id $CHAIN_ID
+galaxyd init $NODEMONIKER --chain-id $CHAIN_ID
 
 curl https://media.githubusercontent.com/media/galaxies-labs/networks/main/galaxy-1/genesis.json > $HOME/.galaxy/config/genesis.json
 sha256sum $HOME/.galaxy/config/genesis.json # 2003cfaca53c3f9120a36957103fbbe6562d4f6c6c50a3e9502c49dbb8e2ba5b
@@ -35,6 +45,8 @@ sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persisten
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.galaxy/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.galaxy/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.galaxy/config/app.toml
+
+echo -e "\e[1m\e[1;96m5. Starting service and synchronization... \e[0m" && sleep 1
 
 sudo tee /etc/systemd/system/galaxyd.service > /dev/null << EOF
 [Unit]
@@ -67,3 +79,8 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.galaxy/co
 sudo systemctl daemon-reload
 sudo systemctl enable galaxyd
 sudo systemctl restart galaxyd
+
+echo "=================================================================================================="
+echo -e "Check logs:            \e[1m\e[1;96msudo journalctl -u $BINARY -f --no-hostname -o cat \e[0m"
+echo -e "Check synchronization: \e[1m\e[1;96m$BINARY status 2>&1 | jq .SyncInfo.catching_up\e[0m"
+echo -e "More commands:         \e[1m\e[1;96m$CHEAT_SHEET\e[0m"
