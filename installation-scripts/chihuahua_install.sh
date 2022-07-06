@@ -2,9 +2,7 @@
 
 . <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
 
-if [ ! $NODEMONIKER ]; then
-	read -p "Enter node moniker: " NODEMONIKER
-fi
+read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="chihuahua-1"
 BINARY="chihuahuad"
