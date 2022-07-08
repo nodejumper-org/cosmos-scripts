@@ -75,8 +75,8 @@ s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.stafihub/config/config.toml
 
 sudo systemctl daemon-reload
-sudo systemctl enable stafihub
-sudo systemctl restart stafihub
+sudo systemctl enable stafihubd
+sudo systemctl restart stafihubd
 
 echo "=================================================================================================="
 echo -e "Check logs:            \e[1m\e[1;96msudo journalctl -u $BINARY -f --no-hostname -o cat \e[0m"
