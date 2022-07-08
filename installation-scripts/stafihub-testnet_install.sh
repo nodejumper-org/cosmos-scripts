@@ -36,7 +36,7 @@ sha256sum $HOME/.stafihub/config/genesis.json # 364d5c18b18d3a1d3fcc9125f855610f
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ufis"|g' $HOME/.stafihub/config/app.toml
 seeds=""
-peers="e906c21307a875c743806f1a92ecb50b5138480d@65.21.138.123:30656"
+peers="4b5afbe0bd0d128f98943c0f2941976bd3fb0b9b@rpc2-testnet.nodejumper.io:26656,e906c21307a875c743806f1a92ecb50b5138480d@65.21.138.123:30656,3a440f9fd1a9138393e395028bd6079a187364c6@65.108.124.172:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.stafihub/config/config.toml
 
 # in case of pruning
@@ -62,7 +62,7 @@ EOF
 
 stafihubd tendermint unsafe-reset-all --home $HOME/.stafihub --keep-addr-book
 
-SNAP_RPC="http://rpc1-testnet.nodejumper.io:26657"
+SNAP_RPC="http://rpc2-testnet.nodejumper.io:26657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
