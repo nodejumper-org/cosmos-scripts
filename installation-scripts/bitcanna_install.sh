@@ -36,7 +36,7 @@ sha256sum $HOME/.bcna/config/genesis.json # cd7449a199e71c400778f894abb00874badd
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubcna"|g' $HOME/.bcna/config/app.toml
 seeds="d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:26656"
-peers="45589e6147e36dda9e429668484d7614fb25b142@rpc1.nodejumper.io:27656"
+peers="45589e6147e36dda9e429668484d7614fb25b142@bitcanna.nodejumper.io:27656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.bcna/config/config.toml
 
 # in case of pruning
@@ -62,7 +62,7 @@ EOF
 
 bcnad unsafe-reset-all
 
-SNAP_RPC="http://rpc1.nodejumper.io:27657"
+SNAP_RPC="https://bitcanna.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

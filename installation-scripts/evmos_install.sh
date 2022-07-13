@@ -39,7 +39,7 @@ sha256sum $HOME/.evmosd/config/genesis.json # 4aa13da5eb4b9705ae8a7c3e09d1c36b92
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001aevmos"|g' $HOME/.evmosd/config/app.toml
 seeds=""
-peers="b984dc3cb4c9d13546822942ac1213e133373ee6@135.181.139.171:36656"
+peers="876eadd24a1f4f9f88f4ea540cb1ff456a4e34ee@evmos.nodejumper.io:36656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.evmosd/config/config.toml
 
 # in case of pruning
@@ -65,7 +65,7 @@ EOF
 
 evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
 
-SNAP_RPC="http://rpc3.nodejumper.io:36657"
+SNAP_RPC="https://evmos.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

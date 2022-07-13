@@ -36,7 +36,7 @@ sha256sum $HOME/.kid/config/genesis.json # 0059e1cd40da1ece7f14133509c44980cf6b5
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uxki"|g' $HOME/.kid/config/app.toml
 seeds="24cbccfa8813accd0ebdb09e7cdb54cff2e8fcd9@51.89.166.197:26656"
-peers="766ed622c79fa9cfd668db9741a1f72a5751e0cd@rpc1.nodejumper.io:28656"
+peers="766ed622c79fa9cfd668db9741a1f72a5751e0cd@kichain.nodejumper.io:28656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.kid/config/config.toml
 
 # in case of pruning
@@ -62,7 +62,7 @@ EOF
 
 kid unsafe-reset-all
 
-SNAP_RPC="http://rpc1.nodejumper.io:28657"
+SNAP_RPC="https://kichain.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

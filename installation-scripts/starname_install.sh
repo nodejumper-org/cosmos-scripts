@@ -37,7 +37,7 @@ sha256sum $HOME/.starnamed/config/genesis.json # e20eb984b3a85eb3d2c76b94d1a30c4
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uiov"|g' $HOME/.starnamed/config/app.toml
 seeds=""
-peers="3180fdc5e477e675acd22e63477ce3a2db20edf9@rpc2.nodejumper.io:34656"
+peers="3180fdc5e477e675acd22e63477ce3a2db20edf9@starname.nodejumper.io:34656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.starnamed/config/config.toml
 
 # in case of pruning

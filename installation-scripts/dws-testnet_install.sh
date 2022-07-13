@@ -39,7 +39,7 @@ sha256sum $HOME/.deweb/config/addrbook.json # ba7bea692350ca8918542a26cabd5616db
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udws"|g' $HOME/.deweb/config/app.toml
 seeds=""
-peers="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@rpc1-testnet.nodejumper.io:27656"
+peers="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@dws-testnet.nodejumper.io:27656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
 
 # in case of pruning
@@ -65,7 +65,7 @@ EOF
 
 dewebd unsafe-reset-all
 
-SNAP_RPC="http://rpc1-testnet.nodejumper.io:27657"
+SNAP_RPC="https://dws-testnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

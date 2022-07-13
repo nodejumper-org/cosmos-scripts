@@ -38,7 +38,7 @@ curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ugrain"|g' $HOME/.paloma/config/app.toml
 seeds=""
-peers="484e0d3cc02ba868d4ad68ec44caf89dd14d1845@rpc1-testnet.nodejumper.io:33656"
+peers="484e0d3cc02ba868d4ad68ec44caf89dd14d1845@paloma-testnet.nodejumper.io:33656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.paloma/config/config.toml
 
 # in case of pruning
@@ -65,7 +65,7 @@ EOF
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma --keep-addr-book
 
-SNAP_RPC="http://rpc1-testnet.nodejumper.io:33657"
+SNAP_RPC="https://paloma-testnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
