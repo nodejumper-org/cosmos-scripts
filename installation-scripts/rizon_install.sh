@@ -5,13 +5,14 @@
 read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="titan-1"
+CHAIN_DENOM="uatolo"
 BINARY="rizond"
 CHEAT_SHEET="https://nodejumper.io/rizon/cheat-sheet"
 
 echo "=================================================================================================="
 echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
-echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
 echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo -e "Chain demon:  \e[1m\e[1;96m$CHAIN_DENOM\e[0m"
 echo "=================================================================================================="
 sleep 2
 
@@ -36,7 +37,7 @@ sha256sum $HOME/.rizon/config/genesis.json # 6d5602e3746affea1096c729768bffd1f60
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uatolo"|g' $HOME/.rizon/config/app.toml
 seeds="83c9cdc2db2b4eff4acc9cd7d664ad5ae6191080@seed-1.mainnet.rizon.world:26656,ae1476777536e2be26507c4fbcf86b67540adb64@seed-2.mainnet.rizon.world:26656,8abf316257a264dc8744dee6be4981cfbbcaf4e4@seed-3.mainnet.rizon.world:26656"
-peers="0d51e8b9eb24f412dffc855c7bd854a8ecb3dff5@rpc1.nodejumper.io:26656"
+peers="0d51e8b9eb24f412dffc855c7bd854a8ecb3dff5@rizon.nodejumper.io:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.rizon/config/config.toml
 
 # in case of pruning
@@ -62,7 +63,7 @@ EOF
 
 rizond unsafe-reset-all
 
-SNAP_RPC="http://rpc1.nodejumper.io:26657"
+SNAP_RPC="https://rizon.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

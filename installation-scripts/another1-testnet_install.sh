@@ -5,13 +5,14 @@
 read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="anone-testnet-1"
+CHAIN_DENOM="uan1"
 BINARY="anoned"
 CHEAT_SHEET="https://nodejumper.io/another1-testnet/cheat-sheet"
 
 echo "=================================================================================================="
 echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
-echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
 echo -e "Chain id:     \e[1m\e[1;96mtestnet-1.0.3\e[0m"
+echo -e "Chain demon:  \e[1m\e[1;96m$CHAIN_DENOM\e[0m"
 echo "=================================================================================================="
 sleep 2
 
@@ -36,7 +37,7 @@ sha256sum $HOME/.anone/config/genesis.json # ba7bea692350ca8918542a26cabd5616dbe
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uan1"|g' $HOME/.anone/config/app.toml
 seeds=""
-peers="2b540c43d640befc35959eb062c8505612b7d67f@rpc1-testnet.nodejumper.io:26656"
+peers="2b540c43d640befc35959eb062c8505612b7d67f@another1-testnet.nodejumper.io:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.anone/config/config.toml
 
 # in case of pruning
@@ -62,7 +63,7 @@ EOF
 
 anoned unsafe-reset-all
 
-SNAP_RPC="http://rpc1-testnet.nodejumper.io:26657"
+SNAP_RPC="https://another1-testnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

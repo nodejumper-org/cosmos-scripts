@@ -5,13 +5,14 @@
 read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="iov-mainnet-ibc"
+CHAIN_DENOM="uiov"
 BINARY="starnamed"
 CHEAT_SHEET="https://nodejumper.io/starname/cheat-sheet"
 
 echo "=================================================================================================="
 echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
-echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
 echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo -e "Chain demon:  \e[1m\e[1;96m$CHAIN_DENOM\e[0m"
 echo "=================================================================================================="
 sleep 2
 
@@ -37,7 +38,7 @@ sha256sum $HOME/.starnamed/config/genesis.json # e20eb984b3a85eb3d2c76b94d1a30c4
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uiov"|g' $HOME/.starnamed/config/app.toml
 seeds=""
-peers="3180fdc5e477e675acd22e63477ce3a2db20edf9@rpc2.nodejumper.io:34656"
+peers="3180fdc5e477e675acd22e63477ce3a2db20edf9@starname.nodejumper.io:34656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.starnamed/config/config.toml
 
 # in case of pruning

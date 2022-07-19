@@ -5,13 +5,14 @@
 read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="osmosis-1"
+CHAIN_DENOM="uosmo"
 BINARY="osmosisd"
 CHEAT_SHEET="https://nodejumper.io/osmosis/cheat-sheet"
 
 echo "=================================================================================================="
 echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
-echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
 echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo -e "Chain demon:  \e[1m\e[1;96m$CHAIN_DENOM\e[0m"
 echo "=================================================================================================="
 sleep 2
 
@@ -36,7 +37,7 @@ sha256sum $HOME/.osmosisd/config/genesis.json # 1cdb76087fabcca7709fc563b44b5de9
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uosmo"|g' $HOME/.osmosisd/config/app.toml
 seeds="21d7539792ee2e0d650b199bf742c56ae0cf499e@162.55.132.230:2000,295b417f995073d09ff4c6c141bd138a7f7b5922@65.21.141.212:2000,ec4d3571bf709ab78df61716e47b5ac03d077a1a@65.108.43.26:2000,4cb8e1e089bdf44741b32638591944dc15b7cce3@65.108.73.18:2000,f515a8599b40f0e84dfad935ba414674ab11a668@osmosis.blockpane.com:26656,6bcdbcfd5d2c6ba58460f10dbcfde58278212833@osmosis.artifact-staking.io:26656"
-peers="83c06bc290b6dffe05aa9cec720bedfc118afcbc@rpc2.nodejumper.io:35656"
+peers="83c06bc290b6dffe05aa9cec720bedfc118afcbc@osmosis.nodejumper.io:35656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.osmosisd/config/config.toml
 
 # in case of pruning

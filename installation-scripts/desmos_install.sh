@@ -5,13 +5,14 @@
 read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="desmos-mainnet"
+CHAIN_DENOM="udsm"
 BINARY="desmosd"
 CHEAT_SHEET="https://nodejumper.io/desmos/cheat-sheet"
 
 echo "=================================================================================================="
 echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
-echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
 echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo -e "Chain demon:  \e[1m\e[1;96m$CHAIN_DENOM\e[0m"
 echo "=================================================================================================="
 sleep 2
 
@@ -36,7 +37,7 @@ sha256sum $HOME/.desmos/config/genesis.json # 8301452877607c2637c21073066cf2ac6d
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udsm"|g' $HOME/.desmos/config/app.toml
 seeds="9bde6ab4e0e00f721cc3f5b4b35f3a0e8979fab5@seed-1.mainnet.desmos.network:26656,5c86915026093f9a2f81e5910107cf14676b48fc@seed-2.mainnet.desmos.network:26656,45105c7241068904bdf5a32c86ee45979794637f@seed-3.mainnet.desmos.network:26656"
-peers="f090ead239426219d605b392314bdd73d16a795f@rpc1.nodejumper.io:32656"
+peers="f090ead239426219d605b392314bdd73d16a795f@desmos.nodejumper.io:32656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.desmos/config/config.toml
 
 # in case of pruning
@@ -62,7 +63,7 @@ EOF
 
 desmos unsafe-reset-all
 
-SNAP_RPC="http://rpc1.nodejumper.io:32657"
+SNAP_RPC="https://desmos.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

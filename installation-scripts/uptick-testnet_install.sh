@@ -5,13 +5,14 @@
 read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="uptick_7776-1"
+CHAIN_DENOM="auptick"
 BINARY="uptickd"
 CHEAT_SHEET="https://nodejumper.io/uptick-testnet/cheat-sheet"
 
 echo "=================================================================================================="
 echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
-echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
 echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo -e "Chain demon:  \e[1m\e[1;96m$CHAIN_DENOM\e[0m"
 echo "=================================================================================================="
 sleep 2
 
@@ -36,7 +37,7 @@ sha256sum $HOME/.uptickd/config/genesis.json # 1ca389503310668cad2a38662c7f84045
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001auptick"|g' $HOME/.uptickd/config/app.toml
 seeds="7aad751eb956d65388f0cc37ab2ea179e2143e41@seed0.testnet.uptick.network:26656,7e6c759bcf03641c65659f1b9b2f05ec9de7391b@seed1.testnet.uptick.network:26656"
-peers="ce7e61b565292d6606fc0fbf4b2bc364227a1ef0@rpc1-testnet.nodejumper.io:30656"
+peers="ce7e61b565292d6606fc0fbf4b2bc364227a1ef0@uptick-testnet.nodejumper.io:30656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.uptickd/config/config.toml
 
 # in case of pruning
@@ -63,7 +64,7 @@ EOF
 
 uptickd tendermint unsafe-reset-all --home $HOME/.uptickd/ --keep-addr-book
 
-SNAP_RPC="http://rpc1-testnet.nodejumper.io:30657"
+SNAP_RPC="https://uptick-testnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

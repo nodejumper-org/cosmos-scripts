@@ -5,13 +5,14 @@
 read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="galaxy-1"
+CHAIN_DENOM="uglx"
 BINARY="galaxyd"
 CHEAT_SHEET="https://nodejumper.io/galaxy/cheat-sheet"
 
 echo "=================================================================================================="
 echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
-echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
 echo -e "Chain id:     \e[1m\e[1;96m$CHAIN_ID\e[0m"
+echo -e "Chain demon:  \e[1m\e[1;96m$CHAIN_DENOM\e[0m"
 echo "=================================================================================================="
 sleep 2
 
@@ -36,7 +37,7 @@ sha256sum $HOME/.galaxy/config/genesis.json # 2003cfaca53c3f9120a36957103fbbe656
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uglx"|g' $HOME/.galaxy/config/app.toml
 seeds=""
-peers="1e9aa80732182fd7ea005fc138b05e361b9c040d@135.181.139.115:30656"
+peers="1e9aa80732182fd7ea005fc138b05e361b9c040d@galaxy.nodejumper.io:30656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.galaxy/config/config.toml
 
 # in case of pruning
@@ -62,7 +63,7 @@ EOF
 
 galaxyd unsafe-reset-all
 
-SNAP_RPC="http://rpc2.nodejumper.io:30657"
+SNAP_RPC="https://galaxy.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)

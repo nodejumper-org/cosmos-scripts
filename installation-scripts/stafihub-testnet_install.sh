@@ -5,13 +5,14 @@
 read -p "Enter node moniker: " NODEMONIKER
 
 CHAIN_ID="stafihub-public-testnet-3"
+CHAIN_DENOM="ufis"
 BINARY="stafihubd"
 CHEAT_SHEET="https://nodejumper.io/stafihub-testnet/cheat-sheet"
 
 echo "=================================================================================================="
 echo -e "Node moniker: \e[1m\e[1;96m$NODEMONIKER\e[0m"
-echo -e "Wallet name:  \e[1m\e[1;96mwallet\e[0m"
 echo -e "Chain id:     \e[1m\e[1;96mtestnet-1.0.3\e[0m"
+echo -e "Chain demon:  \e[1m\e[1;96m$CHAIN_DENOM\e[0m"
 echo "=================================================================================================="
 sleep 2
 
@@ -36,7 +37,7 @@ sha256sum $HOME/.stafihub/config/genesis.json # 364d5c18b18d3a1d3fcc9125f855610f
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ufis"|g' $HOME/.stafihub/config/app.toml
 seeds=""
-peers="4b5afbe0bd0d128f98943c0f2941976bd3fb0b9b@rpc2-testnet.nodejumper.io:26656,e906c21307a875c743806f1a92ecb50b5138480d@65.21.138.123:30656,3a440f9fd1a9138393e395028bd6079a187364c6@65.108.124.172:26656"
+peers="4b5afbe0bd0d128f98943c0f2941976bd3fb0b9b@stafihub-testnet.nodejumper.io:26656,e906c21307a875c743806f1a92ecb50b5138480d@65.21.138.123:30656,3a440f9fd1a9138393e395028bd6079a187364c6@65.108.124.172:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.stafihub/config/config.toml
 
 # in case of pruning
@@ -62,7 +63,7 @@ EOF
 
 stafihubd tendermint unsafe-reset-all --home $HOME/.stafihub --keep-addr-book
 
-SNAP_RPC="http://rpc2-testnet.nodejumper.io:26657"
+SNAP_RPC="https://stafihub-testnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
