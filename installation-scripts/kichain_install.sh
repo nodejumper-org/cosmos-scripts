@@ -61,7 +61,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-kid unsafe-reset-all
+kid tendermint unsafe-reset-all --home $HOME/.kid --keep-addr-book
 
 SNAP_RPC="https://kichain.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
