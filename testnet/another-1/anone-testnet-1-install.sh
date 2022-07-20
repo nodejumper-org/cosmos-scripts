@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="anone-testnet-1"
 CHAIN_DENOM="uan1"
@@ -12,7 +12,7 @@ BINARY="anoned"
 CHEAT_SHEET="https://nodejumper.io/another1-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}testnet-1.0.3${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ anoned version # testnet-1.0.3
 
 # replace nodejumper with your own moniker, if you'd like
 anoned config chain-id $CHAIN_ID
-anoned init $NODEMONIKER --chain-id $CHAIN_ID
+anoned init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/notional-labs/anone/master/networks/testnet-1/genesis.json > $HOME/.anone/config/genesis.json
 sha256sum $HOME/.anone/config/genesis.json # ba7bea692350ca8918542a26cabd5616dbebe1ff109092cb1e98c864da58dabf

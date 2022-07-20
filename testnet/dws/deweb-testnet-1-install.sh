@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="deweb-testnet-1"
 CHAIN_DENOM="udws"
@@ -12,7 +12,7 @@ BINARY="dewebd"
 CHEAT_SHEET="https://nodejumper.io/dws-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ dewebd version # 0.2
 
 # replace nodejumper with your own moniker, if you'd like
 dewebd config chain-id $CHAIN_ID
-dewebd init $NODEMONIKER --chain-id $CHAIN_ID
+dewebd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json > $HOME/.deweb/config/genesis.json
 sha256sum $HOME/.deweb/config/genesis.json # 13bf101d673990cb39e6af96e3c7e183da79bd89f6d249e9dc797ae81b3573c2

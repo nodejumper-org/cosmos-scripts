@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="stafihub-public-testnet-3"
 CHAIN_DENOM="ufis"
@@ -12,7 +12,7 @@ BINARY="stafihubd"
 CHEAT_SHEET="https://nodejumper.io/stafihub-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}testnet-1.0.3${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ stafihubd version # nothing is printed
 
 # replace nodejumper with your own moniker, if you'd like
 stafihubd config chain-id stafihub-public-testnet-3
-stafihubd init $NODEMONIKER --chain-id stafihub-public-testnet-3
+stafihubd init $NODE_MONIKER --chain-id stafihub-public-testnet-3
 
 curl https://raw.githubusercontent.com/stafihub/network/main/testnets/stafihub-public-testnet-3/genesis.json > $HOME/.stafihub/config/genesis.json
 sha256sum $HOME/.stafihub/config/genesis.json # 364d5c18b18d3a1d3fcc9125f855610f66c28b5df089ca1900376059273f4ef1

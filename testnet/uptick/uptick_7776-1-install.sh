@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="uptick_7776-1"
 CHAIN_DENOM="auptick"
@@ -12,7 +12,7 @@ BINARY="uptickd"
 CHEAT_SHEET="https://nodejumper.io/uptick-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ uptickd version # v0.2.0
 
 # replace nodejumper with your own moniker, if you'd like
 uptickd config chain-id $CHAIN_ID
-uptickd init $NODEMONIKER --chain-id $CHAIN_ID
+uptickd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/UptickNetwork/uptick-testnet/main/uptick_7776-1/genesis.json > $HOME/.uptickd/config/genesis.json
 sha256sum $HOME/.uptickd/config/genesis.json # 1ca389503310668cad2a38662c7f84045699839cba48d13ce2af31956442c8b5

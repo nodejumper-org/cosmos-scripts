@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="desmos-mainnet"
 CHAIN_DENOM="udsm"
@@ -12,7 +12,7 @@ BINARY="desmosd"
 CHEAT_SHEET="https://nodejumper.io/desmos/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ desmos version # 2.3.1
 
 # replace nodejumper with your own moniker, if you'd like
 desmos config chain-id $CHAIN_ID
-desmos init $NODEMONIKER --chain-id $CHAIN_ID
+desmos init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json > $HOME/.desmos/config/genesis.json
 sha256sum $HOME/.desmos/config/genesis.json # 8301452877607c2637c21073066cf2ac6d1fa6b961ffb73ce974dadafeca7b5b

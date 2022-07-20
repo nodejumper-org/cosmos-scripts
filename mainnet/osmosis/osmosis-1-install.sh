@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="osmosis-1"
 CHAIN_DENOM="uosmo"
@@ -12,7 +12,7 @@ BINARY="osmosisd"
 CHEAT_SHEET="https://nodejumper.io/osmosis/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ osmosisd version # v10.0.0
 
 # replace nodejumper with your own moniker, if you'd like
 osmosisd config chain-id $CHAIN_ID
-osmosisd init $NODEMONIKER --chain-id $CHAIN_ID
+osmosisd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://github.com/osmosis-labs/networks/raw/main/osmosis-1/genesis.json > $HOME/.osmosisd/config/genesis.json
 sha256sum $HOME/.osmosisd/config/genesis.json # 1cdb76087fabcca7709fc563b44b5de98aaf297eedc8805aa2884999e6bab06d

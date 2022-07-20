@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="paloma-testnet-6"
 CHAIN_DENOM="ugrain"
@@ -12,7 +12,7 @@ BINARY="palomad"
 CHEAT_SHEET="https://nodejumper.io/paloma-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ palomad version # v0.3.0-prealpha
 
 # replace nodejumper with your own moniker, if you'd like
 palomad config chain-id $CHAIN_ID
-palomad init $NODEMONIKER --chain-id $CHAIN_ID
+palomad init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-6/genesis.json > $HOME/.paloma/config/genesis.json
 sha256sum $HOME/.paloma/config/genesis.json # bad4a385822e25d8357c6b0b6ba4f4ab7c47355b105d02397994f718fb9a407a

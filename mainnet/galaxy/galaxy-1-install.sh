@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="galaxy-1"
 CHAIN_DENOM="uglx"
@@ -12,7 +12,7 @@ BINARY="galaxyd"
 CHEAT_SHEET="https://nodejumper.io/galaxy/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ galaxyd version # launch-gentxs
 
 # replace nodejumper with your own moniker, if you'd like
 galaxyd config chain-id $CHAIN_ID
-galaxyd init $NODEMONIKER --chain-id $CHAIN_ID
+galaxyd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://media.githubusercontent.com/media/galaxies-labs/networks/main/galaxy-1/genesis.json > $HOME/.galaxy/config/genesis.json
 sha256sum $HOME/.galaxy/config/genesis.json # 2003cfaca53c3f9120a36957103fbbe6562d4f6c6c50a3e9502c49dbb8e2ba5b

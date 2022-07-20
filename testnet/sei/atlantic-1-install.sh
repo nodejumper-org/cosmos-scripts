@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="atlantic-1"
 CHAIN_DENOM="usei"
@@ -12,7 +12,7 @@ BINARY="seid"
 CHEAT_SHEET="https://nodejumper.io/sei-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ seid version
 
 # replace nodejumper with your own moniker, if you'd like
 seid config chain-id $CHAIN_ID
-seid init $NODEMONIKER --chain-id $CHAIN_ID
+seid init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/sei-incentivized-testnet/genesis.json > $HOME/.sei/config/genesis.json
 sha256sum $HOME/.sei/config/genesis.json # 4ae7193446b53d78bb77cab1693a6ddf6c1fe58c9693ed151e71f43956fdb3f7

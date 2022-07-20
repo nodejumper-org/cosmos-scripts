@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="titan-1"
 CHAIN_DENOM="uatolo"
@@ -12,7 +12,7 @@ BINARY="rizond"
 CHEAT_SHEET="https://nodejumper.io/rizon/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ rizond version # v0.3.0
 
 # replace nodejumper with your own moniker, if you'd like
 rizond config chain-id $CHAIN_ID
-rizond init $NODEMONIKER --chain-id $CHAIN_ID
+rizond init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/rizon-world/mainnet/master/genesis.json > $HOME/.rizon/config/genesis.json
 sha256sum $HOME/.rizon/config/genesis.json # 6d5602e3746affea1096c729768bffd1f60633dfe88ae705f018d70fd3e90302  -

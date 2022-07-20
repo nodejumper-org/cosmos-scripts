@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="teritori-testnet-v2"
 CHAIN_DENOM="utori"
@@ -12,7 +12,7 @@ BINARY="teritorid"
 CHEAT_SHEET="https://nodejumper.io/teritori-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ teritorid version # teritori-testnet-v2-0f4e5cb1d529fa18971664891a9e8e4c114456c6
 
 # replace nodejumper with your own moniker, if you'd like
 teritorid config chain-id $CHAIN_ID
-teritorid init $NODEMONIKER --chain-id $CHAIN_ID
+teritorid init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/TERITORI/teritori-chain/main/testnet/teritori-testnet-v2/genesis.json > $HOME/.teritorid/config/genesis.json
 sha256sum $HOME/.teritorid/config/genesis.json # 2f1dbf5cc8b302dbbea2e2d14598d77d59a49d70743375d3bab6abea1889fde0

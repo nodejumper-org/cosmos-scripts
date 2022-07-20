@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="bitcanna-1"
 CHAIN_DENOM="ubcna"
@@ -12,7 +12,7 @@ BINARY="bcnad"
 CHEAT_SHEET="https://nodejumper.io/bitcanna/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ bcnad version # .1.3.1
 
 # replace nodejumper with your own moniker, if you'd like
 bcnad config chain-id $CHAIN_ID
-bcnad init $NODEMONIKER --chain-id $CHAIN_ID
+bcnad init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json > $HOME/.bcna/config/genesis.json
 sha256sum $HOME/.bcna/config/genesis.json # cd7449a199e71c400778f894abb00874badda572ac5443b7ec48bb0aad052f29

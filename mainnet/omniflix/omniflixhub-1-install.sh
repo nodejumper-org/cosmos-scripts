@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="omniflixhub-1"
 CHAIN_DENOM="uflix"
@@ -12,7 +12,7 @@ BINARY="omniflixhubd"
 CHEAT_SHEET="https://nodejumper.io/omniflix/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ omniflixhubd version # 0.4.0
 
 # replace nodejumper with your own moniker, if you'd like
 omniflixhubd config chain-id $CHAIN_ID
-omniflixhubd init $NODEMONIKER --chain-id $CHAIN_ID
+omniflixhubd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/OmniFlix/mainnet/main/omniflixhub-1/genesis.json > $HOME/.omniflixhub/config/genesis.json
 sha256sum $HOME/.omniflixhub/config/genesis.json # 4d6b5449d4db78807b634d90d9a92468747c7a6abfb5aa94a3b1198b2a367417

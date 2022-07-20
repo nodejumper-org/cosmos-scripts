@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="evmos_9001-2"
 CHAIN_DENOM="aevmos"
@@ -12,7 +12,7 @@ BINARY="evmosd"
 CHEAT_SHEET="https://nodejumper.io/evmos/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -31,7 +31,7 @@ evmosd version # 6.0.1
 
 # replace nodejumper with your own moniker, if you'd like
 evmosd config chain-id $CHAIN_ID
-evmosd init $NODEMONIKER --chain-id $CHAIN_ID
+evmosd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 cd || return
 curl -# -L -O https://github.com/tharsis/mainnet/raw/main/evmos_9001-2/genesis.json.zip

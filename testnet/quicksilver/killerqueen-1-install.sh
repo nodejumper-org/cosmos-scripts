@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printLogo
 
-read -p "Enter node moniker: " NODEMONIKER
+read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="killerqueen-1"
 CHAIN_DENOM="uqck"
@@ -12,7 +12,7 @@ BINARY="quicksilverd"
 CHEAT_SHEET="https://nodejumper.io/quicksilver-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODEMONIKER${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
@@ -32,7 +32,7 @@ quicksilverd version # v0.4.1
 
 # replace nodejumper with your own moniker, if you'd like
 quicksilverd config chain-id $CHAIN_ID
-quicksilverd init $NODEMONIKER --chain-id $CHAIN_ID
+quicksilverd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/ingenuity-build/testnets/main/killerqueen/genesis.json > $HOME/.quicksilverd/config/genesis.json
 sha256sum $HOME/.quicksilverd/config/genesis.json # 3510dd3310e3a127507a513b3e9c8b24147f549bac013a5130df4b704f1bac75
