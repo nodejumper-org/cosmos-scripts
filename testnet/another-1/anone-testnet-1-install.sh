@@ -13,7 +13,7 @@ CHEAT_SHEET="https://nodejumper.io/another1-testnet/cheat-sheet"
 
 printLine
 echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}testnet-1.0.3${NC}"
+echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
 sleep 1

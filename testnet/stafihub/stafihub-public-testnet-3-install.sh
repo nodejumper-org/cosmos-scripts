@@ -13,7 +13,7 @@ CHEAT_SHEET="https://nodejumper.io/stafihub-testnet/cheat-sheet"
 
 printLine
 echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}testnet-1.0.3${NC}"
+echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
 sleep 1
@@ -31,8 +31,8 @@ make install
 stafihubd version # nothing is printed
 
 # replace nodejumper with your own moniker, if you'd like
-stafihubd config chain-id stafihub-public-testnet-3
-stafihubd init $NODE_MONIKER --chain-id stafihub-public-testnet-3
+stafihubd config chain-id $CHAIN_ID
+stafihubd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/stafihub/network/main/testnets/stafihub-public-testnet-3/genesis.json > $HOME/.stafihub/config/genesis.json
 sha256sum $HOME/.stafihub/config/genesis.json # 364d5c18b18d3a1d3fcc9125f855610f66c28b5df089ca1900376059273f4ef1
