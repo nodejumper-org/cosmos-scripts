@@ -18,7 +18,7 @@ echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 printLine
 sleep 1
 
-bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
+source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
 
 printCyan "4. Building binaries..." && sleep 1
 
