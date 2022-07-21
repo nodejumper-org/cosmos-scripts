@@ -29,7 +29,7 @@ dewebd q bank balances $(dewebd keys show wallet -a)
 dewebd tx staking create-validator \
 --amount=4500000udws \
 --pubkey=$(dewebd tendermint show-validator) \
---moniker=<YOUR_MONIKER_NAME> \
+--moniker=<YOUR_VALIDATOR_MONIKER> \
 --chain-id=deweb-testnet-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

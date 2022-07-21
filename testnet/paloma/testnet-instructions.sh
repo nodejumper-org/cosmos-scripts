@@ -28,7 +28,7 @@ palomad q bank balances $(palomad keys show wallet -a)
 palomad tx staking create-validator \
 --amount=9000000ugrain \
 --pubkey=$(palomad tendermint show-validator) \
---moniker=<YOUR_MONIKER_NAME> \
+--moniker=<YOUR_VALIDATOR_MONIKER> \
 --chain-id=paloma-testnet-6 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
