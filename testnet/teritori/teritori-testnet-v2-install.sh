@@ -20,7 +20,7 @@ sleep 1
 
 bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
 
-printCyan "Building binaries..." && sleep 1
+printCyan "4. Building binaries..." && sleep 1
 
 cd || return
 rm -rf anone
@@ -30,7 +30,6 @@ git checkout teritori-testnet-v2
 make install
 teritorid version # teritori-testnet-v2-0f4e5cb1d529fa18971664891a9e8e4c114456c6
 
-# replace nodejumper with your own moniker, if you'd like
 teritorid config chain-id $CHAIN_ID
 teritorid init $NODE_MONIKER --chain-id $CHAIN_ID
 
@@ -46,7 +45,7 @@ sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.teritorid/config/app.
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.teritorid/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.teritorid/config/app.toml
 
-printCyan "Starting service and synchronization..." && sleep 1
+printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/teritorid.service > /dev/null << EOF
 [Unit]

@@ -20,7 +20,7 @@ sleep 1
 
 bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
 
-printCyan "Building binaries..." && sleep 1
+printCyan "4. Building binaries..." && sleep 1
 
 cd || return
 rm -rf osmosis
@@ -30,7 +30,6 @@ git checkout v10.0.0
 make install
 osmosisd version # v10.0.0
 
-# replace nodejumper with your own moniker, if you'd like
 osmosisd config chain-id $CHAIN_ID
 osmosisd init $NODE_MONIKER --chain-id $CHAIN_ID
 
@@ -48,7 +47,7 @@ sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.osmosi
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.osmosisd/config/app.toml
 sed -i 's/snapshot-interval *=.*/snapshot-interval = 0/g' $HOME/.osmosisd/config/app.toml
 
-printCyan "Starting service and synchronization..." && sleep 1
+printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/osmosisd.service  > /dev/null << EOF
 [Unit]

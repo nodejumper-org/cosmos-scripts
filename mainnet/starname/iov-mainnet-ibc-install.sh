@@ -20,7 +20,7 @@ sleep 1
 
 bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
 
-printCyan "Building binaries..." && sleep 1
+printCyan "4. Building binaries..." && sleep 1
 
 cd || return
 curl https://github.com/CosmWasm/wasmvm/raw/v0.13.0/api/libwasmvm.so > libwasmvm.so
@@ -32,7 +32,6 @@ git checkout v0.10.13
 make install
 starnamed version # v0.10.13
 
-# replace nodejumper with your own moniker, if you'd like
 starnamed init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://gist.githubusercontent.com/davepuchyr/6bea7bf369064d118195e9b15ea08a0f/raw/cf66fd02ea9336bd79cbc47dd47dcd30aad7831c/genesis.json > $HOME/.starnamed/config/genesis.json
@@ -48,7 +47,7 @@ sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.starnamed/config/app.
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.starnamed/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.starnamed/config/app.toml
 
-printCyan "Starting service and synchronization..." && sleep 1
+printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/starnamed.service > /dev/null << EOF
 [Unit]

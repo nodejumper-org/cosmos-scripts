@@ -20,7 +20,7 @@ sleep 1
 
 bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
 
-printCyan "Building binaries..." && sleep 1
+printCyan "4. Building binaries..." && sleep 1
 
 cd || return
 rm -rf deweb
@@ -30,7 +30,6 @@ git checkout v0.2
 make install
 dewebd version # 0.2
 
-# replace nodejumper with your own moniker, if you'd like
 dewebd config chain-id $CHAIN_ID
 dewebd init $NODE_MONIKER --chain-id $CHAIN_ID
 
@@ -50,7 +49,7 @@ sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.deweb/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.deweb/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.deweb/config/app.toml
 
-printCyan "Starting service and synchronization..." && sleep 1
+printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/dewebd.service > /dev/null << EOF
 [Unit]

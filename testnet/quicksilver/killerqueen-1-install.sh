@@ -20,7 +20,7 @@ sleep 1
 
 bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
 
-printCyan "Building binaries..." && sleep 1
+printCyan "4. Building binaries..." && sleep 1
 
 cd || return
 rm -rf quicksilver
@@ -30,7 +30,6 @@ git checkout v0.4.1
 make install
 quicksilverd version # v0.4.1
 
-# replace nodejumper with your own moniker, if you'd like
 quicksilverd config chain-id $CHAIN_ID
 quicksilverd init $NODE_MONIKER --chain-id $CHAIN_ID
 
@@ -49,7 +48,7 @@ sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.quicks
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.quicksilverd/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.quicksilverd/config/app.toml
 
-printCyan "Starting service and synchronization..." && sleep 1
+printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/quicksilverd.service > /dev/null << EOF
 [Unit]
