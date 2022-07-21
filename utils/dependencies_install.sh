@@ -14,4 +14,4 @@ if [ ! -f "/usr/local/go/bin/go" ]; then
   source .bash_profile
 fi
 
-printCyan "Installed: $(go version)"
+echo "go version: $(go version)"
