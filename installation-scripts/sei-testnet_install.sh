@@ -24,7 +24,7 @@ cd || return
 rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain || return
-git checkout 1.0.6beta
+git checkout 1.0.6beta-val-count-fix
 make install
 seid version
 
