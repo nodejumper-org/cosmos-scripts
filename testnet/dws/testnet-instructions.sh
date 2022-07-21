@@ -1,5 +1,5 @@
 # Create wallet
-$binaryName keys add wallet
+dewebd keys add wallet
 
 ## Console output
 #- name: wallet
@@ -12,13 +12,13 @@ $binaryName keys add wallet
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
 # Wait util the node is synced, should return FALSE
-$binaryName status 2>&1 | jq .SyncInfo.catching_up
+dewebd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #faucet and paste
 $request <YOUR_WALLET_ADDRESS> menkar
 
 # Verify the balance
-$binaryName q bank balances $($binaryName keys show wallet -a)
+dewebd q bank balances $(dewebd keys show wallet -a)
 
 ## Console output
 #  balances:
@@ -26,18 +26,18 @@ $binaryName q bank balances $($binaryName keys show wallet -a)
 #    denom: udws
 
 # Create validator
-$binaryName tx staking create-validator \
---amount=4500000$denomName \
---pubkey=$($binaryName tendermint show-validator) \
+dewebd tx staking create-validator \
+--amount=4500000udws \
+--pubkey=$(dewebd tendermint show-validator) \
 --moniker=<YOUR_MONIKER_NAME> \
---chain-id=$chainId \
+--chain-id=deweb-testnet-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=20000$denomName \
+--fees=20000udws \
 --from=wallet \
 -y
 
 # Make sure you see the validator details
-$binaryName q staking validator $($binaryName keys show wallet --bech val -a)
+dewebd q staking validator $(dewebd keys show wallet --bech val -a)

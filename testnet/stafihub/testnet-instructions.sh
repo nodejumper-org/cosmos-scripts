@@ -1,5 +1,5 @@
 # Create wallet
-$binaryName keys add wallet
+stafihubd keys add wallet
 
 ## Console output
 #- name: wallet
@@ -12,13 +12,13 @@ $binaryName keys add wallet
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
 # Wait util the node is synced, should return FALSE
-$binaryName status 2>&1 | jq .SyncInfo.catching_up
+stafihubd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #stafi-hub-faucetw and paste
 !faucet send <YOUR_WALLET_ADDRESS>
 
 # Verify the balance
-$binaryName q bank balances $($binaryName keys show wallet -a)
+stafihubd q bank balances $(stafihubd keys show wallet -a)
 
 ## Console output
 #  balances:
@@ -26,18 +26,18 @@ $binaryName q bank balances $($binaryName keys show wallet -a)
 #    denom: ufis
 
 # Create validator
-$binaryName tx staking create-validator \
---amount=99000000$denomName \
---pubkey=$($binaryName tendermint show-validator) \
+stafihubd tx staking create-validator \
+--amount=99000000ufis \
+--pubkey=$(stafihubd tendermint show-validator) \
 --moniker=<YOUR_MONIKER_NAME> \
---chain-id=$chainId \
+--chain-id=stafihub-public-testnet-3 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=20000$denomName \
+--fees=20000ufis \
 --from=wallet \
 -y
 
 # Make sure you see the validator details
-$binaryName q staking validator $($binaryName keys show wallet --bech val -a)
+stafihubd q staking validator $(stafihubd keys show wallet --bech val -a)

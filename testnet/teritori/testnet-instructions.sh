@@ -1,5 +1,5 @@
 # Create wallet
-$binaryName keys add wallet
+teritorid keys add wallet
 
 ## Console output
 #- name: wallet
@@ -12,13 +12,13 @@ $binaryName keys add wallet
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
 # Wait util the node is synced, should return FALSE
-$binaryName status 2>&1 | jq .SyncInfo.catching_up
+teritorid status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #faucet and paste
 $request <YOUR_WALLET_ADDRESS>
 
 # Verify the balance
-$binaryName q bank balances $($binaryName keys show wallet -a)
+teritorid q bank balances $(teritorid keys show wallet -a)
 
 ## Console output
 #  balances:
@@ -26,11 +26,11 @@ $binaryName q bank balances $($binaryName keys show wallet -a)
 #    denom: utori
 
 # Create validator
-$binaryName tx staking create-validator \
---amount=1000000$denomName \
---pubkey=$($binaryName tendermint show-validator) \
+teritorid tx staking create-validator \
+--amount=1000000utori \
+--pubkey=$(teritorid tendermint show-validator) \
 --moniker=<YOUR_MONIKER_NAME> \
---chain-id=$chainId \
+--chain-id=teritori-testnet-v2 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
@@ -39,4 +39,4 @@ $binaryName tx staking create-validator \
 -y
 
 # Make sure you see the validator details
-$binaryName q staking validator $($binaryName keys show wallet --bech val -a)
+teritorid q staking validator $(teritorid keys show wallet --bech val -a)

@@ -1,5 +1,5 @@
 # Create wallet
-$binaryName keys add wallet
+anoned keys add wallet
 
 ## Console output
 #- name: wallet
@@ -12,13 +12,13 @@ $binaryName keys add wallet
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
 # Wait util the node is synced, should return FALSE
-$binaryName status 2>&1 | jq .SyncInfo.catching_up
+anoned status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #faucet-testnet-1 and paste
 $request <YOUR_WALLET_ADDRESS>
 
 # Verify the balance
-$binaryName q bank balances $($binaryName keys show wallet -a)
+anoned q bank balances $(anoned keys show wallet -a)
 
 ## Console output
 #  balances:
@@ -26,18 +26,18 @@ $binaryName q bank balances $($binaryName keys show wallet -a)
 #    denom: uan1
 
 # Create validator
-$binaryName tx staking create-validator \
---amount=4500000$denomName \
---pubkey=$($binaryName tendermint show-validator) \
+anoned tx staking create-validator \
+--amount=4500000uan1 \
+--pubkey=$(anoned tendermint show-validator) \
 --moniker=<YOUR_MONIKER_NAME> \
---chain-id=$chainId \
+--chain-id=anone-testnet-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=20000$denomName \
+--fees=20000uan1 \
 --from=wallet \
 -y
 
 # Make sure you see the validator details
-$binaryName q staking validator $($binaryName keys show wallet --bech val -a)
+anoned q staking validator $(anoned keys show wallet --bech val -a)
