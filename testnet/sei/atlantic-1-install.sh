@@ -26,7 +26,7 @@ cd || return
 rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain || return
-git checkout 1.0.6beta-val-count-fix
+git checkout 1.0.7beta-postfix
 make install
 seid version
 
@@ -37,7 +37,6 @@ curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/sei-incentiv
 sha256sum $HOME/.sei/config/genesis.json # 4ae7193446b53d78bb77cab1693a6ddf6c1fe58c9693ed151e71f43956fdb3f7
 
 curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/sei-incentivized-testnet/addrbook.json > $HOME/.sei/config/addrbook.json
-sha256sum $HOME/.sei/config/addrbook.json # a0b8d7c621e35d94e2187ce9b351b170104943aecfde327068524de46ed122d8
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001usei"|g' $HOME/.sei/config/app.toml
 seeds="df1f6617ff5acdc85d9daa890300a57a9d956e5e@sei-atlantic-1.seed.rhinostake.com:16660"
