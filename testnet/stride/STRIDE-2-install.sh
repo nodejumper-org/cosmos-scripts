@@ -6,7 +6,7 @@ printLogo
 
 read -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="STRIDE-2"
+CHAIN_ID="STRIDE-TESTNET-2"
 CHAIN_DENOM="ustrd"
 BINARY="strided"
 CHEAT_SHEET="https://nodejumper.io/stride-testnet/cheat-sheet"
