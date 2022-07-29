@@ -25,15 +25,16 @@ cd || return
 rm -rf juno
 git clone https://github.com/CosmosContracts/juno
 cd juno || return
-git checkout v6.0.0
+git checkout v9.0.0
 make install
-junod version # v6.0.0
+junod version # v9.0.0
 
 # setup cosmovisor
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/cosmovisor_install.sh)
-mkdir -p $HOME/.juno/cosmovisor/upgrades/v6.0.0/bin
-ln -s $HOME/.juno/cosmovisor/upgrades/v6.0.0 $HOME/.juno/cosmovisor/current
-mv $HOME/go/bin/junod $HOME/.juno/cosmovisor/upgrades/v6.0.0/bin
+mkdir -p $HOME/.juno/cosmovisor/upgrades/v9.0.0/bin
+rm $HOME/.juno/cosmovisor/current
+ln -s $HOME/.juno/cosmovisor/upgrades/v9.0.0 $HOME/.juno/cosmovisor/current
+mv $HOME/go/bin/junod $HOME/.juno/cosmovisor/upgrades/v9.0.0/bin
 addToPath "$HOME/.juno/cosmovisor/current/bin"
 source $HOME/.bash_profile
 
