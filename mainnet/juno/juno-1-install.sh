@@ -30,18 +30,18 @@ make install
 junod version # v6.0.0
 
 # setup cosmovisor
-go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@latest
+source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/cosmovisor_install.sh)
 mkdir -p $HOME/.juno/cosmovisor/upgrades/v6.0.0/bin
 ln -s $HOME/.juno/cosmovisor/upgrades/v6.0.0 $HOME/.juno/cosmovisor/current
 mv $HOME/go/bin/junod $HOME/.juno/cosmovisor/upgrades/v6.0.0/bin
 addToPath "$HOME/.juno/cosmovisor/current/bin"
-source .bash_profile
+source $HOME/.bash_profile
 
 junod config chain-id $CHAIN_ID
 junod init $NODE_MONIKER --chain-id $CHAIN_ID
 
 cd || return
-curl -# -L https://share.blockpane.com/juno/phoenix/genesis.json >~/.juno/config/genesis.json
+curl -# -L https://share.blockpane.com/juno/phoenix/genesis.json >$HOME/.juno/config/genesis.json
 sha256sum $HOME/.juno/config/genesis.json # 1839fcf10ade35b81aad83bc303472bd0e9832efb0ab2382b382e3cc07b265e0
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025ujuno,0.001ibc\/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9"|g' $HOME/.juno/config/app.toml
@@ -62,7 +62,7 @@ Description=Juno Daemon (cosmovisor)
 After=network-online.target
 [Service]
 User=${USER}
-ExecStart=$(which cosmovisor) start
+ExecStart=$(which cosmovisor) run start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
