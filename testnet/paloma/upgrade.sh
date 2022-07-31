@@ -5,7 +5,7 @@ curl -s https://raw.githubusercontent.com/palomachain/testnet/master/paloma-test
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
 
-peers="484e0d3cc02ba868d4ad68ec44caf89dd14d1845@paloma-testnet.nodejumper.io:33656,8fab1d100d1c01de299788758d31d36c321c23b5@144.202.103.140:26656,8fab1d100d1c01de299788758d31d36c321c23b5@144.202.103.140:26656,1f74adfbfa794a53b104368fcb1189eddc18d66f@173.255.229.106:26656"
+peers="ae6eaae5fb773948281b65eca4ec031a40e42b17@50.116.15.176:26656,8912f06b337b9f773225bd59e5a139e5af7eb852@65.108.235.107:10656,abc044647c4906472ca3564c5b30c6cede44e9d1@23.88.77.188:20003,b1d4dd40ea8aeb01443e92d941a719ccd7a2f4b5@130.185.118.165:10656,2d81fe626fcbeb39baa7f0e5f80ce397c87b2ee1@185.144.99.227:26656,b522201fa15b07ee3b503e853fe90cb44cf56a3c@168.119.229.69:26656,1cf04bee1fbf28f6a6a3da3d1aa13f89d0d4c296@185.244.181.27:26656"
 sed -i 's|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.paloma/config/config.toml
 
 sudo systemctl restart palomad
