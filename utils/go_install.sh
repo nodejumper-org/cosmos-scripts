@@ -14,6 +14,7 @@ sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
 rm "go$version.linux-amd64.tar.gz"
 
+touch $HOME/.bash_profile
 source $HOME/.bash_profile
 PATH_INCLUDES_GO=$(grep "$HOME/go/bin" $HOME/.bash_profile)
 if [ -z "$PATH_INCLUDES_GO" ]; then

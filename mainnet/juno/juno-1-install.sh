@@ -29,25 +29,15 @@ git checkout v9.0.0
 make install
 junod version # v9.0.0
 
-# setup cosmovisor
-source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/cosmovisor_install.sh)
-mkdir -p $HOME/.juno/cosmovisor/upgrades/v9.0.0/bin
-rm $HOME/.juno/cosmovisor/current
-ln -s $HOME/.juno/cosmovisor/upgrades/v9.0.0 $HOME/.juno/cosmovisor/current
-mv $HOME/go/bin/junod $HOME/.juno/cosmovisor/upgrades/v9.0.0/bin
-addToPath "$HOME/.juno/cosmovisor/current/bin"
-source $HOME/.bash_profile
-
 junod config chain-id $CHAIN_ID
 junod init $NODE_MONIKER --chain-id $CHAIN_ID
 
-cd || return
-curl -# -L https://share.blockpane.com/juno/phoenix/genesis.json >$HOME/.juno/config/genesis.json
+curl https://share.blockpane.com/juno/phoenix/genesis.json > $HOME/.juno/config/genesis.json
 sha256sum $HOME/.juno/config/genesis.json # 1839fcf10ade35b81aad83bc303472bd0e9832efb0ab2382b382e3cc07b265e0
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025ujuno,0.001ibc\/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9"|g' $HOME/.juno/config/app.toml
 seeds=""
-peers="$(curl -sL "https://raw.githubusercontent.com/CosmosContracts/mainnet/main/$CHAIN_ID/persistent_peers.txt")"
+peers="87ed42f2dd265013f3e5a6643ff6e0fffadb9aa0@juno.nodejumper.io:29656,b1f46f1a1955fc773d3b73180179b0e0a07adce1@162.55.244.250:39656,7f593757c0cde8972ce929381d8ac8e446837811@178.18.255.244:26656,7b22dfc605989d66b89d2dfe118d799ea5abc2f0@167.99.210.65:26656,4bd9cac019775047d27f9b9cea66b25270ab497d@137.184.7.164:26656,bd822a8057902fbc80fd9135e335f0dfefa32342@65.21.202.159:38656,15827c6c13f919e4d9c11bcca23dff4e3e79b1b8@51.38.52.210:38656,e665df28999b2b7b40cff2fe4030682c380bf294@188.40.106.109:38656,92804ce50c85ff4c7cf149d347dd880fc3735bf4@34.94.231.154:26656,795ed214b8354e8468f46d1bbbf6e128a88fe3bd@34.127.19.222:26656,ea9c1ac0e91639b2c7957d9604655e2263abe4e1@185.181.103.136:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.juno/config/config.toml
 
 # in case of pruning
@@ -59,20 +49,14 @@ printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/junod.service >/dev/null <<EOF
 [Unit]
-Description=Juno Daemon (cosmovisor)
+Description=Juno Node
 After=network-online.target
 [Service]
-User=${USER}
-ExecStart=$(which cosmovisor) run start
-Restart=always
-RestartSec=3
-LimitNOFILE=4096
-Environment="DAEMON_NAME=junod"
-Environment="DAEMON_HOME=${HOME}/.juno"
-Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"
-Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
-Environment="UNSAFE_SKIP_BACKUP=true
-Environment="DAEMON_LOG_BUFFER_SIZE=512"
+User=$USER
+ExecStart=$(which junod) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=10000
 [Install]
 WantedBy=multi-user.target
 EOF
