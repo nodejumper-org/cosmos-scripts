@@ -27,6 +27,7 @@ rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain || return
 git checkout 1.0.7beta-postfix
+if [ -f "/usr/local/bin/seid" ]; then rm /usr/local/bin/seid; fi
 make install
 seid version
 
