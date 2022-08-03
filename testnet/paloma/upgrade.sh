@@ -1,5 +1,5 @@
 sudo systemctl stop palomad
-curl -L https://github.com/palomachain/paloma/releases/download/v0.4.1-alpha/paloma_0.4.1-alpha_Linux_x86_64.tar.gz | sudo tar -C /usr/local/bin -xvzf - palomad
+curl -L https://github.com/palomachain/paloma/releases/latest/download/paloma_Linux_x86_64.tar.gz | sudo tar -C /usr/local/bin -xvzf - palomad
 curl -s https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-6/genesis.json > $HOME/.paloma/config/genesis.json
 curl -s https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-6/addrbook.json > $HOME/.paloma/config/addrbook.json
 

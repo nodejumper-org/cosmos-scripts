@@ -24,17 +24,17 @@ printCyan "4. Building binaries..." && sleep 1
 cd || return
 curl -L https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so > libwasmvm.x86_64.so
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
-curl -L https://github.com/palomachain/paloma/releases/download/v0.4.1-alpha/paloma_0.4.1-alpha_Linux_x86_64.tar.gz > paloma.tar.gz
+curl -L https://github.com/palomachain/paloma/releases/download/v0.5.0/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
 tar -xvzf paloma.tar.gz
 rm -rf paloma.tar.gz
 sudo mv -f palomad /usr/local/bin/palomad
-palomad version # v0.4.1-alpha
+palomad version # v0.5.0
 
 palomad config chain-id $CHAIN_ID
 palomad init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-6/genesis.json > $HOME/.paloma/config/genesis.json
-sha256sum $HOME/.paloma/config/genesis.json # ad6d37a6ee49f0d04cb84150337968db6092ce1d2c10b5719eff52d73a12e34f
+sha256sum $HOME/.paloma/config/genesis.json # cea9261e0d8130603513f21ad0e3c7c4f4f5cc2febbf4a0abc9ebb09eccfef7a
 
 curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-6/addrbook.json > $HOME/.paloma/config/addrbook.json
 
