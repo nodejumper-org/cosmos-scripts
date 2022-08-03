@@ -26,15 +26,15 @@ rebusd q bank balances $(rebusd keys show wallet -a)
 
 # Create validator
 anoned tx staking create-validator \
---amount=900000uan1 \
+--amount=900000arebus \
 --pubkey=$(rebusd tendermint show-validator) \
 --moniker=<YOUR_VALIDATOR_MONIKER> \
---chain-id=anone-testnet-1 \
+--chain-id=reb_3333-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=20000uan1 \
+--fees=20000arebus \
 --from=wallet \
 -y
 
