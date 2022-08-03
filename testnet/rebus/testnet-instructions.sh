@@ -1,5 +1,5 @@
 # Create wallet
-rebusd keys add wallet
+rebusd keys add wallet --coin-type 118 --algo secp256k1
 
 ## Console output
 #- name: wallet
