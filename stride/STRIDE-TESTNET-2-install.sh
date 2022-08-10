@@ -26,11 +26,11 @@ cd || return
 rm -rf stride
 git clone https://github.com/Stride-Labs/stride.git
 cd stride || return
-git checkout 3cb77a79f74e0b797df5611674c3fbd000dfeaa1
+git checkout 15e65e9a364804671425051606fe0be6536452fe
 make build
 mkdir -p $HOME/go/bin
 sudo cp $HOME/stride/build/strided $HOME/go/bin
-strided version #
+strided version #v0.3.0
 
 strided config chain-id $CHAIN_ID
 strided init $NODE_MONIKER --chain-id $CHAIN_ID
