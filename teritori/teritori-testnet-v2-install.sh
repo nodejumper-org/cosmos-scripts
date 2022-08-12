@@ -23,7 +23,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
-rm -rf anone
+rm -rf teritori-chain
 git clone https://github.com/TERITORI/teritori-chain
 cd teritori-chain || return
 git checkout teritori-testnet-v2
