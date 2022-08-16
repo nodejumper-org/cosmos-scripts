@@ -1,8 +1,9 @@
 sudo systemctl stop palomad
 
 cd || return
-wget -O - https://github.com/palomachain/paloma/releases/download/v0.6.1/paloma_Linux_x86_64.tar.gz
-sudo tar -C /usr/local/bin -xvzf - palomad
+curl -# -L https://github.com/palomachain/paloma/releases/download/v0.6.1/paloma_Linux_x86_64.tar.gz > paloma_Linux_x86_64.tar.gz
+sudo tar -xvzf paloma_Linux_x86_64.tar.gz palomad
+sudo mv palomad /usr/local/bin
 rm paloma_Linux_x86_64.tar.gz
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
