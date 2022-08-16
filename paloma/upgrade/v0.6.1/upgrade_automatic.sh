@@ -5,16 +5,16 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 printLogo
 
 BLOCK=626886
-VERSION="v1.4.1"
+VERSION="v0.6.1"
 BINARY="palomad"
-CHEAT_SHEET="https://nodejumper.io/paloma/cheat-sheet"
+CHEAT_SHEET="https://nodejumper.io/paloma-testnet/cheat-sheet"
 
 printCyan "Your node will be upgraded to version: $VERSION on block height: $BLOCK" && sleep 1
 
 for (( ; ; )); do
   height=$($BINARY status 2>&1 | jq -r .SyncInfo.latest_block_height)
   if ((height >= $BLOCK)); then
-    source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/main/bitcanna/upgrade/v0.6.1/upgrade_manual.sh)
+    source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/main/paloma/upgrade/v0.6.1/upgrade_manual.sh)
     printCyan "Your node was successfully upgraded to version: $VERSION" && sleep 1
     strided version --long | head
     break
