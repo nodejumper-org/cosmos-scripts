@@ -6,7 +6,7 @@ printLogo
 
 read -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="paloma-testnet-6"
+CHAIN_ID="paloma-testnet-7"
 CHAIN_DENOM="ugrain"
 BINARY="palomad"
 CHEAT_SHEET="https://nodejumper.io/paloma-testnet/cheat-sheet"
@@ -24,19 +24,19 @@ printCyan "4. Building binaries..." && sleep 1
 cd || return
 curl -L https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so > libwasmvm.x86_64.so
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
-curl -L https://github.com/palomachain/paloma/releases/download/v0.5.0/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
+curl -L https://github.com/palomachain/pigeon/releases/download/v0.6.1/pigeon_Linux_x86_64.tar.gz > paloma.tar.gz
 tar -xvzf paloma.tar.gz
 rm -rf paloma.tar.gz
 sudo mv -f palomad /usr/local/bin/palomad
-palomad version # v0.5.0
+palomad version # v0.6.1
 
 palomad config chain-id $CHAIN_ID
 palomad init $NODE_MONIKER --chain-id $CHAIN_ID
 
-curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-6/genesis.json > $HOME/.paloma/config/genesis.json
-sha256sum $HOME/.paloma/config/genesis.json # cea9261e0d8130603513f21ad0e3c7c4f4f5cc2febbf4a0abc9ebb09eccfef7a
+curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-7/genesis.json > $HOME/.paloma/config/genesis.json
+sha256sum $HOME/.paloma/config/genesis.json # 14a47e63ab50f4f24de98d12dd42f0509ebf60eb3e48854afaecaf14bdb50547
 
-curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-6/addrbook.json > $HOME/.paloma/config/addrbook.json
+curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-7/addrbook.json > $HOME/.paloma/config/addrbook.json
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ugrain"|g' $HOME/.paloma/config/app.toml
 seeds=""
