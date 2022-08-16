@@ -62,7 +62,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-bcnad unsafe-reset-all
+bcnad tendermint unsafe-reset-all --home $HOME/.bcna --keep-addr-book
 
 SNAP_RPC="https://bitcanna.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
