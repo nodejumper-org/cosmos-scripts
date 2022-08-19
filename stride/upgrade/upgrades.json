@@ -1,6 +1,7 @@
 [
   {
     "height": 0,
-    "version": "STRIDE-TESTNET-4"
+    "version": "STRIDE-TESTNET-4",
+    "automaticUpgradeDisabled": true
   }
 ]
