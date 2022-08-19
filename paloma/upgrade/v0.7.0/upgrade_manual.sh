@@ -1,14 +1,16 @@
 sudo systemctl stop palomad
 
-cd || return
-curl -# -L https://github.com/palomachain/paloma/releases/download/v0.6.1/paloma_Linux_x86_64.tar.gz > paloma_Linux_x86_64.tar.gz
-sudo tar -xvzf paloma_Linux_x86_64.tar.gz palomad
-sudo mv palomad /usr/local/bin
-rm paloma_Linux_x86_64.tar.gz
+curl -L https://github.com/palomachain/paloma/releases/download/v0.7.0/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
+tar -xvzf paloma.tar.gz
+rm -rf paloma.tar.gz
+sudo mv -f palomad /usr/local/bin/palomad
+palomad version # v0.7.0
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
 
-wget -O ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-7/genesis.json
-wget -O ~/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-7/addrbook.json
+wget -O ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-8/genesis.json
+wget -O ~/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-8/addrbook.json
 
-sudo systemctl start palomad
+sudo systemctl restart palomad
+
+sudo journalctl -u paloamd -f --no-hostname -o cat
