@@ -23,4 +23,3 @@ peers=""
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.stride/config/config.toml
 
 sudo systemctl restart strided
-sudo journalctl -u strided -f -o cat --no-hostname
