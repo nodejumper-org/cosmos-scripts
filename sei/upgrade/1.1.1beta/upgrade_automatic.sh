@@ -16,7 +16,7 @@ for (( ; ; )); do
   if ((height >= $BLOCK)); then
     bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/main/sei/upgrade/$VERSION/upgrade_manual.sh)
     printCyan "Your node was successfully upgraded to version: $VERSION" && sleep 1
-    strided version --long | head
+    seid version --long | head
     break
   else
     echo "Current block height: $height"
