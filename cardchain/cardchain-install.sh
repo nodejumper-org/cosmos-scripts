@@ -8,7 +8,7 @@ read -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="Cardchain"
 CHAIN_DENOM="ubpf"
-BINARY="cardchain"
+BINARY="Cardchain"
 CHEAT_SHEET="https://nodejumper.io/cardchain-testnet/cheat-sheet"
 
 printLine
@@ -77,6 +77,6 @@ sudo systemctl enable Cardchaind
 sudo systemctl restart Cardchaind
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u ${BINARY}d -f --no-hostname -o cat ${NC}"
 echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
