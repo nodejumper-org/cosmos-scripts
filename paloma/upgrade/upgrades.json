@@ -1,11 +1,17 @@
 [
   {
     "height": 626886,
-    "version": "v0.6.1"
+    "version": "v0.6.1",
+    "automaticUpgradeDisabled": true
   },
   {
     "height": 626887,
     "version": "v0.7.0",
+    "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 626888,
+    "version": "v0.8.0",
     "automaticUpgradeDisabled": true
   }
 ]

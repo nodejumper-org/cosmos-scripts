@@ -13,4 +13,4 @@ wget -O ~/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomac
 
 sudo systemctl restart palomad
 
-sudo journalctl -u paloamd -f --no-hostname -o cat
+sudo journalctl -u palomad -f --no-hostname -o cat
