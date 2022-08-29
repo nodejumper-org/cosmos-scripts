@@ -60,7 +60,8 @@ User=$USER
 ExecStart=$(which palomad) start
 Restart=on-failure
 RestartSec=10
-LimitNOFILE=10000
+LimitNOFILE=65535
+Environment="PIGEON_HEALTHCHECK_PORT=5757"
 [Install]
 WantedBy=multi-user.target
 EOF
