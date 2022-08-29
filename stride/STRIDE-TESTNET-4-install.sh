@@ -32,6 +32,7 @@ mkdir -p $HOME/go/bin
 sudo cp $HOME/stride/build/strided $HOME/go/bin
 strided version #v0.4.1
 
+strided config keyring-backend test
 strided config chain-id $CHAIN_ID
 strided init $NODE_MONIKER --chain-id $CHAIN_ID
 

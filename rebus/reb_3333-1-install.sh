@@ -30,6 +30,7 @@ git checkout testnet
 make install
 rebusd version # testnet.6f73acac323e89b6b1f7b38aa1ee884b39234e75
 
+rebusd config keyring-backend test
 rebusd config chain-id $CHAIN_ID
 rebusd init $NODE_MONIKER --chain-id $CHAIN_ID
 

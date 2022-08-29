@@ -30,6 +30,7 @@ git checkout v0.4.1
 make install
 quicksilverd version # v0.4.1
 
+quicksilverd config keyring-backend test
 quicksilverd config chain-id $CHAIN_ID
 quicksilverd init $NODE_MONIKER --chain-id $CHAIN_ID
 

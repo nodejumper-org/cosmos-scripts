@@ -30,6 +30,7 @@ git checkout v0.2.0
 make install
 uptickd version # v0.2.0
 
+uptickd config keyring-backend test
 uptickd config chain-id $CHAIN_ID
 uptickd init $NODE_MONIKER --chain-id $CHAIN_ID
 

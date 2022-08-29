@@ -30,6 +30,7 @@ rm -rf paloma.tar.gz
 sudo mv -f palomad /usr/local/bin/palomad
 palomad version # v0.7.0
 
+palomad config keyring-backend test
 palomad config chain-id $CHAIN_ID
 palomad init $NODE_MONIKER --chain-id $CHAIN_ID
 
