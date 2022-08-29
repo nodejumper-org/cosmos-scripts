@@ -60,7 +60,7 @@ EOF
 
 Cardchain unsafe-reset-all
 
-SNAP_RPC="http://cc.stake-take.com:36657"
+SNAP_RPC="https://cardchain-testnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
