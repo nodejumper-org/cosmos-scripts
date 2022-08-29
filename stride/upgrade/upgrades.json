@@ -3,5 +3,9 @@
     "height": 0,
     "version": "STRIDE-TESTNET-4",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 70500,
+    "version": "v0.4.1"
   }
 ]

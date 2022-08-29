@@ -30,6 +30,7 @@ git checkout v0.2
 make install
 dewebd version # 0.2
 
+dewebd config keyring-backend test
 dewebd config chain-id $CHAIN_ID
 dewebd init $NODE_MONIKER --chain-id $CHAIN_ID
 

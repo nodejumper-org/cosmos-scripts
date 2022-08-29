@@ -30,6 +30,7 @@ git checkout testnet-1.0.3
 make install
 anoned version # testnet-1.0.3
 
+anoned config keyring-backend test
 anoned config chain-id $CHAIN_ID
 anoned init $NODE_MONIKER --chain-id $CHAIN_ID
 

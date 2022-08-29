@@ -30,6 +30,7 @@ git checkout teritori-testnet-v2
 make install
 teritorid version # teritori-testnet-v2-0f4e5cb1d529fa18971664891a9e8e4c114456c6
 
+teritorid config keyring-backend test
 teritorid config chain-id $CHAIN_ID
 teritorid init $NODE_MONIKER --chain-id $CHAIN_ID
 

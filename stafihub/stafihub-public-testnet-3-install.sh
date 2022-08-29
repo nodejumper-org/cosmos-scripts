@@ -30,6 +30,7 @@ git checkout public-testnet-v3
 make install
 stafihubd version # nothing is printed
 
+stafihubd config keyring-backend test
 stafihubd config chain-id $CHAIN_ID
 stafihubd init $NODE_MONIKER --chain-id $CHAIN_ID
 
