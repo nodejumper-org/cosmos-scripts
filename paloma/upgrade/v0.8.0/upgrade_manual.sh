@@ -12,5 +12,3 @@ wget -O ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomach
 wget -O ~/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-10/addrbook.json
 
 sudo systemctl restart palomad
-
-sudo journalctl -u palomad -f --no-hostname -o cat
