@@ -24,11 +24,11 @@ printCyan "4. Building binaries..." && sleep 1
 cd || return
 curl -L https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so > libwasmvm.x86_64.so
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
-curl -L https://github.com/palomachain/paloma/releases/download/v0.8.0/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
+curl -L https://github.com/palomachain/paloma/releases/download/v0.8.1/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
 tar -xvzf paloma.tar.gz
 rm -rf paloma.tar.gz
 sudo mv -f palomad /usr/local/bin/palomad
-palomad version # v0.8.0
+palomad version # v0.8.1
 
 palomad config chain-id $CHAIN_ID
 palomad init $NODE_MONIKER --chain-id $CHAIN_ID
@@ -68,17 +68,17 @@ EOF
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
 
-#SNAP_RPC="https://paloma-testnet.nodejumper.io:443"
-#LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-#BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-#TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-#
-#echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-#
-#sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-#s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-#s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-#s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.paloma/config/config.toml
+SNAP_RPC="https://paloma-testnet.nodejumper.io:443"
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.paloma/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable palomad
