@@ -30,7 +30,7 @@ strided tx staking create-validator \
 --amount=9000000ustrd \
 --pubkey=$(strided tendermint show-validator) \
 --moniker=<YOUR_VALIDATOR_MONIKER> \
---chain-id=STRIDE-TESTNET-2 \
+--chain-id=STRIDE-TESTNET-4 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
