@@ -16,7 +16,7 @@ for (( ; ; )); do
   if ((height >= $BLOCK)); then
     source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/main/bitcanna/upgrade/$VERSION/upgrade_manual.sh)
     printCyan "Your node was successfully upgraded to version: $VERSION" && sleep 1
-    bitcanna version --long | head
+    bcnad version --long | head
     break
   else
     echo "Current block height: $height"
