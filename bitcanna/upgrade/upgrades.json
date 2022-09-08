@@ -2,5 +2,10 @@
   {
     "height": 4490420,
     "version": "v1.4.1"
+  },
+  {
+    "height": 4902000,
+    "version": "v1.4.2",
+    "automaticUpgradeDisabled": true
   }
 ]
