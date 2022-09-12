@@ -6,7 +6,7 @@ printLogo
 
 read -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="atlantic-1"
+CHAIN_ID="atlantic-sub-1"
 CHAIN_DENOM="usei"
 BINARY="seid"
 CHEAT_SHEET="https://nodejumper.io/sei-testnet/cheat-sheet"
@@ -26,22 +26,22 @@ cd || return
 rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain || return
-git checkout 1.1.1beta
+git checkout 1.1.2beta-internal
 make install
-seid version
+seid version #1.1.2beta-internal
 
 seid config keyring-backend test
 seid config chain-id $CHAIN_ID
 seid init $NODE_MONIKER --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/sei-incentivized-testnet/genesis.json > $HOME/.sei/config/genesis.json
-sha256sum $HOME/.sei/config/genesis.json # 4ae7193446b53d78bb77cab1693a6ddf6c1fe58c9693ed151e71f43956fdb3f7
+curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/atlantic-subchains/atlantic-sub-1/genesis.json > $HOME/.sei/config/genesis.json
+sha256sum $HOME/.sei/config/genesis.json # b04350f2cc2db7ee1bd6a8a125167ce0a49c528aca78fe95085cdd2413dac863
 
-curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/sei-incentivized-testnet/addrbook.json > $HOME/.sei/config/addrbook.json
+curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/atlantic-subchains/atlantic-sub-1/addrbook.json > $HOME/.sei/config/addrbook.json
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001usei"|g' $HOME/.sei/config/app.toml
-seeds="df1f6617ff5acdc85d9daa890300a57a9d956e5e@sei-atlantic-1.seed.rhinostake.com:16660"
-peers="4b5fb7390e9c64bc96f048816f472f4559fafd94@sei-testnet.nodejumper.io:28656,4b5fb7390e9c64bc96f048816f472f4559fafd94@sei-testnet.nodejumper.io:28656,45b4b8ddb11e575ae11ae80da172e2d030b64479@95.217.12.131:26656,8bd7bd4cfce28f5226f422fd85845e949cf6dfd0@65.108.246.4:26656,3d9f0098ca688b92bb21aed423d131dd7facaad7@217.79.178.14:26656,edb62e1f56ebea162fbfa6d61bff8c954eefd26c@167.235.58.116:26656,b394718cacbcb13337b6903905554535154169e6@176.126.87.128:26656,8e05189591bc3a6b9cb636daf05fee7ff47e975a@64.227.40.51:26656,994e38eaf5eb6021fa0064161696fc9ffd955259@89.163.208.177:26656,aaa1da62895d2a8daaf09b235ca82a55c8d9efd7@173.212.203.238:46656,577737740332cdcef7d02c63eade18211f583558@149.102.133.116:12656,bd9641a334d6d10b5fdb55b623bab103be8ba5ff@185.231.154.243:26656,5c1ef680038d1a357b4c105fdce9e80a9553af98@149.102.138.181:26656,e772c28c8f0a36cbadc48438ab6b950f262519d4@77.37.176.99:26656,dd79c1b2ca0667505c581d62f80d5a94b1e30097@157.245.100.103:36376,ad6d30dc6805df4f48b49d9013bbb921a5713fa6@20.211.82.153:26656,ff9305a6acfaf206dbf4ee2c6e732875c59b608b@149.102.140.38:12656,62744edab552772612c150faa22929c7ad7cc4df@38.242.148.172:26656,3b5ae3a1691d4ed24e67d7fe1499bc081c3ad8b0@65.108.131.189:20956,15139786b29d53366209748f425ee42ae3e9aef0@194.163.132.127:26656,02be57dc6d6491bf272b823afb81f24d61243e1e@141.94.139.233:26656,873a358b46b07c0c7c0280397a5ad27954a10633@141.95.175.196:26656,16225e262a0d38fe73073ab199f583e4a607e471@135.181.59.162:19656,8d30215eb6947e36ffe572ea9b48409492c03494@168.119.149.188:26656"
+seeds=""
+peers="4b5fb7390e9c64bc96f048816f472f4559fafd94@sei-testnet.nodejumper.io:28656,9042230935e18ddddbf20a0048424dd7d9f933af@135.181.57.209:28056,cb4a8785dcdd2f65bd4c93429779a27e24c87399@65.109.16.162:60556,199fb2a6a411097f2e3fcc15be26be0cfafb1a02@65.108.231.253:36656,e14cb72edc5bf06a55efa7ad1f5b3a5b9a8b167d@65.108.140.222:12656,9324371932afc5a61d048a43c9713ab6742f9ff7@95.216.69.173:26656,76d4edb6049b2c2aa139fb0dcceb1370f830e1a0@95.217.176.153:26656,dd8b73cad778d622c255e6dcebf42262985bae1d@65.21.151.93:36656,7523321221062c5005b447ef562f4ec4553f2f24@95.165.149.94:27656,50f9584a12170db325dce12c1bc81e54f6e45308@89.163.223.34:26656,58a0d3e414f456bfa5efa4c789ce96aaf08a71ca@78.107.234.44:16656,0a08627f8b5e2c3a689ef54f91b237f5bd806a89@77.37.176.99:26656,d4ae3a62044a181cb33124b55c9cee425d66547e@5.161.64.169:26656,1fea05a3023c02c553ddc543a3cd21d142666863@149.102.142.149:26656,02be57dc6d6491bf272b823afb81f24d61243e1e@95.217.229.70:27656,f4b1aa3416073a4493de7889505fc19777326825@135.181.133.37:28656,ca3409b068d2858c4ff2b9543dfbcc0027820816@65.21.138.123:29656,873a358b46b07c0c7c0280397a5ad27954a10633@141.95.104.169:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.sei/config/config.toml
 
 # in case of pruning
