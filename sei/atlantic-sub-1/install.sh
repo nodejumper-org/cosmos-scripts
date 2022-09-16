@@ -26,9 +26,9 @@ cd || return
 rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain || return
-git checkout 1.1.2beta-internal
+git checkout tags/1.2.0beta
 make install
-seid version #1.1.2beta-internal
+seid version #1.2.0beta
 
 seid config keyring-backend test
 seid config chain-id $CHAIN_ID
