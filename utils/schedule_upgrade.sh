@@ -2,9 +2,10 @@
 
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/common.sh)
 
-while getopts n:t:v:b:c: flag; do
+while getopts n:i:t:v:b:c: flag; do
   case "${flag}" in
   n) CHAIN_NAME=$OPTARG ;;
+  i) CHAIN_ID=$OPTARG ;;
   t) TARGET_BLOCK=$OPTARG ;;
   v) VERSION=$OPTARG ;;
   b) BINARY=$OPTARG ;;
@@ -20,7 +21,7 @@ printCyan "Your $CHAIN_NAME node will be upgraded to version: $VERSION on block 
 for (( ; ; )); do
   height=$($BINARY status 2>&1 | jq -r .SyncInfo.latest_block_height)
   if ((height >= TARGET_BLOCK)); then
-    bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/main/$CHAIN_NAME/upgrade/$VERSION/upgrade_manual.sh)
+    bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/main/$CHAIN_NAME/$CHAIN_ID/upgrade/$VERSION.sh)
     printCyan "Your node was successfully upgraded to version: $VERSION" && sleep 1
     strided version --long | head
     break
