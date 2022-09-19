@@ -14,8 +14,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 # Wait util the node is synced, should return FALSE
 seid status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #sei-devnet-1-faucet and paste
-!faucet <YOUR_WALLET_ADDRESS>
+# Go to discord and ask for tokens
 
 # Verify the balance
 seid q bank balances $(seid keys show wallet -a)

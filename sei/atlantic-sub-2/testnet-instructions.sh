@@ -14,8 +14,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 # Wait util the node is synced, should return FALSE
 seid status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #sei-devnet-1-faucet and paste
-!faucet <YOUR_WALLET_ADDRESS>
+# Go to discord and ask for tokens
 
 # Verify the balance
 seid q bank balances $(seid keys show wallet -a)
@@ -30,7 +29,7 @@ seid tx staking create-validator \
 --amount=1000000usei \
 --pubkey=$(seid tendermint show-validator) \
 --moniker=<YOUR_VALIDATOR_MONIKER> \
---chain-id=atlantic-1 \
+--chain-id=atlantic-sub-2 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
