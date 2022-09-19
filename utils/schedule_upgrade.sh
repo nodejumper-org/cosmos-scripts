@@ -21,9 +21,9 @@ printCyan "Your $CHAIN_NAME node will be upgraded to version: $VERSION on block 
 for (( ; ; )); do
   height=$($BINARY status 2>&1 | jq -r .SyncInfo.latest_block_height)
   if ((height >= TARGET_BLOCK)); then
-    bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/$CHAIN_NAME/$CHAIN_ID/upgrade/$VERSION.sh)
+    bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/${CHAIN_NAME,,}/$CHAIN_ID/upgrade/$VERSION.sh)
     printCyan "Your node was successfully upgraded to version: $VERSION" && sleep 1
-    strided version --long | head
+    $BINARY version --long | head
     break
   else
     echo "Current block height: $height"
