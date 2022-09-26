@@ -63,7 +63,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-dewebd unsafe-reset-all
+dewebd tendermint unsafe-reset-all --home $HOME/.deweb --keep-addr-book
 
 SNAP_RPC="https://dws-testnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
