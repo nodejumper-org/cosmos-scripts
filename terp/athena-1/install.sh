@@ -9,7 +9,7 @@ read -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="athena-1"
 CHAIN_DENOM="upersy"
 BINARY="terpd"
-CHEAT_SHEET="https://nodejumper.io/terpnetwork/cheat-sheet"
+CHEAT_SHEET="https://nodejumper.io/terpnetwork-testnet/cheat-sheet"
 
 printLine
 echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
@@ -30,6 +30,7 @@ git checkout v0.1.0
 make install
 terpd version # v0.1.0
 
+terpd config keyring-backend test
 terpd config chain-id $CHAIN_ID
 terpd init $NODE_MONIKER --chain-id $CHAIN_ID
 
@@ -68,8 +69,8 @@ terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
 cd "$HOME/.terp" || return
 rm -rf data
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/terp-testnet/ | egrep -o ">athena-1.*\.tar.lz4" | tr -d ">")
-curl https://snapshots2-testnet.nodejumper.io/terp-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/terpnetwork-testnet/ | egrep -o ">athena-1.*\.tar.lz4" | tr -d ">")
+curl https://snapshots2-testnet.nodejumper.io/terpnetwork-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
 
 sudo systemctl daemon-reload
 sudo systemctl enable terpd
