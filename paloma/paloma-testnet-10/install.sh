@@ -24,6 +24,8 @@ printCyan "4. Building binaries..." && sleep 1
 cd || return
 curl -L https://github.com/CosmWasm/wasmvm/raw/main/internal/api/libwasmvm.x86_64.so > libwasmvm.x86_64.so
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
+
+# palomad binary
 curl -L https://github.com/palomachain/paloma/releases/download/v0.9.0/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
 tar -xvzf paloma.tar.gz
 rm -rf paloma.tar.gz
@@ -49,6 +51,46 @@ sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.paloma
 sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.paloma/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.paloma/config/app.toml
 
+# pigeon binary and config
+curl -L https://github.com/palomachain/pigeon/releases/download/v0.8.1/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
+tar -xvzf pigeon.tar.gz
+rm -rf pigeon.tar.gz
+sudo mv -f pigeon /usr/local/bin/pigeon
+pigeon version # v0.8.1
+
+mkdir -p $HOME/.pigeon
+sudo tee $HOME/.pigeon/config.yaml > /dev/null << EOF
+loop-timeout: 5s
+health-check-port: 5757
+
+paloma:
+  chain-id: paloma-testnet-10
+  call-timeout: 20s
+  keyring-dir: ~/.paloma
+  keyring-pass-env-name: PALOMA_KEYRING_PASS
+  keyring-type: os
+  signing-key: ${VALIDATOR}
+  base-rpc-url: http://localhost:26657
+  gas-adjustment: 1.5
+  gas-prices: 0.001ugrain
+  account-prefix: paloma
+
+evm:
+  eth-main:
+    chain-id: 1
+    base-rpc-url: ${ETH_RPC_URL}
+    keyring-pass-env-name: ETH_PASSWORD
+    signing-key: ${ETH_SIGNING_KEY}
+    keyring-dir: ~/.pigeon/keys/evm/eth-main
+EOF
+sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
+PALOMA_KEYRING_PASS=<your Paloma key password>
+ETH_RPC_URL=<Your Ethereum mainnet RPC URL>
+ETH_PASSWORD=<Your ETH Key Password>
+ETH_SIGNING_KEY=<Your ETH SIGNING KEY>
+VALIDATOR=<VALIDATOR NAME>
+EOF
+
 printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/palomad.service > /dev/null << EOF
@@ -66,9 +108,29 @@ Environment="PIGEON_HEALTHCHECK_PORT=5757"
 WantedBy=multi-user.target
 EOF
 
+sudo tee /etc/systemd/system/pigeond.service > /dev/null << EOF
+[Unit]
+Description=Pigeon daemon
+After=network-online.target
+ConditionPathExists=$(which pigeon)
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=$USER
+WorkingDirectory=$HOME
+EnvironmentFile=$HOME/.pigeon/env.sh
+ExecStart=$(which pigeon) start
+ExecReload=
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
 
-cd $HOME/.paloma
+cd "$HOME/.paloma" || return
 rm -rf data
 
 SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/paloma-testnet/ | egrep -o ">paloma-testnet-10.*\.tar.lz4" | tr -d ">")
