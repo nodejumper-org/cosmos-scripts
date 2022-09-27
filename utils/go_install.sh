@@ -7,7 +7,7 @@ while getopts v: flag; do
   esac
 done
 
-version=${VER:-"1.18.3"}
+version=${VER:-"1.19.1"}
 
 curl -L -# -O "https://golang.org/dl/go$version.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
