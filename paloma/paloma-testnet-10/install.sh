@@ -59,6 +59,7 @@ sudo mv -f pigeon /usr/local/bin/pigeon
 pigeon version # v0.8.1
 
 mkdir -p $HOME/.pigeon
+
 sudo tee $HOME/.pigeon/config.yaml > /dev/null << EOF
 loop-timeout: 5s
 health-check-port: 5757
@@ -79,10 +80,18 @@ evm:
   eth-main:
     chain-id: 1
     base-rpc-url: ${ETH_RPC_URL}
-    keyring-pass-env-name: ETH_PASSWORD
+    keyring-pass-env-name: "ETH_PASSWORD"
     signing-key: ${ETH_SIGNING_KEY}
     keyring-dir: ~/.pigeon/keys/evm/eth-main
+  bsc-main:
+    chain-id: 56
+    base-rpc-url: ${BSC_RPC_URL}
+    keyring-pass-env-name: "BSC_PASSWORD"
+    signing-key: ${BSC_SIGNING_KEY}
+    keyring-dir: ~/.pigeon/keys/evm/bsc-main
+    gas-adjustment: 1.2
 EOF
+
 sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
 PALOMA_KEYRING_PASS=<your Paloma key password>
 ETH_RPC_URL=<Your Ethereum mainnet RPC URL>
