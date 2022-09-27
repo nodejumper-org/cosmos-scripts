@@ -26,9 +26,9 @@ cd || return
 rm -rf rebus.core
 git clone https://github.com/rebuschain/rebus.core.git
 cd rebus.core || return
-git checkout master
+git checkout v0.2.0
 make install
-rebusd version # master.725ab954b6582cda056ef84deb1c6a5f816cd37b
+rebusd version # HEAD.f3cd9873b77d6a40738b187572249d715a75bbd4
 
 rebusd config chain-id $CHAIN_ID
 rebusd init $NODE_MONIKER --chain-id $CHAIN_ID
