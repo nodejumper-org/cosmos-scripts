@@ -38,7 +38,7 @@ sha256sum $HOME/.terp/config/genesis.json # b1c07c8ced6289d7e92c3a47085a92296090
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "120upersy"|g' $HOME/.terp/config/app.toml
 seeds=""
-peers="15f5bc75be9746fd1f712ca046502cae8a0f6ce7@perp.nodejumper.io:26656,7e5c0b9384a1b9636f1c670d5dc91ba4721ab1ca@23.88.53.28:36656"
+peers="15f5bc75be9746fd1f712ca046502cae8a0f6ce7@terp-testnet.nodejumper.io:26656,7e5c0b9384a1b9636f1c670d5dc91ba4721ab1ca@23.88.53.28:36656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.terp/config/config.toml
 
 # in case of pruning
@@ -68,8 +68,8 @@ terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
 cd "$HOME/.terp" || return
 rm -rf data
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/perp-testnet/ | egrep -o ">athena-1.*\.tar.lz4" | tr -d ">")
-curl https://snapshots2-testnet.nodejumper.io/perp-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/terp-testnet/ | egrep -o ">athena-1.*\.tar.lz4" | tr -d ">")
+curl https://snapshots2-testnet.nodejumper.io/terp-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
 
 sudo systemctl daemon-reload
 sudo systemctl enable terpd
