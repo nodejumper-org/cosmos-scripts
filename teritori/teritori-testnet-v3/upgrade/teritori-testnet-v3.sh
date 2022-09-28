@@ -20,4 +20,3 @@ peers="0d19829b0dd1fc324cfde1f7bc15860c896b7ac1@teritori-testnet.nodejumper.io:2
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.teritorid/config/config.toml
 
 sudo systemctl restart teritorid
-sudo journalctl -u teritorid -f --no-hostname -o cat
