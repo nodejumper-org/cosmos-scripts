@@ -7,7 +7,7 @@ while getopts v: flag; do
   esac
 done
 
-version=${VER:-"v1.2.0"}
+version=${VER:-"v1.3.0"}
 
 if [ -z "$(which cosmovisor)" ]; then
   cd || return
