@@ -23,7 +23,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
-rm -rf kid
+rm -rf ki-tools
 git clone https://github.com/KiFoundation/ki-tools.git
 cd ki-tools || return
 git checkout 3.0.0
