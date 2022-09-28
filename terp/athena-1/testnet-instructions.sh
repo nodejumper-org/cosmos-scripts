@@ -21,12 +21,12 @@ terpd q bank balances $(terpd keys show wallet -a)
 
 ## Console output
 #  balances:
-#  - amount: "5000000"
-#    denom: uterp
+#  - amount: "1000000000"
+#    denom: uterpx
 
 # Create validator
 terpd tx staking create-validator \
---amount=1000000uterp \
+--amount=100000000uterpx \
 --pubkey=$(terpd tendermint show-validator) \
 --moniker=<YOUR_VALIDATOR_MONIKER> \
 --chain-id=athena-1 \
