@@ -26,9 +26,9 @@ cd || return
 rm -rf sifnode
 git clone https://github.com/Sifchain/sifnode.git
 cd sifnode || return
-git checkout 50554216551af7d823d211ab850e61cdfa62fd7f
+git checkout v1.0-beta.12-issuefix
 make install
-sifnoded version # 1.0-beta.12
+sifnoded version # v1.0-beta.12-issuefix
 
 sifnoded init $NODE_MONIKER --chain-id $CHAIN_ID
 sed -i 's|^chain-id *=.*|chain-id = "'$CHAIN_ID'"|g' $HOME/.sifnoded/config/client.toml
