@@ -14,7 +14,8 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 # Wait util the node is synced, should return FALSE
 empowerd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord server and ask for some tokens for validator creation
+# Go to discord channel #faucet and paste
+$request <YOUR_WALLET_ADDRESS> altruistic-1
 
 # Verify the balance
 empowerd q bank balances $(empowerd keys show wallet -a)
