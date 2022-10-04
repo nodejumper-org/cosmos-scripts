@@ -35,7 +35,7 @@ empowerd tx staking create-validator \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=2000ustrd \
+--fees=2000umpwr \
 --gas=auto \
 --from=wallet \
 -y
