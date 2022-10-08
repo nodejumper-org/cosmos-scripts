@@ -21,4 +21,3 @@ sudo systemctl restart pigeond
 sudo systemctl restart palomad
 
 sudo journalctl -u pigeond -f --no-hostname -o cat
-sudo journalctl -u palomad -f --no-hostname -o cat
