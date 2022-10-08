@@ -1,5 +1,7 @@
-{
-  "height": 0,
-  "version": "paloma-testnet-12",
-  "automaticUpgradeDisabled": true
-}
+[
+  {
+    "height": 0,
+    "version": "paloma-testnet-12",
+    "automaticUpgradeDisabled": true
+  }
+]
