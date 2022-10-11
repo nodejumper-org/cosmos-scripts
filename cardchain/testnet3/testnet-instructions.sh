@@ -29,7 +29,7 @@ Cardchaind tx staking create-validator \
 --amount=5000000ubpf \
 --pubkey=$(Cardchaind tendermint show-validator) \
 --moniker=<YOUR_VALIDATOR_MONIKER> \
---chain-id=Testnet-3 \
+--chain-id=Testnet3 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
