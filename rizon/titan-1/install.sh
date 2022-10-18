@@ -26,9 +26,9 @@ cd || return
 rm -rf rizon
 git clone https://github.com/rizon-world/rizon.git
 cd rizon || return
-git checkout v0.3.0
+git checkout v0.4.1
 make install
-rizond version # v0.3.0
+rizond version # v0.4.1
 
 rizond config chain-id $CHAIN_ID
 rizond init $NODE_MONIKER --chain-id $CHAIN_ID
@@ -62,7 +62,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-rizond unsafe-reset-all
+rizond unsafe-reset-all --home $HOME/.rizon --keep-addr-book
 
 SNAP_RPC="https://rizon.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
