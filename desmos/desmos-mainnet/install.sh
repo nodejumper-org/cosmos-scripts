@@ -26,9 +26,9 @@ cd || return
 rm -rf desmos
 git clone https://github.com/desmos-labs/desmos.git
 cd desmos || return
-git checkout tags/v2.3.1
+git checkout tags/v2.4.0
 make install
-desmos version # 2.3.1
+desmos version # 2.4.0
 
 desmos config chain-id $CHAIN_ID
 desmos init $NODE_MONIKER --chain-id $CHAIN_ID
