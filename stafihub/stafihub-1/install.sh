@@ -26,17 +26,17 @@ cd || return
 rm -rf stafihub
 git clone https://github.com/stafihub/stafihub
 cd stafihub || return
-git checkout v0.2.0
+git checkout v0.2.3
 make install
-stafihubd version # 0.2.0
+stafihubd version # 0.2.3
 
 stafihubd config chain-id $CHAIN_ID
 stafihubd init $NODE_MONIKER --chain-id $CHAIN_ID
 
-curl https://raw.githubusercontent.com/stafihub/network/main/mainnets/stafihub-1/genesis.json > $HOME/.stafihub/config/genesis.json
-sha256sum $HOME/.stafihub/config/genesis.json # e089b36bc82eb3302bab61df42dde60d5a1a3a3e65d6280b03acb5910cb2e653
+curl "https://github.com/stafihub/network/raw/main/mainnets/stafihub-1(dragonberry)/genesis.json" > $HOME/.stafihub/config/genesis.json
+sha256sum $HOME/.stafihub/config/genesis.json # 1d69460eb12c7b9a5ec3f11b3c494dd5471debd404d56f57adc428a5614acaec
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ufis"|g' $HOME/.stafihub/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001ufis"|g' $HOME/.stafihub/config/app.toml
 seeds=""
 peers="967d2fc0e58f5d7f7954c2059cef4de62e4c513f@stafihub.nodejumper.io:26656,bed296dfadd972ed07cab82c87a0ee5c182dea43@18.136.189.120:26656,045fe6e054a5abe35f5433bd333f0a1b18aa28cf@45.136.28.11:26656,d35d55635093fddb6de22295c8fe31de98efe6ef@5.161.120.176:26656,20c0b45c47426c51b3187aa5dca82d9900c2fb36@5.161.88.157:26656,70230067eb1e668d2566329e727c72c930e54de3@116.202.30.7:26656,03f3cb61c7c472044c37aeededde2ffe8884fa02@159.69.108.86:26656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.stafihub/config/config.toml
