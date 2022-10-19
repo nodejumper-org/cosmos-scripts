@@ -26,9 +26,9 @@ cd || return
 rm -rf omniflixhub
 git clone https://github.com/Omniflix/omniflixhub.git
 cd omniflixhub || return
-git checkout v0.4.0
+git checkout v0.4.2
 make install
-omniflixhubd version # 0.4.0
+omniflixhubd version # 0.4.2
 
 omniflixhubd config chain-id $CHAIN_ID
 omniflixhubd init $NODE_MONIKER --chain-id $CHAIN_ID

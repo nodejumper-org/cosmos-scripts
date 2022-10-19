@@ -26,9 +26,9 @@ cd || return
 rm -rf osmosis
 git clone https://github.com/osmosis-labs/osmosis
 cd osmosis || return
-git checkout v12.0.0
+git checkout v12.2.0
 make install
-osmosisd version # v12.0.0
+osmosisd version # v12.2.0
 
 osmosisd config chain-id $CHAIN_ID
 osmosisd init $NODE_MONIKER --chain-id $CHAIN_ID
