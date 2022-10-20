@@ -26,9 +26,9 @@ cd || return
 rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain || return
-git checkout 1.1.1beta
+git checkout 1.2.3beta
 make install
-seid version #1.1.1beta
+seid version #1.2.3beta
 
 seid config keyring-backend test
 seid config chain-id $CHAIN_ID
@@ -67,7 +67,7 @@ EOF
 
 seid tendermint unsafe-reset-all --home $HOME/.sei --keep-addr-book
 
-SNAP_RPC="https://sei-testnet.nodejumper.io:443"
+SNAP_RPC="https://sei-devnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
