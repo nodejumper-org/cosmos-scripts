@@ -56,7 +56,7 @@ Description=TerpNetwork Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which terpd) start
+ExecStart=$(which terpd) start --unsafe-skip-upgrades 694200
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000

@@ -8,4 +8,19 @@ git checkout v0.1.1
 make install
 terpd version # v0.1.1
 
+sudo tee /etc/systemd/system/terpd.service > /dev/null << EOF
+[Unit]
+Description=TerpNetwork Node
+After=network-online.target
+[Service]
+User=$USER
+ExecStart=$(which terpd) start --unsafe-skip-upgrades 694200
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=10000
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
 sudo systemctl restart terpd
