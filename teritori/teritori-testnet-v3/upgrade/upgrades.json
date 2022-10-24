@@ -3,5 +3,9 @@
     "height": 0,
     "version": "teritori-testnet-v3",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 1570000,
+    "version": "v1.3.0"
   }
 ]
