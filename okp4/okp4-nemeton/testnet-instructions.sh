@@ -26,7 +26,7 @@ okp4d q bank balances $(okp4d keys show wallet -a)
 
 # Create validator
 okp4d tx staking create-validator \
---amount=9900000uknow \
+--amount=900000uknow \
 --pubkey=$(okp4d tendermint show-validator) \
 --moniker=<YOUR_VALIDATOR_MONIKER> \
 --chain-id=okp4-nemeton \
