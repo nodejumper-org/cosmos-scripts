@@ -65,6 +65,7 @@ uptickd tendermint unsafe-reset-all --home $HOME/.uptickd/ --keep-addr-book
 
 cd "$HOME/.uptickd" || return
 rm -rf data
+rm -rf wasm
 
 SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/uptick-testnet/ | egrep -o ">uptick_7000-1.*\.tar.lz4" | tr -d ">")
 curl https://snapshots1-testnet.nodejumper.io/uptick-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.uptickd

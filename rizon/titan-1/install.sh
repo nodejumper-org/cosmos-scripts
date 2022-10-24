@@ -62,7 +62,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-rizond unsafe-reset-all --home $HOME/.rizon --keep-addr-book
+rizond tendermint unsafe-reset-all --home $HOME/.rizon --keep-addr-book
 
 SNAP_RPC="https://rizon.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \

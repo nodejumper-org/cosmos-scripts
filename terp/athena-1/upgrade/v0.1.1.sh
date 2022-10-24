@@ -4,9 +4,9 @@ cd || return
 rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
-git checkout v0.1.1
+git checkout v0.1.1-stable
 make install
-terpd version # v0.1.1
+terpd version # 0.1.1-stable
 
 sudo tee /etc/systemd/system/terpd.service > /dev/null << EOF
 [Unit]
