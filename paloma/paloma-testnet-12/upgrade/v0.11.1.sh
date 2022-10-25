@@ -15,5 +15,14 @@ rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
 pigeon version # v0.11.0
 
+# make sure to add new tx-type entries
+nano ~/.pigeon/config.yaml
+
+#evm:
+#  eth-main:
+#    tx-type: 2
+#  bnb-main:
+#    tx-type: 0
+
 sudo systemctl start palomad
 sudo systemctl start pigeond
