@@ -3,5 +3,9 @@
     "height": 0,
     "version": "paloma-testnet-12",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 269765,
+    "version": "v0.11.1"
   }
 ]
