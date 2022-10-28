@@ -80,6 +80,6 @@ sudo systemctl enable Cardchaind
 sudo systemctl restart Cardchaind
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u ${BINARY}d -f --no-hostname -o cat ${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u ${BINARY} -f --no-hostname -o cat ${NC}"
 echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
