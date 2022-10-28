@@ -21,4 +21,5 @@ peers="15f5bc75be9746fd1f712ca046502cae8a0f6ce7@terp-testnet.nodejumper.io:26656
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.terp/config/config.toml
 
 mv $HOME/.terp/priv_validator_state.json.backup $HOME/.terp/data/priv_validator_state.json
+
 sudo systemctl restart terpd
