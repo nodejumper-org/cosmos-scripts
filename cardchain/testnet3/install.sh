@@ -25,7 +25,7 @@ printCyan "4. Building binaries..." && sleep 1
 curl -L https://github.com/DecentralCardGame/Cardchain/releases/download/v0.81/Cardchain_latest_linux_amd64.tar.gz > Cardchain_latest_linux_amd64.tar.gz
 tar -xvzf Cardchain_latest_linux_amd64.tar.gz
 chmod +x Cardchaind
-sudo mv Cardchaind /usr/local/bin/
+sudo mv Cardchaind $HOME/go/bin
 rm Cardchain_latest_linux_amd64.tar.gz
 
 Cardchain config keyring-backend test
