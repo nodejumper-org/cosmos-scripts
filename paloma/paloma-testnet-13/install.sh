@@ -153,6 +153,8 @@ curl https://snapshots1-testnet.nodejumper.io/paloma-testnet/${SNAP_NAME} | lz4 
 
 sudo systemctl daemon-reload
 sudo systemctl enable palomad
+sudo systemctl enable pigeond
+sudo systemctl restart pigeond
 sudo systemctl restart palomad
 
 printLine
