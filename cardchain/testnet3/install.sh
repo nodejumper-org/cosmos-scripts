@@ -22,15 +22,16 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printCyan "4. Building binaries..." && sleep 1
 
+cd || return
 curl -L https://github.com/DecentralCardGame/Cardchain/releases/download/v0.81/Cardchain_latest_linux_amd64.tar.gz > Cardchain_latest_linux_amd64.tar.gz
 tar -xvzf Cardchain_latest_linux_amd64.tar.gz
 chmod +x Cardchaind
-sudo mv Cardchaind $HOME/go/bin
+mv Cardchaind $HOME/go/bin
 rm Cardchain_latest_linux_amd64.tar.gz
 
-Cardchain config keyring-backend test
-Cardchain config chain-id $CHAIN_ID
-Cardchain init $NODE_MONIKER --chain-id $CHAIN_ID
+Cardchaind config keyring-backend test
+Cardchaind config chain-id $CHAIN_ID
+Cardchaind init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json > $HOME/.Cardchain/config/genesis.json
 sha256sum $HOME/.Cardchain/config/genesis.json # 4f189f5eb4cf7815f205a5df17e3a2365035e68cc7ce03adce4e1733e3e07822
