@@ -83,7 +83,8 @@ evm:
     keyring-pass-env-name: "ETH_PASSWORD"
     signing-key: ${ETH_SIGNING_KEY}
     keyring-dir: ~/.pigeon/keys/evm/eth-main
-    gas-adjustment: 1.5
+    gas-adjustment: 1.9
+    tx-type: 2
   bsc-main:
     chain-id: 56
     base-rpc-url: ${BSC_RPC_URL}
@@ -91,6 +92,7 @@ evm:
     signing-key: ${BSC_SIGNING_KEY}
     keyring-dir: ~/.pigeon/keys/evm/bsc-main
     gas-adjustment: 1.5
+    tx-type: 0
 EOF
 
 sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
