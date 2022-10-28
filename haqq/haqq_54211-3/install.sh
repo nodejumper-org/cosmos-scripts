@@ -25,9 +25,9 @@ cd || return
 rm -rf haqq
 git clone https://github.com/haqq-network/haqq.git
 cd haqq || return
-git checkout v1.2.0
+git checkout v1.2.1
 make install
-haqqd version # 1.2.0
+haqqd version # 1.2.1
 
 haqqd config keyring-backend test
 haqqd config chain-id $CHAIN_ID
