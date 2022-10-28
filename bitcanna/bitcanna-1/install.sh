@@ -26,9 +26,9 @@ cd || return
 rm -rf bcna
 git clone https://github.com/BitCannaGlobal/bcna.git
 cd bcna || return
-git checkout v1.4.2
+git checkout v1.4.5
 make install
-bcnad version # 1.4.2
+bcnad version # 1.4.5
 
 bcnad config chain-id $CHAIN_ID
 bcnad init $NODE_MONIKER --chain-id $CHAIN_ID
