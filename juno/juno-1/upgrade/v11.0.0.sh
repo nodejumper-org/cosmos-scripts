@@ -1,10 +1,10 @@
-sudo systemctl stop evmosd
+sudo systemctl stop junod
 
 cd || return
-rm -rf evmos
-gir clone https://github.com/evmos/evmos.git
-cd evmos || return
+rm -rf juno
+gir clone https://github.com/CosmosContracts/juno.git
+cd juno || return
 git checkout v11.0.0
 make install
 
-sudo systemctl restart evmosd
+sudo systemctl restart junod
