@@ -25,9 +25,9 @@ cd || return
 rm -rf juno
 git clone https://github.com/CosmosContracts/juno
 cd juno || return
-git checkout v10.1.0
+git checkout v11.0.0
 make install
-junod version # v10.1.0
+junod version # v11.0.0
 
 junod config chain-id $CHAIN_ID
 junod init $NODE_MONIKER --chain-id $CHAIN_ID
