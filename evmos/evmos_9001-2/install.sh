@@ -25,9 +25,9 @@ cd || return
 rm -rf evmos
 git clone https://github.com/tharsis/evmos
 cd evmos || return
-git checkout v8.2.3
+git checkout v9.1.0
 make install
-evmosd version # 8.2.3
+evmosd version # 9.1.0
 
 evmosd config chain-id $CHAIN_ID
 evmosd init $NODE_MONIKER --chain-id $CHAIN_ID
