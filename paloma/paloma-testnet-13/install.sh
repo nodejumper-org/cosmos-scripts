@@ -26,11 +26,11 @@ curl -L https://github.com/CosmWasm/wasmvm/raw/main/internal/api/libwasmvm.x86_6
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
 
 # palomad binary
-curl -L https://github.com/palomachain/paloma/releases/download/v0.11.3/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
+curl -L https://github.com/palomachain/paloma/releases/download/v0.11.4/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
 tar -xvzf paloma.tar.gz
 rm -rf paloma.tar.gz
 sudo mv -f palomad /usr/local/bin/palomad
-palomad version # v0.11.3
+palomad version # v0.11.4
 
 palomad config chain-id $CHAIN_ID
 palomad init $NODE_MONIKER --chain-id $CHAIN_ID
