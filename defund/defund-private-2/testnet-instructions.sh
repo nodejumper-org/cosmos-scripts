@@ -4,7 +4,7 @@ defundd keys add wallet
 ## Console output
 #- name: wallet
 #  type: local
-#  address: nibi1r9kmadqs9nsppn4wz5yp4rw8zn9545rc4zwvs7
+#  address: defund1r9kmadqs9nsppn4wz5yp4rw8zn9545rc4zwvs7
 #  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Auq9WzVEs5pCoZgr2WctjI7fU+lJCH0I3r6GC1oa0tc0"}'
 #  mnemonic: ""
 
@@ -14,19 +14,19 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 # Wait util the node is synced, should return FALSE
 defundd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to https://discord.com/invite/zjkzZwrez5 and request tokens in faucet channel
+# Go to https://discord.gg/UsER6bWuUq and request tokens in faucet channel
 
 # Verify the balance
 defundd q bank balances $(defundd keys show wallet -a)
 
 ## Console output
 #  balances:
-#  - amount: "10000000"
-#    denom: unibi
+#  - amount: "1000000"
+#    denom: ufetf
 
 # Create validator
 defundd tx staking create-validator \
---amount=5000000ufetf \
+--amount=900000ufetf \
 --pubkey=$(defundd tendermint show-validator) \
 --moniker=<YOUR_VALIDATOR_MONIKER> \
 --chain-id=defund-private-2 \
