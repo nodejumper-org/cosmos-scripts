@@ -26,9 +26,9 @@ cd || return
 rm -rf teritori-chain
 git clone https://github.com/TERITORI/teritori-chain
 cd teritori-chain || return
-git checkout v1.2.0
+git checkout v1.3.0
 make install
-teritorid version # v1.2.0
+teritorid version # v1.3.0
 
 teritorid config chain-id $CHAIN_ID
 teritorid init $NODE_MONIKER --chain-id $CHAIN_ID
