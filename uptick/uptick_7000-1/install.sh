@@ -22,12 +22,12 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printCyan "4. Building binaries..." && sleep 1
 
-curl -L -k https://download.uptick.network/download/uptick/testnet/release/v0.2.3/v0.2.3.tar.gz > uptick.tar.gz
+curl -L -k https://github.com/UptickNetwork/uptick/releases/download/v0.2.4/uptick-linux-amd64-v0.2.4.tar.gz > uptick.tar.gz
 tar -xvzf uptick.tar.gz
-sudo mv -f uptick-v0.2.3/linux/uptickd /usr/local/bin/uptickd
+sudo mv -f uptick-linux-amd64-v0.2.4/uptickd /usr/local/bin/uptickd
 rm -rf uptick.tar.gz
-rm -rf uptick-v0.2.3
-uptickd version # v0.2.3
+rm -rf uptick-v0.2.4
+uptickd version # v0.2.4
 
 uptickd config keyring-backend test
 uptickd config chain-id $CHAIN_ID
