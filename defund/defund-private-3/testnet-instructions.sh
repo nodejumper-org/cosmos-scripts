@@ -29,7 +29,7 @@ defundd tx staking create-validator \
 --amount=19000000ufetf \
 --pubkey=$(defundd tendermint show-validator) \
 --moniker=<YOUR_VALIDATOR_MONIKER> \
---chain-id=defund-private-2 \
+--chain-id=defund-private-3 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
