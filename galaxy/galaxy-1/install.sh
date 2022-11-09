@@ -33,7 +33,7 @@ galaxyd version # v1.2.0
 galaxyd config chain-id $CHAIN_ID
 galaxyd init $NODE_MONIKER --chain-id $CHAIN_ID
 
-curl https://media.githubusercontent.com/media/galaxies-labs/networks/main/galaxy-1/genesis.json > $HOME/.galaxy/config/genesis.json
+curl https://media.githubusercontent.com/media/galaxynetwork/networks/main/galaxy-1/genesis.json > $HOME/.galaxy/config/genesis.json
 sha256sum $HOME/.galaxy/config/genesis.json # 2003cfaca53c3f9120a36957103fbbe6562d4f6c6c50a3e9502c49dbb8e2ba5b
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uglx"|g' $HOME/.galaxy/config/app.toml
