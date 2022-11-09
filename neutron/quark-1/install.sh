@@ -51,7 +51,7 @@ sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.neutrond/conf
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/neutrondd.service > /dev/null << EOF
+sudo tee /etc/systemd/system/neutrond.service > /dev/null << EOF
 [Unit]
 Description=Neutron Node
 After=network-online.target
@@ -80,8 +80,8 @@ s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.neutrond/config/config.toml
 
 sudo systemctl daemon-reload
-sudo systemctl enable neutrondd
-sudo systemctl restart neutrondd
+sudo systemctl enable neutrond
+sudo systemctl restart neutrond
 
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
