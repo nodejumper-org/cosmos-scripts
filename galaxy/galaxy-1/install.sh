@@ -24,11 +24,11 @@ printCyan "4. Building binaries..." && sleep 1
 
 cd || return
 rm -rf galaxy
-git clone https://github.com/galaxies-labs/galaxy
+git clone https://github.com/galaxynetwork/galaxy.git
 cd galaxy || return
-git checkout v1.0.0
+git checkout v1.2.0
 make install
-galaxyd version # launch-gentxs
+galaxyd version # v1.2.0
 
 galaxyd config chain-id $CHAIN_ID
 galaxyd init $NODE_MONIKER --chain-id $CHAIN_ID
