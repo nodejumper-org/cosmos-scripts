@@ -16,7 +16,7 @@ done
 
 printLogo
 
-echo -e "Your ${CYAN}$CHAIN_NAME${NC} node will be upgraded to version: ${CYAN}$VERSION${NC} on block height: ${CYAN}$TARGET_BLOCK${NC}" && sleep 1
+echo -e "Your ${CYAN}$CHAIN_NAME${NC} node will be upgraded to version ${CYAN}$VERSION${NC} on block height ${CYAN}$TARGET_BLOCK${NC}" && sleep 1
 echo ""
 
 for (( ; ; )); do
