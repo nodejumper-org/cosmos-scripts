@@ -115,7 +115,7 @@ Description=Vald daemon
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=/usr/bin/sh -c 'echo $KEYRING_PASSWORD | $AXELAR_BINARY_PATH vald-start --validator-addr $(echo $KEYRING_PASSWORD | $AXELAR_BINARY_PATH keys show validator --bech val -a) --log_level debug --chain-id $CHAIN_ID --from broadcaster'
+ExecStart=/usr/bin/sh -c 'echo $KEYRING_PASSWORD | $AXELAR_BINARY_PATH vald-start --validator-addr \$(echo $KEYRING_PASSWORD | $AXELAR_BINARY_PATH keys show validator --bech val -a) --log_level debug --chain-id $CHAIN_ID --from broadcaster'
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
