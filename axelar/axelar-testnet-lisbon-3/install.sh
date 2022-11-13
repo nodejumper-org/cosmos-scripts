@@ -35,7 +35,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 printCyan "4. Building binaries..." && sleep 1
 
 # create required directories
-mkdir -p "$HOME/$CHAIN_HOME/{vald, tofnd, bin, logs, config}"
+mkdir -p "$HOME/$CHAIN_HOME/{vald, tofnd, bin, logs}"
 
 # build axelard binary
 cd || return
@@ -68,9 +68,9 @@ sed -i 's|^moniker *=.*|moniker = "'"$NODE_MONIKER"'"|g' $HOME/$CHAIN_HOME/confi
 sed -i 's|external_address = ""|external_address = "'"$(curl -4 ifconfig.co)"':26656"|g' $HOME/$CHAIN_HOME/config/config.toml
 
 # in case of pruning
-sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.empowerchain/config/app.toml
-sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.empowerchain/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "13"|g' $HOME/.empowerchain/config/app.toml
+sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/$CHAIN_HOME/config/app.toml
+sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/$CHAIN_HOME/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "13"|g' $HOME/$CHAIN_HOME/config/app.toml
 
 # check genesis sha256sum
 sha256sum $HOME/$CHAIN_HOME/config/genesis.json # 4f53f04d62a01c247ef52558b5671e96f9fcee3b74192ef58f5cc3dd82b2f3d7
