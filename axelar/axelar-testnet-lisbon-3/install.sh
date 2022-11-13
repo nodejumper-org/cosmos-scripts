@@ -35,7 +35,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 printCyan "4. Building binaries..." && sleep 1
 
 # create required directories
-mkdir -p "$HOME/$CHAIN_HOME/{vald, tofnd, bin, logs}"
+mkdir -p "$HOME/$CHAIN_HOME/{vald,tofnd,bin,logs}"
 
 # build axelard binary
 cd || return
@@ -140,6 +140,6 @@ sudo systemctl restart tofnd
 sudo systemctl restart vald
 
 printLine
-echo -e "Check $AXELAR_BINARY logs:            ${CYAN}sudo journalctl -u $AXELAR_BINARY -f --no-hostname -o cat ${NC}"
+echo -e "Check $AXELAR_BINARY logs:    ${CYAN}sudo journalctl -u $AXELAR_BINARY -f --no-hostname -o cat ${NC}"
 echo -e "Check synchronization: ${CYAN}$AXELAR_BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
