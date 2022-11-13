@@ -35,7 +35,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 printCyan "4. Building binaries..." && sleep 1
 
 # create required directories
-mkdir -p "$HOME/$CHAIN_HOME/{vald,tofnd,bin,logs}"
+mkdir -p "$HOME/$CHAIN_HOME/"{vald,tofnd,bin,logs}
 
 # build axelard binary
 cd || return
