@@ -6,7 +6,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 printLogo
 
 read -p "Enter node moniker: " NODE_MONIKER
-read -p "Enter your keyring password: " KEYRING_PASSWORD
+read -s -p "Enter your keyring password: " KEYRING_PASSWORD
 
 CHAIN_NETWORK="testnet"
 CHAIN_ID="axelar-testnet-lisbon-3"
