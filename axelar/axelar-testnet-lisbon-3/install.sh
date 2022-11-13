@@ -44,7 +44,7 @@ git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
 git checkout "$AXELAR_BINARY_VERION"
 make build
-mv bin/axelard "$HOME/$CHAIN_HOME/bin"
+mv bin/axelard "$HOME/$CHAIN_HOME/bin/axelard"
 
 # build tofnd binary
 cd || return
@@ -53,7 +53,7 @@ git clone https://github.com/axelarnetwork/tofnd.git
 cd tofnd || return
 git checkout "$TOFND_VERSION"
 make build
-mv bin/tofnd "$HOME/$CHAIN_HOME/bin"
+mv bin/tofnd "$HOME/$CHAIN_HOME/bin/tofnd"
 
 # init chain
 empowerd init "$NODE_MONIKER" --chain-id $CHAIN_ID
