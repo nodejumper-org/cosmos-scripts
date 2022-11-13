@@ -1,24 +1,32 @@
 #!/bin/bash
+# shellcheck disable=SC1090
 
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/common.sh)
 
 printLogo
 
 read -p "Enter node moniker: " NODE_MONIKER
+read -p "Enter your keyring password: " KEYRING_PASSWORD
 
+CHAIN_NETWORK="testnet"
 CHAIN_ID="axelar-testnet-lisbon-3"
+CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
-BINARY="axelard"
-AXELAR_VERSION="v0.26.5"
-TOFND_VERSION="v0.10.1"
+
+AXELAR_BINARY="axelard"
+AXELAR_BINARY_VERION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${CHAIN_NETWORK}".md | grep axelar-core | cut -d \` -f 4)"
+AXELAR_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELAR_BINARY"
+
+TOFND_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${CHAIN_NETWORK}".md | grep tofnd | cut -d \` -f 4)"
 CHEAT_SHEET="https://nodejumper.io/axelar-testnet/cheat-sheet"
 
 printLine
 echo -e "Node moniker:    ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:        ${CYAN}$CHAIN_ID${NC}"
-echo -e "axelard version: ${CYAN}$AXELAR_VERSION${NC}"
-echo -e "tofnd version:   ${CYAN}$TOFND_VERSION${NC}"
+echo -e "Chain home:      ${CYAN}$CHAIN_HOME${NC}"
 echo -e "Chain demon:     ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "axelard version: ${CYAN}$AXELAR_BINARY_VERION${NC}"
+echo -e "tofnd version:   ${CYAN}$TOFND_VERSION${NC}"
 printLine
 sleep 1
 
@@ -26,46 +34,46 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printCyan "4. Building binaries..." && sleep 1
 
-# build axelard
+# create required directories
+mkdir -p "$HOME/$CHAIN_HOME/{vald, tofnd, bin, logs, config}"
+
+# build axelard binary
 cd || return
 rm -rf axelar-core
 git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
-git checkout $AXELAR_VERSION
-make install
-axelar version
+git checkout "$AXELAR_BINARY_VERION"
+make build
+mv bin/axelard "$HOME/$CHAIN_HOME/bin"
 
-# build tofnd
+# build tofnd binary
 cd || return
 rm -rf tofnd
 git clone https://github.com/axelarnetwork/tofnd.git
 cd tofnd || return
-git checkout $TOFND_VERSION
-make install
-tofnd version
+git checkout "$TOFND_VERSION"
+make build
+mv bin/tofnd "$HOME/$CHAIN_HOME/bin"
 
+# init chain
+empowerd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 axelard config chain-id $CHAIN_ID
-axelard init $NODE_MONIKER --chain-id $CHAIN_ID
 
-curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/app.toml > $HOME/.axelar_testnet/config/app.toml
-curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/config.toml > $HOME/.axelar_testnet/config/config.toml
-curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/seeds.toml > $HOME/.axelar_testnet/config/seeds.toml
-curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/genesis.json > $HOME/.axelar_testnet/config/genesis.json
+# override configs
+curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/app.toml > "$HOME/$CHAIN_HOME/config/app.toml"
+curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/config.toml > "$HOME/$CHAIN_HOME/config/config.toml"
+curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/seeds.toml > "$HOME/$CHAIN_HOME/config/seeds.toml"
+curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/genesis.json > "$HOME/$CHAIN_HOME/config/genesis.json"
+sed -i 's|^moniker *=.*|moniker = "'"$NODE_MONIKER"'"|g' $HOME/$CHAIN_HOME/config/app.toml
+sed -i 's|external_address = ""|external_address = "'"$(curl -4 ifconfig.co)"':26656"|g' $HOME/$CHAIN_HOME/config/config.toml
 
-sha256sum $HOME/.axelar_testnet/config/genesis.json # TODO: check sha256sum
-
-sed -i.bak 's/external_address = ""/external_address = "'"$(curl -4 ifconfig.co)"':26656"/g' $HOME/.axelar/config/config.toml
-
-#sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uan1"|g' $HOME/.axelar_testnet/config/app.toml
-#seeds="a005b8923888007eb5cf9ed8c8120ed956bc31f7@k8s-testnet-axelarco-c0dd71f944-b4c8da2f814e7b8f.elb.us-east-2.amazonaws.com:26656"
-#peers="2b540c43d640befc35959eb062c8505612b7d67f@another1-testnet.nodejumper.io:26656"
-#sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.axelar_testnet/config/config.toml
-
-# TODO: CHECK POSSIBILITY TO PRUNING
 # in case of pruning
-#sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.axelar_testnet/config/app.toml
-#sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.axelar_testnet/config/app.toml
-#sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.axelar_testnet/config/app.toml
+sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.empowerchain/config/app.toml
+sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.empowerchain/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "13"|g' $HOME/.empowerchain/config/app.toml
+
+# check genesis sha256sum
+sha256sum $HOME/$CHAIN_HOME/config/genesis.json # 4f53f04d62a01c247ef52558b5671e96f9fcee3b74192ef58f5cc3dd82b2f3d7
 
 printCyan "5. Starting services and synchronization..." && sleep 1
 
@@ -76,7 +84,7 @@ After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=$(which axelard) start --home $HOME/.axelar_testnet
+ExecStart="$AXELAR_BINARY_PATH" start --home "$HOME/$CHAIN_HOME" --moniker "$NODE_MONIKER"
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
@@ -92,7 +100,7 @@ After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=/usr/bin/sh -c 'echo $KEYRING_PASSWORD | $(which tofnd) -m existing -d $HOME/.tofnd'
+ExecStart=/usr/bin/sh -c 'echo $KEYRING_PASSWORD | "$HOME/$CHAIN_HOME/bin/tofnd" -m existing -d $HOME/$CHAIN_HOME/tofnd'
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
@@ -101,14 +109,13 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 
-# TODO: SAVE VALIDATOR_OPERATOR_ADDRESS TO VARIABLE
-sudo tee /etc/systemd/system/vald.service >/dev/null << EOF
+sudo tee /etc/systemd/system/vald.service > /dev/null << EOF
 [Unit]
 Description=Vald daemon
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=/usr/bin/sh -c 'echo $KEYRING_PASSWORD | $(which axelard) vald-start --validator-addr $VALIDATOR_OPERATOR_ADDRESS --log_level debug --chain-id $CHAIN_ID --from broadcaster'
+ExecStart=/usr/bin/sh -c 'echo $KEYRING_PASSWORD | $AXELAR_BINARY_PATH vald-start --validator-addr $(echo $KEYRING_PASSWORD | $AXELAR_BINARY_PATH keys show validator --bech val -a) --log_level debug --chain-id $CHAIN_ID --from broadcaster'
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
@@ -117,19 +124,12 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 
-axelard unsafe-reset-all
-
-SNAP_RPC="https://another1-testnet.nodejumper.io:443"
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.axelar_testnet/config/config.toml
+# TODO: add sync section
+axelard tendermint unsafe-reset-all
+URL=`curl -L https://quicksync.io/axelar.json | jq -r '.[] |select(.file=="axelartestnet-lisbon-3-pruned")|.url'`
+cd "$HOME/$CHAIN_HOME" || return
+wget -O - $URL | lz4 -d | tar -xvf -
+cd $HOME || return
 
 sudo systemctl daemon-reload
 sudo systemctl enable axelard
@@ -140,6 +140,6 @@ sudo systemctl restart tofnd
 sudo systemctl restart vald
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check $AXELAR_BINARY logs:            ${CYAN}sudo journalctl -u $AXELAR_BINARY -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$AXELAR_BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
