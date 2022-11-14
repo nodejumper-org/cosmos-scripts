@@ -15,3 +15,5 @@ rm -rf data
 wget -O snapshot.tar.gz http://95.216.72.28/data.tar.gz
 tar -xf snapshot.tar.gz -C .
 rm -v snapshot.tar.gz
+
+mv $HOME/.galaxy/priv_validator_state.json.backup $HOME/.galaxy/data/priv_validator_state.json.backup
