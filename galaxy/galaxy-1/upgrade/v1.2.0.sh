@@ -12,8 +12,7 @@ cp $HOME/.galaxy/data/priv_validator_state.json $HOME/.galaxy/priv_validator_sta
 
 cd $HOME/.galaxy || return
 rm -rf data
-wget -O snapshot.tar.gz http://95.216.72.28/data.tar.gz
-tar -xf snapshot.tar.gz -C .
-rm -v snapshot.tar.gz
+curl https://snapshots2.nodejumper.io/galaxy/galaxy-1_2022-11-14.tar.lz4 > snapshot.tar.lz4
+lz4 -d -c snapshot.tar.lz4 | tar xf -
 
 mv $HOME/.galaxy/priv_validator_state.json.backup $HOME/.galaxy/data/priv_validator_state.json.backup
