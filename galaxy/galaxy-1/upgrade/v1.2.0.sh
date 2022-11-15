@@ -15,4 +15,4 @@ rm -rf data
 curl https://snapshots2.nodejumper.io/galaxy/galaxy-1_2022-11-14.tar.lz4 > snapshot.tar.lz4
 lz4 -d -c snapshot.tar.lz4 | tar xf -
 
-mv $HOME/.galaxy/priv_validator_state.json.backup $HOME/.galaxy/data/priv_validator_state.json.backup
+mv $HOME/.galaxy/priv_validator_state.json.backup $HOME/.galaxy/data/priv_validator_state.json
