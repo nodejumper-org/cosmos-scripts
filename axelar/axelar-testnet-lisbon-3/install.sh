@@ -7,16 +7,15 @@ printLogo
 
 read -p "Enter node moniker: " NODE_MONIKER
 read -s -p "Enter your keyring password: " KEYRING_PASSWORD
+printf "\n"
 
 CHAIN_NETWORK="testnet"
 CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
-
 AXELAR_BINARY="axelard"
-AXELAR_BINARY_VERION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${CHAIN_NETWORK}".md | grep axelar-core | cut -d \` -f 4)"
+AXELAR_BINARY_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${CHAIN_NETWORK}".md | grep axelar-core | cut -d \` -f 4)"
 AXELAR_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELAR_BINARY"
-
 TOFND_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${CHAIN_NETWORK}".md | grep tofnd | cut -d \` -f 4)"
 CHEAT_SHEET="https://nodejumper.io/axelar-testnet/cheat-sheet"
 
@@ -25,7 +24,7 @@ echo -e "Node moniker:    ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:        ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain home:      ${CYAN}$CHAIN_HOME${NC}"
 echo -e "Chain demon:     ${CYAN}$CHAIN_DENOM${NC}"
-echo -e "axelard version: ${CYAN}$AXELAR_BINARY_VERION${NC}"
+echo -e "axelard version: ${CYAN}$AXELAR_BINARY_VERSION${NC}"
 echo -e "tofnd version:   ${CYAN}$TOFND_VERSION${NC}"
 printLine
 sleep 1
@@ -33,6 +32,16 @@ sleep 1
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
 
 printCyan "4. Building binaries..." && sleep 1
+
+# set variables
+CHAIN_NETWORK="testnet"
+CHAIN_ID="axelar-testnet-lisbon-3"
+CHAIN_HOME=".axelar_testnet"
+CHAIN_DENOM="uaxl"
+AXELAR_BINARY="axelard"
+AXELAR_BINARY_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${CHAIN_NETWORK}".md | grep axelar-core | cut -d \` -f 4)"
+AXELAR_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELAR_BINARY"
+TOFND_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${CHAIN_NETWORK}".md | grep tofnd | cut -d \` -f 4)"
 
 # create required directories
 mkdir -p "$HOME/$CHAIN_HOME/"{vald,tofnd,bin,logs}
@@ -42,8 +51,8 @@ cd || return
 rm -rf axelar-core
 git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
-git checkout "$AXELAR_BINARY_VERION"
-make build
+git checkout "$AXELAR_BINARY_VERSION"
+make install
 mv bin/axelard "$HOME/$CHAIN_HOME/bin/axelard"
 
 # build tofnd binary
@@ -52,19 +61,17 @@ rm -rf tofnd
 git clone https://github.com/axelarnetwork/tofnd.git
 cd tofnd || return
 git checkout "$TOFND_VERSION"
-make build
+make install
 mv bin/tofnd "$HOME/$CHAIN_HOME/bin/tofnd"
 
 # init chain
-empowerd init "$NODE_MONIKER" --chain-id $CHAIN_ID
-axelard config chain-id $CHAIN_ID
+empowerd init "$NODE_MONIKER" --chain-id $CHAIN_ID --home "$HOME/$CHAIN_HOME"
 
 # override configs
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/app.toml > "$HOME/$CHAIN_HOME/config/app.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/config.toml > "$HOME/$CHAIN_HOME/config/config.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/seeds.toml > "$HOME/$CHAIN_HOME/config/seeds.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/genesis.json > "$HOME/$CHAIN_HOME/config/genesis.json"
-sed -i 's|^moniker *=.*|moniker = "'"$NODE_MONIKER"'"|g' $HOME/$CHAIN_HOME/config/app.toml
 sed -i 's|external_address = ""|external_address = "'"$(curl -4 ifconfig.co)"':26656"|g' $HOME/$CHAIN_HOME/config/config.toml
 
 # in case of pruning
