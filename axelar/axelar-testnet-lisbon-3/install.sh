@@ -58,6 +58,7 @@ make install
 
 # download tofnd binary
 curl "https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/$TOFND_VERSION/tofnd-linux-amd64-$TOFND_VERSION" > "$HOME/$CHAIN_HOME/bin/tofnd"
+chmod +x "$HOME/$CHAIN_HOME/bin/tofnd"
 
 # init chain
 axelard init "$NODE_MONIKER" --chain-id $CHAIN_ID --home "$HOME/$CHAIN_HOME"
