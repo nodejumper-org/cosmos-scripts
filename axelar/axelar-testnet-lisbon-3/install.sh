@@ -52,20 +52,15 @@ rm -rf axelar-core
 git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
 git checkout "$AXELAR_BINARY_VERSION"
+make build
+cp bin/axelard "$HOME/$CHAIN_HOME/bin/axelard"
 make install
-mv bin/axelard "$HOME/$CHAIN_HOME/bin/axelard"
 
-# build tofnd binary
-cd || return
-rm -rf tofnd
-git clone https://github.com/axelarnetwork/tofnd.git
-cd tofnd || return
-git checkout "$TOFND_VERSION"
-make install
-mv bin/tofnd "$HOME/$CHAIN_HOME/bin/tofnd"
+# download tofnd binary
+curl "https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/$TOFND_VERSION/tofnd-linux-amd64-$TOFND_VERSION" > "$HOME/$CHAIN_HOME/bin/tofnd"
 
 # init chain
-empowerd init "$NODE_MONIKER" --chain-id $CHAIN_ID --home "$HOME/$CHAIN_HOME"
+axelard init "$NODE_MONIKER" --chain-id $CHAIN_ID --home "$HOME/$CHAIN_HOME"
 
 # override configs
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/app.toml > "$HOME/$CHAIN_HOME/config/app.toml"
@@ -107,7 +102,7 @@ After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=/usr/bin/sh -c 'echo $KEYRING_PASSWORD | "$HOME/$CHAIN_HOME/bin/tofnd" -m existing -d $HOME/$CHAIN_HOME/tofnd'
+ExecStart=/usr/bin/sh -c 'echo "$KEYRING_PASSWORD" | "$HOME/$CHAIN_HOME/bin/tofnd" -m existing -d $HOME/$CHAIN_HOME/tofnd'
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
@@ -122,7 +117,7 @@ Description=Vald daemon
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=/usr/bin/sh -c 'echo $KEYRING_PASSWORD | $AXELAR_BINARY_PATH vald-start --validator-addr \$(echo $KEYRING_PASSWORD | $AXELAR_BINARY_PATH keys show validator --bech val -a) --log_level debug --chain-id $CHAIN_ID --from broadcaster --home "$HOME/$CHAIN_HOME"'
+ExecStart=/usr/bin/sh -c 'echo "$KEYRING_PASSWORD" | $AXELAR_BINARY_PATH vald-start --validator-addr \$(echo "$KEYRING_PASSWORD" | $AXELAR_BINARY_PATH keys show validator --home "$HOME/$CHAIN_HOME" --bech val -a) --log_level debug --chain-id $CHAIN_ID --from broadcaster --home "$HOME/$CHAIN_HOME"'
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
@@ -132,7 +127,7 @@ WantedBy=multi-user.target
 EOF
 
 # TODO: add sync section
-axelard tendermint unsafe-reset-all
+axelard tendermint unsafe-reset-all --home "$HOME/$CHAIN_HOME"
 URL=`curl -L https://quicksync.io/axelar.json | jq -r '.[] |select(.file=="axelartestnet-lisbon-3-pruned")|.url'`
 cd "$HOME/$CHAIN_HOME" || return
 wget -O - $URL | lz4 -d | tar -xvf -
