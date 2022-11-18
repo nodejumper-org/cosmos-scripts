@@ -127,6 +127,10 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 
+# save variables
+echo "export PATH=$PATH:$HOME/$CHAIN_HOME/bin" >> $HOME/.bash_profile
+echo "export AXELAR_HOME=$HOME/$CHAIN_HOME" >> $HOME/.bash_profile
+
 # TODO: add sync section
 axelard tendermint unsafe-reset-all --home "$HOME/$CHAIN_HOME"
 URL=`curl -L https://quicksync.io/axelar.json | jq -r '.[] |select(.file=="axelartestnet-lisbon-3-pruned")|.url'`
