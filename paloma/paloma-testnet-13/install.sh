@@ -87,9 +87,9 @@ evm:
     tx-type: 2
   bsc-main:
     chain-id: 56
-    base-rpc-url: ${BSC_RPC_URL}
-    keyring-pass-env-name: "BSC_PASSWORD"
-    signing-key: ${BSC_SIGNING_KEY}
+    base-rpc-url: ${BNB_RPC_URL}
+    keyring-pass-env-name: "BNB_PASSWORD"
+    signing-key: ${BNB_SIGNING_KEY}
     keyring-dir: ~/.pigeon/keys/evm/bsc-main
     gas-adjustment: 1.5
     tx-type: 0
@@ -100,9 +100,9 @@ PALOMA_KEYRING_PASS=<your Paloma key password>
 ETH_RPC_URL=<Your ETH mainnet RPC URL>
 ETH_PASSWORD=<Your ETH Key Password>
 ETH_SIGNING_KEY=<Your ETH SIGNING KEY>
-BSC_RPC_URL=<Your BSC mainnet RPC URL>
-BSC_PASSWORD=<Your BSC Key Password>
-BSC_SIGNING_KEY=<Your BSC SIGNING KEY>
+BNB_RPC_URL=<Your BSC mainnet RPC URL>
+BNB_PASSWORD=<Your BSC Key Password>
+BNB_SIGNING_KEY=<Your BSC SIGNING KEY>
 WALLET=<WALLET NAME>
 EOF
 

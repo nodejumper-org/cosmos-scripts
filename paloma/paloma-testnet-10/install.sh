@@ -85,9 +85,9 @@ evm:
     keyring-dir: ~/.pigeon/keys/evm/eth-main
   bsc-main:
     chain-id: 56
-    base-rpc-url: ${BSC_RPC_URL}
-    keyring-pass-env-name: "BSC_PASSWORD"
-    signing-key: ${BSC_SIGNING_KEY}
+    base-rpc-url: ${BNB_RPC_URL}
+    keyring-pass-env-name: "BNB_PASSWORD"
+    signing-key: ${BNB_SIGNING_KEY}
     keyring-dir: ~/.pigeon/keys/evm/bsc-main
     gas-adjustment: 1.2
 EOF
