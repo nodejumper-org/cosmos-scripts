@@ -39,11 +39,11 @@ noisd init $NODE_MONIKER --chain-id $CHAIN_ID
 curl -# https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-003/genesis.json > $HOME/.noisd/config/genesis.json
 sha256sum $HOME/.noisd/config/genesis.json # 9153084f305111e72fed86f44f6a11711c421532722200c870170d98223233ba
 
-curl -s https://snapshots2-testnet.nodejumper.io/ollo-testnet/addrbook.json > $HOME/.noisd/config/addrbook.json
+curl -s https://snapshots3-testnet.nodejumper.io/nois-testnet/addrbook.json > $HOME/.noisd/config/addrbook.json
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.005unois"|g' $HOME/.noisd/config/app.toml
 seeds=""
-peers="xxxxxxx@nois-testnet.nodejumper.io:28656,bf5bbdf9ac1ccd72d7b29c3fbcc7e99ff89fd053@node-0.noislabs.com:26656,d6f3f15d177f2e522f7e488bc3f66b659cc5f681@138.201.141.76:3656" # todo: set persistent peers
+peers="ac9122b2c10577bfd52aa248c6344370aff164aa@nois-testnet.nodejumper.io:29656,2bf8002d0f65c3d86fca31ea0f043d912682c3e0@65.109.70.23:17356,2dc7ab934dfec910fac3083fd74e3451e1d3e670@135.181.5.47:21036,d6f3f15d177f2e522f7e488bc3f66b659cc5f681@138.201.141.76:3656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.noisd/config/config.toml
 
 # set custom timeouts
