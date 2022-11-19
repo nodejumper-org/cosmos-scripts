@@ -53,7 +53,6 @@ cd axelar-core || return
 git checkout "$AXELARD_BINARY_VERSION"
 make build
 cp bin/axelard "$HOME/$CHAIN_HOME/bin/axelard"
-make install
 
 # download tofnd binary
 curl "https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/$TOFND_VERSION/tofnd-linux-amd64-$TOFND_VERSION" > "$HOME/$CHAIN_HOME/bin/tofnd"
