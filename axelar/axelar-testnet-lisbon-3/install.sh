@@ -7,6 +7,7 @@ printLogo
 
 read -p "Enter node moniker: " NODE_MONIKER
 read -s -p "Enter your keyring password: " KEYRING_PASSWORD
+printf "\n"
 read -s -p "Enter your tofnd password: " TOFND_PASSWORD
 printf "\n"
 
@@ -14,7 +15,7 @@ CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
 AXELARD_BINARY="axelard"
-AXELARD_BINARY="v0.28.0"
+AXELARD_BINARY_VERSION="v0.28.0"
 AXELARD_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELARD_BINARY"
 TOFND_VERSION="v0.10.1"
 CHEAT_SHEET="https://nodejumper.io/axelar-testnet/cheat-sheet"
@@ -24,7 +25,7 @@ echo -e "Node moniker:    ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:        ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain home:      ${CYAN}$CHAIN_HOME${NC}"
 echo -e "Chain demon:     ${CYAN}$CHAIN_DENOM${NC}"
-echo -e "axelard version: ${CYAN}$AXELARD_BINARY${NC}"
+echo -e "axelard version: ${CYAN}$AXELARD_BINARY_VERSION${NC}"
 echo -e "tofnd version:   ${CYAN}$TOFND_VERSION${NC}"
 printLine
 sleep 1
@@ -37,7 +38,7 @@ CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
 AXELARD_BINARY="axelard"
-AXELARD_BINARY="v0.28.0"
+AXELARD_BINARY_VERSION="v0.28.0"
 AXELARD_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELARD_BINARY"
 TOFND_VERSION="v0.10.1"
 
@@ -49,7 +50,7 @@ cd || return
 rm -rf axelar-core
 git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
-git checkout "$AXELARD_BINARY"
+git checkout "$AXELARD_BINARY_VERSION"
 make build
 cp bin/axelard "$HOME/$CHAIN_HOME/bin/axelard"
 make install
@@ -57,6 +58,13 @@ make install
 # download tofnd binary
 curl "https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/$TOFND_VERSION/tofnd-linux-amd64-$TOFND_VERSION" > "$HOME/$CHAIN_HOME/bin/tofnd"
 chmod +x "$HOME/$CHAIN_HOME/bin/tofnd"
+
+# save variables
+# shellcheck disable=SC2129
+echo "export PATH=$PATH:$HOME/$CHAIN_HOME/bin" >> "$HOME/.bash_profile"
+echo "export AXELARD_HOME=$HOME/$CHAIN_HOME" >> "$HOME/.bash_profile"
+echo "export AXELARD_CHAIN_ID=$AXELARD_CHAIN_ID" >> "$HOME/.bash_profile"
+source "$HOME/.bash_profile"
 
 # init chain
 axelard init "$NODE_MONIKER" --chain-id $CHAIN_ID --home "$HOME/$CHAIN_HOME"
@@ -66,7 +74,8 @@ curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/co
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/config.toml > "$HOME/$CHAIN_HOME/config/config.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/seeds.toml > "$HOME/$CHAIN_HOME/config/seeds.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/genesis.json > "$HOME/$CHAIN_HOME/config/genesis.json"
-sed -i 's|external_address = ""|external_address = "'"$(curl -4 ifconfig.co)"':26656"|g' "$HOME/$CHAIN_HOME/config/config.toml"
+sed -i 's|^moniker *=.*|moniker = "'"$NODE_MONIKER"'"|g' "$HOME/$CHAIN_HOME/config/config.toml"
+sed -i 's|^external_address *=.*|external_address = "'"$(curl -s eth0.me)"':26656"|g' "$HOME/$CHAIN_HOME/config/config.toml"
 
 # check genesis sha256sum
 sha256sum "$HOME/$CHAIN_HOME/config/genesis.json" # 4f53f04d62a01c247ef52558b5671e96f9fcee3b74192ef58f5cc3dd82b2f3d7
@@ -125,13 +134,6 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 
-# save variables
-# shellcheck disable=SC2129
-echo "export PATH=$PATH:$HOME/$CHAIN_HOME/bin" >> "$HOME/.bash_profile"
-echo "export AXELARD_HOME=$HOME/$CHAIN_HOME" >> "$HOME/.bash_profile"
-echo "export AXELARD_CHAIN_ID=$AXELARD_CHAIN_ID" >> "$HOME/.bash_profile"
-
-# TODO: add sync section
 axelard tendermint unsafe-reset-all --home "$HOME/$CHAIN_HOME"
 URL=`curl -L https://quicksync.io/axelar.json | jq -r '.[] |select(.file=="axelartestnet-lisbon-3-pruned")|.url'`
 cd "$HOME/$CHAIN_HOME" || return
