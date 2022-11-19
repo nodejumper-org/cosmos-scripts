@@ -37,7 +37,7 @@ noisd config chain-id $CHAIN_ID
 noisd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl -# https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-003/genesis.json > $HOME/.noisd/config/genesis.json
-sha256sum $HOME/.noisd/config/genesis.json # todo: check hash
+sha256sum $HOME/.noisd/config/genesis.json # 9153084f305111e72fed86f44f6a11711c421532722200c870170d98223233ba
 
 curl -s https://snapshots2-testnet.nodejumper.io/ollo-testnet/addrbook.json > $HOME/.noisd/config/addrbook.json
 
