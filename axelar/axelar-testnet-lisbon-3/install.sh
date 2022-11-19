@@ -33,8 +33,6 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printCyan "4. Building binaries..." && sleep 1
 
-KEYRING_PASSWORD="YOUR_KEYRING_PASSWORD"
-TOFND_PASSWORD="YOUR_TOFND_PASSWORD"
 CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
