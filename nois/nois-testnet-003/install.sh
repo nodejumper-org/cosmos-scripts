@@ -32,28 +32,28 @@ mkdir -p $HOME/go/bin
 sudo mv out/noisd $HOME/go/bin/noisd
 noisd version # 0.29.0-rc2
 
-ollod config keyring-backend test
-ollod config chain-id $CHAIN_ID
-ollod init $NODE_MONIKER --chain-id $CHAIN_ID
+noisd config keyring-backend test
+noisd config chain-id $CHAIN_ID
+noisd init $NODE_MONIKER --chain-id $CHAIN_ID
 
-curl -# https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-003/genesis.js > $HOME/.noisd/config/genesis.json
+curl -# https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-003/genesis.json > $HOME/.noisd/config/genesis.json
 sha256sum $HOME/.noisd/config/genesis.json # todo: check hash
 
 curl -s https://snapshots2-testnet.nodejumper.io/ollo-testnet/addrbook.json > $HOME/.noisd/config/addrbook.json
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.005unois"|g' $HOME/.noisd/config/app.toml
 seeds=""
-peers="xxxxxxx@nois-testnet.nodejumper.io:28656,bf5bbdf9ac1ccd72d7b29c3fbcc7e99ff89fd053@node-0.noislabs.com:26656" # todo: set persistent peers
+peers="xxxxxxx@nois-testnet.nodejumper.io:28656,bf5bbdf9ac1ccd72d7b29c3fbcc7e99ff89fd053@node-0.noislabs.com:26656,d6f3f15d177f2e522f7e488bc3f66b659cc5f681@138.201.141.76:3656" # todo: set persistent peers
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.noisd/config/config.toml
 
 # set custom timeouts
-sed -i 's|^timeout_propose =.*$|timeout_propose = "2000ms"|' $HOME/.noisd/config.toml
-sed -i 's|^timeout_propose_delta =.*$|timeout_propose_delta = "500ms"|' $HOME/.noisd/config.toml
-sed -i 's|^timeout_prevote =.*$|timeout_prevote = "1s"|' $HOME/.noisd/config.toml
-sed -i 's|^timeout_prevote_delta =.*$|timeout_prevote_delta = "500ms"|' $HOME/.noisd/config.toml
-sed -i 's|^timeout_precommit =.*$|timeout_precommit = "1s"|' $HOME/.noisd/config.toml
-sed -i 's|^timeout_precommit_delta =.*$|timeout_precommit_delta = "500ms"|' $HOME/.noisd/config.toml
-sed -i 's|^timeout_commit =.*$|timeout_commit = "1800ms"|' $HOME/.noisd/config.toml
+sed -i 's|^timeout_propose =.*$|timeout_propose = "2000ms"|' $HOME/.noisd/config/config.toml
+sed -i 's|^timeout_propose_delta =.*$|timeout_propose_delta = "500ms"|' $HOME/.noisd/config/config.toml
+sed -i 's|^timeout_prevote =.*$|timeout_prevote = "1s"|' $HOME/.noisd/config/config.toml
+sed -i 's|^timeout_prevote_delta =.*$|timeout_prevote_delta = "500ms"|' $HOME/.noisd/config/config.toml
+sed -i 's|^timeout_precommit =.*$|timeout_precommit = "1s"|' $HOME/.noisd/config/config.toml
+sed -i 's|^timeout_precommit_delta =.*$|timeout_precommit_delta = "500ms"|' $HOME/.noisd/config/config.toml
+sed -i 's|^timeout_commit =.*$|timeout_commit = "1800ms"|' $HOME/.noisd/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.noisd/config/app.toml
