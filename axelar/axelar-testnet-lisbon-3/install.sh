@@ -102,6 +102,7 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 
+# ! set your TOFND_PASSWORD
 sudo tee /etc/systemd/system/tofnd.service > /dev/null << EOF
 [Unit]
 Description=Tofnd daemon
@@ -118,6 +119,7 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 
+# ! set your KEYRING_PASSWORD
 sudo tee /etc/systemd/system/vald.service > /dev/null << EOF
 [Unit]
 Description=Vald daemon
