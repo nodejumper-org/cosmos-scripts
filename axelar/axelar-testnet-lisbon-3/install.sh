@@ -138,8 +138,8 @@ EOF
 # download fresh snapshot
 axelard tendermint unsafe-reset-all --home "$HOME/$CHAIN_HOME"
 rm -rf $HOME/.axelar_testnet/data
-SNAP_NAME=$(curl -s https://snapshots.axelar-testnet.nodejumper.io//axelar-testnet/ | egrep -o ">axelar-testnet-lisbon-3.*\.tar.lz4" | tr -d ">")
-curl https://snapshots.axelar-testnet.nodejumper.io//axelar-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.axelar_testnet
+SNAP_NAME=$(curl -s https://snapshots.axelar-testnet.nodejumper.io/axelar-testnet/ | egrep -o ">axelar-testnet-lisbon-3.*\.tar.lz4" | tr -d ">")
+curl https://snapshots.axelar-testnet.nodejumper.io/axelar-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.axelar_testnet
 
 sudo systemctl daemon-reload
 sudo systemctl enable axelard
