@@ -45,5 +45,5 @@ sudo systemctl enable suid
 sudo systemctl restart suid
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u suid -f --no-hostname -o cat ${NC}"
 echo -e "Check node health:     ${CYAN}https://node.sui.zvalid.com ${NC}"
