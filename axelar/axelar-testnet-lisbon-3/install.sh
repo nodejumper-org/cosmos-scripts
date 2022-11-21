@@ -135,11 +135,11 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 
+# download fresh snapshot
 axelard tendermint unsafe-reset-all --home "$HOME/$CHAIN_HOME"
-URL=`curl -L https://quicksync.io/axelar.json | jq -r '.[] |select(.file=="axelartestnet-lisbon-3-pruned")|.url'`
-cd "$HOME/$CHAIN_HOME" || return
-wget -O - $URL | lz4 -d | tar -xvf -
-cd $HOME || return
+rm -rf $HOME/.axelar_testnet/data
+SNAP_NAME=$(curl -s https://snapshots.axelar-testnet.nodejumper.io//axelar-testnet/ | egrep -o ">axelar-testnet-lisbon-3.*\.tar.lz4" | tr -d ">")
+curl https://snapshots.axelar-testnet.nodejumper.io//axelar-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.axelar_testnet
 
 sudo systemctl daemon-reload
 sudo systemctl enable axelard
