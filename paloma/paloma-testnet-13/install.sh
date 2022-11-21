@@ -58,6 +58,9 @@ rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
 pigeon version # v0.11.0
 
+echo "export PIGEON_HEALTHCHECK_PORT=5757" >> $HOME/.bash_profile
+source .bash_profile
+
 mkdir -p $HOME/.pigeon
 
 sudo tee $HOME/.pigeon/config.yaml > /dev/null << EOF
