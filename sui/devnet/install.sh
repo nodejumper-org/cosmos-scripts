@@ -7,7 +7,7 @@ printLogo
 printCyan "1. Updating packages..." && sleep 1
 sudo apt update
 printCyan "2. Installing dependencies..." && sleep 1
-sudo apt install -y jq curl build-essential
+sudo apt install -y jq curl build-essential libssl-dev
 
 printCyan "3. Downloading binaries..." && sleep 1
 
