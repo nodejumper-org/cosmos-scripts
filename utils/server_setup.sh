@@ -53,4 +53,4 @@ EOF
 printLine
 
 printCyan "Server setup is done." && sleep 1
-printCyan "Now you can logout (exit) and login again using ${CYAN} ssh $USERNAME@$(wget -qO- eth0.me)${NC}" && sleep 1
+printCyan "Now you can logout (exit) and login again using ssh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
