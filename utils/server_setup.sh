@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter public SSH key in double quotes(\"): " PUBLIC_SSH_KEY
+read -p "Enter public SSH key: " PUBLIC_SSH_KEY
 read -p "Enter new system username: " USERNAME
 
 printCyan "1. Upgrading system packages..." && sleep 1
@@ -16,7 +16,7 @@ printCyan "2. Creating new user: \"$USERNAME\" and configuring SSH ..." && sleep
 
 sudo adduser $USERNAME --disabled-password -q
 mkdir /home/$USERNAME/.ssh
-echo "$PUBLIC_SSH_KEY" > /home/$USERNAME/.ssh/authorized_keys
+echo $PUBLIC_SSH_KEY >> /home/$USERNAME/.ssh/authorized_keys
 sudo chown $USERNAME: /home/$USERNAME/.ssh
 sudo chown $USERNAME: /home/$USERNAME/.ssh/authorized_keys
 
@@ -46,9 +46,11 @@ sudo ufw enable
 
 printCyan "5. Making terminal colorful ..." && sleep 1
 
+sudo -i -u $USERNAME bash << EOF
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/server-setup/utils/enable_colorful_bash.sh)
+EOF
 
 printLine
 
 printCyan "Server setup is done." && sleep 1
-printCyan "Now you can logout (exit) and login again using ssh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
+printCyan "Now you can logout (exit) and login again using ${CYAN} ssh $USERNAME@$(wget -qO- eth0.me)${NC}" && sleep 1
