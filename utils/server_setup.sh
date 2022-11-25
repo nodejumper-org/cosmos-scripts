@@ -7,7 +7,6 @@ printLogo
 read -p "Enter public SSH key: " PUBLIC_SSH_KEY
 read -p "Enter new system username: " USERNAME
 
-
 printCyan "1. Upgrading system packages..." && sleep 1
 
 sudo apt update
@@ -21,7 +20,7 @@ echo $PUBLIC_SSH_KEY > /home/$USERNAME/.ssh/authorized_keys
 sudo chown $USERNAME: /home/$USERNAME/.ssh
 sudo chown $USERNAME: /home/$USERNAME/.ssh/authorized_keys
 
-sudo -- bash -c 'echo "admin ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
+sudo -- bash -c 'echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
 
 sudo sed -i 's/^PermitRootLogin\s.*$/PermitRootLogin no/' /etc/ssh/sshd_config
 sudo sed -i 's/^ChallengeResponseAuthentication\s.*$/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
@@ -52,5 +51,5 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printLine
 
 printCyan "Server setup is done." && sleep 1
-printCyan "Now you can logout (exit) and login again using shh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
+printCyan "Now you can logout (exit) and login again using ssh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
 
