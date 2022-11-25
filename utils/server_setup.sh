@@ -12,11 +12,11 @@ printCyan "1. Upgrading system packages..." && sleep 1
 sudo apt update
 sudo apt upgrade -y
 
-printCyan "2. Creating new user: $USERNAME and configure SSH ..." && sleep 1
+printCyan "2. Creating new user: \"$USERNAME\" and configuring SSH ..." && sleep 1
 
 sudo adduser $USERNAME --disabled-password -q
 mkdir /home/$USERNAME/.ssh
-echo $PUBLIC_SSH_KEY > /home/$USERNAME/.ssh/authorized_keys
+echo "$PUBLIC_SSH_KEY" > /home/$USERNAME/.ssh/authorized_keys
 sudo chown $USERNAME: /home/$USERNAME/.ssh
 sudo chown $USERNAME: /home/$USERNAME/.ssh/authorized_keys
 
@@ -52,4 +52,3 @@ printLine
 
 printCyan "Server setup is done." && sleep 1
 printCyan "Now you can logout (exit) and login again using ssh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
-
