@@ -26,9 +26,9 @@ cd || return
 rm -rf empowerchain
 git clone https://github.com/empowerchain/empowerchain
 cd empowerchain/chain || return
-git checkout v0.0.1
+git checkout v0.0.3
 make install
-empowerd version # 0.0.1
+empowerd version # 0.0.3
 
 empowerd config keyring-backend test
 empowerd config chain-id $CHAIN_ID
