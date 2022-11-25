@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/master/utils/common.sh)
+source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/common.sh)
 
 printLogo
 
@@ -50,7 +50,7 @@ sudo ufw enable
 
 printCyan "5. Making terminal colorful ..." && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/master/utils/enable_colorful_bash.sh)
+source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/server-setup/utils/enable_colorful_bash.sh)
 
 printLine
 

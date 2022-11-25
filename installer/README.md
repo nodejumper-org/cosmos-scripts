@@ -2,14 +2,14 @@
 
 ### How to use
 ```
-. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/master/node-installer/node_installer.sh) -c c.json
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/node-installer/node_installer.sh) -c c.json
 ```
 
 #### Config example - c.json
 ```
 [
   {
-    "installationScript": "https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/dev/installation-scripts/rizon_install.sh",
+    "installationScript": "https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/dev/installation-scripts/rizon_install.sh",
     "moniker": "nodejumper",
     "serviceName": "rizond",
     "chainId": "titan-1",

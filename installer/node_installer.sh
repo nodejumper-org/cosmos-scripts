@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/master/utils/logo.sh)
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/logo.sh)
 
 while getopts c: flag; do
   case "${flag}" in
