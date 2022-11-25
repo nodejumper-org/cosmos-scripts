@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter public SSH key: " PUBLIC_SSH_KEY
+read -p "Enter public SSH key in double quotes(\"): " PUBLIC_SSH_KEY
 read -p "Enter new system username: " USERNAME
 
 printCyan "1. Upgrading system packages..." && sleep 1
@@ -20,7 +20,7 @@ echo "$PUBLIC_SSH_KEY" > /home/$USERNAME/.ssh/authorized_keys
 sudo chown $USERNAME: /home/$USERNAME/.ssh
 sudo chown $USERNAME: /home/$USERNAME/.ssh/authorized_keys
 
-sudo -- bash -c 'echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
+echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 sudo sed -i 's/^PermitRootLogin\s.*$/PermitRootLogin no/' /etc/ssh/sshd_config
 sudo sed -i 's/^ChallengeResponseAuthentication\s.*$/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
