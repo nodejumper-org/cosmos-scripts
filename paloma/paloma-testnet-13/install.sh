@@ -98,17 +98,6 @@ evm:
     tx-type: 0
 EOF
 
-sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
-PALOMA_KEYRING_PASS=<your Paloma key password>
-ETH_RPC_URL=<Your ETH mainnet RPC URL>
-ETH_PASSWORD=<Your ETH Key Password>
-ETH_SIGNING_KEY=<Your ETH SIGNING KEY>
-BNB_RPC_URL=<Your BSC mainnet RPC URL>
-BNB_PASSWORD=<Your BSC Key Password>
-BNB_SIGNING_KEY=<Your BSC SIGNING KEY>
-WALLET=<WALLET NAME>
-EOF
-
 printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/palomad.service > /dev/null << EOF
