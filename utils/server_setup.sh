@@ -16,13 +16,10 @@ sudo apt upgrade -y
 printCyan "2. Creating new user: $USERNAME and configure SSH ..." && sleep 1
 
 sudo adduser $USERNAME --disabled-password -q
-sudo su - $USERNAME
-mkdir .ssh
-chmod 700 .ssh
-sudo tee .ssh/authorized_keys > /dev/null << EOF
-$PUBLIC_SSH_KEY
-EOF
-exit
+mkdir /home/$USERNAME/.ssh
+echo $PUBLIC_SSH_KEY > /home/$USERNAME/.ssh/authorized_keys
+sudo chown $USERNAME: /home/$USERNAME/.ssh
+sudo chown $USERNAME: /home/$USERNAME/.ssh/authorized_keys
 
 sudo -- bash -c 'echo "admin ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
 
@@ -55,5 +52,5 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printLine
 
 printCyan "Server setup is done." && sleep 1
-printCyan "Now you can login using shh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
+printCyan "Now you can logout (exit) and login again using shh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
 
