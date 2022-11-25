@@ -1,7 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC1090
 
-source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/common.sh)
+source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/master/utils/common.sh)
 
 printLogo
 
@@ -30,7 +30,7 @@ echo -e "tofnd version:   ${CYAN}$TOFND_VERSION${NC}"
 printLine
 sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/dependencies_install.sh)
+source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/master/utils/dependencies_install.sh)
 
 printCyan "4. Building binaries..." && sleep 1
 

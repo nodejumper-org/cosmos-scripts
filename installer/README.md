@@ -2,7 +2,7 @@
 
 ### How to use
 ```
-. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/node-installer/node_installer.sh) -c c.json
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/master/node-installer/node_installer.sh) -c c.json
 ```
 
 #### Config example - c.json
