@@ -22,14 +22,13 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/m
 
 printCyan "4. Building binaries..." && sleep 1
 
-# build celestia-app
-APP_VERSION=v0.6.0
 cd $HOME || return
 rm -rf celestia-app
 git clone https://github.com/celestiaorg/celestia-app.git
 cd celestia-app || return
-git checkout tags/$APP_VERSION -b $APP_VERSION
+git checkout v0.6.0
 make install
+celestia-appd version # 0.6.0
 
 celestia-appd config keyring-backend test
 celestia-appd config chain-id $CHAIN_ID
