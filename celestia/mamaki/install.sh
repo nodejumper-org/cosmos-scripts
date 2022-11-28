@@ -64,7 +64,6 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-# install fresh snapshot
 celestia-appd tendermint unsafe-reset-all --home $HOME/.celestia-app --keep-addr-book
 
 cd "$HOME/.celestia-app" || return
