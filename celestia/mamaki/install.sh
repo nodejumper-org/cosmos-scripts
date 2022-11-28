@@ -22,18 +22,17 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-# build celestia-app
-APP_VERSION=v0.6.0
 cd $HOME || return
 rm -rf celestia-app
 git clone https://github.com/celestiaorg/celestia-app.git
 cd celestia-app || return
-git checkout tags/$APP_VERSION -b $APP_VERSION
+git checkout v0.6.0
 make install
+celestia-appd version # 0.6.0
 
 celestia-appd config keyring-backend test
 celestia-appd config chain-id $CHAIN_ID
-celestia-appd init "$NODE_MONIKER" --chain-id $CHAIN_ID
+celestia-appd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/celestiaorg/networks/master/mamaki/genesis.json > $HOME/.celestia-app/config/genesis.json
 sha256sum $HOME/.celestia-app/config/genesis.json # 48747645055290a91a2671d51da399e0921fea93aa1eb0d2a54bab5c43e8a5aa
@@ -47,7 +46,7 @@ sed -i.bak -e 's|^bootstrap-peers *=.*|bootstrap-peers = "'"$bootstrap_peers"'"|
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.celestia-app/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.celestia-app/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "13"|g' $HOME/.celestia-app/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.celestia-app/config/app.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
@@ -65,9 +64,11 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-# install fresh snapshot
 celestia-appd tendermint unsafe-reset-all --home $HOME/.celestia-app --keep-addr-book
-rm -rf $HOME/.celestia-app/data
+
+cd "$HOME/.celestia-app" || return
+rm -rf data
+
 SNAP_NAME=$(curl -s https://snapshots3-testnet.nodejumper.io/celestia-testnet/ | egrep -o ">mamaki.*\.tar.lz4" | tr -d ">")
 curl https://snapshots3-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.celestia-app
 

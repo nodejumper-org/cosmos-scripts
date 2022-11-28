@@ -51,7 +51,7 @@ sed -i 's|^timeout_commit *=.*|timeout_commit = "2s"|' $HOME/.neutrond/config/co
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.neutrond/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.neutrond/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "13"|g' $HOME/.neutrond/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.neutrond/config/app.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 

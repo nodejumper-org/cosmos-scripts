@@ -1,10 +1,10 @@
 # Create wallet
-palomad keys add wallet
+pylonsd keys add wallet
 
 ## Console output
 #- name: wallet
 #  type: local
-#  address: paloma1lfpde6scf7ulzvuq2suavav6cpmpy0rzxne0pw
+#  address: pylons1wpkxhzufzrmz6glt4sjp54k3umgvx5hv3rx6y7
 #  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Auq9WzVEs5pCoZgr2WctjI7fU+lJCH0I3r6GC1oa0tc0"}'
 #  mnemonic: ""
 
@@ -12,31 +12,31 @@ palomad keys add wallet
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
 # Wait util the node is synced, should return FALSE
-palomad status 2>&1 | jq .SyncInfo.catching_up
+pylonsd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to https://faucet.palomaswap.com and paste your wallet address
+# Ask tokens in discord https://discord.com/invite/pylons
 
 # Verify the balance
-palomad q bank balances $(palomad keys show wallet -a)
+pylonsd q bank balances $(pylonsd keys show wallet -a)
 
 ## Console output
 #  balances:
-#  - amount: "10000000"
-#    denom: ugrain
+#  - amount: "1000000"
+#    denom: ubedrock
 
 # Create validator
-palomad tx staking create-validator \
---amount=9000000ugrain \
---pubkey=$(palomad tendermint show-validator) \
+pylonsd tx staking create-validator \
+--amount=900000ubedrock \
+--pubkey=$(pylonsd tendermint show-validator) \
 --moniker="YOUR_VALIDATOR_MONIKER" \
---chain-id=paloma-testnet-12 \
+--chain-id=pylons-testnet-3 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=2000ugrain \
+--fees=20000ubedrock \
 --from=wallet \
 -y
 
 # Make sure you see the validator details
-palomad q staking validator $(palomad keys show wallet --bech val -a)
+pylonsd q staking validator $(pylonsd keys show wallet --bech val -a)

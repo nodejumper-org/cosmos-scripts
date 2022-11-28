@@ -28,7 +28,7 @@ neutrond q bank balances $(neutrond keys show wallet -a)
 neutrond tx staking create-validator \
 --amount=900000untrn \
 --pubkey=$(neutrond tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=quark-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

@@ -15,7 +15,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 uptickd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #faucet and paste
-$faucet <YOUR_WALLET_ADDRESS>
+$faucet YOUR_WALLET_ADDRESS
 
 # Verify the balance
 uptickd q bank balances $(uptickd keys show wallet -a)
@@ -29,7 +29,7 @@ uptickd q bank balances $(uptickd keys show wallet -a)
 uptickd tx staking create-validator \
 --amount=4900000000000000000auptick \
 --pubkey=$(uptickd tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=uptick_7776-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

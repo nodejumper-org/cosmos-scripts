@@ -15,7 +15,7 @@ reason crew zone unfold grain jungle shell before joke doll powder still aspect 
 quicksilverd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #qck-tap and paste
-$request <YOUR_WALLET_ADDRESS> killerqueen
+$request YOUR_WALLET_ADDRESS killerqueen
 
 # Verify the balance
 quicksilverd q bank balances $(quicksilverd keys show wallet -a)
@@ -29,7 +29,7 @@ quicksilverd q bank balances $(quicksilverd keys show wallet -a)
 quicksilverd tx staking create-validator \
 --amount=4990000uqck \
 --pubkey=$(quicksilverd tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=killerqueen-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

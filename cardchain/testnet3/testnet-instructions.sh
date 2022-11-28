@@ -28,7 +28,7 @@ Cardchaind q bank balances $(Cardchaind keys show wallet -a)
 Cardchaind tx staking create-validator \
 --amount=5000000ubpf \
 --pubkey=$(Cardchaind tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=Testnet3 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
