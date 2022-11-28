@@ -47,7 +47,7 @@ sed -i.bak -e 's|^bootstrap-peers *=.*|bootstrap-peers = "'"$bootstrap_peers"'"|
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.celestia-app/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.celestia-app/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "13"|g' $HOME/.celestia-app/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.celestia-app/config/app.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
@@ -67,7 +67,10 @@ EOF
 
 # install fresh snapshot
 celestia-appd tendermint unsafe-reset-all --home $HOME/.celestia-app --keep-addr-book
-rm -rf $HOME/.celestia-app/data
+
+cd "$HOME/.celestia-app" || return
+rm -rf data
+
 SNAP_NAME=$(curl -s https://snapshots3-testnet.nodejumper.io/celestia-testnet/ | egrep -o ">mamaki.*\.tar.lz4" | tr -d ">")
 curl https://snapshots3-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.celestia-app
 

@@ -82,7 +82,7 @@ sha256sum "$HOME/$CHAIN_HOME/config/genesis.json" # 4f53f04d62a01c247ef52558b567
 # in case of pruning
 sed -i 's|^pruning *=.*|pruning = "custom"|g' "$HOME/$CHAIN_HOME/config/app.toml"
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' "$HOME/$CHAIN_HOME/config/app.toml"
-sed -i 's|pruning-interval = "0"|pruning-interval = "13"|g' "$HOME/$CHAIN_HOME/config/app.toml"
+sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' "$HOME/$CHAIN_HOME/config/app.toml"
 
 printCyan "5. Starting services and synchronization..." && sleep 1
 
