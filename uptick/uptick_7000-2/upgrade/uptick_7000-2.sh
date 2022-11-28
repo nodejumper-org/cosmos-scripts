@@ -15,4 +15,3 @@ sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $HOME/.uptickd/co
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.uptickd/config/app.toml
 
 sudo systemctl restart uptickd
-sudo journalctl -u uptickd -f --no-hostname -o cat
