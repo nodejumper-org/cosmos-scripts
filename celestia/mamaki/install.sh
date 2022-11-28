@@ -32,7 +32,7 @@ celestia-appd version # 0.6.0
 
 celestia-appd config keyring-backend test
 celestia-appd config chain-id $CHAIN_ID
-celestia-appd init "$NODE_MONIKER" --chain-id $CHAIN_ID
+celestia-appd init $NODE_MONIKER --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/celestiaorg/networks/master/mamaki/genesis.json > $HOME/.celestia-app/config/genesis.json
 sha256sum $HOME/.celestia-app/config/genesis.json # 48747645055290a91a2671d51da399e0921fea93aa1eb0d2a54bab5c43e8a5aa
