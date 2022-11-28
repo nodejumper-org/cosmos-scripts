@@ -15,7 +15,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 empowerd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #faucet and paste
-$request <YOUR_WALLET_ADDRESS> altruistic-1
+$request YOUR_WALLET_ADDRESS altruistic-1
 
 # Verify the balance
 empowerd q bank balances $(empowerd keys show wallet -a)

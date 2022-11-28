@@ -15,7 +15,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 dewebd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #faucet and paste
-$request <YOUR_WALLET_ADDRESS> menkar
+$request YOUR_WALLET_ADDRESS menkar
 
 # Verify the balance
 dewebd q bank balances $(dewebd keys show wallet -a)

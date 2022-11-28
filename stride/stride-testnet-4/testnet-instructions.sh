@@ -15,7 +15,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 strided status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #token-faucet and paste
-$faucet-stride:<YOUR_WALLET_ADDRESS>
+$faucet-stride:YOUR_WALLET_ADDRESS
 
 # Verify the balance
 strided q bank balances $(strided keys show wallet -a)

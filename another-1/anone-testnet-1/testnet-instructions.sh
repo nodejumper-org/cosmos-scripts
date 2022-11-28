@@ -15,7 +15,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 anoned status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #faucet-testnet-1 and paste
-$request <YOUR_WALLET_ADDRESS>
+$request YOUR_WALLET_ADDRESS
 
 # Verify the balance
 anoned q bank balances $(anoned keys show wallet -a)

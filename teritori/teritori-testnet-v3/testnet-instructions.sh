@@ -15,7 +15,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 teritorid status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #faucet and paste
-$request <YOUR_WALLET_ADDRESS>
+$request YOUR_WALLET_ADDRESS
 
 # Verify the balance
 teritorid q bank balances $(teritorid keys show wallet -a)

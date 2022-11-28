@@ -15,7 +15,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 stafihubd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #stafi-hub-faucetw and paste
-!faucet send <YOUR_WALLET_ADDRESS>
+!faucet send YOUR_WALLET_ADDRESS
 
 # Verify the balance
 stafihubd q bank balances $(stafihubd keys show wallet -a)
