@@ -29,7 +29,7 @@ teritorid q bank balances $(teritorid keys show wallet -a)
 teritorid tx staking create-validator \
 --amount=1000000utori \
 --pubkey=$(teritorid tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=teritori-testnet-v2 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

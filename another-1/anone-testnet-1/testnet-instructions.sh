@@ -29,7 +29,7 @@ anoned q bank balances $(anoned keys show wallet -a)
 anoned tx staking create-validator \
 --amount=4500000uan1 \
 --pubkey=$(anoned tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=anone-testnet-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

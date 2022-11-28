@@ -28,7 +28,7 @@ seid q bank balances $(seid keys show wallet -a)
 seid tx staking create-validator \
 --amount=1000000usei \
 --pubkey=$(seid tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=atlantic-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

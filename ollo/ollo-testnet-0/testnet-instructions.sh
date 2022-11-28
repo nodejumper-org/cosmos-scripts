@@ -29,7 +29,7 @@ ollod q bank balances $(ollod keys show wallet -a)
 ollod tx staking create-validator \
 --amount=49000000utollo \
 --pubkey=$(ollod tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=ollo-testnet-0 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

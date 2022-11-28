@@ -29,7 +29,7 @@ noisd q bank balances $(noisd keys show wallet -a)
 noisd tx staking create-validator \
 --amount=8000000unois \
 --pubkey=$(noisd tendermint show-validator) \
---moniker="<YOUR_VALIDATOR_MONIKER>" \
+--moniker=""YOUR_VALIDATOR_MONIKER"" \
 --chain-id=nois-testnet-003 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

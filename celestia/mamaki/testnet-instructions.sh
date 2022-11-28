@@ -28,7 +28,7 @@ celestia-appd q bank balances $(celestia-appd keys show wallet -a)
 celestia-appd tx staking create-validator \
 --amount=1000000utia \
 --pubkey=$(celestia-appd tendermint show-validator) \
---moniker=<YOUR_VALIDATOR_MONIKER> \
+--moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=mamaki \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
