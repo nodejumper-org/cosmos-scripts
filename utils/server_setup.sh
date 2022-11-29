@@ -6,7 +6,7 @@ printLogo
 
 read -p "Enter public SSH key: " PUBLIC_SSH_KEY
 read -p "Enter new system username (default - admin) : " USERNAME
-read -p "Enter space separated ports you want to expose for firewall (default - 22 9100 26656): " PORTS
+read -p "Enter space separated ports you want to expose for firewall (default - 22 9100 26656 26657): " PORTS
 read -p "Enter wanted servername (default - unchanged): " HOSTNAME
 
 USERNAME=${USERNAME:-'admin'}
@@ -65,5 +65,5 @@ fi
 
 printLine
 
-printCyan "Server setup is done. ✅✅✅" && sleep 1
+printCyan "Server setup is done." && sleep 1
 printCyan "Now you can logout (exit) and login again using ssh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
