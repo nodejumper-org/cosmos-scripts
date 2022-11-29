@@ -46,7 +46,7 @@ sed -i 's|^indexer *=.*|indexer = "null"|g' $HOME/.quicksilverd/config/config.to
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.quicksilverd/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.quicksilverd/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.quicksilverd/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "17"|g' $HOME/.quicksilverd/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.quicksilverd/config/app.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1

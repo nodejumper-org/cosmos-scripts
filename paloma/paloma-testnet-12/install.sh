@@ -48,7 +48,7 @@ sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persisten
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.paloma/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.paloma/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' $HOME/.paloma/config/app.toml
+sed -i 's|pruning-interval = "0"|pruning-interval = "17"|g' $HOME/.paloma/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.paloma/config/app.toml
 
 # pigeon binary and config

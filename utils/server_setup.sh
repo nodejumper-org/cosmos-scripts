@@ -5,7 +5,12 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printLogo
 
 read -p "Enter public SSH key: " PUBLIC_SSH_KEY
-read -p "Enter new system username: " USERNAME
+read -p "Enter new system username (default - admin) : " USERNAME
+read -p "Enter space separated ports you want to expose for firewall (default - 22 9100 26656): " PORTS
+read -p "Enter wanted servername (default - unchanged): " HOSTNAME
+
+USERNAME=${USERNAME:-'admin'}
+PORTS=${PORTS:-'9100 26656 26657'}
 
 printCyan "1. Upgrading system packages..." && sleep 1
 
@@ -40,8 +45,10 @@ sudo apt install -y ufw
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
 sudo ufw allow ssh
-sudo ufw allow 9100
-sudo ufw allow 26656
+for port in ${PORTS// / }
+do
+    sudo ufw allow $port
+done
 sudo ufw enable
 
 printCyan "5. Making terminal colorful ..." && sleep 1
@@ -50,7 +57,13 @@ sudo -i -u $USERNAME bash << EOF
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/server-setup/utils/enable_colorful_bash.sh)
 EOF
 
+if [[ $HOSTNAME ]]; then
+printCyan "6. Setting up new hostname: \"$HOSTNAME\"  ..." && sleep 1
+
+sudo hostnamectl set-hostname $HOSTNAME
+fi
+
 printLine
 
-printCyan "Server setup is done." && sleep 1
+printCyan "Server setup is done. ✅✅✅" && sleep 1
 printCyan "Now you can logout (exit) and login again using ssh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
