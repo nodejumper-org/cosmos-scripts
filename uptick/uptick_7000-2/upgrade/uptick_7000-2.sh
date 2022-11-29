@@ -12,6 +12,6 @@ sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persisten
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.uptickd/config/app.toml
 sed -i 's|^pruning-keep-recent *=.*|pruning-keep-recent = "100"|g' $HOME/.uptickd/config/app.toml
 sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $HOME/.uptickd/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.uptickd/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $HOME/.uptickd/config/app.toml
 
 sudo systemctl restart uptickd

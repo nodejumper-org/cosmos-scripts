@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/logo.sh)
+. <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/logo.sh)
 
 while getopts c: flag; do
   case "${flag}" in
@@ -73,7 +73,7 @@ function configureNode {
 
   sed -i 's|pruning = "default"|pruning = "custom"|g' "$chainHomePath/config/app.toml"
   sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' "$chainHomePath/config/app.toml"
-  sed -i 's|pruning-interval = "0"|pruning-interval = "10"|g' "$chainHomePath/config/app.toml"
+  sed -i 's|pruning-interval = "0"|pruning-interval = "17"|g' "$chainHomePath/config/app.toml"
   sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' "$chainHomePath/config/app.toml"
 
   if [ "$stateSyncMode" == true ]; then
