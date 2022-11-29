@@ -12,6 +12,12 @@ read -p "Enter wanted servername (default - unchanged): " HOSTNAME
 USERNAME=${USERNAME:-'admin'}
 PORTS=${PORTS:-'9100 26656 26657'}
 
+if [[ -z $PUBLIC_SSH_KEY ]]; then
+printRed "We can't proceed without public ssh key, as your server will be blocked. Make sure you generate the key on your local machine using:"
+printCyan "ssh-keygen -t rsa" && sleep 1
+exit 1
+fi
+
 printCyan "1. Upgrading system packages..." && sleep 1
 
 sudo apt update
@@ -58,12 +64,13 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 EOF
 
 if [[ $HOSTNAME ]]; then
-printCyan "6. Setting up new hostname: \"$HOSTNAME\"  ..." && sleep 1
+printCyan "6. Setting up new servername: \"$HOSTNAME\"  ..." && sleep 1
 
 sudo hostnamectl set-hostname $HOSTNAME
 fi
 
 printLine
 
-printCyan "Server setup is done." && sleep 1
-printCyan "Now you can logout (exit) and login again using ssh $USERNAME@$(wget -qO- eth0.me)" && sleep 1
+echo "Server setup is done." && sleep 1
+echo "Now you can logout (exit) and login again using:" && sleep 1
+printCyan "ssh $USERNAME@$(wget -qO- eth0.me)" && sleep 1

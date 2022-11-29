@@ -1,5 +1,6 @@
 NC="\e[0m"           # no color
 CYAN="\e[1m\e[1;96m" # cyan color
+RED="\e[1m\e[1;91m" # red color
 
 function printLogo {
   bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/logo.sh)
@@ -11,6 +12,10 @@ function printLine {
 
 function printCyan {
   echo -e "${CYAN}${1}${NC}"
+}
+
+function printRed {
+  echo -e "${RED}${1}${NC}"
 }
 
 function addToPath {
