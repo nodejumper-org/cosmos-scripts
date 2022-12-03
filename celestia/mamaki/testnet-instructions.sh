@@ -34,7 +34,7 @@ celestia-appd tx staking create-validator \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=2000unibi \
+--fees=2000utia \
 --from=wallet \
 -y
 
