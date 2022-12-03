@@ -14,7 +14,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 # Wait util the node is synced, should return FALSE
 Cardchaind status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to https://dragonapi.space/ and paste your wallet address
+# Go to https://crowdcontrol.network/#/about and import your wallet address using seed phase above
 
 # Verify the balance
 Cardchaind q bank balances $(Cardchaind keys show wallet -a)
