@@ -1,6 +1,6 @@
 # Create ETH/BNB/PALOMA keys
 pigeon evm keys generate-new $HOME/.pigeon/keys/evm/eth-main
-pigeon evm keys generate-new $HOME/.pigeon/keys/evm/eth-bnb
+pigeon evm keys generate-new $HOME/.pigeon/keys/evm/bnb-main
 palomad keys add wallet
 
 ETH_PASSWORD = <YOUR_ETH_PASSWORD>

@@ -93,7 +93,7 @@ evm:
     base-rpc-url: ${BNB_RPC_URL}
     keyring-pass-env-name: "BNB_PASSWORD"
     signing-key: ${BNB_SIGNING_KEY}
-    keyring-dir: ~/.pigeon/keys/evm/bsc-main
+    keyring-dir: ~/.pigeon/keys/evm/bnb-main
     gas-adjustment: 1.5
     tx-type: 0
 EOF
