@@ -26,7 +26,7 @@ cd || return
 rm -rf canine-chain
 git clone https://github.com/JackalLabs/canine-chain.git
 cd canine-chain || return
-git checkout v1.1.2
+git checkout v1.1.2-hotfix
 make install
 canined version # 1.1.2
 
@@ -34,8 +34,8 @@ canined config keyring-backend test
 canined config chain-id $CHAIN_ID
 canined init $NODE_MONIKER --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/JackalLabs/woof/master/genesis/woof-final.json > $HOME/.canine/config/genesis.json
-sha256sum $HOME/.canine/config/genesis.json # 6f1e621836b49ef20abfa86c9bdbd83ffa4798e538f6b711f45c9afd50bbe68e
+curl -s https://raw.githubusercontent.com/JackalLabs/canine-mainnet-genesis/main/genesis/genesis.json > $HOME/.canine/config/genesis.json
+sha256sum $HOME/.canine/config/genesis.json # 851717cefe35004661fea8ff35212f35277f48c88ea0828b1ef6e877e5b4c787
 
 curl -s https://snapshots2.nodejumper.io/jackal/addrbook.json > $HOME/.canine/config/addrbook.json
 
