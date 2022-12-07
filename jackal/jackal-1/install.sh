@@ -30,7 +30,6 @@ git checkout v1.1.2-hotfix
 make install
 canined version # 1.1.2
 
-canined config keyring-backend test
 canined config chain-id $CHAIN_ID
 canined init $NODE_MONIKER --chain-id $CHAIN_ID
 
