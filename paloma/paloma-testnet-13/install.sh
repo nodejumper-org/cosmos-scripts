@@ -88,7 +88,7 @@ evm:
     keyring-dir: ~/.pigeon/keys/evm/eth-main
     gas-adjustment: 1.9
     tx-type: 2
-  bsc-main:
+  bnb-main:
     chain-id: 56
     base-rpc-url: ${BNB_RPC_URL}
     keyring-pass-env-name: "BNB_PASSWORD"
