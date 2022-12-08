@@ -64,6 +64,7 @@ WantedBy=multi-user.target
 EOF
 
 starnamed unsafe-reset-all
+
 rm -rf $HOME/.starnamed/data
 cd .starnamed || return
 
