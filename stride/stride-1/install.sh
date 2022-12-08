@@ -88,7 +88,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable strided
 sudo systemctl restart strided
 
-sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \printLine
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.rizon/config/config.tomlecho -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
+printLine
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
