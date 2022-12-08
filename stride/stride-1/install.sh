@@ -22,9 +22,6 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-bash <(curl -s "https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/go_install.sh")
-source .bash_profile
-
 cd || return
 rm -rf stride
 git clone https://github.com/Stride-Labs/stride.git
