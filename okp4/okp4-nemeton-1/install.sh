@@ -41,7 +41,7 @@ curl -s https://snapshots2-testnet.nodejumper.io/okp4-testnet/addrbook.json > $H
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uknow"|g' $HOME/.okp4d/config/app.toml
 seeds=""
-peers="256e77194b694d5e2acccc6f1982df62b157bceb@65.108.200.248:26656,fa04503a35476204861f06b75be4839562205527@65.109.85.226:26656,22e7f2d08ec6198ab789d2027a11d5420f5b3a77@192.168.1.16:26656"
+peers="9c462b1c0ba63115bd70c3bd4f2935fcb93721d0@65.21.170.3:42656,ee4c5d9a8ac7401f996ef9c4d79b8abda9505400@144.76.97.251:12656,2e85c1d08cfca6982c74ef2b67251aa459dd9b2f@65.109.85.170:43656,4ea26ce893d8f4f89a7b49b9bd77e0fbd914e029@65.109.88.162:36656"
 sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.okp4d/config/config.toml
 
 # in case of pruning
@@ -77,7 +77,6 @@ curl https://snapshots2-testnet.nodejumper.io/okp4-testnet/${SNAP_NAME} | lz4 -d
 sudo systemctl daemon-reload
 sudo systemctl enable okp4d
 sudo systemctl restart okp4d
-sudo journalctl -u okp4d -f --no-hostname -o cat
 
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
