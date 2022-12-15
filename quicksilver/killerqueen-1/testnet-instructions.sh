@@ -11,6 +11,9 @@ quicksilverd keys add wallet
 #!!! SAVE SEED PHRASE
 reason crew zone unfold grain jungle shell before joke doll powder still aspect angle pepper nice canvas clinic one art rival lab wheat digital
 
+#!!! SAVE PRIVATE VALIDATOR KEY
+cat $HOME/.quicksilverd/config/priv_validator_key.json
+
 # Wait util the node is synced, should return FALSE
 quicksilverd status 2>&1 | jq .SyncInfo.catching_up
 

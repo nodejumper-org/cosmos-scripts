@@ -1,4 +1,4 @@
-# Create wallet
+\# Create wallet
 seid keys add wallet
 
 ## Console output
@@ -10,6 +10,9 @@ seid keys add wallet
 
 #!!! SAVE SEED PHRASE
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
+
+#!!! SAVE PRIVATE VALIDATOR KEY
+cat $HOME/.sei/config/priv_validator_key.json
 
 # Wait util the node is synced, should return FALSE
 seid status 2>&1 | jq .SyncInfo.catching_up

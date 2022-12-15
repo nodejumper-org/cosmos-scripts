@@ -3,6 +3,19 @@ pigeon evm keys generate-new $HOME/.pigeon/keys/evm/eth-main
 pigeon evm keys generate-new $HOME/.pigeon/keys/evm/bnb-main
 palomad keys add wallet
 
+## Console output
+#- name: wallet
+#  type: local
+#  address: paloma1lfpde6scf7ulzvuq2suavav6cpmpy0rzxne0pw
+#  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Auq9WzVEs5pCoZgr2WctjI7fU+lJCH0I3r6GC1oa0tc0"}'
+#  mnemonic: ""
+
+#!!! SAVE SEED PHRASE
+kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
+
+#!!! SAVE PRIVATE VALIDATOR KEY
+cat $HOME/.paloma/config/priv_validator_key.json
+
 ETH_PASSWORD = <YOUR_ETH_PASSWORD>
 BNB_PASSWORD = <YOUR_ETH_PASSWORD>
 PALOMA_KEYRING_PASS = <YOUR_PALOMA_PASSWORD>
