@@ -3,5 +3,9 @@
     "height": 0,
     "version": "defund-private-3",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 5554316,
+    "version": "v0.2.0"
   }
 ]
