@@ -18,7 +18,7 @@ cat $HOME/.nolus/config/priv_validator_key.json
 nolusd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to discord channel #testnet-faucet and paste
-$request YOUR_WALLET_ADDRESS
+$request YOUR_WALLET_ADDRESS nolus-rila
 
 # Verify the balance
 nolusd q bank balances $(nolusd keys show wallet -a)
