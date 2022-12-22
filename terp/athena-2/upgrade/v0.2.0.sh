@@ -11,10 +11,10 @@ git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
 git checkout v0.2.0
 make install
-terpd version # v0.2.0
+terpd version # 0.2.0
 
 # update genesis
-curl -#  https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-2/0.2.0/genesis.json > ~/.terp/config/genesis.json
+curl -#  https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-2/0.2.0/genesis.json > $HOME/.terp/config/genesis.json
 
 # add skip upgrades flag to service file
 sudo tee /etc/systemd/system/terpd.service > /dev/null << EOF
