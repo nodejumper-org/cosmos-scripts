@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 teritorid keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: tori1wpkxhzufzrmz6glt4sjp54k3umgvx5hv3rx6y7
@@ -14,21 +14,21 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.teritorid/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 teritorid status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #faucet and paste
+# go to discord channel #faucet and paste
 $request YOUR_WALLET_ADDRESS
 
-# Verify the balance
+# verify the balance
 teritorid q bank balances $(teritorid keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "1000000"
 #    denom: utori
 
-# Create validator
+# create validator
 teritorid tx staking create-validator \
 --amount=1000000utori \
 --pubkey=$(teritorid tendermint show-validator) \
@@ -41,5 +41,5 @@ teritorid tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 teritorid q staking validator $(teritorid keys show wallet --bech val -a)

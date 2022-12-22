@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 uptickd keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: uptick11lfpde6scf7ulzvuq2suavav6cpmpy0rzxne0pw
@@ -14,21 +14,21 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.uptickd/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 uptickd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #faucet and paste
+# go to discord channel #faucet and paste
 $faucet YOUR_WALLET_ADDRESS
 
-# Verify the balance
+# verify the balance
 uptickd q bank balances $(uptickd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "5000000000000000000"
 #    denom: auptick
 
-# Create validator
+# create validator
 uptickd tx staking create-validator \
 --amount=4900000000000000000auptick \
 --pubkey=$(uptickd tendermint show-validator) \
@@ -43,5 +43,5 @@ uptickd tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 uptickd q staking validator $(uptickd keys show wallet --bech val -a)

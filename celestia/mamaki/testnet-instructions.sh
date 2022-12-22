@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 celestia-appd keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: celestia19kmadqs9nsppn4wz5yp4rw8zn9545rc4zwvs7
@@ -14,20 +14,20 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.celestia-app/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 celestia-appd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to https://discord.gg/kUSueaB22b and request tokens in faucet channel
 
-# Verify the balance
+# verify the balance
 celestia-appd q bank balances $(celestia-appd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "1000000"
 #    denom: utia
 
-# Create validator
+# create validator
 celestia-appd tx staking create-validator \
 --amount=1000000utia \
 --pubkey=$(celestia-appd tendermint show-validator) \
@@ -41,5 +41,5 @@ celestia-appd tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 celestia-appd q staking validator $(celestia-appd keys show wallet --bech val -a)

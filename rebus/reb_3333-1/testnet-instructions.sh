@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 rebusd keys add wallet --coin-type 118 --algo secp256k1
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: rebus1s43kw25xan605mc4kums09z7u9aw6srv2d0rxq
@@ -11,20 +11,20 @@ rebusd keys add wallet --coin-type 118 --algo secp256k1
 #!!! SAVE SEED PHRASE
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 rebusd status 2>&1 | jq .SyncInfo.catching_up
 
 # Get some tokens in discord
 
-# Verify the balance
+# verify the balance
 rebusd q bank balances $(rebusd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "1000000"
 #    denom: arebus
 
-# Create validator
+# create validator
 anoned tx staking create-validator \
 --amount=900000arebus \
 --pubkey=$(rebusd tendermint show-validator) \
@@ -38,5 +38,5 @@ anoned tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 rebusd q staking validator $(rebusd keys show wallet --bech val -a)

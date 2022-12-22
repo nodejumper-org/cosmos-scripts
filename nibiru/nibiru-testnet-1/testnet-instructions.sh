@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 nibid keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: nibi1r9kmadqs9nsppn4wz5yp4rw8zn9545rc4zwvs7
@@ -14,20 +14,20 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.nibid/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 nibid status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to https://discord.com/invite/zjkzZwrez5 and request tokens in faucet channel
 
-# Verify the balance
+# verify the balance
 nibid q bank balances $(nibid keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "10000000"
 #    denom: unibi
 
-# Create validator
+# create validator
 nibid tx staking create-validator \
 --amount=5000000unibi \
 --pubkey=$(nibid tendermint show-validator) \
@@ -41,5 +41,5 @@ nibid tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 nibid q staking validator $(nibid keys show wallet --bech val -a)

@@ -1,7 +1,7 @@
-# Create VALIDATOR wallet
+# create validator wallet
 celestia-appd keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: celestia19kmadqs9nsppn4wz5yp4rw8zn9545rc4zwvs7
@@ -14,7 +14,7 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 # Create ORCHESTRATOR wallet
 celestia-appd keys add orchestrator
 
-## Console output
+## console output:
 #  name: orchestrator
 #  type: local
 #- address: celestia1x5c4vj5u0wcgvdclrr6mk2ekrs7emcjpkfa3dw
@@ -25,21 +25,21 @@ infant wasp injury parrot morning bag wet clean address pact hobby emerge raccoo
 
 # Create ETH address in metamask
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 curl -s localhost:26657/status | jq .result.sync_info.catching_up
 
 # Go to https://discord.gg/kUSueaB22b and request tokens in faucet channel for validator and orchestrator addresses
 
-# Verify the balance
+# verify the balance
 celestia-appd q bank balances $(celestia-appd keys show wallet -a)
 celestia-appd q bank balances $(celestia-appd keys show orchestrator -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "1000000"
 #    denom: utia
 
-# Create validator
+# create validator
 celestia-appd tx staking create-validator \
 --amount=1000000utia \
 --pubkey=$(celestia-appd tendermint show-validator) \
@@ -57,5 +57,5 @@ celestia-appd tx staking create-validator \
 --fees=1500utia \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 celestia-appd q staking validator $(celestia-appd keys show wallet --bech val -a)

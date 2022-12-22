@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 palomad keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: paloma1lfpde6scf7ulzvuq2suavav6cpmpy0rzxne0pw
@@ -14,20 +14,20 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.paloma/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 palomad status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to https://faucet.palomaswap.com and paste your wallet address
 
-# Verify the balance
+# verify the balance
 palomad q bank balances $(palomad keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "10000000"
 #    denom: ugrain
 
-# Create validator
+# create validator
 palomad tx staking create-validator \
 --amount=9000000ugrain \
 --pubkey=$(palomad tendermint show-validator) \
@@ -41,5 +41,5 @@ palomad tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 palomad q staking validator $(palomad keys show wallet --bech val -a)

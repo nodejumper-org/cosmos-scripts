@@ -1,7 +1,7 @@
-# Create wallet
+# сreate wallet
 dewebd keys add wallet
 
-## Console output
+# сonsole output
 #- name: wallet
 #  type: local
 #  address: deweb1txne45klcm3w98merz25u94d7v9mlev3wngzrz
@@ -14,21 +14,21 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.deweb/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 dewebd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #faucet and paste
+# go to discord channel #faucet and paste
 $request YOUR_WALLET_ADDRESS menkar
 
-# Verify the balance
+# verify the balance
 dewebd q bank balances $(dewebd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "5000000"
 #    denom: udws
 
-# Create validator
+# create validator
 dewebd tx staking create-validator \
 --amount=4500000udws \
 --pubkey=$(dewebd tendermint show-validator) \
@@ -42,5 +42,5 @@ dewebd tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 dewebd q staking validator $(dewebd keys show wallet --bech val -a)

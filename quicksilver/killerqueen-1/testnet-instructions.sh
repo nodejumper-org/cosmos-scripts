@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 quicksilverd keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: quick159njc3xk0xv76x323936frgwxf9zn3wvlzrlf6
@@ -14,21 +14,21 @@ reason crew zone unfold grain jungle shell before joke doll powder still aspect 
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.quicksilverd/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 quicksilverd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #qck-tap and paste
+# go to discord channel #qck-tap and paste
 $request YOUR_WALLET_ADDRESS killerqueen
 
-# Verify the balance
+# verify the balance
 quicksilverd q bank balances $(quicksilverd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "5000000"
 #    denom: uqck
 
-# Create validator
+# create validator
 quicksilverd tx staking create-validator \
 --amount=4990000uqck \
 --pubkey=$(quicksilverd tendermint show-validator) \
@@ -43,5 +43,5 @@ quicksilverd tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 quicksilverd q staking validator $(quicksilverd keys show wallet --bech val -a)

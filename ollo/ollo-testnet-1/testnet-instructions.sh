@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 ollod keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: ollo1lfpde6scf7ulzvuq2suavav6cpmpy0rzxne0pw
@@ -14,21 +14,21 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.ollo/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 ollod status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #testnet-faucet and paste
+# go to discord channel #testnet-faucet and paste
 !request YOUR_WALLET_ADDRESS
 
-# Verify the balance
+# verify the balance
 ollod q bank balances $(ollod keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "50000000"
 #    denom: utollo
 
-# Create validator
+# create validator
 ollod tx staking create-validator \
 --amount=49000000utollo \
 --pubkey=$(ollod tendermint show-validator) \
@@ -42,5 +42,5 @@ ollod tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 ollod q staking validator $(ollod keys show wallet --bech val -a)

@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 anoned keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: one1wpkxhzufzrmz6glt4sjp54k3umgvx5hv3rx6y7
@@ -14,21 +14,21 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.anone/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 anoned status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #faucet-testnet-1 and paste
+# go to discord channel #faucet-testnet-1 and paste
 $request YOUR_WALLET_ADDRESS
 
-# Verify the balance
+# verify the balance
 anoned q bank balances $(anoned keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "5000000"
 #    denom: uan1
 
-# Create validator
+# create validator
 anoned tx staking create-validator \
 --amount=4500000uan1 \
 --pubkey=$(anoned tendermint show-validator) \
@@ -42,5 +42,5 @@ anoned tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 anoned q staking validator $(anoned keys show wallet --bech val -a)

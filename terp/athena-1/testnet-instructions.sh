@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 terpd keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: terp1rwyn6w46u3167enhpdceqasg2um8dddtt5ursa
@@ -14,20 +14,20 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.terp/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 terpd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord server and ask for some tokens for validator creation
+# go to discord server and ask for some tokens for validator creation
 
-# Verify the balance
+# verify the balance
 terpd q bank balances $(terpd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "1000000000"
 #    denom: uterpx
 
-# Create validator
+# create validator
 terpd tx staking create-validator \
 --amount=100000000uterpx \
 --pubkey=$(terpd tendermint show-validator) \
@@ -40,5 +40,5 @@ terpd tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 terpd q staking validator $(terpd keys show wallet --bech val -a)

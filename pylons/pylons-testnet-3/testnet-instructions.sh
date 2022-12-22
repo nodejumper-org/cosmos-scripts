@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 pylonsd keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: pylons1wpkxhzufzrmz6glt4sjp54k3umgvx5hv3rx6y7
@@ -14,20 +14,20 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.pylons/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 pylonsd status 2>&1 | jq .SyncInfo.catching_up
 
 # Ask tokens in discord https://discord.com/invite/pylons
 
-# Verify the balance
+# verify the balance
 pylonsd q bank balances $(pylonsd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "1000000"
 #    denom: ubedrock
 
-# Create validator
+# create validator
 pylonsd tx staking create-validator \
 --amount=900000ubedrock \
 --pubkey=$(pylonsd tendermint show-validator) \
@@ -41,5 +41,5 @@ pylonsd tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 pylonsd q staking validator $(pylonsd keys show wallet --bech val -a)

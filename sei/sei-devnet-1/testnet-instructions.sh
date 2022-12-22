@@ -1,7 +1,7 @@
-\# Create wallet
+\# create wallet
 seid keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: sei1lfpde6scf7ulzvuq2suavav6cpmpy0rzxne0pw
@@ -14,20 +14,20 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.sei/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 seid status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord and ask for tokens
+# go to discord and ask for tokens
 
-# Verify the balance
+# verify the balance
 seid q bank balances $(seid keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "1000000"
 #    denom: usei
 
-# Create validator
+# create validator
 seid tx staking create-validator \
 --amount=1000000usei \
 --pubkey=$(seid tendermint show-validator) \
@@ -40,5 +40,5 @@ seid tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 seid q staking validator $(seid keys show wallet --bech val -a)

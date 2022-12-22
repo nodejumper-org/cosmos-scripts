@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 Cardchaind keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: cc1d2gnx8gxf44tkjky7ftwfkg9k0lln56xfaxucp
@@ -14,20 +14,20 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.Cardchain/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 Cardchaind status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to https://crowdcontrol.network/#/about and import your wallet address using seed phase above
 
-# Verify the balance
+# verify the balance
 Cardchaind q bank balances $(Cardchaind keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "5000000"
 #    denom: ubpf
 
-# Create validator
+# create validator
 Cardchaind tx staking create-validator \
 --amount=5000000ubpf \
 --pubkey=$(Cardchaind tendermint show-validator) \
@@ -40,5 +40,5 @@ Cardchaind tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 Cardchaind q staking validator $(Cardchaind keys show wallet --bech val -a)

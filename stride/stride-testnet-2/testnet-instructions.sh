@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 strided keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: stride11lfpde6scf7ulzvuq2suavav6cpmpy0rzxne0pw
@@ -11,21 +11,21 @@ strided keys add wallet
 #!!! SAVE SEED PHRASE
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 strided status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #token-faucet and paste
+# go to discord channel #token-faucet and paste
 $faucet-stride:YOUR_WALLET_ADDRESS
 
-# Verify the balance
+# verify the balance
 strided q bank balances $(strided keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "10000000"
 #    denom: ustrd
 
-# Create validator
+# create validator
 strided tx staking create-validator \
 --amount=9000000ustrd \
 --pubkey=$(strided tendermint show-validator) \
@@ -40,5 +40,5 @@ strided tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 strided q staking validator $(strided keys show wallet --bech val -a)

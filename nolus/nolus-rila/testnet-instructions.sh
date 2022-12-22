@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 nolusd keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: nolus1y7lfy9909gjfrrudwa3y8z0ndp9xlf0anvrkfw
@@ -14,21 +14,21 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.nolus/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 nolusd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to discord channel #testnet-faucet and paste
+# go to discord channel #testnet-faucet and paste
 $request YOUR_WALLET_ADDRESS nolus-rila
 
-# Verify the balance
+# verify the balance
 nolusd q bank balances $(nolusd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "2000000"
 #    denom: unls
 
-# Create validator
+# create validator
 nolusd tx staking create-validator \
 --amount=1500000unls \
 --pubkey=$(nolusd tendermint show-validator) \
@@ -42,5 +42,5 @@ nolusd tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 nolusd q staking validator $(nolusd keys show wallet --bech val -a)

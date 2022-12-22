@@ -1,7 +1,7 @@
-# Create wallet
+# create wallet
 defundd keys add wallet
 
-## Console output
+## console output:
 #- name: wallet
 #  type: local
 #  address: defund1r9kmadqs9nsppn4wz5yp4rw8zn9545rc4zwvs7
@@ -14,20 +14,20 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 #!!! SAVE PRIVATE VALIDATOR KEY
 cat $HOME/.defund/config/priv_validator_key.json
 
-# Wait util the node is synced, should return FALSE
+# wait util the node is synced, should return FALSE
 defundd status 2>&1 | jq .SyncInfo.catching_up
 
 # Go to https://discord.gg/UsER6bWuUq and request tokens in faucet channel
 
-# Verify the balance
+# verify the balance
 defundd q bank balances $(defundd keys show wallet -a)
 
-## Console output
+## console output:
 #  balances:
 #  - amount: "20000000"
 #    denom: ufetf
 
-# Create validator
+# create validator
 defundd tx staking create-validator \
 --amount=19000000ufetf \
 --pubkey=$(defundd tendermint show-validator) \
@@ -41,5 +41,5 @@ defundd tx staking create-validator \
 --from=wallet \
 -y
 
-# Make sure you see the validator details
+# make sure you see the validator details
 defundd q staking validator $(defundd keys show wallet --bech val -a)
