@@ -26,9 +26,9 @@ cd || return
 rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
-git checkout v0.1.2
+git checkout v0.2.0
 make install
-terpd version # v0.1.2
+terpd version # 0.2.0
 
 terpd config keyring-backend test
 terpd config chain-id $CHAIN_ID
@@ -56,7 +56,7 @@ Description=TerpNetwork Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which terpd) start --unsafe-skip-upgrades 694200
+ExecStart=$(which terpd) start --unsafe-skip-upgrades 1497396
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
