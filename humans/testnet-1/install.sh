@@ -59,6 +59,7 @@ sed -i 's|^skip_timeout_commit =.*$|skip_timeout_commit = false|' $HOME/.humans/
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.humans/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.humans/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "17"|g' $HOME/.humans/config/app.toml
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 1500|g' $HOME/.humans/config/app.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
@@ -78,11 +79,18 @@ EOF
 
 humansd tendermint unsafe-reset-all --home $HOME/.humans --keep-addr-book
 
-cd "$HOME/.humans" || return
-rm -rf data
+SNAP_RPC="https://humans-testnet.nodejumper.io:443"
 
-SNAP_NAME=$(curl -s https://snapshots4-testnet.nodejumper.io/humans-testnet/ | egrep -o ">testnet-1.*\.tar.lz4" | tr -d ">")
-curl https://snapshots4-testnet.nodejumper.io/humans-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.humans/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable humansd

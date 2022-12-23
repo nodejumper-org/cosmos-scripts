@@ -66,9 +66,6 @@ EOF
 
 pylonsd tendermint unsafe-reset-all --home $HOME/.pylons --keep-addr-book
 
-cd "$HOME/.pylons" || return
-rm -rf data
-
 SNAP_NAME=$(curl -s https://snapshots4-testnet.nodejumper.io/pylons-testnet/ | egrep -o ">pylons-testnet-3.*\.tar.lz4" | tr -d ">")
 curl https://snapshots4-testnet.nodejumper.io/pylons-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.pylons
 

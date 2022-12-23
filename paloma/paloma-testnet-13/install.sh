@@ -137,11 +137,18 @@ EOF
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
 
-cd "$HOME/.paloma" || return
-rm -rf data
+SNAP_RPC="https://paloma-testnet.nodejumper.io:443"
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/paloma-testnet/ | egrep -o ">paloma-testnet-13.*\.tar.lz4" | tr -d ">")
-curl https://snapshots1-testnet.nodejumper.io/paloma-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.paloma/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable palomad

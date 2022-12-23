@@ -66,11 +66,8 @@ EOF
 
 terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
 
-cd "$HOME/.terp" || return
-rm -rf data
-
 SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/terpnetwork-testnet/ | egrep -o ">athena-1.*\.tar.lz4" | tr -d ">")
-curl https://snapshots2-testnet.nodejumper.io/terpnetwork-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+curl https://snapshots2-testnet.nodejumper.io/terpnetwork-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.terp
 
 sudo systemctl daemon-reload
 sudo systemctl enable terpd

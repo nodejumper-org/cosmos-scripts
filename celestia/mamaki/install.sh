@@ -66,9 +66,6 @@ EOF
 
 celestia-appd tendermint unsafe-reset-all --home $HOME/.celestia-app --keep-addr-book
 
-cd "$HOME/.celestia-app" || return
-rm -rf data
-
 SNAP_NAME=$(curl -s https://snapshots3-testnet.nodejumper.io/celestia-testnet/ | egrep -o ">mamaki.*\.tar.lz4" | tr -d ">")
 curl https://snapshots3-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.celestia-app
 

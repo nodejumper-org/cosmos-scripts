@@ -67,10 +67,6 @@ EOF
 
 okp4d tendermint unsafe-reset-all --home $HOME/.okp4d --keep-addr-book
 
-cd "$HOME/.okp4d" || return
-rm -rf data
-rm -rf wasm
-
 SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/okp4-testnet/ | egrep -o ">okp4-nemeton.*\.tar.lz4" | tr -d ">")
 curl https://snapshots2-testnet.nodejumper.io/okp4-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.okp4d
 

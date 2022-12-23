@@ -65,14 +65,10 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-starnamed unsafe-reset-all
-
-rm -rf $HOME/.starnamed/data
-cd .starnamed || return
+starnamed tendermint unsafe-reset-all --home $HOME/.starnamed --keep-addr-book
 
 SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/starname/ | egrep -o ">iov-mainnet-ibc.*\.tar.lz4" | tr -d ">")
-echo "Downloading a snapshot..."
-curl -# https://snapshots2.nodejumper.io/starname/"${SNAP_NAME}" | lz4 -dc - | tar -xf -
+curl https://snapshots2.nodejumper.io/starname/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.starnamed
 
 sudo systemctl daemon-reload
 sudo systemctl enable starnamed

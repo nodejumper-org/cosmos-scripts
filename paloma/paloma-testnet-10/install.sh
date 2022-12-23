@@ -139,11 +139,8 @@ EOF
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
 
-cd "$HOME/.paloma" || return
-rm -rf data
-
 SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/paloma-testnet/ | egrep -o ">paloma-testnet-10.*\.tar.lz4" | tr -d ">")
-curl https://snapshots1-testnet.nodejumper.io/paloma-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+curl https://snapshots1-testnet.nodejumper.io/paloma-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.paloma
 
 sudo systemctl daemon-reload
 sudo systemctl enable palomad

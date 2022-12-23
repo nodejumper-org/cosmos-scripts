@@ -79,6 +79,8 @@ s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.sei/config/config.toml
 
+curl https://snapshots1-testnet.nodejumper.io/sei-testnet/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.sei
+
 sudo systemctl daemon-reload
 sudo systemctl enable seid
 sudo systemctl restart seid

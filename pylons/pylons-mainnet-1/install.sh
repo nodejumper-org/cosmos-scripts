@@ -47,7 +47,6 @@ sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persisten
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.pylons/config/app.toml
 sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.pylons/config/app.toml
 sed -i 's|pruning-interval = "0"|pruning-interval = "17"|g' $HOME/.pylons/config/app.toml
-sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.pylons/config/app.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
@@ -67,11 +66,18 @@ EOF
 
 pylonsd tendermint unsafe-reset-all --home $HOME/.pylons --keep-addr-book
 
-cd "$HOME/.pylons" || return
-rm -rf data
+SNAP_RPC="https://pylons.nodejumper.io:443"
 
-SNAP_NAME=$(curl -s https://snapshots3.nodejumper.io/pylons/ | egrep -o ">pylons-mainnet-1.*\.tar.lz4" | tr -d ">")
-curl https://snapshots3.nodejumper.io/pylons/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.pylons
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.pylons/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable pylonsd

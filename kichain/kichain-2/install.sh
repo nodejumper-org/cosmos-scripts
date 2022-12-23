@@ -76,6 +76,8 @@ s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.kid/config/config.toml
 
+curl https://snapshots1.nodejumper.io/kichain/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kid
+
 sudo systemctl daemon-reload
 sudo systemctl enable kid
 sudo systemctl restart kid

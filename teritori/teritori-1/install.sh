@@ -64,11 +64,20 @@ EOF
 
 teritorid tendermint unsafe-reset-all --home $HOME/.teritorid --keep-addr-book
 
-cd "$HOME/.teritorid" || return
-rm -rf data
+SNAP_RPC="https://teritori.nodejumper.io:443"
 
-SNAP_NAME=$(curl -s https://snapshots3.nodejumper.io/teritori/ | egrep -o ">teritori-1.*\.tar.lz4" | tr -d ">")
-curl https://snapshots3.nodejumper.io/teritori/${SNAP_NAME} | lz4 -dc - | tar -xf -
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.teritorid/config/config.toml
+
+curl https://snapshots3.nodejumper.io/teritori/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.teritorid/data
 
 sudo systemctl daemon-reload
 sudo systemctl enable teritorid
