@@ -44,6 +44,7 @@ PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 7
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.bcna/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.bcna/config/app.toml
 sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.bcna/config/app.toml
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 10000|g' $HOME/.bcna/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubcna"|g' $HOME/.bcna/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.bcna/config/config.toml
