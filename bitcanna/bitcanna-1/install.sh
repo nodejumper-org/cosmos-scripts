@@ -84,7 +84,7 @@ sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.bcna/config/con
 
 sudo systemctl daemon-reload
 sudo systemctl enable bcnad
-sudo systemctl restart bcnad
+sudo systemctl start bcnad
 
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
