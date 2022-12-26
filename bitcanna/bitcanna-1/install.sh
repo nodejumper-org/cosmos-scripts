@@ -4,17 +4,19 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -p -r "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="bitcanna-1"
 CHAIN_DENOM="ubcna"
-BINARY="bcnad"
+BINARY_NAME="bcnad"
+BINARY_VERSION_TAG="v1.5.3"
 CHEAT_SHEET="https://nodejumper.io/bitcanna/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker:        ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:            ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:         ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Binary version tag:  ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
@@ -31,14 +33,14 @@ make install
 bcnad version # 1.5.3
 
 bcnad config chain-id $CHAIN_ID
-bcnad init $NODE_MONIKER --chain-id $CHAIN_ID
+bcnad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json > $HOME/.bcna/config/genesis.json
 curl -s https://snapshots1.nodejumper.io/bitcanna/addrbook.json > $HOME/.bcna/config/addrbook.json
 
 SEEDS="d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:26656"
 PEERS=""
-sed -i -e 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.bcna/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.bcna/config/config.toml
 
 PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.bcna/config/app.toml
@@ -85,6 +87,6 @@ sudo systemctl enable bcnad
 sudo systemctl restart bcnad
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
