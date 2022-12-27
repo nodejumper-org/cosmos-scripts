@@ -7,4 +7,4 @@ cd bcna || return
 git checkout v1.5.3
 make install
 
-sudo systemctl restart bcnad
+sudo systemctl start bcnad

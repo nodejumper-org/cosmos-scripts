@@ -7,4 +7,4 @@ cd evmos || return
 git checkout v9.1.0
 make install
 
-sudo systemctl restart evmosd
+sudo systemctl start evmosd

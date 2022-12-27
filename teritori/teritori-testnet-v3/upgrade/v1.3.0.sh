@@ -8,4 +8,4 @@ git checkout v1.3.0
 make install
 teritorid version # v1.3.0
 
-sudo systemctl restart teritorid
+sudo systemctl start teritorid

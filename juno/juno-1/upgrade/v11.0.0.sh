@@ -7,4 +7,4 @@ cd juno || return
 git checkout v11.0.0
 make install
 
-sudo systemctl restart junod
+sudo systemctl start junod

@@ -7,4 +7,4 @@ cd rebus.core || return
 git checkout v0.2.0
 make install
 
-sudo systemctl restart rebusd
+sudo systemctl start rebusd

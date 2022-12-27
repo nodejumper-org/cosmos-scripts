@@ -16,6 +16,6 @@ sha256sum $HOME/.terp/config/genesis.json # b2acc7ba63b05f5653578b05fc5322920635
 
 seeds=""
 peers="15f5bc75be9746fd1f712ca046502cae8a0f6ce7@terp-testnet.nodejumper.io:26656,7e5c0b9384a1b9636f1c670d5dc91ba4721ab1ca@23.88.53.28:36656,14ca69edabb36c51504f1a760292f8e6b9190bd7@65.21.138.123:28656,c989593c89b511318aa6a0c0d361a7a7f4271f28@65.108.124.172:26656,08a0f07da691a2d18d26e35eaa22ec784d1440cd@194.163.164.52:56656"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.terp/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.terp/config/config.toml
 
-sudo systemctl restart terpd
+sudo systemctl start terpd

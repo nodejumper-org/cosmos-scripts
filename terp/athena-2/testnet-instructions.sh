@@ -29,7 +29,7 @@ terpd q bank balances $(terpd keys show wallet -a)
 
 # create validator
 terpd tx staking create-validator \
---amount=100000000uterpx \
+--amount=900000000uterpx \
 --pubkey=$(terpd tendermint show-validator) \
 --moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=athena-2 \

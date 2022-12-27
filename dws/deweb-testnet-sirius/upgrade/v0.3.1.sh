@@ -20,7 +20,7 @@ sha256sum $HOME/.deweb/config/genesis.json # 5316dc5abf1bc46813b673e920cb6faac06
 
 seeds="2b1aebd0029570c20932bf7a17b3d7e67cbacc52@31.44.6.134:26656"
 peers="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@dws-testnet.nodejumper.io:27656"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
 sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1false|" $HOME/.deweb/config/config.toml
 
 sudo systemctl start dewebd

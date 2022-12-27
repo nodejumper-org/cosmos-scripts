@@ -4,17 +4,18 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="paloma-testnet-11"
 CHAIN_DENOM="ugrain"
-BINARY="palomad"
+BINARY_NAME="palomad"
 CHEAT_SHEET="https://nodejumper.io/paloma-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
@@ -33,7 +34,7 @@ sudo mv -f palomad /usr/local/bin/palomad
 palomad version # v0.10.4
 
 palomad config chain-id $CHAIN_ID
-palomad init $NODE_MONIKER --chain-id $CHAIN_ID
+palomad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-11/genesis.json > $HOME/.paloma/config/genesis.json
 sha256sum $HOME/.paloma/config/genesis.json # 9e096c16bc8ae46d5839167ad8ed88a0e154e1dbc27c41dfbd460fec324d947c
@@ -43,7 +44,7 @@ curl -s https://raw.githubusercontent.com/palomachain/testnet/master/paloma-test
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ugrain"|g' $HOME/.paloma/config/app.toml
 seeds=""
 peers="484e0d3cc02ba868d4ad68ec44caf89dd14d1845@paloma-testnet.nodejumper.io:33659,d363f84a8f40e655812436be4f0c8b3fc3543805@173.255.229.106:26659"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.paloma/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.paloma/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.paloma/config/app.toml
@@ -148,9 +149,9 @@ curl https://snapshots1-testnet.nodejumper.io/paloma-testnet/${SNAP_NAME} | lz4 
 
 sudo systemctl daemon-reload
 sudo systemctl enable palomad
-sudo systemctl restart palomad
+sudo systemctl start palomad
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

@@ -30,7 +30,7 @@ nolusd q bank balances $(nolusd keys show wallet -a)
 
 # create validator
 nolusd tx staking create-validator \
---amount=1500000unls \
+--amount=1900000unls \
 --pubkey=$(nolusd tendermint show-validator) \
 --moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=nolus-rila \

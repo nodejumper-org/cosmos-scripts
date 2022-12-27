@@ -11,7 +11,7 @@ celestia-appd keys add wallet
 #!!! SAVE SEED PHRASE
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
-# Create ORCHESTRATOR wallet
+# create ORCHESTRATOR wallet
 celestia-appd keys add orchestrator
 
 ## console output:
@@ -23,12 +23,12 @@ celestia-appd keys add orchestrator
 #!!! SAVE SEED PHRASE
 infant wasp injury parrot morning bag wet clean address pact hobby emerge raccoon rain degree dwarf gas defense deposit maximum order cross powder monitor
 
-# Create ETH address in metamask
+# create ETH address in metamask
 
 # wait util the node is synced, should return FALSE
 curl -s localhost:26657/status | jq .result.sync_info.catching_up
 
-# Go to https://discord.gg/kUSueaB22b and request tokens in faucet channel for validator and orchestrator addresses
+# go to https://discord.gg/kUSueaB22b and request tokens in faucet channel for validator and orchestrator addresses
 
 # verify the balance
 celestia-appd q bank balances $(celestia-appd keys show wallet -a)

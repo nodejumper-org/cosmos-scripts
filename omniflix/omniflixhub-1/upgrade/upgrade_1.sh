@@ -8,4 +8,4 @@ git checkout v0.8.0
 make install
 omniflixhubd version # 0.8.0
 
-sudo systemctl restart omniflixhubd
+sudo systemctl start omniflixhubd

@@ -30,7 +30,7 @@ ollod q bank balances $(ollod keys show wallet -a)
 
 # create validator
 ollod tx staking create-validator \
---amount=49000000utollo \
+--amount=40000000utollo \
 --pubkey=$(ollod tendermint show-validator) \
 --moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=ollo-testnet-1 \

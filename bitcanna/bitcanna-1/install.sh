@@ -4,18 +4,18 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p -r "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="bitcanna-1"
 CHAIN_DENOM="ubcna"
 BINARY_NAME="bcnad"
-BINARY_VERSION_TAG="v1.5.3"
 CHEAT_SHEET="https://nodejumper.io/bitcanna/cheat-sheet"
+BINARY_VERSION_TAG="v1.5.3"
 
 printLine
-echo -e "Node moniker:        ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:            ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:         ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
 echo -e "Binary version tag:  ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
@@ -46,7 +46,7 @@ PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 7
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.bcna/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.bcna/config/app.toml
 sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.bcna/config/app.toml
-sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.bcna/config/app.toml
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 10000|g' $HOME/.bcna/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubcna"|g' $HOME/.bcna/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.bcna/config/config.toml
@@ -87,6 +87,6 @@ sudo systemctl enable bcnad
 sudo systemctl start bcnad
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME_NAME -f --no-hostname -o cat ${NC}"
 echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

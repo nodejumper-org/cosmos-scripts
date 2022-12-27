@@ -7,4 +7,4 @@ cd sifnode || return
 git checkout v1.1.0-beta
 make install
 
-sudo systemctl restart sifnoded
+sudo systemctl start sifnoded

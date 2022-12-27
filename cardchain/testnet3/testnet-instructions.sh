@@ -17,7 +17,7 @@ cat $HOME/.Cardchain/config/priv_validator_key.json
 # wait util the node is synced, should return FALSE
 Cardchaind status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to https://crowdcontrol.network/#/about and import your wallet address using seed phase above
+# go to https://crowdcontrol.network/#/about and import your wallet address using seed phase above
 
 # verify the balance
 Cardchaind q bank balances $(Cardchaind keys show wallet -a)
@@ -29,7 +29,7 @@ Cardchaind q bank balances $(Cardchaind keys show wallet -a)
 
 # create validator
 Cardchaind tx staking create-validator \
---amount=5000000ubpf \
+--amount=4000000ubpf \
 --pubkey=$(Cardchaind tendermint show-validator) \
 --moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=Testnet3 \

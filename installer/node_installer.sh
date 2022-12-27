@@ -126,7 +126,7 @@ function configureNode {
   fi
 
   echo "Restarting $serviceName service"
-  sudo systemctl restart "$serviceName"
+  sudo systemctl start "$serviceName"
 }
 
 if [ -z "$configPath" ]; then

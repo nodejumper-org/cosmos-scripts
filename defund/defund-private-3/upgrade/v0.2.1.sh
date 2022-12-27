@@ -8,4 +8,4 @@ git checkout v0.2.1
 make install
 defundd version # 0.2.1
 
-sudo systemctl restart defundd
+sudo systemctl start defundd

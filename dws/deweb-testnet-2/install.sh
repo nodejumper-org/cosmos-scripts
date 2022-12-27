@@ -4,17 +4,18 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="deweb-testnet-2"
 CHAIN_DENOM="udws"
-BINARY="dewebd"
+BINARY_NAME="dewebd"
 CHEAT_SHEET="https://nodejumper.io/dws-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
@@ -32,7 +33,7 @@ dewebd version # 0.3
 
 dewebd config keyring-backend test
 dewebd config chain-id $CHAIN_ID
-dewebd init $NODE_MONIKER --chain-id $CHAIN_ID
+dewebd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json > $HOME/.deweb/config/genesis.json
 sha256sum $HOME/.deweb/config/genesis.json # b8af3c8f73a18ae6ffe8ed9429a1e8327aaec784eb90771b6e1f68ff277352bd
@@ -40,7 +41,7 @@ sha256sum $HOME/.deweb/config/genesis.json # b8af3c8f73a18ae6ffe8ed9429a1e8327aa
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udws"|g' $HOME/.deweb/config/app.toml
 seeds="08b7968ec375444f86912c2d9c3d28e04a5f14c4@seed1.deweb.services:26656"
 peers="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@dws-testnet.nodejumper.io:27656,0cadcf7b0a8a8f9723aad9152aceeb90f34a5bfe@95.217.212.255:26656,7215d5863c6c37214cabcca983c45e0f44ab0160@65.108.203.219:22656,d6936fb351f4f6d0651ecdceada8de5d6e800085@5.161.97.13:26656,71b8c5da1cc35044f57f9e3aa358ce1b75f21492@147.135.162.128:26656,c89ffa4a133cb05cf25df57eece755c05932a6a8@65.21.134.202:26646"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.deweb/config/app.toml
@@ -79,9 +80,9 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.deweb/con
 
 sudo systemctl daemon-reload
 sudo systemctl enable dewebd
-sudo systemctl restart dewebd
+sudo systemctl start dewebd
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

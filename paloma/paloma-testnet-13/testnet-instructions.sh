@@ -1,4 +1,4 @@
-# Create ETH/BNB/PALOMA keys
+# create ETH/BNB/PALOMA keys
 pigeon evm keys generate-new $HOME/.pigeon/keys/evm/eth-main
 pigeon evm keys generate-new $HOME/.pigeon/keys/evm/bnb-main
 palomad keys add wallet
@@ -23,10 +23,10 @@ PALOMA_KEYRING_PASS = <YOUR_PALOMA_PASSWORD>
 ETH_SIGNING_KEY=0x$(cat $HOME/.pigeon/keys/evm/eth-main/*  | jq -r .address | head -n 1)
 BSC_SIGNING_KEY=0x$(cat $HOME/.pigeon/keys/evm/bnb-main/*  | jq -r .address | head -n 1)
 
-# Top up ETH_SIGNING_KEY with 0.1ETH, chain - ETH MAINNET (the team will top up balance automatically, every day so you won't lose your funds)
-# Top up BSC_SIGNING_KEY with 0.1BNB, chain - ETH MAINNET (the team will top up balance automatically, every day so you won't lose your funds)
+# top up ETH_SIGNING_KEY with 0.1ETH, chain - ETH MAINNET (the team will top up balance automatically, every day so you won't lose your funds)
+# top up BSC_SIGNING_KEY with 0.1BNB, chain - ETH MAINNET (the team will top up balance automatically, every day so you won't lose your funds)
 
-# Add pigeon configs
+# add pigeon configs
 sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
 PALOMA_KEYRING_PASS=$PALOMA_KEYRING_PASS
 ETH_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/9bYS5h99MVmaa7f0fYztaHwN31k2EBvZ
@@ -38,13 +38,13 @@ BNB_SIGNING_KEY=$BSC_SIGNING_KEY
 WALLET=wallet
 EOF
 
-# Restart pigeon service to apply new configs
-sudo systemctl restart pigeond
+# restart pigeon service to apply new configs
+sudo systemctl start pigeond
 
 # wait util the node is synced, should return FALSE
 palomad status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to https://faucet.palomaswap.com and paste your wallet address
+# go to https://faucet.palomaswap.com and paste your wallet address
 
 # verify the balance
 palomad q bank balances $(palomad keys show wallet -a)
@@ -71,5 +71,5 @@ palomad tx staking create-validator \
 # make sure you see the validator details
 palomad q staking validator $(palomad keys show wallet --bech val -a)
 
-# Make sure you validator is signing blocks
+# make sure you validator is signing blocks
 https://paloma.explorers.guru/validators

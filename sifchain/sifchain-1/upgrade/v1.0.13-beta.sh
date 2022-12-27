@@ -8,4 +8,4 @@ git fetch --all
 git checkout v1.0.13-beta
 make install
 
-sudo systemctl restart sifnoded
+sudo systemctl start sifnoded

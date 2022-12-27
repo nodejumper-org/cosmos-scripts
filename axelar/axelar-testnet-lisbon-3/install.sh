@@ -5,7 +5,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 read -s -p "Enter your keyring password: " KEYRING_PASSWORD
 printf "\n"
 read -s -p "Enter your tofnd password: " TOFND_PASSWORD
@@ -14,7 +14,7 @@ printf "\n"
 CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
-AXELARD_BINARY="axelard"
+AXELARD_BINARY_NAME="axelard"
 AXELARD_BINARY_VERSION="v0.29.0"
 AXELARD_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELARD_BINARY"
 TOFND_VERSION="v0.10.1"
@@ -37,9 +37,9 @@ printCyan "4. Building binaries..." && sleep 1
 CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
-AXELARD_BINARY="axelard"
+AXELARD_BINARY_NAME="axelard"
 AXELARD_BINARY_VERSION="v0.29.0"
-AXELARD_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELARD_BINARY"
+AXELARD_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELARD_BINARY_NAME"
 TOFND_VERSION="v0.10.1"
 
 # create required directories
@@ -73,16 +73,15 @@ curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/co
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/config.toml > "$HOME/$CHAIN_HOME/config/config.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/seeds.toml > "$HOME/$CHAIN_HOME/config/seeds.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/genesis.json > "$HOME/$CHAIN_HOME/config/genesis.json"
+curl https://snapshots.axelar-testnet.nodejumper.io/axelar-testnet/addrbook.json > "$HOME/$CHAIN_HOME/config/addrbook.json"
 sed -i 's|^moniker *=.*|moniker = "'"$NODE_MONIKER"'"|g' "$HOME/$CHAIN_HOME/config/config.toml"
 sed -i 's|^external_address *=.*|external_address = "'"$(curl -s eth0.me)"':26656"|g' "$HOME/$CHAIN_HOME/config/config.toml"
 
-# check genesis sha256sum
-sha256sum "$HOME/$CHAIN_HOME/config/genesis.json" # 4f53f04d62a01c247ef52558b5671e96f9fcee3b74192ef58f5cc3dd82b2f3d7
-
-# in case of pruning
+PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' "$HOME/$CHAIN_HOME/config/app.toml"
-sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' "$HOME/$CHAIN_HOME/config/app.toml"
-sed -i 's|pruning-interval = "0"|pruning-interval = "17"|g' "$HOME/$CHAIN_HOME/config/app.toml"
+sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' "$HOME/$CHAIN_HOME/config/app.toml"
+sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' "$HOME/$CHAIN_HOME/config/app.toml"
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' "$HOME/$CHAIN_HOME/config/app.toml"
 
 printCyan "5. Starting services and synchronization..." && sleep 1
 
@@ -137,7 +136,7 @@ EOF
 
 # download fresh snapshot
 axelard tendermint unsafe-reset-all --home "$HOME/$CHAIN_HOME"
-rm -rf $HOME/.axelar_testnet/data
+
 SNAP_NAME=$(curl -s https://snapshots.axelar-testnet.nodejumper.io/axelar-testnet/ | egrep -o ">axelar-testnet-lisbon-3.*\.tar.lz4" | tr -d ">")
 curl https://snapshots.axelar-testnet.nodejumper.io/axelar-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.axelar_testnet
 
@@ -145,11 +144,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable axelard
 sudo systemctl enable tofnd
 sudo systemctl enable vald
-sudo systemctl restart axelard
-sudo systemctl restart tofnd
-sudo systemctl restart vald
+sudo systemctl start axelard
+sudo systemctl start tofnd
+sudo systemctl start vald
 
 printLine
-echo -e "Check $AXELARD_BINARY logs:    ${CYAN}sudo journalctl -u $AXELARD_BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$AXELARD_BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check $AXELARD_BINARY_NAME logs:    ${CYAN}sudo journalctl -u $AXELARD_BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$AXELARD_BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

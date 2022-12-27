@@ -20,6 +20,6 @@ sha256sum $HOME/.stride/config/genesis.json # a1f56de30c4f88de2fe2fbff1a019583bf
 
 seeds="d2ec8f968e7977311965c1dbef21647369327a29@seedv2.poolparty.stridenet.co:26656"
 peers=""
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.stride/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.stride/config/config.toml
 
-sudo systemctl restart strided
+sudo systemctl start strided

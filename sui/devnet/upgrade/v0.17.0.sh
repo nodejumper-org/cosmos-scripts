@@ -7,4 +7,4 @@ rm -rf sui-linux-amd64-latest.tar.gz
 sui-node -V # sui-node 0.17.0
 sui -V # sui 0.17.0
 
-sudo systemctl restart suid
+sudo systemctl start suid
