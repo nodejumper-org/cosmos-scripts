@@ -11,4 +11,4 @@ palomad tendermint unsafe-reset-all --home $HOME/.paloma
 wget -O ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-10/genesis.json
 wget -O ~/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-10/addrbook.json
 
-sudo systemctl restart palomad
+sudo systemctl start palomad

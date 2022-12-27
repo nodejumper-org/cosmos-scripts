@@ -7,4 +7,4 @@ cd osmosis || return
 git checkout v12.0.0
 make install
 
-sudo systemctl restart osmosisd
+sudo systemctl start osmosisd

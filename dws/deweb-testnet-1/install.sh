@@ -4,17 +4,18 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="deweb-testnet-1"
 CHAIN_DENOM="udws"
-BINARY="dewebd"
+BINARY_NAME="dewebd"
 CHEAT_SHEET="https://nodejumper.io/dws-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
@@ -32,7 +33,7 @@ dewebd version # 0.2
 
 dewebd config keyring-backend test
 dewebd config chain-id $CHAIN_ID
-dewebd init $NODE_MONIKER --chain-id $CHAIN_ID
+dewebd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json > $HOME/.deweb/config/genesis.json
 sha256sum $HOME/.deweb/config/genesis.json # 13bf101d673990cb39e6af96e3c7e183da79bd89f6d249e9dc797ae81b3573c2
@@ -41,9 +42,9 @@ curl https://raw.githubusercontent.com/encipher88/deweb/main/addrbook.json > $HO
 sha256sum $HOME/.deweb/config/addrbook.json # ba7bea692350ca8918542a26cabd5616dbebe1ff109092cb1e98c864da58dabf
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udws"|g' $HOME/.deweb/config/app.toml
-seeds=""
-peers="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@dws-testnet.nodejumper.io:27656"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
+SEEDS=""
+PEERS="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@dws-testnet.nodejumper.io:27656"
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.deweb/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.deweb/config/app.toml
@@ -82,9 +83,9 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.deweb/con
 
 sudo systemctl daemon-reload
 sudo systemctl enable dewebd
-sudo systemctl restart dewebd
+sudo systemctl start dewebd
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

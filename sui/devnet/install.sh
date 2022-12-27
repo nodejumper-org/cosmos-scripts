@@ -43,7 +43,7 @@ EOF
 
 sudo systemctl daemon-reload
 sudo systemctl enable suid
-sudo systemctl restart suid
+sudo systemctl start suid
 
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u suid -f --no-hostname -o cat ${NC}"

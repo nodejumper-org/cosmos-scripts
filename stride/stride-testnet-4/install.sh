@@ -4,17 +4,18 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="STRIDE-TESTNET-4"
 CHAIN_DENOM="ustrd"
-BINARY="strided"
+BINARY_NAME="strided"
 CHEAT_SHEET="https://nodejumper.io/stride-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
@@ -34,15 +35,15 @@ strided version #v0.4.1
 
 strided config keyring-backend test
 strided config chain-id $CHAIN_ID
-strided init $NODE_MONIKER --chain-id $CHAIN_ID
+strided init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/Stride-Labs/testnet/main/poolparty/genesis.json > $HOME/.stride/config/genesis.json
 sha256sum $HOME/.stride/config/genesis.json # a1f56de30c4f88de2fe2fbff1a019583bfc57e9c2c297294ce2c7ec243e46a4e
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ustrd"|g' $HOME/.stride/config/app.toml
-seeds="d2ec8f968e7977311965c1dbef21647369327a29@seedv2.poolparty.stridenet.co:26656"
-peers=""
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.stride/config/config.toml
+SEEDS="d2ec8f968e7977311965c1dbef21647369327a29@seedv2.poolparty.stridenet.co:26656"
+PEERS=""
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.stride/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.stride/config/app.toml
@@ -82,9 +83,9 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.stride/co
 
 sudo systemctl daemon-reload
 sudo systemctl enable strided
-sudo systemctl restart strided
+sudo systemctl start strided
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

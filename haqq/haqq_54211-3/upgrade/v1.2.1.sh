@@ -8,4 +8,4 @@ git checkout v1.2.1
 make install
 haqqd version # 1.2.1
 
-sudo systemctl restart haqqd
+sudo systemctl start haqqd

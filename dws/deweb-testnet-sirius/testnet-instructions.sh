@@ -30,7 +30,7 @@ dewebd q bank balances $(dewebd keys show wallet -a)
 
 # create validator
 dewebd tx staking create-validator \
---amount=4500000udws \
+--amount=4000000udws \
 --pubkey=$(dewebd tendermint show-validator) \
 --moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=deweb-testnet-sirius \

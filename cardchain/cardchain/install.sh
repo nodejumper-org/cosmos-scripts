@@ -4,17 +4,18 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="Cardchain"
 CHAIN_DENOM="ubpf"
-BINARY="Cardchain"
+BINARY_NAME="Cardchain"
 CHEAT_SHEET="https://nodejumper.io/cardchain-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
@@ -28,14 +29,14 @@ Cardchain version # latest-8103a490
 
 Cardchain config keyring-backend test
 Cardchain config chain-id $CHAIN_ID
-Cardchain init $NODE_MONIKER --chain-id $CHAIN_ID
+Cardchain init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json > $HOME/.Cardchain/config/genesis.json
 sha256sum $HOME/.Cardchain/config/genesis.json # e13a5310f2632e80da02f5c9337d48c151d95c3b8e26bf32bfa97a1c98fe52c0
 
-seeds=""
-peers="c33a6ea0c7f82b4cc99f6f62a0e7ffdb3046a345@cardchain-testnet.nodejumper.io:30656,752cfbb39a24007f7316725e7bbc34c845e7c5f1@45.136.28.158:26658"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.Cardchain/config/config.toml
+SEEDS=""
+PEERS="c33a6ea0c7f82b4cc99f6f62a0e7ffdb3046a345@cardchain-testnet.nodejumper.io:30656,752cfbb39a24007f7316725e7bbc34c845e7c5f1@45.136.28.158:26658"
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.Cardchain/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.Cardchain/config/app.toml
@@ -74,9 +75,9 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.Cardchain
 
 sudo systemctl daemon-reload
 sudo systemctl enable Cardchaind
-sudo systemctl restart Cardchaind
+sudo systemctl start Cardchaind
 
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u ${BINARY}d -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

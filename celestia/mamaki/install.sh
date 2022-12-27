@@ -4,17 +4,18 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="mamaki"
 CHAIN_DENOM="utia"
-BINARY="celestia-appd"
+BINARY_NAME="celestia-appd"
 CHEAT_SHEET="https://nodejumper.io/mamaki-testnet/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
@@ -32,7 +33,7 @@ celestia-appd version # 0.6.0
 
 celestia-appd config keyring-backend test
 celestia-appd config chain-id $CHAIN_ID
-celestia-appd init $NODE_MONIKER --chain-id $CHAIN_ID
+celestia-appd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/celestiaorg/networks/master/mamaki/genesis.json > $HOME/.celestia-app/config/genesis.json
 sha256sum $HOME/.celestia-app/config/genesis.json # 48747645055290a91a2671d51da399e0921fea93aa1eb0d2a54bab5c43e8a5aa
@@ -71,9 +72,9 @@ curl https://snapshots3-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME} | lz
 
 sudo systemctl daemon-reload
 sudo systemctl enable celestia-appd
-sudo systemctl restart celestia-appd
+sudo systemctl start celestia-appd
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

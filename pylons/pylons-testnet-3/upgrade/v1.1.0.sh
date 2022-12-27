@@ -8,4 +8,4 @@ git checkout v1.1.0
 make install
 pylonsd version # 1.1.0
 
-sudo systemctl restart pylonsd
+sudo systemctl start pylonsd

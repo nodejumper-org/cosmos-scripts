@@ -66,5 +66,5 @@ WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
-sudo systemctl restart $SERVICE_NAME
+sudo systemctl start $SERVICE_NAME
 sudo journalctl -u $SERVICE_NAME -f -o cat --no-hostname

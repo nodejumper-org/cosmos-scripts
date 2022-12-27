@@ -4,17 +4,19 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printLogo
 
-read -p "Enter node moniker: " NODE_MONIKER
+read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="pylons-mainnet-1"
 CHAIN_DENOM="ubedrock"
-BINARY="pylonsd"
+BINARY_NAME="pylonsd"
+BINARY_VERSION_TAG="v1.1.1"
 CHEAT_SHEET="https://nodejumper.io/pylons/cheat-sheet"
 
 printLine
-echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:     ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:  ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
+echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
+echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
+echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
@@ -31,22 +33,23 @@ make install
 pylonsd version # 1.1.1
 
 pylonsd config chain-id $CHAIN_ID
-pylonsd init $NODE_MONIKER --chain-id $CHAIN_ID
+pylonsd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl https://raw.githubusercontent.com/Pylons-tech/pylons/main/networks/pylons-mainnet-1/genesis.json > $HOME/.pylons/config/genesis.json
-sha256sum $HOME/.pylons/config/genesis.json #c6e776a1de29a57ce4cb4d2cdbaa39ba5768e066fd4f097cca92ce7fcfa94a9c
-
+curl -s https://raw.githubusercontent.com/Pylons-tech/pylons/main/networks/pylons-mainnet-1/genesis.json > $HOME/.pylons/config/genesis.json
 curl -s https://snapshots3.nodejumper.io/pylons/addrbook.json > $HOME/.pylons/config/addrbook.json
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubedrock"|g' $HOME/.pylons/config/app.toml
-seeds=""
-peers="7b6b13bcbd30311a407e193d0c7b21ed3dc15cd1@pylons.nodejumper.io:30656,d977d11f5741d8e9be84faa390af55de43659f0c@95.217.225.214:28656,d71cb7a9cc84e3c06ce2dc90f340d21ae53390ff@54.37.129.164:46656,35c6b3b3f273e845da511751d98b54ca3fd56170@65.109.49.163:26651,98634f7f77334b0df7b9c4d16d41b31ace4ceaa8@81.16.237.142:11223,d6685eb44553000f5e7abfd560a7c70b534dcc25@65.108.199.222:21116,90e9144c74d83f966fbbda20c070a28d3d6e48a2@65.108.135.211:46656,5eb3daf435d1d8a14e0a42e9dfbeca6877b2d1ca@65.108.2.41:46656"
-sed -i -e 's|^seeds *=.*|seeds = "'$seeds'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.pylons/config/config.toml
+SEEDS=""
+PEERS=""
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.pylons/config/config.toml
 
-# in case of pruning
-sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.pylons/config/app.toml
-sed -i 's|pruning-keep-recent = "0"|pruning-keep-recent = "100"|g' $HOME/.pylons/config/app.toml
-sed -i 's|pruning-interval = "0"|pruning-interval = "17"|g' $HOME/.pylons/config/app.toml
+PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
+sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.pylons/config/app.toml
+sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.pylons/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.pylons/config/app.toml
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.pylons/config/app.toml
+
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubedrock"|g' $HOME/.pylons/config/app.toml
+sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.pylons/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
@@ -68,22 +71,22 @@ pylonsd tendermint unsafe-reset-all --home $HOME/.pylons --keep-addr-book
 
 SNAP_RPC="https://pylons.nodejumper.io:443"
 
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 
 echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 
-sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.pylons/config/config.toml
+sed -i 's|^enable *=.*|enable = true|' $HOME/.pylons/config/config.toml
+sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.pylons/config/config.toml
+sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.pylons/config/config.toml
+sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.pylons/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable pylonsd
-sudo systemctl restart pylonsd
+sudo systemctl start pylonsd
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

@@ -20,5 +20,5 @@ rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
 pigeon version # v0.9.1
 
-sudo systemctl restart pigeond
-sudo systemctl restart palomad
+sudo systemctl start pigeond
+sudo systemctl start palomad

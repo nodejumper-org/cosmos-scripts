@@ -6,4 +6,4 @@ git fetch --all
 git checkout v1.4.2
 make install
 
-sudo systemctl restart bcnad
+sudo systemctl start bcnad

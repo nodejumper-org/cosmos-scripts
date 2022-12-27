@@ -17,7 +17,7 @@ cat $HOME/.defund/config/priv_validator_key.json
 # wait util the node is synced, should return FALSE
 defundd status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to https://discord.gg/UsER6bWuUq and request tokens in faucet channel
+# go to https://discord.gg/UsER6bWuUq and request tokens in faucet channel
 
 # verify the balance
 defundd q bank balances $(defundd keys show wallet -a)
@@ -29,7 +29,7 @@ defundd q bank balances $(defundd keys show wallet -a)
 
 # create validator
 defundd tx staking create-validator \
---amount=19000000ufetf \
+--amount=10000000ufetf \
 --pubkey=$(defundd tendermint show-validator) \
 --moniker="YOUR_VALIDATOR_MONIKER" \
 --chain-id=defund-private-3 \

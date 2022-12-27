@@ -23,4 +23,4 @@ WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
-sudo systemctl restart terpd
+sudo systemctl start terpd

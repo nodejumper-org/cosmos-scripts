@@ -7,4 +7,4 @@ cd sei-chain || return
 git checkout 1.2.3beta
 make install
 
-sudo systemctl restart seid
+sudo systemctl start seid

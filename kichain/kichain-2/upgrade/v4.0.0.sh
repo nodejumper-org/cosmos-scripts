@@ -7,4 +7,4 @@ cd ki-tools || return
 git checkout release/4.0.0
 make install
 
-sudo systemctl restart kid
+sudo systemctl start kid

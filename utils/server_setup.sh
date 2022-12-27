@@ -39,7 +39,7 @@ sudo sed -i 's/^#PasswordAuthentication\s.*$/PasswordAuthentication no/' /etc/ss
 sudo sed -i 's/^#PermitEmptyPasswords\s.*$/PermitEmptyPasswords no/' /etc/ssh/sshd_config
 sudo sed -i 's/^#PubkeyAuthentication\s.*$/PubkeyAuthentication yes/' /etc/ssh/sshd_config
 
-sudo systemctl restart sshd
+sudo systemctl start sshd
 
 printCyan "3. Installing fail2ban ..." && sleep 1
 

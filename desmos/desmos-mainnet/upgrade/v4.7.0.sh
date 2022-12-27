@@ -8,4 +8,4 @@ git checkout v4.7.0
 make install
 desmos version # 4.7.0
 
-sudo systemctl restart desmosd
+sudo systemctl start desmosd

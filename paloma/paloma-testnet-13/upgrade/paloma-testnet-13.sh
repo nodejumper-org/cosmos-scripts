@@ -20,7 +20,7 @@ palomad tendermint unsafe-reset-all --home $HOME/.paloma
 wget -O $HOME/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-13/genesis.json
 wget -O $HOME/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-13/addrbook.json
 
-sudo systemctl restart pigeond
-sudo systemctl restart palomad
+sudo systemctl start pigeond
+sudo systemctl start palomad
 
 sudo journalctl -u pigeond -f --no-hostname -o cat

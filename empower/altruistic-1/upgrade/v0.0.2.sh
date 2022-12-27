@@ -8,4 +8,4 @@ git checkout v0.0.2
 cd chain || return
 make install
 
-sudo systemctl restart empowerd
+sudo systemctl start empowerd

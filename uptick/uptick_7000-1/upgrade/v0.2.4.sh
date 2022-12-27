@@ -8,4 +8,4 @@ rm -rf uptick.tar.gz
 rm -rf uptick-v0.2.4
 uptickd version # v0.2.4
 
-sudo systemctl restart uptickd
+sudo systemctl start uptickd

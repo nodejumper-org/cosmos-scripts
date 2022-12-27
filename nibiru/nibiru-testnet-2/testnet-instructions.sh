@@ -17,7 +17,7 @@ cat $HOME/.nibid/config/priv_validator_key.json
 # wait util the node is synced, should return FALSE
 nibid status 2>&1 | jq .SyncInfo.catching_up
 
-# Go to https://discord.com/invite/zjkzZwrez5 channel #faucet and paste
+# go to https://discord.com/invite/zjkzZwrez5 channel #faucet and paste
 $request YOUR_WALLET_ADDRESS
 
 # verify the balance

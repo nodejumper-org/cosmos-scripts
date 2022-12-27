@@ -9,4 +9,4 @@ mkdir -p $HOME/go/bin
 sudo cp $HOME/starnamed/build/starnamed $HOME/go/bin
 starnamed version # v0.11.6
 
-sudo systemctl restart starnamed
+sudo systemctl start starnamed
