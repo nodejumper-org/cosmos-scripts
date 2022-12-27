@@ -39,9 +39,9 @@ curl https://media.githubusercontent.com/media/galaxynetwork/networks/main/galax
 sha256sum $HOME/.galaxy/config/genesis.json # 2003cfaca53c3f9120a36957103fbbe6562d4f6c6c50a3e9502c49dbb8e2ba5b
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uglx"|g' $HOME/.galaxy/config/app.toml
-seeds=""
-peers="1e9aa80732182fd7ea005fc138b05e361b9c040d@galaxy.nodejumper.io:30656"
-sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.galaxy/config/config.toml
+SEEDS=""
+PEERS="1e9aa80732182fd7ea005fc138b05e361b9c040d@galaxy.nodejumper.io:30656"
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.galaxy/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.galaxy/config/app.toml

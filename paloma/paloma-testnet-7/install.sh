@@ -41,9 +41,9 @@ sha256sum $HOME/.paloma/config/genesis.json # 14a47e63ab50f4f24de98d12dd42f0509e
 curl https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-7/addrbook.json > $HOME/.paloma/config/addrbook.json
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ugrain"|g' $HOME/.paloma/config/app.toml
-seeds=""
-peers="484e0d3cc02ba868d4ad68ec44caf89dd14d1845@paloma-testnet.nodejumper.io:33656,8fab1d100d1c01de299788758d31d36c321c23b5@144.202.103.140:26656,8fab1d100d1c01de299788758d31d36c321c23b5@144.202.103.140:26656,1f74adfbfa794a53b104368fcb1189eddc18d66f@173.255.229.106:26656"
-sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.paloma/config/config.toml
+SEEDS=""
+PEERS="484e0d3cc02ba868d4ad68ec44caf89dd14d1845@paloma-testnet.nodejumper.io:33656,8fab1d100d1c01de299788758d31d36c321c23b5@144.202.103.140:26656,8fab1d100d1c01de299788758d31d36c321c23b5@144.202.103.140:26656,1f74adfbfa794a53b104368fcb1189eddc18d66f@173.255.229.106:26656"
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.paloma/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.paloma/config/app.toml

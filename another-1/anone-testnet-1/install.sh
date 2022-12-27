@@ -39,9 +39,9 @@ curl https://raw.githubusercontent.com/notional-labs/anone/master/networks/testn
 sha256sum $HOME/.anone/config/genesis.json # ba7bea692350ca8918542a26cabd5616dbebe1ff109092cb1e98c864da58dabf
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uan1"|g' $HOME/.anone/config/app.toml
-seeds=""
-peers="2b540c43d640befc35959eb062c8505612b7d67f@another1-testnet.nodejumper.io:26656"
-sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.anone/config/config.toml
+SEEDS=""
+PEERS="2b540c43d640befc35959eb062c8505612b7d67f@another1-testnet.nodejumper.io:26656"
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.anone/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.anone/config/app.toml

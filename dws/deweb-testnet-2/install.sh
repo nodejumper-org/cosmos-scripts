@@ -39,9 +39,9 @@ curl -s https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json
 sha256sum $HOME/.deweb/config/genesis.json # b8af3c8f73a18ae6ffe8ed9429a1e8327aaec784eb90771b6e1f68ff277352bd
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001udws"|g' $HOME/.deweb/config/app.toml
-seeds="08b7968ec375444f86912c2d9c3d28e04a5f14c4@seed1.deweb.services:26656"
-peers="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@dws-testnet.nodejumper.io:27656,0cadcf7b0a8a8f9723aad9152aceeb90f34a5bfe@95.217.212.255:26656,7215d5863c6c37214cabcca983c45e0f44ab0160@65.108.203.219:22656,d6936fb351f4f6d0651ecdceada8de5d6e800085@5.161.97.13:26656,71b8c5da1cc35044f57f9e3aa358ce1b75f21492@147.135.162.128:26656,c89ffa4a133cb05cf25df57eece755c05932a6a8@65.21.134.202:26646"
-sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$peers'"|' $HOME/.deweb/config/config.toml
+SEEDS="08b7968ec375444f86912c2d9c3d28e04a5f14c4@seed1.deweb.services:26656"
+PEERS="c5b45045b0555c439d94f4d81a5ec4d1a578f98c@dws-testnet.nodejumper.io:27656,0cadcf7b0a8a8f9723aad9152aceeb90f34a5bfe@95.217.212.255:26656,7215d5863c6c37214cabcca983c45e0f44ab0160@65.108.203.219:22656,d6936fb351f4f6d0651ecdceada8de5d6e800085@5.161.97.13:26656,71b8c5da1cc35044f57f9e3aa358ce1b75f21492@147.135.162.128:26656,c89ffa4a133cb05cf25df57eece755c05932a6a8@65.21.134.202:26646"
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.deweb/config/config.toml
 
 # in case of pruning
 sed -i 's|pruning = "default"|pruning = "custom"|g' $HOME/.deweb/config/app.toml
