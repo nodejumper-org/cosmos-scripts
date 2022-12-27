@@ -15,7 +15,7 @@ CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
 AXELARD_BINARY_NAME="axelard"
-AXELARD_BINARY_VERSION="v0.29.0"
+AXELARD_BINARY_VERSION="v0.29.1"
 AXELARD_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELARD_BINARY"
 TOFND_VERSION="v0.10.1"
 CHEAT_SHEET="https://nodejumper.io/axelar-testnet/cheat-sheet"
@@ -33,14 +33,6 @@ sleep 1
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/dependencies_install.sh)
 
 printCyan "4. Building binaries..." && sleep 1
-
-CHAIN_ID="axelar-testnet-lisbon-3"
-CHAIN_HOME=".axelar_testnet"
-CHAIN_DENOM="uaxl"
-AXELARD_BINARY_NAME="axelard"
-AXELARD_BINARY_VERSION="v0.29.0"
-AXELARD_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELARD_BINARY_NAME"
-TOFND_VERSION="v0.10.1"
 
 # create required directories
 mkdir -p "$HOME/$CHAIN_HOME/"{.vald,.tofnd,bin,logs}
