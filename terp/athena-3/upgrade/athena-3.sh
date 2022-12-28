@@ -1,9 +1,5 @@
 sudo systemctl stop terpd
 
-# backup chain data
-cd || return
-cp .terp .terp_backup
-
 # build new binary
 cd || return
 rm -rf terp-core
