@@ -5,9 +5,9 @@ cd || return
 rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
-git checkout v0.2.0
+git checkout 2b8926a
 make install
-terpd version # 0.2.0
+terpd version # 0.2.0-3-g2b8926a
 
 # update genesis
 curl -s  curl -s  https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-3/genesis.json > $HOME/.terp/config/genesis.json
