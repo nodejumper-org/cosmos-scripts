@@ -3,5 +3,9 @@
     "height": 0,
     "version": "nibiru-testnet-2",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 696585,
+    "version": "v0.16.3"
   }
 ]
