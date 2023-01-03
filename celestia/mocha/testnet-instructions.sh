@@ -28,11 +28,10 @@ infant wasp injury parrot morning bag wet clean address pact hobby emerge raccoo
 # wait util the node is synced, should return FALSE
 curl -s localhost:26657/status | jq .result.sync_info.catching_up
 
-# go to https://discord.gg/kUSueaB22b and request tokens in faucet channel for validator and orchestrator addresses
+# go to https://discord.gg/kUSueaB22b and request tokens in faucet channel for validator address
 
 # verify the balance
 celestia-appd q bank balances $(celestia-appd keys show wallet -a)
-celestia-appd q bank balances $(celestia-appd keys show orchestrator -a)
 
 ## console output:
 #  balances:
