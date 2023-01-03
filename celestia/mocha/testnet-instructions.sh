@@ -53,7 +53,7 @@ celestia-appd tx staking create-validator \
 --orchestrator-address="YOUR_ORCHESTRATOR_ADDRESS" \
 --gas=auto \
 --gas-adjustment=1.5 \
---fees=1500utia \
+--fees=5000utia \
 -y
 
 # make sure you see the validator details
