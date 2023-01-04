@@ -1,6 +1,6 @@
 # cosmos-scripts
 
-### This repository contains scripts for automatically deploying various crypto projects to servers
+### This repository contains scripts for automatical deployment of various crypto projects to servers
 
 - [Visit our Website](https://nodejumper.io/)
 - [Join our Telegram chat](https://t.me/nodejumper)
