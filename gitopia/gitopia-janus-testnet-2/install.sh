@@ -10,7 +10,7 @@ CHAIN_ID="gitopia-janus-testnet-2"
 CHAIN_DENOM="utlore"
 BINARY_NAME="gitopiad"
 BINARY_VERSION_TAG="v1.2.0"
-CHEAT_SHEET="https://nodejumper.io/nolus-testnet/cheat-sheet"
+CHEAT_SHEET="https://nodejumper.io/gitopia-testnet/cheat-sheet"
 
 printLine
 echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
