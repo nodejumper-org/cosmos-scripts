@@ -25,9 +25,11 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
-curl -L https://lava-binary-upgrades.s3.amazonaws.com/testnet/v0.4.0/lavad > lavad
-chmod +x lavad
-sudo mv lavad /usr/local/bin/lavad
+rm -rf lava
+git clone https://github.com/lavanet/lava
+cd lava || return
+git checkout v0.4.3
+make install
 lavad version
 
 lavad config keyring-backend test
