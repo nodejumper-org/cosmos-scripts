@@ -1,6 +1,6 @@
 sudo systemctl stop lavad
 
-rm -rf $(which lavad)
+sudo rm -rf $(which lavad)
 source ~/.bash_profile
 
 cd || return
