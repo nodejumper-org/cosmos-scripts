@@ -13,5 +13,9 @@
     "height": 559000,
     "version": "pigeon-v0.12.0",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 1202262,
+    "version": "v0.11.5"
   }
 ]
