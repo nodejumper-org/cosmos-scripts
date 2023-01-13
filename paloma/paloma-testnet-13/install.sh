@@ -28,11 +28,11 @@ curl -L https://github.com/CosmWasm/wasmvm/raw/main/internal/api/libwasmvm.x86_6
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
 
 # palomad binary
-curl -L https://github.com/palomachain/paloma/releases/download/v0.11.4/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
+curl -L https://github.com/palomachain/paloma/releases/download/v0.11.5/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
 tar -xvzf paloma.tar.gz
 rm -rf paloma.tar.gz
 sudo mv -f palomad /usr/local/bin/palomad
-palomad version # v0.11.4
+palomad version # v0.11.5
 
 palomad config chain-id $CHAIN_ID
 palomad init "$NODE_MONIKER" --chain-id $CHAIN_ID
@@ -54,11 +54,11 @@ sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ugrain"|g' $HOME/
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.paloma/config/config.toml
 
 # pigeon binary and config
-curl -L https://github.com/palomachain/pigeon/releases/download/v0.11.0/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
+curl -L https://github.com/palomachain/pigeon/releases/download/v0.11.5/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
 tar -xvzf pigeon.tar.gz
 rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
-pigeon version # v0.11.0
+pigeon version # v0.11.5
 
 echo "export PIGEON_HEALTHCHECK_PORT=5757" >> $HOME/.bash_profile
 source .bash_profile
