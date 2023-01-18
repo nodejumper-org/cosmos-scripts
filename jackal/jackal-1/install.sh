@@ -77,10 +77,10 @@ TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.bloc
 
 echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 
-sed -i 's|^enable *=.*|enable = true|' $HOME/.humans/config/config.toml
-sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.humans/config/config.toml
-sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.humans/config/config.toml
-sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.humans/config/config.toml
+sed -i 's|^enable *=.*|enable = true|' $HOME/.canine/config/config.toml
+sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.canine/config/config.toml
+sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.canine/config/config.toml
+sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.canine/config/config.toml
 
 curl https://snapshots2.nodejumper.io/jackal/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.canine
 
