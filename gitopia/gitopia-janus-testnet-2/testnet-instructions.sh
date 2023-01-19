@@ -31,7 +31,7 @@ gitopiad q bank balances $(gitopiad keys show wallet -a)
 gitopiad tx staking create-validator \
 --amount=9000000utlore \
 --pubkey=$(gitopiad tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=gitopia-janus-testnet-2 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

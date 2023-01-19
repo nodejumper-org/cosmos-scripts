@@ -28,7 +28,7 @@ rebusd q bank balances $(rebusd keys show wallet -a)
 anoned tx staking create-validator \
 --amount=900000arebus \
 --pubkey=$(rebusd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=reb_3333-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

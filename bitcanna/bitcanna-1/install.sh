@@ -87,6 +87,6 @@ sudo systemctl enable bcnad
 sudo systemctl start bcnad
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME_NAME -f --no-hostname -o cat ${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
 echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"

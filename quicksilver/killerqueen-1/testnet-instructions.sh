@@ -32,7 +32,7 @@ quicksilverd q bank balances $(quicksilverd keys show wallet -a)
 quicksilverd tx staking create-validator \
 --amount=4990000uqck \
 --pubkey=$(quicksilverd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=killerqueen-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

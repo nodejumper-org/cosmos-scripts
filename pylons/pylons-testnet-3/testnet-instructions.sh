@@ -31,7 +31,7 @@ pylonsd q bank balances $(pylonsd keys show wallet -a)
 pylonsd tx staking create-validator \
 --amount=900000ubedrock \
 --pubkey=$(pylonsd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=pylons-testnet-3 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

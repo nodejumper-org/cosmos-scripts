@@ -32,7 +32,7 @@ lavad q bank balances $(lavad keys show wallet -a)
 lavad tx staking create-validator \
 --amount=9000000ulava \
 --pubkey=$(lavad tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=lava-testnet-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

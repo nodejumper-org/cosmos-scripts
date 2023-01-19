@@ -31,7 +31,7 @@ defundd q bank balances $(defundd keys show wallet -a)
 defundd tx staking create-validator \
 --amount=19000000ufetf \
 --pubkey=$(defundd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=defund-private-2 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

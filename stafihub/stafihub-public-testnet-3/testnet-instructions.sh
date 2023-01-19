@@ -32,7 +32,7 @@ stafihubd q bank balances $(stafihubd keys show wallet -a)
 stafihubd tx staking create-validator \
 --amount=99000000ufis \
 --pubkey=$(stafihubd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=stafihub-public-testnet-3 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

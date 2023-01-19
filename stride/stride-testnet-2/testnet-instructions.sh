@@ -29,7 +29,7 @@ strided q bank balances $(strided keys show wallet -a)
 strided tx staking create-validator \
 --amount=9000000ustrd \
 --pubkey=$(strided tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=STRIDE-TESTNET-4 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

@@ -32,7 +32,7 @@ uptickd q bank balances $(uptickd keys show wallet -a)
 uptickd tx staking create-validator \
 --amount=4900000000000000000auptick \
 --pubkey=$(uptickd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=uptick_7776-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

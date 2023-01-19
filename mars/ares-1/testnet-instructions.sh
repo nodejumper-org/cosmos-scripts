@@ -31,7 +31,7 @@ marsd q bank balances $(marsd keys show wallet -a)
 marsd tx staking create-validator \
 --amount=4900000umars \
 --pubkey=$(marsd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=ares-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

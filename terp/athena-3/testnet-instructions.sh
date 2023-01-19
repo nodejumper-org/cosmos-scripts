@@ -31,7 +31,7 @@ terpd q bank balances $(terpd keys show wallet -a)
 terpd tx staking create-validator \
 --amount=900000000uterpx \
 --pubkey=$(terpd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=athena-2 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

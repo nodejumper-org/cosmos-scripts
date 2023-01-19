@@ -32,7 +32,7 @@ empowerd q bank balances $(empowerd keys show wallet -a)
 empowerd tx staking create-validator \
 --amount=9000000umpwr \
 --pubkey=$(empowerd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=altruistic-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

@@ -31,7 +31,7 @@ Cardchain q bank balances $(Cardchain keys show wallet -a)
 Cardchain tx staking create-validator \
 --amount=5000000ubpf \
 --pubkey=$(Cardchain tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=Cardchain \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

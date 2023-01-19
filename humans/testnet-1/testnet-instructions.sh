@@ -32,7 +32,7 @@ humansd q bank balances $(humansd keys show wallet -a)
 humansd tx staking create-validator \
 --amount=9000000uheart \
 --pubkey=$(humansd tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=testnet-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \

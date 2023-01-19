@@ -31,7 +31,7 @@ okp4d q bank balances $(okp4d keys show wallet -a)
 okp4d tx staking create-validator \
 --amount=900000uknow \
 --pubkey=$(okp4d tendermint show-validator) \
---moniker="YOUR_VALIDATOR_MONIKER" \
+--moniker="$NODE_MONIKER" \
 --chain-id=okp4-nemeton \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
