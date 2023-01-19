@@ -67,7 +67,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-desmos unsafe-reset-all
+desmos tendermint unsafe-reset-all --home $HOME/.desmos --keep-addr-book
 
 SNAP_RPC="https://desmos.nodejumper.io:443"
 

@@ -67,7 +67,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-omniflixhubd unsafe-reset-all
+omniflixhubd tendermint unsafe-reset-all --home $HOME/.omniflixhub --keep-addr-book
 
 SNAP_RPC="https://omniflix.nodejumper.io:443"
 
