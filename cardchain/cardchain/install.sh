@@ -59,7 +59,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-Cardchain unsafe-reset-all
+Cardchaind tendermint unsafe-reset-all --home $HOME/.Cardchain --keep-addr-book
 
 SNAP_RPC="https://cardchain-testnet.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
