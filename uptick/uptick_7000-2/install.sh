@@ -9,6 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="uptick_7000-2"
 CHAIN_DENOM="auptick"
 BINARY_NAME="uptickd"
+BINARY_VERSION_TAG="v0.2.4"
 CHEAT_SHEET="https://nodejumper.io/uptick-testnet/cheat-sheet"
 
 printLine
