@@ -139,6 +139,8 @@ EOF
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
 
+curl -s https://snapshots1-testnet.nodejumper.io/paloma-testnet/addrbook.json > $HOME/.paloma/config/addrbook.json
+
 SNAP_RPC="https://paloma-testnet.nodejumper.io:443"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
