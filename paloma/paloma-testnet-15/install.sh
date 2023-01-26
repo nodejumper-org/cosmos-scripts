@@ -137,9 +137,7 @@ ExecReload=
 WantedBy=multi-user.target
 EOF
 
-palomad tendermint unsafe-reset-all --home $HOME/.paloma
-
-curl -s https://snapshots1-testnet.nodejumper.io/paloma-testnet/addrbook.json > $HOME/.paloma/config/addrbook.json
+palomad tendermint unsafe-reset-all --home $HOME/.paloma --keep-addr-book
 
 SNAP_RPC="https://paloma-testnet.nodejumper.io:443"
 
