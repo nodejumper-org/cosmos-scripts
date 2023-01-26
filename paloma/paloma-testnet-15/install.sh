@@ -65,7 +65,7 @@ source .bash_profile
 
 mkdir -p $HOME/.pigeon
 
-sudo tee $HOME/.pigeon/config.yaml > /dev/null << EOF
+sudo tee test.yaml > /dev/null << EOF
 loop-timeout: 5s
 health-check-port: 5757
 
@@ -75,7 +75,7 @@ paloma:
   keyring-dir: ~/.paloma
   keyring-pass-env-name: PALOMA_KEYRING_PASS
   keyring-type: os
-  signing-key: ${WALLET}
+  signing-key: \${WALLET}
   base-rpc-url: http://localhost:26657
   gas-adjustment: 1.5
   gas-prices: 0.001ugrain
@@ -84,17 +84,17 @@ paloma:
 evm:
   eth-main:
     chain-id: 1
-    base-rpc-url: ${ETH_RPC_URL}
+    base-rpc-url: \${ETH_RPC_URL}
     keyring-pass-env-name: "ETH_PASSWORD"
-    signing-key: ${ETH_SIGNING_KEY}
+    signing-key: \${ETH_SIGNING_KEY}
     keyring-dir: ~/.pigeon/keys/evm/eth-main
     gas-adjustment: 1.9
     tx-type: 2
   bnb-main:
     chain-id: 56
-    base-rpc-url: ${BNB_RPC_URL}
+    base-rpc-url: \${BNB_RPC_URL}
     keyring-pass-env-name: "BNB_PASSWORD"
-    signing-key: ${BNB_SIGNING_KEY}
+    signing-key: \${BNB_SIGNING_KEY}
     keyring-dir: ~/.pigeon/keys/evm/bnb-main
     gas-adjustment: 1.5
     tx-type: 0
