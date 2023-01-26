@@ -65,7 +65,7 @@ source .bash_profile
 
 mkdir -p $HOME/.pigeon
 
-sudo tee test.yaml > /dev/null << EOF
+sudo tee $HOME/.pigeon/config.yaml > /dev/null << EOF
 loop-timeout: 5s
 health-check-port: 5757
 
