@@ -67,7 +67,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-Cardchain unsafe-reset-all
+Cardchaind unsafe-reset-all
 
 SNAP_RPC="https://cardchain-testnet.nodejumper.io:443"
 
