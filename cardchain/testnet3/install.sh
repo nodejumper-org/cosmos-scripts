@@ -67,7 +67,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-Cardchaind unsafe-reset-all
+Cardchaind tendermint unsafe-reset-all --home $HOME/.Cardchain --keep-addr-book
 
 SNAP_RPC="https://cardchain-testnet.nodejumper.io:443"
 
