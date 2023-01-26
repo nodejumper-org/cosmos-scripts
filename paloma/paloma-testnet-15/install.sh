@@ -6,10 +6,10 @@ printLogo
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="paloma-testnet-13"
+CHAIN_ID="paloma-testnet-15"
 CHAIN_DENOM="ugrain"
 BINARY_NAME="palomad"
-BINARY_VERSION_TAG="v0.11.4"
+BINARY_VERSION_TAG="v0.11.6"
 CHEAT_SHEET="https://nodejumper.io/paloma-testnet/cheat-sheet"
 
 printLine
