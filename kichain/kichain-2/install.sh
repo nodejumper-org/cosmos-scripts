@@ -28,9 +28,9 @@ cd || return
 rm -rf ki-tools
 git clone https://github.com/KiFoundation/ki-tools.git
 cd ki-tools || return
-git checkout 4.1.0
+git checkout 4.2.0
 make install
-kid version # Mainnet-4.1.0
+kid version # Mainnet-4.2.0
 
 kid config chain-id $CHAIN_ID
 kid init "$NODE_MONIKER" --chain-id $CHAIN_ID
