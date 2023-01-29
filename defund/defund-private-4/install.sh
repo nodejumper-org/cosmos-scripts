@@ -6,7 +6,7 @@ printLogo
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="defund-private-3"
+CHAIN_ID="defund-private-4"
 CHAIN_DENOM="ufetf"
 BINARY_NAME="defundd"
 BINARY_VERSION_TAG="v0.2.2"
