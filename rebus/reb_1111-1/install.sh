@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="reb_1111-1"
 CHAIN_DENOM="arebus"
 BINARY_NAME="rebusd"
-BINARY_VERSION_TAG="v0.2.0"
+BINARY_VERSION_TAG="v0.3.0"
 CHEAT_SHEET="https://nodejumper.io/rebus/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf rebus.core
 git clone https://github.com/rebuschain/rebus.core.git
 cd rebus.core || return
-git checkout v0.2.0
+git checkout v0.3.0
 make install
-rebusd version # HEAD.f3cd9873b77d6a40738b187572249d715a75bbd4
+rebusd version # 0.3.0
 
 rebusd config chain-id $CHAIN_ID
 rebusd init "$NODE_MONIKER" --chain-id $CHAIN_ID
