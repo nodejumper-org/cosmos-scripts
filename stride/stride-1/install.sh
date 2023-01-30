@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="stride-1"
 CHAIN_DENOM="ustrd"
 BINARY_NAME="strided"
-BINARY_VERSION_TAG="v5.0.0"
+BINARY_VERSION_TAG="v5.1.1"
 CHEAT_SHEET="https://nodejumper.io/stride/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf stride
 git clone https://github.com/Stride-Labs/stride.git
 cd stride || return
-git checkout v5.0.0
+git checkout v5.1.1
 make install
-strided version # v5.0.0
+strided version # v5.1.1
 
 strided config chain-id $CHAIN_ID
 strided init "$NODE_MONIKER" --chain-id $CHAIN_ID
