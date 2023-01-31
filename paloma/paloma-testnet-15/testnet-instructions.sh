@@ -1,6 +1,7 @@
 # create ETH/BNB/PALOMA keys
 pigeon evm keys generate-new $HOME/.pigeon/keys/evm/eth-main
 pigeon evm keys generate-new $HOME/.pigeon/keys/evm/bnb-main
+pigeon evm keys generate-new $HOME/.pigeon/keys/evm/matic-main
 palomad keys add wallet
 
 ## console output:
@@ -17,24 +18,29 @@ kite upset hip dirt pet winter thunder slice parent flag sand express suffer che
 cat $HOME/.paloma/config/priv_validator_key.json
 
 ETH_PASSWORD = <YOUR_ETH_PASSWORD>
-BNB_PASSWORD = <YOUR_ETH_PASSWORD>
-PALOMA_KEYRING_PASS = <YOUR_PALOMA_PASSWORD>
+BNB_PASSWORD = <YOUR_BNB_PASSWORD>
+MATIC_PASSWORD = <YOUR_MATIC_PASSWORD>
+PALOMA_KEYRING_PASSWORD = <YOUR_PALOMA_PASSWORD>
 
 ETH_SIGNING_KEY=0x$(cat $HOME/.pigeon/keys/evm/eth-main/*  | jq -r .address | head -n 1)
-BSC_SIGNING_KEY=0x$(cat $HOME/.pigeon/keys/evm/bnb-main/*  | jq -r .address | head -n 1)
+BNB_SIGNING_KEY=0x$(cat $HOME/.pigeon/keys/evm/bnb-main/*  | jq -r .address | head -n 1)
+MATIC_SIGNING_KEY=0x$(cat $HOME/.pigeon/keys/evm/matic-main/*  | jq -r .address | head -n 1)
 
 # top up ETH_SIGNING_KEY with 0.1ETH, chain - ETH MAINNET (the team will top up balance automatically, every day so you won't lose your funds)
 # top up BSC_SIGNING_KEY with 0.1BNB, chain - ETH MAINNET (the team will top up balance automatically, every day so you won't lose your funds)
 
 # add pigeon configs
 sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
-PALOMA_KEYRING_PASS=$PALOMA_KEYRING_PASS
+PALOMA_KEYRING_PASSWORD=$PALOMA_KEYRING_PASSWORD
 ETH_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/9bYS5h99MVmaa7f0fYztaHwN31k2EBvZ
 ETH_PASSWORD=$ETH_PASSWORD
 ETH_SIGNING_KEY=$ETH_SIGNING_KEY
 BNB_RPC_URL=https://wispy-falling-tent.bsc.discover.quiknode.pro/750bbdfab9cd076e37a35b91513b47e59ad8fc51
 BNB_PASSWORD=$BNB_PASSWORD
-BNB_SIGNING_KEY=$BSC_SIGNING_KEY
+BNB_SIGNING_KEY=$BNB_SIGNING_KEY
+MATIC_RPC_URL=https://polygon-rpc.com
+MATIC_PASSWORD=$MATIC_PASSWORD
+MATIC_SIGNING_KEY=$MATIC_SIGNING_KEY
 WALLET=wallet
 EOF
 

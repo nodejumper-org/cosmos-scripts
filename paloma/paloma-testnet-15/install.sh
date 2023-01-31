@@ -73,7 +73,7 @@ paloma:
   chain-id: paloma-testnet-15
   call-timeout: 20s
   keyring-dir: ~/.paloma
-  keyring-pass-env-name: PALOMA_KEYRING_PASS
+  keyring-pass-env-name: PALOMA_KEYRING_PASSWORD
   keyring-type: os
   signing-key: \${WALLET}
   base-rpc-url: http://localhost:26657
@@ -96,6 +96,14 @@ evm:
     keyring-pass-env-name: "BNB_PASSWORD"
     signing-key: \${BNB_SIGNING_KEY}
     keyring-dir: ~/.pigeon/keys/evm/bnb-main
+    gas-adjustment: 1.5
+    tx-type: 0
+  matic-main:
+    chain-id: 56
+    base-rpc-url: \${MATIC_RPC_URL}
+    keyring-pass-env-name: "MATIC_PASSWORD"
+    signing-key: \${MATIC_SIGNING_KEY}
+    keyring-dir: ~/.pigeon/keys/evm/matic-main
     gas-adjustment: 1.5
     tx-type: 0
 EOF
