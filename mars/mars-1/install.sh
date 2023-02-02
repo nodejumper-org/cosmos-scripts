@@ -20,6 +20,8 @@ echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
 printLine
 sleep 1
 
+# install go 1.19.5
+source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-utils/main/utils/go_install.sh) -v 1.19.5
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/dependencies_install.sh)
 
 printCyan "4. Building binaries..." && sleep 1
