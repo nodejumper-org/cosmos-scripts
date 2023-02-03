@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="defund-private-4"
 CHAIN_DENOM="ufetf"
 BINARY_NAME="defundd"
-BINARY_VERSION_TAG="v0.2.2"
+BINARY_VERSION_TAG="v0.2.3"
 CHEAT_SHEET="https://nodejumper.io/defund-testnet/cheat-sheet"
 
 printLine
