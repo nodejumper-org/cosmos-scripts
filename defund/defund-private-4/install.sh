@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="defund-private-4"
 CHAIN_DENOM="ufetf"
 BINARY_NAME="defundd"
-BINARY_VERSION_TAG="v0.2.3"
+BINARY_VERSION_TAG="v0.2.4"
 CHEAT_SHEET="https://nodejumper.io/defund-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf defund
 git clone https://github.com/defund-labs/defund.git
 cd defund || return
-git checkout v0.2.3
+git checkout v0.2.4
 make install
-defundd version # 0.2.3
+defundd version # 0.2.4
 
 defundd config keyring-backend test
 defundd config chain-id $CHAIN_ID
