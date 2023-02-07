@@ -37,7 +37,7 @@ mantleNode init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/AssetMantle/genesisTransactions/main/mantle-1/final_genesis.json > $HOME/.mantleNode/config/genesis.json
 # TODO: add addresbbok
-# curl -s https://snapshots2.nodejumper.io/jackal/addrbook.json > $HOME/.mantleNode/config/addrbook.json
+# curl -s https://snapshots.nodejumper.io/jackal/addrbook.json > $HOME/.mantleNode/config/addrbook.json
 
 SEEDS="10de5165a61dd83c768781d438748c14e11f4397@seed.assetmantle.one:26656"
 PEERS=""

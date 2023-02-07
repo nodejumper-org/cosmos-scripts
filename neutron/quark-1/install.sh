@@ -39,7 +39,7 @@ neutrond init "$NODE_MONIKER" --chain-id $CHAIN_ID
 curl -s https://raw.githubusercontent.com/neutron-org/testnets/main/quark/genesis.json > $HOME/.neutrond/config/genesis.json
 sha256sum $HOME/.neutrond/config/genesis.json # 357c4d33fad26c001d086c0705793768ef32c884a6ba4aa73237ab03dd0cc2b4
 
-curl -s https://snapshots3-testnet.nodejumper.io/neutron-testnet/addrbook.json > $HOME/.neutrond/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/neutron-testnet/addrbook.json > $HOME/.neutrond/config/addrbook.json
 
 # seeds and peers
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001untrn"|g' $HOME/.neutrond/config/app.toml

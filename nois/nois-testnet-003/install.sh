@@ -39,7 +39,7 @@ noisd config chain-id $CHAIN_ID
 noisd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-003/genesis.json > $HOME/.noisd/config/genesis.json
-curl -s https://snapshots3-testnet.nodejumper.io/nois-testnet/addrbook.json > $HOME/.noisd/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/nois-testnet/addrbook.json > $HOME/.noisd/config/addrbook.json
 
 SEEDS=""
 PEERS=""

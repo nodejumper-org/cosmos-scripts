@@ -37,7 +37,7 @@ marsd config chain-id $CHAIN_ID
 marsd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/mars-protocol/networks/main/ares-1/genesis.json > $HOME/.mars/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/mars-testnet/addrbook.json > $HOME/.mars/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/mars-testnet/addrbook.json > $HOME/.mars/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -70,8 +70,7 @@ EOF
 
 marsd tendermint unsafe-reset-all --home $HOME/.mars --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/mars-testnet/ | egrep -o ">ares-1.*\.tar.lz4" | tr -d ">")
-curl https://snapshots1-testnet.nodejumper.io/mars-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.mars
+curl https://snapshots-testnet.nodejumper.io/mars-testnet/ares-1_2023-02-07.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.mars
 
 sudo systemctl daemon-reload
 sudo systemctl enable marsd

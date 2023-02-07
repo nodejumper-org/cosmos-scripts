@@ -37,7 +37,7 @@ teritorid config chain-id $CHAIN_ID
 teritorid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://github.com/TERITORI/teritori-chain/raw/mainnet/testnet/teritori-testnet-v3/genesis.json > $HOME/.teritorid/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/teritori-testnet/addrbook.json > $HOME/.teritorid/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/teritori-testnet/addrbook.json > $HOME/.teritorid/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -83,7 +83,7 @@ sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.terit
 sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.teritorid/config/config.toml
 sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.teritorid/config/config.toml
 
-curl https://snapshots2-testnet.nodejumper.io/teritori-testnet/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.teritorid/data
+curl https://snapshots-testnet.nodejumper.io/teritori-testnet/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.teritorid/data
 
 sudo systemctl daemon-reload
 sudo systemctl enable teritorid

@@ -36,7 +36,7 @@ kid config chain-id $CHAIN_ID
 kid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/KiFoundation/ki-networks/v0.1/Mainnet/kichain-2/genesis.json > $HOME/.kid/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/kichain/addrbook.json > $HOME/.kid/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/kichain/addrbook.json > $HOME/.kid/config/addrbook.json
 
 SEEDS="24cbccfa8813accd0ebdb09e7cdb54cff2e8fcd9@51.89.166.197:26656"
 PEERS=""
@@ -82,7 +82,7 @@ sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.kid/c
 sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.kid/config/config.toml
 sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.kid/config/config.toml
 
-curl https://snapshots1.nodejumper.io/kichain/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kid
+curl https://snapshots.nodejumper.io/kichain/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kid
 
 sudo systemctl daemon-reload
 sudo systemctl enable kid

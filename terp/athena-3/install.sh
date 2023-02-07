@@ -37,7 +37,7 @@ terpd config chain-id $CHAIN_ID
 terpd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-3/genesis.json > $HOME/.terp/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/terpnetwork-testnet/addrbook.json > $HOME/.terp/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/terpnetwork-testnet/addrbook.json > $HOME/.terp/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -70,8 +70,7 @@ EOF
 
 terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/terpnetwork-testnet/ | egrep -o ">athena-3.*\.tar.lz4" | tr -d ">")
-curl https://snapshots2-testnet.nodejumper.io/terpnetwork-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.terp
+curl https://snapshots-testnet.nodejumper.io/terpnetwork-testnet/ | lz4 -dc - | tar -xf - -C $HOME/.terp
 
 sudo systemctl daemon-reload
 sudo systemctl enable terpd

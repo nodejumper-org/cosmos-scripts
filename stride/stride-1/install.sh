@@ -36,7 +36,7 @@ strided config chain-id $CHAIN_ID
 strided init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/Stride-Labs/stride/main/genesis/genesis.json > $HOME/.stride/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/stride/addrbook.json > $HOME/.stride/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/stride/addrbook.json > $HOME/.stride/config/addrbook.json
 
 SEEDS=""
 PEERS=""

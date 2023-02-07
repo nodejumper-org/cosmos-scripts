@@ -36,7 +36,7 @@ canined config chain-id $CHAIN_ID
 canined init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/JackalLabs/canine-mainnet-genesis/main/genesis/genesis.json > $HOME/.canine/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/jackal/addrbook.json > $HOME/.canine/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/jackal/addrbook.json > $HOME/.canine/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -82,7 +82,7 @@ sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.canin
 sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.canine/config/config.toml
 sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.canine/config/config.toml
 
-curl https://snapshots2.nodejumper.io/jackal/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.canine
+curl https://snapshots.nodejumper.io/jackal/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.canine
 
 sudo systemctl daemon-reload
 sudo systemctl enable canined

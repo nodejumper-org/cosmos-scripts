@@ -39,7 +39,7 @@ curl https://raw.githubusercontent.com/rebuschain/rebus.mainnet/master/reb_1111-
 rm -rf ~/.rebusd/config/genesis.json
 unzip ~/.rebusd/config/genesis.zip -d ~/.rebusd/config
 
-curl -s https://snapshots1.nodejumper.io/rebus/addrbook.json > $HOME/.rebusd/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/rebus/addrbook.json > $HOME/.rebusd/config/addrbook.json
 
 SEEDS="e056318da91e77585f496333040e00e12f6941d1@51.83.97.166:26656"
 PEERS=""

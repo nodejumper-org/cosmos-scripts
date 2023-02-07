@@ -36,7 +36,7 @@ bcnad config chain-id $CHAIN_ID
 bcnad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json > $HOME/.bcna/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/bitcanna/addrbook.json > $HOME/.bcna/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/bitcanna/addrbook.json > $HOME/.bcna/config/addrbook.json
 
 SEEDS="d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:26656"
 PEERS=""

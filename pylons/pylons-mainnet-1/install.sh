@@ -36,7 +36,7 @@ pylonsd config chain-id $CHAIN_ID
 pylonsd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/Pylons-tech/pylons/main/networks/pylons-mainnet-1/genesis.json > $HOME/.pylons/config/genesis.json
-curl -s https://snapshots3.nodejumper.io/pylons/addrbook.json > $HOME/.pylons/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/pylons/addrbook.json > $HOME/.pylons/config/addrbook.json
 
 SEEDS=""
 PEERS=""

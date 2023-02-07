@@ -38,7 +38,7 @@ humansd config chain-id $CHAIN_ID
 humansd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://rpc-testnet.humans.zone/genesis | jq -r .result.genesis > $HOME/.humans/config/genesis.json
-curl -s https://snapshots4-testnet.nodejumper.io/humans-testnet/addrbook.json > $HOME/.humans/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/humans-testnet/addrbook.json > $HOME/.humans/config/addrbook.json
 
 SEEDS=""
 PEERS=""

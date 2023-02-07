@@ -20,8 +20,8 @@ palomad tendermint unsafe-reset-all --home $HOME/.paloma
 wget -O $HOME/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-15/genesis.json
 wget -O $HOME/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-15/addrbook.json
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/paloma-testnet/ | egrep -o ">paloma-testnet-15.*\.tar.lz4" | tr -d ">")
-curl https://snapshots1-testnet.nodejumper.io/paloma-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.paloma
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/paloma-testnet/ | egrep -o ">paloma-testnet-15.*\.tar.lz4" | tr -d ">")
+curl https://snapshots-testnet.nodejumper.io/paloma-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.paloma
 
 sudo systemctl start pigeond
 sudo systemctl start palomad
