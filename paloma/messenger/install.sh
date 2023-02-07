@@ -93,12 +93,12 @@ EOF
 palomad keys add wallet --recover
 pigeon evm keys generate-new $HOME/.pigeon/keys/evm/eth-main
 
-PALOMA_PASSWORD = <YOUR_PALOMA_PASSWORD>
-ETH_PASSWORD = <YOUR_ETH_PASSWORD>
+PALOMA_PASSWORD=<YOUR_PALOMA_PASSWORD>
+ETH_PASSWORD=<YOUR_ETH_PASSWORD>
 ETH_SIGNING_KEY=0x$(cat $HOME/.pigeon/keys/evm/eth-main/*  | jq -r .address | head -n 1)
 
 sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
-PALOMA_PASSWORD=PALOMA_PASSWORD
+PALOMA_PASSWORD=$PALOMA_PASSWORD
 ETH_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/9bYS5h99MVmaa7f0fYztaHwN31k2EBvZ
 ETH_PASSWORD=$ETH_PASSWORD
 ETH_SIGNING_KEY=$ETH_SIGNING_KEY
