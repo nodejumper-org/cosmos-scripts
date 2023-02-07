@@ -150,7 +150,6 @@ sudo systemctl start pigeond
 sudo systemctl start palomad
 
 sudo journalctl -u pigeond -f --no-hostname -o cat
-
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
 echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
