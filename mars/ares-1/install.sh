@@ -70,7 +70,8 @@ EOF
 
 marsd tendermint unsafe-reset-all --home $HOME/.mars --keep-addr-book
 
-curl https://snapshots-testnet.nodejumper.io/mars-testnet/ares-1_2023-02-07.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.mars
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/mars-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/mars-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.mars"
 
 sudo systemctl daemon-reload
 sudo systemctl enable marsd

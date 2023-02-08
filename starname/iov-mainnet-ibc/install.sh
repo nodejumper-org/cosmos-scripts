@@ -72,7 +72,8 @@ EOF
 
 starnamed tendermint unsafe-reset-all --home $HOME/.starnamed --keep-addr-book
 
-curl https://snapshots.nodejumper.io/starname/iov-mainnet-ibc_2023-02-07.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.starnamed
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/starnamet/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/starname/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.starnamed"
 
 sudo systemctl daemon-reload
 sudo systemctl enable starnamed

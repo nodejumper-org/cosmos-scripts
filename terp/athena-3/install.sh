@@ -70,7 +70,8 @@ EOF
 
 terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
 
-curl https://snapshots-testnet.nodejumper.io/terpnetwork-testnet/ | lz4 -dc - | tar -xf - -C $HOME/.terp
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/terpnetwork-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/terpnetwork-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.terp"
 
 sudo systemctl daemon-reload
 sudo systemctl enable terpd

@@ -70,7 +70,8 @@ EOF
 
 lavad tendermint unsafe-reset-all --home $HOME/.lava --keep-addr-book
 
-curl https://snapshots-testnet.nodejumper.io/lava-testnet/lava-testnet-1_2023-02-06.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.lava
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/lava-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/lava-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.lava"
 
 sudo systemctl daemon-reload
 sudo systemctl enable lavad

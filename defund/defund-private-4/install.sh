@@ -70,7 +70,8 @@ EOF
 
 defundd tendermint unsafe-reset-all --home $HOME/.defund --keep-addr-book
 
-curl https://snapshots-testnet.nodejumper.io/defund-testnet/defund-private-4_2023-02-07.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.defund
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/defund-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/defund-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.defund"
 
 sudo systemctl daemon-reload
 sudo systemctl enable defundd

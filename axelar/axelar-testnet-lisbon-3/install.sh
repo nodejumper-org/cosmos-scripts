@@ -65,7 +65,7 @@ curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/co
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/config.toml > "$HOME/$CHAIN_HOME/config/config.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/seeds.toml > "$HOME/$CHAIN_HOME/config/seeds.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/genesis.json > "$HOME/$CHAIN_HOME/config/genesis.json"
-curl https://snapshots.axelar-testnet.nodejumper.io/axelar-testnet/addrbook.json > "$HOME/$CHAIN_HOME/config/addrbook.json"
+curl https://snapshots-testnet.nodejumper.io/axelar-testnet/addrbook.json > "$HOME/$CHAIN_HOME/config/addrbook.json"
 sed -i 's|^moniker *=.*|moniker = "'"$NODE_MONIKER"'"|g' "$HOME/$CHAIN_HOME/config/config.toml"
 sed -i 's|^external_address *=.*|external_address = "'"$(curl -s eth0.me)"':26656"|g' "$HOME/$CHAIN_HOME/config/config.toml"
 
@@ -129,8 +129,8 @@ EOF
 # download fresh snapshot
 axelard tendermint unsafe-reset-all --home "$HOME/$CHAIN_HOME"
 
-SNAP_NAME=$(curl -s https://snapshots.axelar-testnet.nodejumper.io/axelar-testnet/ | egrep -o ">axelar-testnet-lisbon-3.*\.tar.lz4" | tr -d ">")
-curl https://snapshots.axelar-testnet.nodejumper.io/axelar-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/.axelar_testnet
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/axelar-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/axelar-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.axelar_testnet"
 
 sudo systemctl daemon-reload
 sudo systemctl enable axelard

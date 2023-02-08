@@ -70,7 +70,8 @@ EOF
 
 celestia-appd tendermint unsafe-reset-all --home $HOME/.celestia-app --keep-addr-book
 
-curl https://snapshots-testnet.nodejumper.io/celestia-testnet/mocha_2023-02-06.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.celestia-app
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/celestia-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.celestia-app"
 
 sudo systemctl daemon-reload
 sudo systemctl enable celestia-appd
