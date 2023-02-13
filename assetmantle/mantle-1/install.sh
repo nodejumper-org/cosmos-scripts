@@ -36,8 +36,7 @@ mantleNode config chain-id $CHAIN_ID
 mantleNode init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/AssetMantle/genesisTransactions/main/mantle-1/final_genesis.json > $HOME/.mantleNode/config/genesis.json
-# TODO: add addresbbok
-# curl -s https://snapshots.nodejumper.io/assetmantle/addrbook.json > $HOME/.mantleNode/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/assetmantle/addrbook.json > $HOME/.mantleNode/config/addrbook.json
 
 SEEDS="10de5165a61dd83c768781d438748c14e11f4397@seed.assetmantle.one:26656"
 PEERS=""
@@ -66,10 +65,10 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 
-mantleNode tendermint unsafe-reset-all --home $HOME/.mantleNode --keep-addr-book
+mantleNode unsafe-reset-all
+curl -s https://snapshots.nodejumper.io/assetmantle/addrbook.json > $HOME/.mantleNode/config/addrbook.json
 
 SNAP_RPC="https://assetmantle.nodejumper.io:443"
-
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
