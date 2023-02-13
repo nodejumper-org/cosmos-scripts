@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="mantle-1"
 CHAIN_DENOM="umntl"
 BINARY_NAME="mantleNode"
-BINARY_VERSION_TAG="v0.3.0"
+BINARY_VERSION_TAG="v0.3.1"
 CHEAT_SHEET="https://nodejumper.io/assetmantle/cheat-sheet"
 
 printLine
@@ -28,25 +28,24 @@ cd || return
 rm -rf node
 git clone https://github.com/AssetMantle/node.git
 cd node || return
-git checkout v0.3.0
+git checkout v0.3.1
 make install
-mantleNode version # HEAD-5b2b0dcb37b107b0e0c1eaf9e907aa9f1a1992d9
+mantleNode version # HEAD-3e8f688539951f9df2d166bcf2f422425f0f2cb3
 
 mantleNode config chain-id $CHAIN_ID
 mantleNode init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/AssetMantle/genesisTransactions/main/mantle-1/final_genesis.json > $HOME/.mantleNode/config/genesis.json
 # TODO: add addresbbok
-# curl -s https://snapshots.nodejumper.io/jackal/addrbook.json > $HOME/.mantleNode/config/addrbook.json
+# curl -s https://snapshots.nodejumper.io/assetmantle/addrbook.json > $HOME/.mantleNode/config/addrbook.json
 
 SEEDS="10de5165a61dd83c768781d438748c14e11f4397@seed.assetmantle.one:26656"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.mantleNode/config/config.toml
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.mantleNode/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.mantleNode/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.mantleNode/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.mantleNode/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001umntl"|g' $HOME/.mantleNode/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.mantleNode/config/config.toml
@@ -67,21 +66,20 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 
-# TODO: enable sync block
-# mantleNode tendermint unsafe-reset-all --home $HOME/.mantleNode --keep-addr-book
-#
-#SNAP_RPC="https://jackal.nodejumper.io:443"
-#
-#LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
-#BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
-#TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-#
-#echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-#
-#sed -i 's|^enable *=.*|enable = true|' $HOME/.mantleNode/config/config.toml
-#sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.mantleNode/config/config.toml
-#sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.mantleNode/config/config.toml
-#sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.mantleNode/config/config.toml
+mantleNode tendermint unsafe-reset-all --home $HOME/.mantleNode --keep-addr-book
+
+SNAP_RPC="https://assetmantle.nodejumper.io:443"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i 's|^enable *=.*|enable = true|' $HOME/.mantleNode/config/config.toml
+sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.mantleNode/config/config.toml
+sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.mantleNode/config/config.toml
+sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.mantleNode/config/config.toml
 
 sudo systemctl daemon-reload
 sudo systemctl enable mantleNode
