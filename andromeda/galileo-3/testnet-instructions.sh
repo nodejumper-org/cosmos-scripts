@@ -25,12 +25,12 @@ andromedad q bank balances $(andromedad keys show wallet -a)
 
 ## console output:
 #  balances:
-#  - amount: "10000000"
+#  - amount: "2000000"
 #    denom: uandr
 
 # create validator
 andromedad tx staking create-validator \
---amount=9000000uandr \
+--amount=1000000uandr \
 --pubkey=$(andromedad tendermint show-validator) \
 --moniker="$NODE_MONIKER" \
 --chain-id=galileo-3 \
