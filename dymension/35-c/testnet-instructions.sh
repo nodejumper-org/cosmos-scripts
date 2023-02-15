@@ -17,7 +17,7 @@ cat $HOME/.dymension/config/priv_validator_key.json
 # wait util the node is synced, should return FALSE
 dymd status 2>&1 | jq .SyncInfo.catching_up
 
-# get some tokens
+# get some tokens - try to ask in discord
 
 # verify the balance
 dymd q bank balances $(dymd keys show wallet -a)
@@ -37,7 +37,7 @@ dymd tx staking create-validator \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=10000udym \
+--fees=1000udym \
 --from=wallet \
 -y
 
