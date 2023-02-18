@@ -3,5 +3,9 @@
     "height": 0,
     "version": "athena-3",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 782686,
+    "version": "v0.4.0",
   }
 ]

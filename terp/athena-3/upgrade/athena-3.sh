@@ -10,7 +10,7 @@ make install
 terpd version # 0.2.0-3-g2b8926a
 
 # update genesis
-curl -s  curl -s  https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-3/genesis.json > $HOME/.terp/config/genesis.json
+curl -s https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-3/genesis.json > $HOME/.terp/config/genesis.json
 
 # check sha256sum
 sha256sum ~/.terp/config/genesis.json # 262bd0d964a46a7d603427fe02e2508f07d20676b92ec57b60fc543f4c643b4e
