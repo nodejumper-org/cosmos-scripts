@@ -1,0 +1,12 @@
+sudo systemctl stop uptickd
+
+cd $HOME || return
+rm -rf uptick
+git clone https://github.com/UptickNetwork/uptick.git
+cd uptick || return
+git checkout v0.2.5
+make build -B
+mv build/uptickd /usr/local/bin/uptickd
+uptickd version # v0.2.5
+
+sudo systemctl start uptickd

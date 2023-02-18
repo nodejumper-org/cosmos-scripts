@@ -3,5 +3,9 @@
     "height": 926000,
     "version": "uptick_7000-2",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 2160300,
+    "version": "v0.2.5"
   }
 ]
