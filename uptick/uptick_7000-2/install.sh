@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="uptick_7000-2"
 CHAIN_DENOM="auptick"
 BINARY_NAME="uptickd"
-BINARY_VERSION_TAG="v0.2.4"
+BINARY_VERSION_TAG="v0.2.5"
 CHEAT_SHEET="https://nodejumper.io/uptick-testnet/cheat-sheet"
 
 printLine
@@ -24,12 +24,14 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-curl -L -k https://github.com/UptickNetwork/uptick/releases/download/v0.2.4/uptick-linux-amd64-v0.2.4.tar.gz > uptick.tar.gz
-tar -xvzf uptick.tar.gz
-sudo mv -f uptick-linux-amd64-v0.2.4/uptickd /usr/local/bin/uptickd
-rm uptick.tar.gz
-rm -rf uptick-linux-amd64-v0.2.4
-uptickd version # v0.2.4
+cd $HOME || return
+rm -rf uptick
+git clone https://github.com/UptickNetwork/uptick.git
+cd uptick || return
+git checkout v0.2.5
+make build -B
+mv build/uptickd /usr/local/bin/uptickd
+uptickd version # v0.2.5
 
 uptickd config keyring-backend test
 uptickd config chain-id $CHAIN_ID
