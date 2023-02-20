@@ -37,16 +37,15 @@ ollod config chain-id $CHAIN_ID
 ollod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/OllO-Station/networks/master/ollo-testnet-1/genesis.json > $HOME/.ollo/config/genesis.json
-curl -s https://snapshots-testnet.nodejumper.io/ollo-testnet/addrbook.json > $HOME/.ollo/config/addrbook.json
+curl -s https://snapshots1-testnet.nodejumper.io/ollo-testnet/addrbook.json > $HOME/.ollo/config/addrbook.json
 
 SEEDS=""
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.ollo/config/config.toml
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.ollo/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.ollo/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.ollo/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.ollo/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.ollo/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001utollo"|g' $HOME/.ollo/config/app.toml

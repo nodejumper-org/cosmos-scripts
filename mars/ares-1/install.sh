@@ -37,16 +37,15 @@ marsd config chain-id $CHAIN_ID
 marsd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/mars-protocol/networks/main/ares-1/genesis.json > $HOME/.mars/config/genesis.json
-curl -s https://snapshots-testnet.nodejumper.io/mars-testnet/addrbook.json > $HOME/.mars/config/addrbook.json
+curl -s https://snapshots1-testnet.nodejumper.io/mars-testnet/addrbook.json > $HOME/.mars/config/addrbook.json
 
 SEEDS=""
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.mars/config/config.toml
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.mars/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.mars/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.mars/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.mars/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.mars/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001umars"|g' $HOME/.mars/config/app.toml
@@ -70,8 +69,8 @@ EOF
 
 marsd tendermint unsafe-reset-all --home $HOME/.mars --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/mars-testnet/info.json | jq -r .fileName)
-curl "https://snapshots-testnet.nodejumper.io/mars-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.mars"
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/mars-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/mars-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.mars"
 
 sudo systemctl daemon-reload
 sudo systemctl enable marsd

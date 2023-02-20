@@ -37,16 +37,15 @@ celestia-appd config chain-id $CHAIN_ID
 celestia-appd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/celestiaorg/networks/master/mocha/genesis.json > $HOME/.celestia-app/config/genesis.json
-curl -s https://snapshots-testnet.nodejumper.io/celestia-testnet/addrbook.json > $HOME/.celestia-app/config/addrbook.json
+curl -s https://snapshots1-testnet.nodejumper.io/celestia-testnet/addrbook.json > $HOME/.celestia-app/config/addrbook.json
 
 SEEDS=$(curl -sL https://raw.githubusercontent.com/celestiaorg/networks/master/mocha/seeds.txt | tr -d '\n')
 PEERS=$(curl -sL https://raw.githubusercontent.com/celestiaorg/networks/master/mocha/peers.txt | tr -d '\n')
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.celestia-app/config/config.toml
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.celestia-app/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.celestia-app/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.celestia-app/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.celestia-app/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.celestia-app/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001utia"|g' $HOME/.celestia-app/config/app.toml
@@ -70,8 +69,8 @@ EOF
 
 celestia-appd tendermint unsafe-reset-all --home $HOME/.celestia-app --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/celestia-testnet/info.json | jq -r .fileName)
-curl "https://snapshots-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.celestia-app"
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/celestia-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.celestia-app"
 
 sudo systemctl daemon-reload
 sudo systemctl enable celestia-appd

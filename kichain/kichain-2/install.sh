@@ -36,16 +36,15 @@ kid config chain-id $CHAIN_ID
 kid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/KiFoundation/ki-networks/v0.1/Mainnet/kichain-2/genesis.json > $HOME/.kid/config/genesis.json
-curl -s https://snapshots.nodejumper.io/kichain/addrbook.json > $HOME/.kid/config/addrbook.json
+curl -s https://snapshots1.nodejumper.io/kichain/addrbook.json > $HOME/.kid/config/addrbook.json
 
 SEEDS="24cbccfa8813accd0ebdb09e7cdb54cff2e8fcd9@51.89.166.197:26656"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.kid/config/config.toml
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.kid/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.kid/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.kid/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.kid/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.kid/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uxki"|g' $HOME/.kid/config/app.toml
@@ -82,7 +81,7 @@ sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.kid/c
 sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.kid/config/config.toml
 sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.kid/config/config.toml
 
-curl https://snapshots.nodejumper.io/kichain/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kid
+curl https://snapshots1.nodejumper.io/kichain/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kid
 
 sudo systemctl daemon-reload
 sudo systemctl enable kid

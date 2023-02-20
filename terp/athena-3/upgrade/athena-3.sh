@@ -16,7 +16,7 @@ curl -s https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-3/g
 sha256sum ~/.terp/config/genesis.json # 262bd0d964a46a7d603427fe02e2508f07d20676b92ec57b60fc543f4c643b4e
 
 # download fresh addrbook
-curl -s https://snapshots-testnet.nodejumper.io/terpnetwork-testnet/addrbook.json > $HOME/.terp/config/addrbook.json
+curl -s https://snapshots1-testnet.nodejumper.io/terpnetwork-testnet/addrbook.json > $HOME/.terp/config/addrbook.json
 
 # erase chain data
 terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book

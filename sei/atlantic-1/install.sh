@@ -37,16 +37,15 @@ seid config chain-id $CHAIN_ID
 seid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/sei-incentivized-testnet/genesis.json > $HOME/.sei/config/genesis.json
-curl -s https://snapshots-testnet.nodejumper.io/sei-testnet/addrbook.json > $HOME/.sei/config/addrbook.json
+curl -s https://snapshots2-testnet.nodejumper.io/sei-testnet/addrbook.json > $HOME/.sei/config/addrbook.json
 
 SEEDS="df1f6617ff5acdc85d9daa890300a57a9d956e5e@sei-atlantic-1.seed.rhinostake.com:16660"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.sei/config/config.toml
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.sei/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.sei/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.sei/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.sei/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.sei/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001usei"|g' $HOME/.sei/config/app.toml
@@ -70,8 +69,8 @@ EOF
 
 seid tendermint unsafe-reset-all --home $HOME/.sei --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/sei-testnet/info.json | jq -r .fileName)
-curl "https://snapshots-testnet.nodejumper.io/sei-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.sei"
+SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/sei-testnet/info.json | jq -r .fileName)
+curl "https://snapshots2-testnet.nodejumper.io/sei-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.sei"
 
 sudo systemctl daemon-reload
 sudo systemctl enable seid

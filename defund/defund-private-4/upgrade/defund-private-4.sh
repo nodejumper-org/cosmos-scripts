@@ -18,7 +18,7 @@ PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.defund/config/config.toml
 sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1false|" $HOME/.defund/config/config.toml
 
-SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/defund-testnet/info.json | jq -r .fileName)
-curl "https://snapshots-testnet.nodejumper.io/defund-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.defund"
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/defund-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/defund-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.defund"
 
 sudo systemctl start defundd

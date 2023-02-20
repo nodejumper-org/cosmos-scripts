@@ -36,16 +36,15 @@ canined config chain-id $CHAIN_ID
 canined init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/JackalLabs/canine-mainnet-genesis/main/genesis/genesis.json > $HOME/.canine/config/genesis.json
-curl -s https://snapshots.nodejumper.io/jackal/addrbook.json > $HOME/.canine/config/addrbook.json
+curl -s https://snapshots1.nodejumper.io/jackal/addrbook.json > $HOME/.canine/config/addrbook.json
 
 SEEDS=""
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.canine/config/config.toml
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.canine/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.canine/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.canine/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.canine/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.canine/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025ujkl"|g' $HOME/.canine/config/app.toml
@@ -82,7 +81,7 @@ sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.canin
 sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.canine/config/config.toml
 sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.canine/config/config.toml
 
-curl https://snapshots.nodejumper.io/jackal/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.canine
+curl https://snapshots1.nodejumper.io/jackal/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.canine
 
 sudo systemctl daemon-reload
 sudo systemctl enable canined

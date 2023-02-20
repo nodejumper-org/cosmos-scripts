@@ -36,7 +36,7 @@ mantleNode config chain-id $CHAIN_ID
 mantleNode init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/AssetMantle/genesisTransactions/main/mantle-1/final_genesis.json > $HOME/.mantleNode/config/genesis.json
-curl -s https://snapshots.nodejumper.io/assetmantle/addrbook.json > $HOME/.mantleNode/config/addrbook.json
+curl -s https://snapshots1.nodejumper.io/assetmantle/addrbook.json > $HOME/.mantleNode/config/addrbook.json
 
 SEEDS="10de5165a61dd83c768781d438748c14e11f4397@seed.assetmantle.one:26656"
 PEERS=""
@@ -66,7 +66,7 @@ WantedBy=multi-user.target
 EOF
 
 mantleNode unsafe-reset-all
-curl -s https://snapshots.nodejumper.io/assetmantle/addrbook.json > $HOME/.mantleNode/config/addrbook.json
+curl -s https://snapshots1.nodejumper.io/assetmantle/addrbook.json > $HOME/.mantleNode/config/addrbook.json
 
 SNAP_RPC="https://assetmantle.nodejumper.io:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)

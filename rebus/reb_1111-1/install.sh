@@ -39,16 +39,15 @@ curl https://raw.githubusercontent.com/rebuschain/rebus.mainnet/master/reb_1111-
 rm -rf ~/.rebusd/config/genesis.json
 unzip ~/.rebusd/config/genesis.zip -d ~/.rebusd/config
 
-curl -s https://snapshots.nodejumper.io/rebus/addrbook.json > $HOME/.rebusd/config/addrbook.json
+curl -s https://snapshots1.nodejumper.io/rebus/addrbook.json > $HOME/.rebusd/config/addrbook.json
 
 SEEDS="e056318da91e77585f496333040e00e12f6941d1@51.83.97.166:26656"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.rebusd/config/config.toml
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.rebusd/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.rebusd/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' $HOME/.rebusd/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.rebusd/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.rebusd/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001arebus"|g' $HOME/.rebusd/config/app.toml

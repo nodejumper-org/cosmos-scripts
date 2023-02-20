@@ -65,14 +65,13 @@ curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/co
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/configuration/config.toml > "$HOME/$CHAIN_HOME/config/config.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/seeds.toml > "$HOME/$CHAIN_HOME/config/seeds.toml"
 curl https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/resources/testnet/genesis.json > "$HOME/$CHAIN_HOME/config/genesis.json"
-curl https://snapshots-testnet.nodejumper.io/axelar-testnet/addrbook.json > "$HOME/$CHAIN_HOME/config/addrbook.json"
+curl https://snapshots1-testnet.nodejumper.io/axelar-testnet/addrbook.json > "$HOME/$CHAIN_HOME/config/addrbook.json"
 sed -i 's|^moniker *=.*|moniker = "'"$NODE_MONIKER"'"|g' "$HOME/$CHAIN_HOME/config/config.toml"
 sed -i 's|^external_address *=.*|external_address = "'"$(curl -s eth0.me)"':26656"|g' "$HOME/$CHAIN_HOME/config/config.toml"
 
-PRUNING_INTERVAL=$(shuf -n1 -e 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97)
 sed -i 's|^pruning *=.*|pruning = "custom"|g' "$HOME/$CHAIN_HOME/config/app.toml"
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' "$HOME/$CHAIN_HOME/config/app.toml"
-sed -i 's|^pruning-interval *=.*|pruning-interval = "'$PRUNING_INTERVAL'"|g' "$HOME/$CHAIN_HOME/config/app.toml"
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' "$HOME/$CHAIN_HOME/config/app.toml"
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' "$HOME/$CHAIN_HOME/config/app.toml"
 
 printCyan "5. Starting services and synchronization..." && sleep 1
@@ -129,8 +128,8 @@ EOF
 # download fresh snapshot
 axelard tendermint unsafe-reset-all --home "$HOME/$CHAIN_HOME"
 
-SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/axelar-testnet/info.json | jq -r .fileName)
-curl "https://snapshots-testnet.nodejumper.io/axelar-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.axelar_testnet"
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/axelar-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/axelar-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.axelar_testnet"
 
 sudo systemctl daemon-reload
 sudo systemctl enable axelard
