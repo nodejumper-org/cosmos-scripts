@@ -72,7 +72,7 @@ EOF
 
 starnamed tendermint unsafe-reset-all --home $HOME/.starnamed --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/starnamet/info.json | jq -r .fileName)
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/starname/info.json | jq -r .fileName)
 curl "https://snapshots.nodejumper.io/starname/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.starnamed"
 
 sudo systemctl daemon-reload
