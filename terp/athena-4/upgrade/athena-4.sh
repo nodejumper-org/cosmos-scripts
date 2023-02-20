@@ -5,7 +5,7 @@ cd || return
 rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
-git checkout main
+git checkout v0.4.0
 make install
 terpd version # 0.4.0
 
