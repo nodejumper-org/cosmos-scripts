@@ -30,7 +30,7 @@ git clone https://github.com/UptickNetwork/uptick.git
 cd uptick || return
 git checkout v0.2.5
 make build -B
-mv build/uptickd /usr/local/bin/uptickd
+sudo mv build/uptickd /usr/local/bin/uptickd
 uptickd version # v0.2.5
 
 uptickd config keyring-backend test
@@ -77,9 +77,6 @@ BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 
 echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-PEERS="9ffdc3cd450758f09e1c31f2548c812a5c86f141@uptick-testnet.nodejumper.io:29656"
-sed -i 's|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.uptickd/config/config.toml
 
 sed -i 's|^enable *=.*|enable = true|' $HOME/.uptickd/config/config.toml
 sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.uptickd/config/config.toml
