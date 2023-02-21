@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="lava-testnet-1"
 CHAIN_DENOM="ulava"
 BINARY_NAME="lavad"
-BINARY_VERSION_TAG="v0.5.2"
+BINARY_VERSION_TAG="v0.6.0"
 CHEAT_SHEET="https://nodejumper.io/lava-testnet/cheat-sheet"
 
 printLine
