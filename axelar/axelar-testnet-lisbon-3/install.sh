@@ -15,7 +15,7 @@ CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_HOME=".axelar_testnet"
 CHAIN_DENOM="uaxl"
 AXELARD_BINARY_NAME="axelard"
-AXELARD_BINARY_VERSION="v0.32"
+AXELARD_BINARY_VERSION="v0.32.1"
 AXELARD_BINARY_PATH="$HOME/$CHAIN_HOME/bin/$AXELARD_BINARY_NAME"
 TOFND_VERSION="v0.10.1"
 CHEAT_SHEET="https://nodejumper.io/axelar-testnet/cheat-sheet"
@@ -42,7 +42,7 @@ cd || return
 rm -rf axelar-core
 git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
-git checkout v0.32
+git checkout v0.32.1
 make build
 cp bin/axelard "$HOME/$CHAIN_HOME/bin/axelard"
 
