@@ -36,7 +36,7 @@ ollod config keyring-backend test
 ollod config chain-id $CHAIN_ID
 ollod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl https://raw.githubusercontent.com/OllO-Station/networks/master/ollo-testnet-1/genesis.json > $HOME/.ollo/config/genesis.json
+curl -s https://raw.githubusercontent.com/OllO-Station/networks/master/ollo-testnet-1/genesis.json > $HOME/.ollo/config/genesis.json
 curl -s https://snapshots1-testnet.nodejumper.io/ollo-testnet/addrbook.json > $HOME/.ollo/config/addrbook.json
 
 SEEDS=""

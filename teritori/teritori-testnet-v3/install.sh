@@ -28,9 +28,9 @@ cd || return
 rm -rf teritori-chain
 git clone https://github.com/TERITORI/teritori-chain
 cd teritori-chain || return
-git checkout v1.3.0
+git checkout v1.3.1
 make install
-teritorid version # v1.3.0
+teritorid version # v1.3.1
 
 teritorid config keyring-backend test
 teritorid config chain-id $CHAIN_ID
