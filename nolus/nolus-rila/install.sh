@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="nolus-rila"
 CHAIN_DENOM="unls"
 BINARY_NAME="nolusd"
-BINARY_VERSION_TAG="v0.1.39"
+BINARY_VERSION_TAG="v0.1.43"
 CHEAT_SHEET="https://nodejumper.io/nolus-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf nolus-core
 git clone https://github.com/Nolus-Protocol/nolus-core.git
 cd nolus-core || return
-git checkout v0.1.39
+git checkout v0.1.43
 make install
-nolusd version # 0.1.39
+nolusd version # 0.1.43
 
 nolusd config keyring-backend test
 nolusd config chain-id $CHAIN_ID
