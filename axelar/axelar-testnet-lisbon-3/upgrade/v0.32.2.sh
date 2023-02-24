@@ -6,7 +6,7 @@ cd || return
 rm -rf axelar-core
 git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
-git checkout v0.32.1
+git checkout v0.32.2
 make build
 cp bin/axelard "$HOME/.axelar_testnet/bin/axelard"
 
