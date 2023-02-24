@@ -20,7 +20,6 @@ quasard status 2>&1 | jq .SyncInfo.catching_up
 # go to discord channel and paste
 !faucet QSR YOUR_WALLET_ADDRESS
 
-
 # verify the balance
 quasard q bank balances $(quasard keys show wallet -a)
 
