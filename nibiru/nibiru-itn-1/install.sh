@@ -37,7 +37,7 @@ nibid config chain-id $CHAIN_ID
 nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://rpc.itn-1.nibiru.fi/genesis | jq -r .result.genesis > $HOME/.nibid/config/genesis.json
-# TODO: curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/addrbook.json > $HOME/.nibid/config/addrbook.json
+curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/addrbook.json > $HOME/.nibid/config/addrbook.json
 
 SEEDS="a431d3d1b451629a21799963d9eb10d83e261d2c@seed-1.itn-1.nibiru.fi:26656,6a78a2a5f19c93661a493ecbe69afc72b5c54117@seed-2.itn-1.nibiru.fi:26656"
 PEERS=""
@@ -69,21 +69,20 @@ EOF
 
 nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
 
-# TODO: enable
-#SNAP_RPC="https://nibiru-testnet.nodejumper.io:443"
-#
-#LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
-#BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
-#TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-#
-#echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-#
-#sed -i 's|^enable *=.*|enable = true|' $HOME/.nibid/config/config.toml
-#sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.nibid/config/config.toml
-#sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.nibid/config/config.toml
-#sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.nibid/config/config.toml
-#
-#curl https://snapshots2-testnet.nodejumper.io/nibiru-testnet/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.nibid/data
+SNAP_RPC="https://nibiru-testnet.nodejumper.io:443"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i 's|^enable *=.*|enable = true|' $HOME/.nibid/config/config.toml
+sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.nibid/config/config.toml
+sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.nibid/config/config.toml
+sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.nibid/config/config.toml
+
+curl https://snapshots2-testnet.nodejumper.io/nibiru-testnet/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.nibid/data
 
 sudo systemctl daemon-reload
 sudo systemctl enable nibid
