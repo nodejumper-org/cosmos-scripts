@@ -45,5 +45,5 @@ babylond tx checkpointing create-validator \
 --from=wallet \
 -y
 
-# make sure you see the validator details, it might take up to 30 minutes because of babylon epoch interval
+# make sure you see the validator details (it might take up to 30 minutes for validator to appear because of babylon epoch interval)
 babylond q staking validator $(babylond keys show wallet --bech val -a)
