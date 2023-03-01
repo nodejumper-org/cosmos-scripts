@@ -25,12 +25,15 @@ babylond q bank balances $(babylond keys show wallet -a)
 
 ## console output:
 #  balances:
-#  - amount: "10000000"
+#  - amount: "100"
 #    denom: ubbn
 
+babylond create-bls-key $(babylond keys show wallet -a)
+sudo systemctl restart babylond
+
 # create validator
-babylond tx staking create-validator \
---amount=9000000ubbn \
+babylond tx checkpointing create-validator \
+--amount=10ubbn \
 --pubkey=$(babylond tendermint show-validator) \
 --moniker="$NODE_MONIKER" \
 --chain-id=bbn-test1 \
@@ -38,9 +41,9 @@ babylond tx staking create-validator \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=10000ubbn \
+--fees=20ubbn \
 --from=wallet \
 -y
 
-# make sure you see the validator details
+# make sure you see the validator details, it might take up to 30 minutes because of babylon epoch interval
 babylond q staking validator $(babylond keys show wallet --bech val -a)
