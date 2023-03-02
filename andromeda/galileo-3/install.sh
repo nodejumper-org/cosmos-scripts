@@ -69,20 +69,8 @@ EOF
 
 andromedad tendermint unsafe-reset-all --home $HOME/.andromedad --keep-addr-book
 
-SNAP_RPC="https://andromeda-testnet.nodejumper.io:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-sed -i 's|^enable *=.*|enable = true|' $HOME/.andromedad/config/config.toml
-sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.andromedad/config/config.toml
-sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.andromedad/config/config.toml
-sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.andromedad/config/config.toml
-
-curl -s https://snapshots2-testnet.nodejumper.io/andromeda-testnet/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.andromedad
+SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/andromeda-testnet/info.json | jq -r .fileName)
+curl "https://snapshots2-testnet.nodejumper.io/andromeda-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.andromedad"
 
 sudo systemctl daemon-reload
 sudo systemctl enable andromedad

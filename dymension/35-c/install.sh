@@ -69,21 +69,8 @@ EOF
 
 dymd tendermint unsafe-reset-all --home $HOME/.dymension --keep-addr-book
 
-SNAP_RPC="https://dymension-testnet.nodejumper.io:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-PEERS="76fb074cb54791afa399979ca863da211404bad6@dymension-testnet.nodejumper.io:27656"
-sed -i 's|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.dymension/config/config.toml
-
-sed -i 's|^enable *=.*|enable = true|' $HOME/.dymension/config/config.toml
-sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.dymension/config/config.toml
-sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.dymension/config/config.toml
-sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.dymension/config/config.toml
+SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/dymension-testnet/info.json | jq -r .fileName)
+curl "https://snapshots2-testnet.nodejumper.io/dymension-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.dymension"
 
 sudo systemctl daemon-reload
 sudo systemctl enable dymd

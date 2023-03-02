@@ -71,18 +71,8 @@ EOF
 
 rebusd tendermint unsafe-reset-all --home $HOME/.rebusd --keep-addr-book
 
-SNAP_RPC="https://rebus.nodejumper.io:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-sed -i 's|^enable *=.*|enable = true|' $HOME/.rebusd/config/config.toml
-sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.rebusd/config/config.toml
-sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.rebusd/config/config.toml
-sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.rebusd/config/config.toml
+SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/rebus/info.json | jq -r .fileName)
+curl "https://snapshots1.nodejumper.io/rebus/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.rebusd"
 
 sudo systemctl daemon-reload
 sudo systemctl enable rebusd

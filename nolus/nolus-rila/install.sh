@@ -69,20 +69,8 @@ EOF
 
 nolusd tendermint unsafe-reset-all --home $HOME/.nolus --keep-addr-book
 
-SNAP_RPC="https://nolus-testnet.nodejumper.io:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-sed -i 's|^enable *=.*|enable = true|' $HOME/.nolus/config/config.toml
-sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.nolus/config/config.toml
-sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.nolus/config/config.toml
-sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.nolus/config/config.toml
-
-curl https://snapshots1-testnet.nodejumper.io/nolus-testnet/wasm.lz4 | lz4 -dc - | tar -xf - -C $HOME/.nolus
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/nolus-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/nolus-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.nolus"
 
 sudo systemctl daemon-reload
 sudo systemctl enable nolusd

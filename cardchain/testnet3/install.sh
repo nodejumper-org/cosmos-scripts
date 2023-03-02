@@ -69,18 +69,8 @@ EOF
 
 Cardchaind tendermint unsafe-reset-all --home $HOME/.Cardchain --keep-addr-book
 
-SNAP_RPC="https://cardchain-testnet.nodejumper.io:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height);
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000));
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-sed -i 's|^enable *=.*|enable = true|' $HOME/.Cardchain/config/config.toml
-sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.Cardchain/config/config.toml
-sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.Cardchain/config/config.toml
-sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.Cardchain/config/config.toml
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/cardchain-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/cardchain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.Cardchain"
 
 sudo systemctl daemon-reload
 sudo systemctl enable Cardchaind
