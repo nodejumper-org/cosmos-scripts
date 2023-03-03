@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="pylons-mainnet-1"
 CHAIN_DENOM="ubedrock"
 BINARY_NAME="pylonsd"
-BINARY_VERSION_TAG="v1.1.1"
+BINARY_VERSION_TAG="v1.1.4"
 CHEAT_SHEET="https://nodejumper.io/pylons/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf pylons
 git clone https://github.com/Pylons-tech/pylons
 cd pylons || return
-git checkout v1.1.1
+git checkout v1.1.4
 make install
-pylonsd version # 1.1.1
+pylonsd version # 1.1.4
 
 pylonsd config chain-id $CHAIN_ID
 pylonsd init "$NODE_MONIKER" --chain-id $CHAIN_ID
