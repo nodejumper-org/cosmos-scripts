@@ -66,7 +66,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-ununifid tendermint unsafe-reset-all --home $HOME/.ununifi --keep-addr-book
+ununifid unsafe-reset-all
 
 # TODO:
 #SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/ununifi/info.json | jq -r .fileName)
