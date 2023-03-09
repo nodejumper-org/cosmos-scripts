@@ -45,7 +45,7 @@ sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_p
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.kid/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.kid/config/app.toml
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.kid/config/app.toml
-sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.kid/config/app.toml
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.kid/config/app.toml
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uxki"|g' $HOME/.kid/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.kid/config/config.toml

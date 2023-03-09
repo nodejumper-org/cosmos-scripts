@@ -72,7 +72,7 @@ sed -i 's|^external_address *=.*|external_address = "'"$(curl -s eth0.me)"':2665
 sed -i 's|^pruning *=.*|pruning = "custom"|g' "$HOME/$CHAIN_HOME/config/app.toml"
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' "$HOME/$CHAIN_HOME/config/app.toml"
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' "$HOME/$CHAIN_HOME/config/app.toml"
-sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' "$HOME/$CHAIN_HOME/config/app.toml"
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' "$HOME/$CHAIN_HOME/config/app.toml"
 
 printCyan "5. Starting services and synchronization..." && sleep 1
 

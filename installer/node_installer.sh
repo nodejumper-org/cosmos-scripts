@@ -78,7 +78,7 @@ function configureNode {
 
   if [ "$stateSyncMode" == true ]; then
     sed -i 's|pruning-keep-every = "0"|pruning-keep-every = "2000"|g' "$chainHomePath/config/app.toml"
-    sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' "$chainHomePath/config/app.toml"
+    sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' "$chainHomePath/config/app.toml"
   fi
 
   ### config.toml
