@@ -65,8 +65,8 @@ KEYRING_PASSWORD=YOUR_KEYRING_PASSWORD
 WALLET_ADDRESS=$(ojod keys show wallet -a)
 FEEDER_ADDRESS=$(ojod keys show feeder-wallet --keyring-backend os -a)
 VALIDATOR_ADDRESS=$(ojod keys show wallet --bech val -a)
-GRPC="localhost:10190"
-RPC="http://localhost:37657"
+GRPC="localhost:9090"
+RPC="http://localhost:26657"
 
 ojod tx oracle delegate-feed-consent $WALLET_ADDRESS $FEEDER_ADDRESS --from wallet --fees 2000uojo -y
 ojod q oracle feeder-delegation $VALIDATOR_ADDRESS
