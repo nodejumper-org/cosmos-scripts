@@ -10,7 +10,7 @@ CHAIN_ID="althea_7357-1"
 CHAIN_DENOM="ualthea"
 BINARY_NAME="althea"
 BINARY_VERSION_TAG="v0.3.2"
-CHEAT_SHEET="https://nodejumper.io/nibiru-testnet/cheat-sheet"
+CHEAT_SHEET="https://nodejumper.io/althea-testnet/cheat-sheet"
 
 printLine
 echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
