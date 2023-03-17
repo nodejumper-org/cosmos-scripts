@@ -58,7 +58,7 @@ curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/main/price-fe
 
 ojod keys add feeder-wallet --keyring-backend os
 ojod tx bank send wallet YOUR_FEEDER_ADDRESS 10000000uojo --from wallet --chain-id ojo-devnet --fees 2000uojo -y
-ojod q bank balances $(ojod keys show feeder-wallet -a)
+ojod q bank balances $(ojod keys show feeder-wallet --keyring-backend os -a)
 
 CHAIN_ID=ojo-devnet
 KEYRING_PASSWORD=YOUR_KEYRING_PASSWORD
@@ -80,6 +80,7 @@ sed -i 's|^dir *=.*|dir = "'$HOME/.ojo'"|g' $HOME/.price-feeder/price-feeder.tom
 sed -i 's|^pass *=.*|pass = "'$KEYRING_PASSWORD'"|g' $HOME/.price-feeder/price-feeder.toml
 sed -i 's|^grpc_endpoint *=.*|grpc_endpoint = "'$GRPC'"|g' $HOME/.price-feeder/price-feeder.toml
 sed -i 's|^tmrpc_endpoint *=.*|tmrpc_endpoint = "'$RPC'"|g' $HOME/.price-feeder/price-feeder.toml
+sed -i 's|^global-labels *=.*|global-labels = [["chain_id", "'$CHAIN_ID'"]]"|g' $HOME/.price-feeder/price-feeder.toml
 
 sudo tee /etc/systemd/system/price-feeder.service > /dev/null << EOF
 [Unit]
