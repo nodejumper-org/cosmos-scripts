@@ -80,7 +80,7 @@ sed -i 's|^dir *=.*|dir = "'$HOME/.ojo'"|g' $HOME/.price-feeder/price-feeder.tom
 sed -i 's|^pass *=.*|pass = "'$KEYRING_PASSWORD'"|g' $HOME/.price-feeder/price-feeder.toml
 sed -i 's|^grpc_endpoint *=.*|grpc_endpoint = "'$GRPC'"|g' $HOME/.price-feeder/price-feeder.toml
 sed -i 's|^tmrpc_endpoint *=.*|tmrpc_endpoint = "'$RPC'"|g' $HOME/.price-feeder/price-feeder.toml
-sed -i 's|^global-labels *=.*|global-labels = [["chain_id", "'$CHAIN_ID'"]]"|g' $HOME/.price-feeder/price-feeder.toml
+sed -i 's|^global-labels *=.*|global-labels = [["chain_id", "'$CHAIN_ID'"]]|g' $HOME/.price-feeder/price-feeder.toml
 
 sudo tee /etc/systemd/system/price-feeder.service > /dev/null << EOF
 [Unit]
