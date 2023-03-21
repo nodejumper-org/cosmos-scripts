@@ -6,10 +6,10 @@ printLogo
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="defund-private-4"
+CHAIN_ID="orbit-alpha-1"
 CHAIN_DENOM="ufetf"
 BINARY_NAME="defundd"
-BINARY_VERSION_TAG="v0.2.5"
+BINARY_VERSION_TAG="v0.2.6"
 CHEAT_SHEET="https://nodejumper.io/defund-testnet/cheat-sheet"
 
 printLine
@@ -28,18 +28,18 @@ cd || return
 rm -rf defund
 git clone https://github.com/defund-labs/defund.git
 cd defund || return
-git checkout v0.2.5
+git checkout v0.2.6
 make install
-defundd version # 0.2.5
+defundd version # 0.2.6
 
 defundd config keyring-backend test
 defundd config chain-id $CHAIN_ID
 defundd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/defund-labs/testnet/main/defund-private-4/genesis.json > ~/.defund/config/genesis.json
+curl -s https://raw.githubusercontent.com/defund-labs/testnet/main/orbit-alpha-1/genesis.json > ~/.defund/config/genesis.json
 curl -s https://snapshots2-testnet.nodejumper.io/defund-testnet/addrbook.json > $HOME/.defund/config/addrbook.json
 
-SEEDS="d837b7f78c03899d8964351fb95c78e84128dff6@174.83.6.129:30791,f03f3a18bae28f2099648b1c8b1eadf3323cf741@162.55.211.136:26656"
+SEEDS="f902d7562b7687000334369c491654e176afd26d@170.187.157.19:26656,2b76e96658f5e5a5130bc96d63f016073579b72d@rpc-1.defund.nodes.guru:45656"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.defund/config/config.toml
 
