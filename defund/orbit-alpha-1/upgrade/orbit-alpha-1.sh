@@ -22,4 +22,6 @@ sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1false|" $HOME/.defund/confi
 SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/defund-testnet/info.json | jq -r .fileName)
 curl "https://snapshots2-testnet.nodejumper.io/defund-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.defund"
 
+# make sure node is synced and create new validator, if needed
+
 sudo systemctl start defundd
