@@ -24,10 +24,10 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-curl -L https://github.com/cosmos/gaia/releases/download/v9.0.0-rc7/gaiad-v9.0.0-rc7-linux-amd64 > gaiad
+curl -L https://github.com/cosmos/gaia/releases/download/v9.0.2-rc0/gaiad-v9.0.2-rc0-linux-amd64 > gaiad
 chmod +x gaiad
 sudo mv gaiad /usr/local/bin
-gaiad version # v9.0.0-rc7
+gaiad version # v9.0.2-rc0
 
 gaiad config keyring-backend test
 gaiad config chain-id $CHAIN_ID
