@@ -2,7 +2,7 @@
 
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/common.sh)
 
-while getopts n:i:t:v:b:c: flag; do
+while getopts n:i:t:v:b:c:p: flag; do
   case "${flag}" in
   n) CHAIN_NAME=$OPTARG ;;
   i) CHAIN_ID=$OPTARG ;;
@@ -10,6 +10,7 @@ while getopts n:i:t:v:b:c: flag; do
   v) VERSION=$OPTARG ;;
   b) BINARY=$OPTARG ;;
   c) CHEAT_SHEET=$OPTARG ;;
+  p) PORT_RPC=$OPTARG ;;
   *) echo "WARN: unknown parameter: ${OPTARG}"
   esac
 done
@@ -20,7 +21,11 @@ echo -e "Your ${CYAN}$CHAIN_NAME${NC} node will be upgraded to version ${CYAN}$V
 echo ""
 
 for (( ; ; )); do
-  height=$($BINARY status 2>&1 | jq -r .SyncInfo.latest_block_height)
+  if [ -z "$PORT_RPC" ]; then
+    height=$($BINARY status 2>&1 | jq -r .SyncInfo.latest_block_height)
+  else
+    height=$($BINARY status --node="tcp://127.0.0.1:$PORT_RPC" 2>&1 | jq -r .SyncInfo.latest_block_height)
+  fi
   if ((height >= TARGET_BLOCK)); then
     bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/${CHAIN_NAME,,}/$CHAIN_ID/upgrade/$VERSION.sh)
     printCyan "Your node was successfully upgraded to version: $VERSION" && sleep 1
