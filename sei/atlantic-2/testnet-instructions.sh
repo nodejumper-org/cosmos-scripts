@@ -29,7 +29,7 @@ seid q bank balances $(seid keys show wallet -a)
 #    denom: usei
 
 # create validator
-sed -i 's|^mode = "full"|mode = "validator"|g' $HOME/.sei/config/app.toml
+sed -i 's|^mode = "full"|mode = "validator"|g' $HOME/.sei/config/config.toml
 seid tx staking create-validator \
 --amount=1000000usei \
 --pubkey=$(seid tendermint show-validator) \
