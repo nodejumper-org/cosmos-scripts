@@ -8,5 +8,4 @@ git checkout 2.0.44beta
 make install
 seid version # 2.0.44beta
 
-
 sudo systemctl start seid
