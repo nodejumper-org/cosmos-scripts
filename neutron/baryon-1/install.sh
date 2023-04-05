@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="baryon-1"
 CHAIN_DENOM="untrn"
 BINARY_NAME="neutrond"
-BINARY_VERSION_TAG="v0.2.0"
+BINARY_VERSION_TAG="v0.3.1"
 CHEAT_SHEET="https://nodejumper.io/neutron-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf neutron
 git clone https://github.com/neutron-org/neutron.git
 cd neutron || return
-git checkout v0.2.0
+git checkout v0.3.1.sh
 make install
-neutrond version # v0.2.0
+neutrond version # v0.3.1.sh
 
 neutrond config keyring-backend test
 neutrond config chain-id $CHAIN_ID
