@@ -28,9 +28,9 @@ cd || return
 rm -rf core
 git clone https://github.com/Team-Kujira/core.git
 cd core || return
-git checkout v0.8.4-mainnet
+git checkout v0.8.5
 make install
-kujirad version # v0.8.4-mainnet
+kujirad version # v0.8.5
 
 kujirad config chain-id $CHAIN_ID
 kujirad init "$NODE_MONIKER" --chain-id $CHAIN_ID
@@ -38,7 +38,7 @@ kujirad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 curl -s https://raw.githubusercontent.com/Team-Kujira/networks/master/mainnet/kaiyo-1.json > $HOME/.kujira/config/genesis.json
 # TODO: curl -s https://snapshots2.nodejumper.io/kujira/addrbook.json > $HOME/.kujira/config/addrbook.json
 
-SEEDS="400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@kujira.rpc.kjnodes.com:13659,2c0be5d48f1eb2ff7bd3e2a0b5b483835064b85a@95.216.7.241:41001,5a70fdcf1f51bb38920f655597ce5fc90b8b88b8@136.244.29.116:41656"
+SEEDS="63158c2af0d639d8105a8e6ca2c53dc243dd156f@seed.kujira.mintserve.org:31897,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:18656"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.kujira/config/config.toml
 
@@ -62,7 +62,7 @@ User=$USER
 ExecStart=$(which kujirad) start
 Restart=on-failure
 RestartSec=10
-LimitNOFILE=10000
+LimitNOFILE=65535
 [Install]
 WantedBy=multi-user.target
 EOF
