@@ -2,5 +2,9 @@
   {
     "height": 4175400,
     "version": "upgrade_1"
+  },
+  {
+    "height": 6262420,
+    "version": "v0.10.0"
   }
 ]
