@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="omniflixhub-1"
 CHAIN_DENOM="uflix"
 BINARY_NAME="omniflixhubd"
-BINARY_VERSION_TAG="v0.8.0"
+BINARY_VERSION_TAG="v0.10.0"
 CHEAT_SHEET="https://nodejumper.io/omniflix/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf omniflixhub
 git clone https://github.com/Omniflix/omniflixhub.git
 cd omniflixhub || return
-git checkout v0.8.0
+git checkout v0.10.0
 make install
-omniflixhubd version # 0.8.0
+omniflixhubd version # 0.10.0
 
 omniflixhubd config chain-id $CHAIN_ID
 omniflixhubd init "$NODE_MONIKER" --chain-id $CHAIN_ID
