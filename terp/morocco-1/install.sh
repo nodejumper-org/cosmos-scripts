@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="morocco-1"
 CHAIN_DENOM="upersy"
 BINARY_NAME="terpd"
-BINARY_VERSION_TAG="v1.0.0"
+BINARY_VERSION_TAG="v1.0.0-stable"
 CHEAT_SHEET="https://nodejumper.io/terpnetwork/cheat-sheet"
 
 printLine
@@ -37,7 +37,7 @@ terpd config chain-id $CHAIN_ID
 terpd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/terpnetwork/mainnet/main/morocco-1/genesis.json > $HOME/.terp/config/genesis.json
-# TODO curl -s https://snapshots2.nodejumper.io/terpnetwork/addrbook.json > $HOME/.terp/config/addrbook.json
+curl -s https://snapshots2.nodejumper.io/terpnetwork/addrbook.json > $HOME/.terp/config/addrbook.json
 
 SEEDS="c71e63b5da517984d55d36d00dc0dc2413d0ce03@seed.terp.network:26656"
 PEERS=""
@@ -67,10 +67,10 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-# TODO terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
-#
-#SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/terpnetwork/info.json | jq -r .fileName)
-#curl "https://snapshots2.nodejumper.io/terpnetwork/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.terp"
+terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
+
+SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/terpnetwork/info.json | jq -r .fileName)
+curl "https://snapshots2.nodejumper.io/terpnetwork/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.terp"
 
 sudo systemctl daemon-reload
 sudo systemctl enable terpd
