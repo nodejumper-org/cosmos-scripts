@@ -73,10 +73,10 @@ EOF
 #curl "https://snapshots2.nodejumper.io/passage/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.passage"
 
 sudo systemctl daemon-reload
-sudo systemctl enable passage
-sudo systemctl start passage
+sudo systemctl enable passaged
+sudo systemctl start passaged
 
 printLine
-echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check logs:            ${CYAN}sudo journalctl -u passaged -f --no-hostname -o cat ${NC}"
+echo -e "Check synchronization: ${CYAN}passaged status 2>&1 | jq .SyncInfo.catching_up${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
