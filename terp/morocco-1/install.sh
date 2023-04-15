@@ -7,7 +7,7 @@ printLogo
 read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="morocco-1"
-CHAIN_DENOM="upersy"
+CHAIN_DENOM="uterp"
 BINARY_NAME="terpd"
 BINARY_VERSION_TAG="v1.0.0-stable"
 CHEAT_SHEET="https://nodejumper.io/terpnetwork/cheat-sheet"
@@ -48,7 +48,7 @@ sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.terp/
 sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $HOME/.terp/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.terp/config/app.toml
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001upersyx"|g' $HOME/.terp/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001uterp"|g' $HOME/.terp/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.terp/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
