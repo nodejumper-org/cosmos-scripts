@@ -35,7 +35,7 @@ nibid q bank balances $(nibid keys show wallet -a)
 nibid tx staking create-validator \
 --amount=10000000unibi \
 --pubkey=$(nibid tendermint show-validator) \
---moniker="$NODE_MONIKER" \
+--moniker="YOUR_MONIKER_HERE" \
 --chain-id=nibiru-itn-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
