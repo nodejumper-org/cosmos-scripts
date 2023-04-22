@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="jackal-1"
 CHAIN_DENOM="ujkl"
 BINARY_NAME="canined"
-BINARY_VERSION_TAG="v1.1.2-hotfix"
+BINARY_VERSION_TAG="v1.2.2"
 CHEAT_SHEET="https://nodejumper.io/jackal-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf canine-chain
 git clone https://github.com/JackalLabs/canine-chain.git
 cd canine-chain || return
-git checkout v1.1.2-hotfix
+git checkout v1.2.2
 make install
-canined version # 1.1.2
+canined version # 1.2.2
 
 canined config chain-id $CHAIN_ID
 canined init "$NODE_MONIKER" --chain-id $CHAIN_ID
