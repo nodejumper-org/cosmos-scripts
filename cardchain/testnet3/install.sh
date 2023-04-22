@@ -67,10 +67,11 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-Cardchaind tendermint unsafe-reset-all --home $HOME/.Cardchain --keep-addr-book
+Cardchaind unsafe-reset-all
 
 SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/cardchain-testnet/info.json | jq -r .fileName)
 curl "https://snapshots1-testnet.nodejumper.io/cardchain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.Cardchain"
+curl -s https://snapshots1-testnet.nodejumper.io/cardchain-testnet/addrbook.json > "$HOME/.Cardchain/config/addrbook.json"
 
 sudo systemctl daemon-reload
 sudo systemctl enable Cardchaind
