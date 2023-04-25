@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="athena-4"
 CHAIN_DENOM="upersy"
 BINARY_NAME="terpd"
-BINARY_VERSION_TAG="v0.4.0"
+BINARY_VERSION_TAG="v1.0.1"
 CHEAT_SHEET="https://nodejumper.io/terpnetwork-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
-git checkout v0.4.0
+git checkout v1.0.1
 make install
-terpd version # 0.4.0
+terpd version # 1.0.1
 
 terpd config keyring-backend test
 terpd config chain-id $CHAIN_ID
