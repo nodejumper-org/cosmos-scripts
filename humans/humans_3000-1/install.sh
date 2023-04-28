@@ -48,7 +48,7 @@ sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.human
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.humansd/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.humansd/config/app.toml
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001uheart"|g' $HOME/.humansd/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001aheart"|g' $HOME/.humansd/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.humansd/config/config.toml
 sed -i 's|^create_empty_blocks_interval *=.*|create_empty_blocks_interval = "30s"|' $HOME/.humansd/config/config.toml
 sed -i 's|^timeout_propose *=.*|timeout_propose = "30s"|' $HOME/.humansd/config/config.toml
