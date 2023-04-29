@@ -53,11 +53,11 @@ sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ugrain"|g' $HOME/
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.paloma/config/config.toml
 
 # pigeon binary and config
-curl -L https://github.com/palomachain/pigeon/releases/download/v0.11.5/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
+curl -L https://github.com/palomachain/pigeon/releases/download/v0.11.7/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
 tar -xvzf pigeon.tar.gz
 rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
-pigeon version # v0.11.5
+pigeon version # v0.11.7
 
 echo "export PIGEON_HEALTHCHECK_PORT=5757" >> $HOME/.bash_profile
 source .bash_profile
