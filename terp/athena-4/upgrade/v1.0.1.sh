@@ -8,4 +8,4 @@ git checkout v1.0.1
 make install
 terpd version # 1.0.1
 
-sudo systemctl stop terpd
+sudo systemctl start terpd
