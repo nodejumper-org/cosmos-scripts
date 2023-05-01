@@ -1,6 +1,7 @@
 [
   {
     "height": 0,
-    "version": "90u-1"
+    "version": "90u-1",
+    "automaticUpgradeDisabled": true
   }
 ]
