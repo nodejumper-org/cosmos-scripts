@@ -36,7 +36,7 @@ humansd config keyring-backend test
 humansd config chain-id $CHAIN_ID
 humansd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/humansdotai/testnets/master/friction/genesis.json > $HOME/.humansd/config/genesis.json
+curl -s https://raw.githubusercontent.com/humansdotai/testnets/master/friction/genesis-M1-P2.json > $HOME/.humansd/config/genesis.json
 curl -s https://snapshots1-testnet.nodejumper.io/humans-testnet/addrbook.json > $HOME/.humansd/config/addrbook.json
 
 SEEDS="6ce9a9acc23594ec75516617647286fe546f83ca@humans-testnet-seed.itrocket.net:17656"
