@@ -72,8 +72,8 @@ gaiad tendermint unsafe-reset-all --home $HOME/.gaia --keep-addr-book
 # TODO: use own snap
 curl -L https://snapshots.kjnodes.com/cosmoshub/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.gaia
 
-#SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/cosmos-testnet/info.json | jq -r .fileName)
-#curl "https://snapshots2-testnet.nodejumper.io/cosmos-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.gaia"
+# SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/cosmoshub/info.json | jq -r .fileName)
+# curl "https://snapshots2.nodejumper.io/cosmoshub/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.gaia"
 
 sudo systemctl daemon-reload
 sudo systemctl enable gaiad
