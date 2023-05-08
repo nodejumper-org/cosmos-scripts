@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="humans_3000-2"
 CHAIN_DENOM="uheart"
 BINARY_NAME="humansd"
-BINARY_VERSION_TAG="v0.1.2"
+BINARY_VERSION_TAG="v0.2.1"
 CHEAT_SHEET="https://nodejumper.io/humans-testnet/cheat-sheet"
 
 printLine
@@ -28,15 +28,15 @@ cd || return
 rm -rf humans
 git clone https://github.com/humansdotai/humans
 cd humans || return
-git checkout v0.1.2
+git checkout v0.2.1
 make install
-humansd version # 0.1.2
+humansd version # 0.2.1
 
 humansd config keyring-backend test
 humansd config chain-id $CHAIN_ID
 humansd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/humansdotai/testnets/master/friction/mission-2/genesis-m2-p1.json > $HOME/.humansd/config/genesis.json
+curl -s https://raw.githubusercontent.com/humansdotai/testnets/master/friction/mission-2/genesis-m2-p2.json > $HOME/.humansd/config/genesis.json
 curl -s https://snapshots1-testnet.nodejumper.io/humans-testnet/addrbook.json > $HOME/.humansd/config/addrbook.json
 
 SEEDS="6ce9a9acc23594ec75516617647286fe546f83ca@humans-testnet-seed.itrocket.net:17656"
