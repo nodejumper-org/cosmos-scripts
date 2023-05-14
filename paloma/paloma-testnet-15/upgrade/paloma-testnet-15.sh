@@ -13,7 +13,7 @@ pigeon version # v0.11.5
 palomad config chain-id paloma-testnet-15
 nano $HOME/.pigeon/config.yaml
 # paloma:
-#   chain-id: paloma-testnet-15
+#   chain-id: constantine-3
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma
 
