@@ -35,8 +35,7 @@ archwayd config chain-id $CHAIN_ID
 archwayd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/archway-network/networks/main/constantine-3/genesis.json > $HOME/.archway/config/genesis.json
-# TODO add snapshot
-#curl -s https://snapshots1-testnet.nodejumper.io/archway-testnet/addrbook.json > $HOME/.archway/config/addrbook.json
+curl -s https://snapshots1-testnet.nodejumper.io/archway-testnet/addrbook.json > $HOME/.archway/config/addrbook.json
 
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.archway/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.archway/config/app.toml
@@ -44,7 +43,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.archway/confi
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.archway/config/app.toml
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uconst"|g' $HOME/.archway/config/app.toml
 
-SEEDS=""
+SEEDS="3c5bc400c786d8e57ae2b85639273d1aec79829a@34.31.130.235:26656"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.archway/config/config.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.archway/config/config.toml
@@ -68,9 +67,8 @@ EOF
 
 archwayd tendermint unsafe-reset-all --home $HOME/.archway --keep-addr-book
 
-# TODO: install snap
-#SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/archway-testnet/info.json | jq -r .fileName)
-#curl "https://snapshots1-testnet.nodejumper.io/archway-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.archway"
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/archway-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/archway-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.archway"
 
 sudo systemctl daemon-reload
 sudo systemctl enable archwayd
