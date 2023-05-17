@@ -45,7 +45,7 @@ mv genesis.json $HOME/.gitopia/config/genesis.json
 
 curl -s https://snapshots2.nodejumper.io/gitopia/addrbook.json > $HOME/.gitopia/config/addrbook.json
 
-SEEDS=""
+SEEDS="a4a69a62de7cb0feb96c239405aa247a5a258739@seeds.cros-nest.com:57656,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:11356"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.gitopia/config/config.toml
 
