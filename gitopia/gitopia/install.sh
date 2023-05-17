@@ -24,22 +24,19 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-curl https://get.gitopia.com | bash
-sudo mv /tmp/tmpinstalldir/git-remote-gitopia /usr/local/bin/
-
-cd || return
+# Clone project repository
+cd $HOME || return
 rm -rf gitopia
-git clone gitopia://Gitopia/gitopia
+git clone https://github.com/gitopia/gitopia.git
 cd gitopia || return
 git checkout v2.0.0
 make install
-gitopiad version # 2.0.0
 
 gitopiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 gitopiad config chain-id $CHAIN_ID
 gitopiad config keyring-backend file
 
-curl -s https://server.gitopia.com/raw/gitopia/mainnet/master/genesis.tar.gz > $HOME/.gitopia/config/genesis.tar.gz
+curl -s https://github.com/gitopia/mainnet/raw/master/genesis.tar.gz > $HOME/.gitopia/config/genesis.tar.gz
 rm $HOME/.gitopia/config/genesis.json
 tar -xzf $HOME/.gitopia/config/genesis.tar.gz
 rm $HOME/.gitopia/config/genesis.tar.gz
