@@ -36,7 +36,7 @@ gitopiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 gitopiad config chain-id $CHAIN_ID
 gitopiad config keyring-backend file
 
-curl -s https://github.com/gitopia/mainnet/raw/master/genesis.tar.gz > $HOME/.gitopia/config/genesis.tar.gz
+curl -sL https://github.com/gitopia/mainnet/raw/master/genesis.tar.gz > $HOME/.gitopia/config/genesis.tar.gz
 rm $HOME/.gitopia/config/genesis.json
 tar -xzf $HOME/.gitopia/config/genesis.tar.gz
 rm $HOME/.gitopia/config/genesis.tar.gz
