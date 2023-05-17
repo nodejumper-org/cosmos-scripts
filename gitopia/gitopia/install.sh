@@ -36,13 +36,14 @@ gitopiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 gitopiad config chain-id $CHAIN_ID
 gitopiad config keyring-backend file
 
-curl -sL https://github.com/gitopia/mainnet/raw/master/genesis.tar.gz > $HOME/.gitopia/config/genesis.tar.gz
+cd || return
+curl -sL https://github.com/gitopia/mainnet/raw/master/genesis.tar.gz > $HOME/genesis.tar.gz
+tar -xzf $HOME/genesis.tar.gz
+rm $HOME/genesis.tar.gz
 rm $HOME/.gitopia/config/genesis.json
-tar -xzf $HOME/.gitopia/config/genesis.tar.gz
-rm $HOME/.gitopia/config/genesis.tar.gz
+mv genesis.json $HOME/.gitopia/config/genesis.json
 
-# todo: add addressbook
-#curl -s https://snapshots2.nodejumper.io/gitopia/addrbook.json > $HOME/.gitopia/config/addrbook.json
+curl -s https://snapshots2.nodejumper.io/gitopia/addrbook.json > $HOME/.gitopia/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -74,9 +75,8 @@ EOF
 
 gitopiad tendermint unsafe-reset-all --home $HOME/.gitopia --keep-addr-book
 
-# TODO: add snapshot
-#SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/gitopia/info.json | jq -r .fileName)
-#curl "https://snapshots2.nodejumper.io/gitopia/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.gitopia"
+SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/gitopia/info.json | jq -r .fileName)
+curl "https://snapshots2.nodejumper.io/gitopia/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.gitopia"
 
 sudo systemctl daemon-reload
 sudo systemctl enable gitopiad
