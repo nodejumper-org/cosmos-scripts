@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="constantine-3"
 CHAIN_DENOM="aconst"
 BINARY_NAME="archwayd"
-BINARY_VERSION_TAG="v0.5.3"
+BINARY_VERSION_TAG="v0.5.2"
 CHEAT_SHEET="https://nodejumper.io/archway-testnet/cheat-sheet"
 
 printLine
@@ -28,7 +28,7 @@ cd $HOME || return
 rm -rf archway
 git clone https://github.com/archway-network/archway.git
 cd archway || return
-git checkout v0.5.3
+git checkout v0.5.2
 make install
 
 archwayd config chain-id $CHAIN_ID
