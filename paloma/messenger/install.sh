@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="messenger"
 CHAIN_DENOM="ugrain"
 BINARY_NAME="palomad"
-BINARY_VERSION_TAG="v0.11.6"
+BINARY_VERSION_TAG="v1.0.0"
 CHEAT_SHEET="https://nodejumper.io/paloma/cheat-sheet"
 
 printLine
@@ -28,17 +28,17 @@ cd || return
 curl -L https://github.com/CosmWasm/wasmvm/raw/main/internal/api/libwasmvm.x86_64.so > libwasmvm.x86_64.so
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
 
-curl -L https://github.com/palomachain/paloma/releases/download/v0.11.6/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
+curl -L https://github.com/palomachain/paloma/releases/download/v1.0.0/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
 tar -xvzf paloma.tar.gz
 rm -rf paloma.tar.gz
 sudo mv -f palomad /usr/local/bin/palomad
-palomad version # v0.11.6
+palomad version # v1.0.0
 
-curl -L https://github.com/palomachain/pigeon/releases/download/v0.11.5/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
+curl -L https://github.com/palomachain/pigeon/releases/download/v1.0.0/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
 tar -xvzf pigeon.tar.gz
 rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
-pigeon version # v0.11.5
+pigeon version # v1.0.0
 
 palomad config chain-id $CHAIN_ID
 palomad init "$NODE_MONIKER" --chain-id $CHAIN_ID
