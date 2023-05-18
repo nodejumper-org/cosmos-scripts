@@ -32,6 +32,7 @@ git checkout v2.0.1-rc9
 make install
 bcnad version # 2.0.1-rc9
 
+bcnad config keyring-backend test
 bcnad config chain-id $CHAIN_ID
 bcnad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
