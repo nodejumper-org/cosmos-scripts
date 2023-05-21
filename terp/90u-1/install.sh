@@ -28,18 +28,18 @@ cd || return
 rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
-git checkout v1.0.1
+git checkout v1.0.0-stable
 make install
-terpd version # 1.0.1
+terpd version # 1.0.0-stable-4-g9bb91af
 
-terpd config keyring-backend test
-terpd config chain-id $CHAIN_ID
 terpd init "$NODE_MONIKER" --chain-id $CHAIN_ID
+terpd config chain-id $CHAIN_ID
+terpd config keyring-backend test
 
 curl -s https://raw.githubusercontent.com/terpnetwork/test-net/master/90u-1/genesis.json > $HOME/.terp/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/terpnetwork-testnet/addrbook.json > $HOME/.terp/config/addrbook.json
+# curl -s https://snapshots1-testnet.nodejumper.io/terpnetwork-testnet/addrbook.json > $HOME/.terp/config/addrbook.json
 
-SEEDS=""
+SEEDS="3e1265ffbacf6a7bac355b0e565f0ad0e4e4c5a0@192.241.135.8:26656"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.terp/config/config.toml
 
