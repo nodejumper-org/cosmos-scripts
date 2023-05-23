@@ -28,10 +28,13 @@ cd || return
 curl -L https://github.com/CosmWasm/wasmvm/raw/main/internal/api/libwasmvm.x86_64.so > libwasmvm.x86_64.so
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
 
-curl -L https://github.com/palomachain/paloma/releases/download/v1.0.0/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
-tar -xvzf paloma.tar.gz
-rm -rf paloma.tar.gz
-sudo mv -f palomad /usr/local/bin/palomad
+cd || return
+rm -rf paloma
+git clone https://github.com/palomachain/paloma.git
+cd paloma || return
+git checkout v1.0.0
+make install
+sudo mv -f $HOME/go/bin/palomad /usr/local/bin/palomad
 palomad version # v1.0.0
 
 curl -L https://github.com/palomachain/pigeon/releases/download/v1.0.0/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
@@ -40,8 +43,8 @@ rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
 pigeon version # v1.0.0
 
-palomad config chain-id $CHAIN_ID
 palomad init "$NODE_MONIKER" --chain-id $CHAIN_ID
+palomad config chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/palomachain/mainnet/master/messenger/genesis.json > $HOME/.paloma/config/genesis.json
 
