@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="paloma-testnet-15"
 CHAIN_DENOM="ugrain"
 BINARY_NAME="palomad"
-BINARY_VERSION_TAG="v1.0.0"
+BINARY_VERSION_TAG="v1.1.0"
 CHEAT_SHEET="https://nodejumper.io/paloma-testnet/cheat-sheet"
 
 printLine
@@ -33,10 +33,10 @@ cd || return
 rm -rf paloma
 git clone https://github.com/palomachain/paloma.git
 cd paloma || return
-git checkout v1.0.0
+git checkout v1.1.0
 make install
 sudo mv -f $HOME/go/bin/palomad /usr/local/bin/palomad
-palomad version # v1.0.0
+palomad version # v1.1.0
 
 palomad config chain-id $CHAIN_ID
 palomad init "$NODE_MONIKER" --chain-id $CHAIN_ID
