@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="nois-1"
 CHAIN_DENOM="unois"
 BINARY_NAME="noisd"
-BINARY_VERSION_TAG="v1.0.0"
+BINARY_VERSION_TAG="v1.0.3"
 CHEAT_SHEET="https://nodejumper.io/nois/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf noisd
 git clone https://github.com/noislabs/noisd.git
 cd noisd
-git checkout v1.0.0
+git checkout v1.0.3
 make install
-noisd version # 1.0.0
+noisd version # 1.0.3
 
 noisd config chain-id $CHAIN_ID
 noisd init "$NODE_MONIKER" --chain-id $CHAIN_ID
