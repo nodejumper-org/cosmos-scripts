@@ -6,10 +6,10 @@ printLogo
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="banksy-testnet-3"
-CHAIN_DENOM="ppica"
+CHAIN_ID="banksy-testnet-2"
+CHAIN_DENOM="upica"
 BINARY_NAME="banksyd"
-BINARY_VERSION_TAG="v2.3.5"
+BINARY_VERSION_TAG="v2.3.3-testnet2fork"
 CHEAT_SHEET="https://nodejumper.io/сomposable-testnet/cheat-sheet"
 
 printLine
@@ -28,17 +28,17 @@ cd || return
 rm -rf composable-testnet
 git clone https://github.com/notional-labs/composable-testnet.git
 cd composable-testnet || return
-git checkout v2.3.5
+git checkout v2.3.3-testnet2fork
 make install
 
 banksyd config chain-id $CHAIN_ID
 banksyd config keyring-backend test
 banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -L https://raw.githubusercontent.com/notional-labs/composable-networks/969d2880f0b5d19128d8316c454eba21e9444f60/banksy-testnet-3/genesis.json > $HOME/.banksy/config/genesis.json
-# TODO: curl -s https://snapshots1-testnet.nodejumper.io/composable-testnet/addrbook.json > $HOME/.banksy/config/addrbook.json
+curl -L https://raw.githubusercontent.com/notional-labs/composable-networks/main/testnet-2/genesis.json > $HOME/.banksy/config/genesis.json
+curl -s https://snapshots1-testnet.nodejumper.io/composable-testnet/addrbook.json > $HOME/.banksy/config/addrbook.json
 
-SEEDS="364b8245e72f083b0aa3e0d59b832020b66e9e9d@65.109.80.150:21500"
+SEEDS="872c8a78a17a24d6f44e1126c46ef52069c7bb18@65.109.80.150:2630,5c2a752c9b1952dbed075c56c600c3a79b58c395@composable-testnet-seed.autostake.com:26976,20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:22256,3f472746f46493309650e5a033076689996c8881@composable-testnet.rpc.kjnodes.com:15959,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:22256,945e8384ea51c5c6f7b9a90df8d8da120516d897@rpc.composable-t.indonode.net:47656"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.banksy/config/config.toml
 
@@ -46,7 +46,7 @@ sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.banksy/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.banksy/config/app.toml
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.banksy/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.banksy/config/app.toml
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ppica"|g' $HOME/.banksy/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001upica"|g' $HOME/.banksy/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.banksy/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
@@ -61,15 +61,15 @@ ExecStart=$(which banksyd) start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
+WorkingDirectory=$HOME
 [Install]
 WantedBy=multi-user.target
 EOF
 
 banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
-# TODO: add snapshot
-#SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/composable-testnet/info.json | jq -r .fileName)
-#curl "https://snapshots1-testnet.nodejumper.io/composable-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.banksy"
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/composable-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/composable-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.banksy"
 
 sudo systemctl daemon-reload
 sudo systemctl enable banksyd
