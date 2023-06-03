@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="teritori-1"
 CHAIN_DENOM="utori"
 BINARY_NAME="teritorid"
-BINARY_VERSION_TAG="v1.3.0"
+BINARY_VERSION_TAG="v1.4.0"
 CHEAT_SHEET="https://nodejumper.io/teritori/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf teritori-chain
 git clone https://github.com/TERITORI/teritori-chain
 cd teritori-chain || return
-git checkout v1.3.0
+git checkout v1.4.0
 make install
-teritorid version # v1.3.0
+teritorid version # v1.4.0
 
 teritorid config chain-id $CHAIN_ID
 teritorid init "$NODE_MONIKER" --chain-id $CHAIN_ID
