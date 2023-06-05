@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="ununifi-beta-v1"
 CHAIN_DENOM="uguu"
 BINARY_NAME="ununifid"
-BINARY_VERSION_TAG="v1.0.0-beta.4"
+BINARY_VERSION_TAG="v2.1.0"
 CHEAT_SHEET="https://nodejumper.io/ununifi/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf ununifi
 git clone https://github.com/UnUniFi/chain ununifi
 cd ununifi || return
-git checkout v2.0.0
+git checkout v2.1.0
 make install
-ununifid version # HEAD-1880753e670dde5cde5bf9bb8b26647dd91c8f89
+ununifid version
 
 ununifid config chain-id $CHAIN_ID
 ununifid init "$NODE_MONIKER" --chain-id $CHAIN_ID
