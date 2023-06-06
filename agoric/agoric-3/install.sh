@@ -22,7 +22,7 @@ sleep 1
 
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/dependencies_install.sh)
 
-printCyan "4. Installing node js and yarn package manager..." && sleep 1
+printCyan "4. Building binaries..." && sleep 1
 
 curl -Ls https://deb.nodesource.com/setup_16.x | sudo bash
 curl -s https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -30,8 +30,6 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 
 sudo apt update
 sudo apt install -y nodejs=16.* yarn
-
-printCyan "5. Building binaries..." && sleep 1
 
 cd || return
 rm -rf agoric-sdk
@@ -62,7 +60,7 @@ sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.agoric/config/
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubld"|g' $HOME/.agoric/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.agoric/config/config.toml
 
-printCyan "6. Starting service and synchronization..." && sleep 1
+printCyan "5. Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/agd.service > /dev/null << EOF
 [Unit]
