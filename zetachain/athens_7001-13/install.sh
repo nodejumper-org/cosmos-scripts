@@ -33,10 +33,10 @@ zetacored config keyring-backend test
 zetacored init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -L https://raw.githubusercontent.com/zeta-chain/network-athens3/main/network_files/config/genesis.json > $HOME/.zetacored/config/genesis.json
-# TODO: curl -s https://snapshots1-testnet.nodejumper.io/composable-testnet/addrbook.json > $HOME/.zetacored/config/addrbook.json
+curl -L https://snapshots1-testnet.nodejumper.io/zetachain-testnet/addrbook.json > $HOME/.zetacored/config/addrbook.json
 
 SEEDS="3f472746f46493309650e5a033076689996c8881@zetachain-testnet.rpc.kjnodes.com:16059"
-PEERS="d21b103628b0d5d824bbe81b809d8dc457bd2059@zetachain-testnet-peer.itrocket.net:14656"
+PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.zetacored/config/config.toml
 
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.zetacored/config/app.toml
@@ -65,9 +65,8 @@ EOF
 
 zetacored tendermint unsafe-reset-all --home $HOME/.zetacored --keep-addr-book
 
-# TODO:
-#SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/composable-testnet/info.json | jq -r .fileName)
-#curl "https://snapshots1-testnet.nodejumper.io/composable-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.zetacored"
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/zetachain-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/zetachain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.zetacored"
 
 sudo systemctl daemon-reload
 sudo systemctl enable zetacored
