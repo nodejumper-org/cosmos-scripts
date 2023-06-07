@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="athens_7001-13"
 CHAIN_DENOM="azeta"
 BINARY_NAME="zetacored"
-BINARY_VERSION_TAG="" # TODO:
+BINARY_VERSION_TAG="v1.2.1"
 CHEAT_SHEET="https://nodejumper.io/zetachain-testnet/cheat-sheet"
 
 printLine
