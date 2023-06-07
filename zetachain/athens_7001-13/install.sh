@@ -25,7 +25,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 mkdir -p $HOME/go/bin
-curl -L https://zetachain-external-files.s3.amazonaws.com/binaries/athens3/latest/zetacored-ubuntu-22-amd64 > $HOME/go/bin/zetacored
+curl -L https://zetachain-external-files.s3.amazonaws.com/binaries/athens3/latest/zetacored-ubuntu-20-amd64 > $HOME/go/bin/zetacored
 chmod +x $HOME/go/bin/zetacored
 
 zetacored config chain-id $CHAIN_ID
