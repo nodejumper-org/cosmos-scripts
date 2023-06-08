@@ -25,9 +25,9 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
-rm -rf composable-testnet
-git clone https://github.com/notional-labs/composable-testnet.git
-cd composable-testnet || return
+rm -rf composable-centauri
+git clone https://github.com/notional-labs/composable-centauri
+cd composable-centauri || return
 git checkout v3.0.0
 make install
 
