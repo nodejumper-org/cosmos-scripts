@@ -36,7 +36,7 @@ banksyd config keyring-backend file
 banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -L https://raw.githubusercontent.com/notional-labs/composable-networks/main/mainnet/genesis.json > $HOME/.banksy/config/genesis.json
-# todo: curl -s https://snapshots1.nodejumper.io/composible/addrbook.json > $HOME/.banksy/config/addrbook.json
+# todo: curl -s https://snapshots1.nodejumper.io/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 SEEDS="c7f52f81ee1b1f7107fc78ca2de476c730e00be9@65.109.80.150:2635"
 PEERS="4cb008db9c8ae2eb5c751006b977d6910e990c5d@65.108.71.163:2630,63559b939442512ed82d2ded46d02ab1021ea29a@95.214.55.138:53656"
@@ -69,8 +69,8 @@ EOF
 banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # todo: add snap
-#SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/composible/info.json | jq -r .fileName)
-#curl "https://snapshots1.nodejumper.io/composible/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.banksy"
+#SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/composable/info.json | jq -r .fileName)
+#curl "https://snapshots1.nodejumper.io/composable/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.banksy"
 
 sudo systemctl daemon-reload
 sudo systemctl enable banksyd
