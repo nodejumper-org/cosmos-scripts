@@ -17,7 +17,7 @@ cat $HOME/.noria/config/priv_validator_key.json
 # wait util the node is synced, should return FALSE
 noriad status 2>&1 | jq .SyncInfo.catching_up
 
-# go to discord https://discord.gg/xVMWBreSfN and ask for some tokens
+# go to discord https://discord.gg/cMVTyavpNN and ask for some tokens
 
 # verify the balance
 noriad q bank balances $(noriad keys show wallet -a)
