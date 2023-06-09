@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="desmos-mainnet"
 CHAIN_DENOM="udsm"
 BINARY_NAME="desmosd"
-BINARY_VERSION_TAG="v4.8.1"
+BINARY_VERSION_TAG="v5.0.0"
 CHEAT_SHEET="https://nodejumper.io/desmos/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf desmos
 git clone https://github.com/desmos-labs/desmos.git
 cd desmos || return
-git checkout v4.8.1
+git checkout v5.0.0
 make install
-desmos version # 4.8.1
+desmos version # 5.0.0
 
 desmos config chain-id $CHAIN_ID
 desmos init "$NODE_MONIKER" --chain-id $CHAIN_ID
