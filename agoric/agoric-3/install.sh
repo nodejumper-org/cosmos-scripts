@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="agoric-3"
 CHAIN_DENOM="ubld"
 BINARY_NAME="agd"
-BINARY_VERSION_TAG="pismoC"
+BINARY_VERSION_TAG="pismoD"
 CHEAT_SHEET="https://nodejumper.io/agoric/cheat-sheet"
 
 printLine
@@ -35,10 +35,10 @@ cd || return
 rm -rf agoric-sdk
 git clone https://github.com/Agoric/agoric-sdk.git
 cd agoric-sdk || return
-git checkout pismoC
+git checkout pismoD
 yarn install
 yarn build
-cd packages/cosmic-swingset
+cd packages/cosmic-swingset || return
 make install
 agd version # 0.33.0
 
