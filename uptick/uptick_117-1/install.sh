@@ -28,7 +28,7 @@ cd $HOME || return
 rm -rf uptick
 git clone https://github.com/UptickNetwork/uptick.git
 cd uptick || return
-git checkout v0.2.4
+git checkout v0.2.8
 make install
 uptickd version # HEAD-3d1e40d0d42b420ac02c624a2d6e8225c0b5991b
 
