@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="oasis-3"
 CHAIN_DENOM="ucrd"
 BINARY_NAME="noriad"
-BINARY_VERSION_TAG="v1.2.0"
+BINARY_VERSION_TAG="v1.2.1"
 CHEAT_SHEET="https://nodejumper.io/noria-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf noria
 git clone https://github.com/noria-net/noria.git
 cd noria || return
-git checkout v1.2.0
+git checkout v1.2.1
 make install
-noriad version # 1.2.0
+noriad version # 1.2.1
 
 noriad config keyring-backend test
 noriad config chain-id $CHAIN_ID

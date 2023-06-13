@@ -25,11 +25,13 @@ noriad q bank balances $(noriad keys show wallet -a)
 ## console output:
 #  balances:
 #  - amount: "10000000"
+#    denom: unoria
+#  - amount: "10000000"
 #    denom: ucrd
 
 # create validator
 noriad tx staking create-validator \
---amount=9000000ucrd \
+--amount=9000000unoria \
 --pubkey=$(noriad tendermint show-validator) \
 --moniker="$NODE_MONIKER" \
 --chain-id=oasis-3 \
