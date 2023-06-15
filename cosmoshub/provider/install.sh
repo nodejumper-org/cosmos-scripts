@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="provider"
 CHAIN_DENOM="uatom"
 BINARY_NAME="gaiad"
-BINARY_VERSION_TAG="v9.0.0-rc2"
+BINARY_VERSION_TAG="v10.0.1"
 CHEAT_SHEET="https://nodejumper.io/cosmos-testnet/cheat-sheet"
 
 printLine
@@ -24,10 +24,10 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-curl -L https://github.com/cosmos/gaia/releases/download/v9.0.2-rc0/gaiad-v9.0.2-rc0-linux-amd64 > gaiad
+curl -L https://github.com/cosmos/gaia/releases/download/v10.0.1/gaiad-v10.0.1-linux-amd64 > gaiad
 chmod +x gaiad
 sudo mv gaiad /usr/local/bin
-gaiad version # v9.0.2-rc0
+gaiad version # v10.0.1
 
 gaiad config keyring-backend test
 gaiad config chain-id $CHAIN_ID
