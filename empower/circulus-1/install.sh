@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="circulus-1"
 CHAIN_DENOM="umpwr"
 BINARY_NAME="empowerd"
-BINARY_VERSION_TAG="v1.0.0-rc2"
+BINARY_VERSION_TAG="v1.0.0-rc3"
 CHEAT_SHEET="https://nodejumper.io/empower-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf empowerchain
 git clone https://github.com/EmpowerPlastic/empowerchain
 cd empowerchain/chain || return
-git checkout v1.0.0-rc2
+git checkout v1.0.0-rc3
 make install
-empowerd version # 1.0.0-rc2
+empowerd version # 1.0.0-rc3
 
 empowerd config keyring-backend test
 empowerd config chain-id $CHAIN_ID
