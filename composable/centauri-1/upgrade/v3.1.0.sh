@@ -8,7 +8,7 @@ cd || return
 rm -rf composable-testnet
 git clone https://github.com/notional-labs/composable-testnet.git
 cd composable-testnet || return
-git checkout v3.0.2
+git checkout v3.1.0
 make install
 
 # setup new service
