@@ -6,8 +6,9 @@ sudo systemctl disable banksyd
 # build new binary
 cd || return
 rm -rf composable-testnet
-git clone https://github.com/notional-labs/composable-testnet.git
-cd composable-testnet || return
+rm -rf composable-centauri
+git clone https://github.com/notional-labs/composable-centauri
+cd composable-centauri || return
 git checkout v3.1.0
 make install
 
