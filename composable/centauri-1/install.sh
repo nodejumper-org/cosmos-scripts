@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="centauri-1"
 CHAIN_DENOM="ppica"
 BINARY_NAME="banksyd"
-BINARY_VERSION_TAG="v3.0.2"
+BINARY_VERSION_TAG="v3.1.0"
 CHEAT_SHEET="https://nodejumper.io/сomposable/cheat-sheet"
 
 printLine
@@ -28,7 +28,7 @@ cd || return
 rm -rf composable-testnet
 git clone https://github.com/notional-labs/composable-testnet.git
 cd composable-testnet || return
-git checkout v3.0.2
+git checkout v3.1.0
 make install
 
 banksyd config chain-id $CHAIN_ID
