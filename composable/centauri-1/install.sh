@@ -8,8 +8,8 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="centauri-1"
 CHAIN_DENOM="ppica"
-BINARY_NAME="banksyd"
-BINARY_VERSION_TAG="v3.1.1"
+BINARY_NAME="centaurid"
+BINARY_VERSION_TAG="v3.1.2"
 CHEAT_SHEET="https://nodejumper.io/сomposable/cheat-sheet"
 
 printLine
@@ -28,12 +28,12 @@ cd || return
 rm -rf composable-centauri
 git clone https://github.com/notional-labs/composable-centauri
 cd composable-centauri || return
-git checkout v3.1.1
+git checkout v3.1.2
 make install
 
-banksyd config chain-id $CHAIN_ID
-banksyd config keyring-backend file
-banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
+centaurid config chain-id $CHAIN_ID
+centaurid config keyring-backend file
+centaurid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -L https://raw.githubusercontent.com/notional-labs/composable-networks/main/mainnet/genesis.json > $HOME/.banksy/config/genesis.json
 curl -s https://snapshots1.nodejumper.io/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
@@ -51,13 +51,13 @@ sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.banksy/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/banksyd.service > /dev/null << EOF
+sudo tee /etc/systemd/system/centaurid.service > /dev/null << EOF
 [Unit]
 Description=Composable Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which banksyd) start
+ExecStart=$(which centaurid) start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
@@ -66,14 +66,14 @@ WorkingDirectory=$HOME
 WantedBy=multi-user.target
 EOF
 
-banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
+centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/composable/info.json | jq -r .fileName)
 curl "https://snapshots1.nodejumper.io/composable/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.banksy"
 
 sudo systemctl daemon-reload
-sudo systemctl enable banksyd
-sudo systemctl start banksyd
+sudo systemctl enable centaurid
+sudo systemctl start centaurid
 
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
