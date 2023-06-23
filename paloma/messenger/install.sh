@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="messenger"
 CHAIN_DENOM="ugrain"
 BINARY_NAME="palomad"
-BINARY_VERSION_TAG="v1.2.0"
+BINARY_VERSION_TAG="v1.3.1"
 CHEAT_SHEET="https://nodejumper.io/paloma/cheat-sheet"
 
 printLine
@@ -32,16 +32,16 @@ cd || return
 rm -rf paloma
 git clone https://github.com/palomachain/paloma.git
 cd paloma || return
-git checkout v1.2.0
+git checkout v1.3.1
 make install
 sudo mv -f $HOME/go/bin/palomad /usr/local/bin/palomad
-palomad version # v1.2.0
+palomad version # v1.3.1
 
-curl -L https://github.com/palomachain/pigeon/releases/download/v1.1.1/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
+curl -L https://github.com/palomachain/pigeon/releases/download/v1.2.1/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
 tar -xvzf pigeon.tar.gz
 rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
-pigeon version # v1.1.1
+pigeon version # v1.2.1
 
 palomad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 palomad config chain-id $CHAIN_ID
@@ -90,20 +90,38 @@ evm:
     keyring-dir: ~/.pigeon/keys/evm/eth-main
     gas-adjustment: 1.9
     tx-type: 2
+  bnb-main:
+    chain-id: 56
+    base-rpc-url: \${BNB_RPC_URL}
+    keyring-pass-env-name: "BNB_PASSWORD"
+    signing-key: \${BNB_SIGNING_KEY}
+    keyring-dir: ~/.pigeon/keys/evm/bnb-main
+    gas-adjustment: 1
+    tx-type: 0
+  matic-main:
+    chain-id: 137
+    base-rpc-url: \${MATIC_RPC_URL}
+    keyring-pass-env-name: "MATIC_PASSWORD"
+    signing-key: \${MATIC_SIGNING_KEY}
+    keyring-dir: ~/.pigeon/keys/evm/matic-main
+    gas-adjustment: 2
+    tx-type: 2
 EOF
 
-palomad keys add wallet --recover
-pigeon evm keys generate-new $HOME/.pigeon/keys/evm/eth-main
-
-PALOMA_PASSWORD=<YOUR_PALOMA_PASSWORD>
-ETH_PASSWORD=<YOUR_ETH_PASSWORD>
-ETH_SIGNING_KEY=0x$(cat $HOME/.pigeon/keys/evm/eth-main/*  | jq -r .address | head -n 1)
-
 sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
-PALOMA_PASSWORD=$PALOMA_PASSWORD
-ETH_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/9bYS5h99MVmaa7f0fYztaHwN31k2EBvZ
-ETH_PASSWORD=$ETH_PASSWORD
-ETH_SIGNING_KEY=$ETH_SIGNING_KEY
+PALOMA_PASSWORD=YOUR_PALOMA_PASSWORD
+
+ETH_RPC_URL=YOUR_ETH_RPC_URL
+ETH_PASSWORD=YOUR_ETH_PASSWORD
+ETH_SIGNING_KEY=YOUR_ETH_SIGNING_KEY
+
+BNB_RPC_URL=YOUR_BNB_RPC_URL
+BNB_PASSWORD=YOUR_BNB_PASSWORD
+BNB_SIGNING_KEY=YOUR_BNB_SIGNING_KEY
+
+MATIC_RPC_URL=YOUR_MATIC_RPC_URL
+MATIC_PASSWORD=YOUR_MATIC_PASSWORD
+MATIC_SIGNING_KEY=YOUR_MATIC_SIGNING_KEY
 EOF
 
 printCyan "5. Starting service and synchronization..." && sleep 1
@@ -154,7 +172,6 @@ sudo systemctl enable pigeond
 sudo systemctl start pigeond
 sudo systemctl start palomad
 
-sudo journalctl -u pigeond -f --no-hostname -o cat
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
 echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
