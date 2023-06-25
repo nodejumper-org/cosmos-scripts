@@ -61,7 +61,7 @@ ExecStart=$(which centaurid) start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
-WorkingDirectory=$HOME
+WorkingDirectory=$HOME/.banksy
 [Install]
 WantedBy=multi-user.target
 EOF
