@@ -2,10 +2,13 @@ sudo systemctl stop pigeond
 sudo systemctl stop palomad
 
 # upgrade paloma
-curl -L https://github.com/palomachain/paloma/releases/download/v1.3.1/paloma_Linux_x86_64.tar.gz > paloma.tar.gz
-tar -xvzf paloma.tar.gz
-rm paloma.tar.gz
-sudo mv -f paloma /usr/local/bin/paloma
+cd || return
+rm -rf paloma
+git clone https://github.com/palomachain/paloma.git
+cd paloma || return
+git checkout v1.3.1
+make install
+sudo mv -f $HOME/go/bin/palomad /usr/local/bin/palomad
 palomad version # v1.3.1
 
 # upgrade pigeon
