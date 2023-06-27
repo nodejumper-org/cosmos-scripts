@@ -10,7 +10,7 @@ CHAIN_ID="bitcanna-dev-1"
 CHAIN_DENOM="ubcna"
 BINARY_NAME="bcnad"
 CHEAT_SHEET="https://nodejumper.io/bitcanna-testnet/cheat-sheet"
-BINARY_VERSION_TAG="v2.0.1-rc9"
+BINARY_VERSION_TAG="v2.0.2"
 
 printLine
 echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
@@ -28,9 +28,9 @@ cd || return
 rm -rf bcna
 git clone https://github.com/BitCannaGlobal/bcna.git
 cd bcna || return
-git checkout v2.0.1-rc9
+git checkout v2.0.2
 make install
-bcnad version # 2.0.1-rc9
+bcnad version # 2.0.2
 
 bcnad config keyring-backend test
 bcnad config chain-id $CHAIN_ID
