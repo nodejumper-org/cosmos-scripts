@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="okp4-nemeton-1"
 CHAIN_DENOM="uknow"
 BINARY_NAME="okp4d"
-BINARY_VERSION_TAG="v4.1.0"
+BINARY_VERSION_TAG="v5.0.0"
 CHEAT_SHEET="https://nodejumper.io/okp4-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf okp4d
 git clone https://github.com/okp4/okp4d.git
 cd okp4d || return
-git checkout v4.1.0
+git checkout v5.0.0
 make install
-okp4d version # 4.1.0
+okp4d version # 5.0.0
 
 okp4d config keyring-backend test
 okp4d config chain-id $CHAIN_ID

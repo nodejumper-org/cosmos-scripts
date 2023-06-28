@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="centauri-1"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v3.1.2"
+BINARY_VERSION_TAG="v3.2.0"
 CHEAT_SHEET="https://nodejumper.io/сomposable/cheat-sheet"
 
 printLine
