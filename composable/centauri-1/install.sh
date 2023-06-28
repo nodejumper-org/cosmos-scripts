@@ -28,8 +28,9 @@ cd || return
 rm -rf composable-centauri
 git clone https://github.com/notional-labs/composable-centauri
 cd composable-centauri || return
-git checkout v3.1.2
+git checkout v3.2.0
 make install
+centaurid version # v3.2.0
 
 centaurid config chain-id $CHAIN_ID
 centaurid config keyring-backend file
