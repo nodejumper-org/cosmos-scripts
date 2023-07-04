@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="titan-1"
 CHAIN_DENOM="uatolo"
 BINARY_NAME="rizond"
-BINARY_VERSION_TAG="v0.4.1"
+BINARY_VERSION_TAG="v0.5.0"
 CHEAT_SHEET="https://nodejumper.io/rizon/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf rizon
 git clone https://github.com/rizon-world/rizon.git
 cd rizon || return
-git checkout v0.4.1
+git checkout v0.5.0
 make install
-rizond version # v0.4.1
+rizond version # v0.5.0
 
 rizond config chain-id $CHAIN_ID
 rizond init "$NODE_MONIKER" --chain-id $CHAIN_ID
