@@ -6,7 +6,7 @@ printCyan "1. Updating packages..." && sleep 1
 sudo apt update
 
 printCyan "2. Installing dependencies..." && sleep 1
-sudo apt install -y make gcc jq curl git lz4 build-essential chrony unzip
+sudo apt install -y make gcc jq curl git lz4 build-essential chrony unzip gzip
 
 printCyan "3. Installing go..." && sleep 1
 if ! [ -x "$(command -v go)" ]; then
