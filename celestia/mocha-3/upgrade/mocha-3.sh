@@ -20,9 +20,9 @@ cd $HOME || return
 rm -rf celestia-app
 git clone https://github.com/celestiaorg/celestia-app.git
 cd celestia-app || return
-git checkout v0.13.3
+git checkout v1.0.0-rc9
 make install
-celestia-appd version # 0.13.3
+celestia-appd version # v1.0.0-rc9
 
 celestia-appd config keyring-backend test
 celestia-appd config chain-id $CHAIN_ID
@@ -31,6 +31,7 @@ celestia-appd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 curl -s https://raw.githubusercontent.com/celestiaorg/networks/master/mocha-3/genesis.json > $HOME/.celestia-app/config/genesis.json
 
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001utia"|g' $HOME/.celestia-app/config/app.toml
+sed -i -e "s|^target_height_duration *=.*|timeout_commit = \"11s\"|" $HOME/.celestia-app/config/config.toml
 
 SEEDS=$(curl -sL https://raw.githubusercontent.com/celestiaorg/networks/master/mocha-3/seeds.txt | tr -d '\n')
 PEERS=$(curl -sL https://raw.githubusercontent.com/celestiaorg/networks/master/mocha-3/peers.txt | tr -d '\n')
