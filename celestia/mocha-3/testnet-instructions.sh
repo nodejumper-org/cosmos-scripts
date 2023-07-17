@@ -11,18 +11,6 @@ celestia-appd keys add wallet
 #!!! SAVE SEED PHRASE
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
-# create ORCHESTRATOR wallet
-celestia-appd keys add orchestrator
-
-## console output:
-#  name: orchestrator
-#  type: local
-#- address: celestia1x5c4vj5u0wcgvdclrr6mk2ekrs7emcjpkfa3dw
-#  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Aq4dSZa+5A3SR3+dZVWkXUcHmWuZQ+Xx7Iu1KHHtnWCW"}'
-
-#!!! SAVE SEED PHRASE
-infant wasp injury parrot morning bag wet clean address pact hobby emerge raccoon rain degree dwarf gas defense deposit maximum order cross powder monitor
-
 # create ETH address in metamask
 
 # wait util the node is synced, should return FALSE
