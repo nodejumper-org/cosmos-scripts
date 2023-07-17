@@ -6,11 +6,11 @@ printLogo
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="mocha"
+CHAIN_ID="mocha-3"
 CHAIN_DENOM="utia"
 BINARY_NAME="celestia-appd"
-BINARY_VERSION_TAG="v0.11.0"
-CHEAT_SHEET="https://nodejumper.io/mocha-testnet/cheat-sheet"
+BINARY_VERSION_TAG="v0.13.3"
+CHEAT_SHEET="https://nodejumper.io/celestia-testnet/cheat-sheet"
 
 printLine
 echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
@@ -28,19 +28,19 @@ cd $HOME || return
 rm -rf celestia-app
 git clone https://github.com/celestiaorg/celestia-app.git
 cd celestia-app || return
-git checkout v0.11.0
+git checkout v0.13.3
 make install
-celestia-appd version # 0.11.0
+celestia-appd version # 0.13.3
 
 celestia-appd config keyring-backend test
 celestia-appd config chain-id $CHAIN_ID
 celestia-appd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/celestiaorg/networks/master/mocha/genesis.json > $HOME/.celestia-app/config/genesis.json
+curl -s https://raw.githubusercontent.com/celestiaorg/networks/master/mocha-3/genesis.json > $HOME/.celestia-app/config/genesis.json
 curl -s https://snapshots1-testnet.nodejumper.io/celestia-testnet/addrbook.json > $HOME/.celestia-app/config/addrbook.json
 
-SEEDS="8084e73b70dbe7fba3602be586de45a516012e6f@144.76.112.238:26656,9aa8a73ea9364aa3cf7806d4dd25b6aed88d8152@celestia.seed.mzonder.com:11156"
-PEERS=""
+SEEDS="3314051954fc072a0678ec0cbac690ad8676ab98@65.108.66.220:26656"
+PEERS="ec11f3be74010b78882de2cbd170d7ad4458d8ac@157.245.250.63:26656"
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.celestia-app/config/config.toml
 
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.celestia-app/config/app.toml
