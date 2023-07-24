@@ -22,6 +22,10 @@ sleep 1
 
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/dependencies_install.sh)
 
+curl -Ls https://deb.nodesource.com/setup_16.x | sudo bash
+sudo apt update
+sudo apt install -y nodejs=16.*
+
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
@@ -40,7 +44,7 @@ curl -s https://raw.githubusercontent.com/althea-net/althea-L1-docs/main/testnet
 curl -s https://snapshots2-testnet.nodejumper.io/althea-testnet/addrbook.json > $HOME/.althea/config/addrbook.json
 
 SEEDS=""
-PEERS=""
+PEERS="bc47f3e8f9134a812462e793d8767ef7334c0119@chainripper-2.althea.net:23296"
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.althea/config/config.toml
 
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.althea/config/app.toml
