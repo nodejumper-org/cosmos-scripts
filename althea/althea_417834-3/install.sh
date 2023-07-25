@@ -7,7 +7,7 @@ printLogo
 read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="althea_417834-3"
-CHAIN_DENOM="ualthea"
+CHAIN_DENOM="aalthea"
 BINARY_NAME="althea"
 BINARY_VERSION_TAG="v0.5.5"
 CHEAT_SHEET="https://nodejumper.io/althea-testnet/cheat-sheet"
@@ -52,7 +52,7 @@ sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.althe
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.althea/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.althea/config/app.toml
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ualthea"|g' $HOME/.althea/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001aalthea"|g' $HOME/.althea/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.althea/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
