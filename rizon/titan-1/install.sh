@@ -36,7 +36,7 @@ rizond config chain-id $CHAIN_ID
 rizond init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/rizon-world/mainnet/master/genesis.json > $HOME/.rizon/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/rizon/addrbook.json > $HOME/.rizon/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/rizon/addrbook.json > $HOME/.rizon/config/addrbook.json
 
 SEEDS="83c9cdc2db2b4eff4acc9cd7d664ad5ae6191080@seed-1.mainnet.rizon.world:26656,ae1476777536e2be26507c4fbcf86b67540adb64@seed-2.mainnet.rizon.world:26656,8abf316257a264dc8744dee6be4981cfbbcaf4e4@seed-3.mainnet.rizon.world:26656"
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 rizond tendermint unsafe-reset-all --home $HOME/.rizon --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/rizon/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/rizon/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.rizon"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/rizon/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/rizon/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.rizon"
 
 sudo systemctl daemon-reload
 sudo systemctl enable rizond

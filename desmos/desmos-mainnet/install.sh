@@ -36,7 +36,7 @@ desmos config chain-id $CHAIN_ID
 desmos init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/desmos-labs/mainnet/main/genesis.json > $HOME/.desmos/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/desmos/addrbook.json > $HOME/.desmos/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/desmos/addrbook.json > $HOME/.desmos/config/addrbook.json
 
 SEEDS="9bde6ab4e0e00f721cc3f5b4b35f3a0e8979fab5@seed-1.mainnet.desmos.network:26656,5c86915026093f9a2f81e5910107cf14676b48fc@seed-2.mainnet.desmos.network:26656,45105c7241068904bdf5a32c86ee45979794637f@seed-3.mainnet.desmos.network:26656"
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 desmos tendermint unsafe-reset-all --home $HOME/.desmos --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/desmos/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/desmos/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.desmos"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/desmos/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/desmos/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.desmos"
 
 sudo systemctl daemon-reload
 sudo systemctl enable desmosd

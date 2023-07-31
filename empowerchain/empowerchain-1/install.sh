@@ -37,7 +37,7 @@ empowerd config chain-id $CHAIN_ID
 empowerd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -L https://github.com/EmpowerPlastic/empowerchain/raw/main/mainnet/empowerchain-1/genesis.tar.gz | tar -xz -C $HOME/.empowerchain/config/
-curl -s https://snapshots2.nodejumper.io/empowerchain/addrbook.json > $HOME/.empowerchain/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/empowerchain/addrbook.json > $HOME/.empowerchain/config/addrbook.json
 
 SEEDS="f2ed98cf518b501b6d1c10c4a16d0dfbc4a9cc98@tenderseed.ccvalidators.com:27001,e16668ddd526f4e114ebb6c4714f0c18c0add8f8@empower-seed.zenscape.one:26656,6740fa259552a628266a85de8c2a3dee7702b8f9@empower-mainnet-seed.itrocket.net:14656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 empowerd tendermint unsafe-reset-all --home $HOME/.empowerchain --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/empowerchain/info.json | jq -r .fileName)
-curl "https://snapshots2.nodejumper.io/empowerchain/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.empowerchain"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/empowerchain/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/empowerchain/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.empowerchain"
 
 sudo systemctl daemon-reload
 sudo systemctl enable empowerd

@@ -36,7 +36,7 @@ humansd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 humansd config chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/humansdotai/mainnets/main/mainnet/1/genesis_1089-1.json > $HOME/.humansd/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/humans/addrbook.json > $HOME/.humansd/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/humans/addrbook.json > $HOME/.humansd/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 humansd tendermint unsafe-reset-all --home $HOME/.humansd --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/humans/info.json | jq -r .fileName)
-curl "https://snapshots2.nodejumper.io/humans/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.humansd"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/humans/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/humans/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.humansd"
 
 sudo systemctl daemon-reload
 sudo systemctl enable humansd

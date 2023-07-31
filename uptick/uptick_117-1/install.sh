@@ -36,7 +36,7 @@ uptickd config chain-id $CHAIN_ID
 uptickd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/UptickNetwork/uptick-mainnet/master/uptick_117-1/genesis.json > $HOME/.uptickd/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/uptick/addrbook.json > $HOME/.uptickd/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/uptick/addrbook.json > $HOME/.uptickd/config/addrbook.json
 
 SEEDS="f97a75fb69d3a5fe893dca7c8d238ccc0bd66a8f@uptick.seed.brocha.in:30600"
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 uptickd tendermint unsafe-reset-all --home $HOME/.uptickd/ --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/uptick/info.json | jq -r .fileName)
-curl "https://snapshots2.nodejumper.io/uptick/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.uptickd"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/uptick/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/uptick/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.uptickd"
 
 sudo systemctl daemon-reload
 sudo systemctl enable uptickd

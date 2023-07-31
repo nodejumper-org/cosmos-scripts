@@ -39,7 +39,7 @@ starnamed version # v0.11.6
 starnamed init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://gist.githubusercontent.com/davepuchyr/6bea7bf369064d118195e9b15ea08a0f/raw/cf66fd02ea9336bd79cbc47dd47dcd30aad7831c/genesis.json > $HOME/.starnamed/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/starname/addrbook.json > $HOME/.starnamed/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/starname/addrbook.json > $HOME/.starnamed/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -71,8 +71,8 @@ EOF
 
 starnamed tendermint unsafe-reset-all --home $HOME/.starnamed --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/starname/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/starname/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.starnamed"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/starname/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/starname/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.starnamed"
 
 sudo systemctl daemon-reload
 sudo systemctl enable starnamed

@@ -36,7 +36,7 @@ omniflixhubd config chain-id $CHAIN_ID
 omniflixhubd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl https://raw.githubusercontent.com/OmniFlix/mainnet/main/omniflixhub-1/genesis.json > $HOME/.omniflixhub/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/omniflix/addrbook.json > $HOME/.omniflixhub/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/omniflix/addrbook.json > $HOME/.omniflixhub/config/addrbook.json
 
 SEEDS="9d75a06ebd3732a041df459849c21b87b2c55cde@35.187.240.195:26656,19feae28207474eb9f168fff9720fd4d418df1ed@35.240.196.102:26656"
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 omniflixhubd tendermint unsafe-reset-all --home $HOME/.omniflixhub --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/omniflix/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/omniflix/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.omniflixhub"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/omniflix/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/omniflix/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.omniflixhub"
 
 sudo systemctl daemon-reload
 sudo systemctl enable omniflixhubd

@@ -36,7 +36,7 @@ pylonsd config chain-id $CHAIN_ID
 pylonsd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/Pylons-tech/pylons/main/networks/pylons-mainnet-1/genesis.json > $HOME/.pylons/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/pylons/addrbook.json > $HOME/.pylons/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/pylons/addrbook.json > $HOME/.pylons/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 pylonsd tendermint unsafe-reset-all --home $HOME/.pylons --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/pylons/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/pylons/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.pylons"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/pylons/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/pylons/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.pylons"
 
 sudo systemctl daemon-reload
 sudo systemctl enable pylonsd

@@ -163,8 +163,8 @@ EOF
 
 palomad tendermint unsafe-reset-all --home $HOME/.paloma --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/paloma/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/paloma/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.paloma"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/paloma/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/paloma/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.paloma"
 
 sudo systemctl daemon-reload
 sudo systemctl enable palomad

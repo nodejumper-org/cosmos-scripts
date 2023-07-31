@@ -37,7 +37,7 @@ passage config chain-id $CHAIN_ID
 passage init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/envadiv/mainnet/main/passage-1/genesis.json > $HOME/.passage/config/genesis.json
-# TODO curl -s https://snapshots2.nodejumper.io/passage/addrbook.json > $HOME/.passage/config/addrbook.json
+# TODO curl -s https://snapshots.nodejumper.io/passage/addrbook.json > $HOME/.passage/config/addrbook.json
 
 SEEDS="aebb8431609cb126a977592446f5de252d8b7fa1@104.236.201.138:26656,b6beabfb9309330944f44a1686742c2751748b83@5.161.47.163:26656,7a9a36630523f54c1a0d56fc01e0e153fd11a53d@167.235.24.145:26656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 # TODO: passage tendermint unsafe-reset-all --home $HOME/.passage --keep-addr-book
 #
-#SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/passage/info.json | jq -r .fileName)
-#curl "https://snapshots2.nodejumper.io/passage/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.passage"
+#SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/passage/info.json | jq -r .fileName)
+#curl "https://snapshots.nodejumper.io/passage/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.passage"
 
 sudo systemctl daemon-reload
 sudo systemctl enable passaged

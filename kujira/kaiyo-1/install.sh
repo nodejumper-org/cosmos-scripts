@@ -36,7 +36,7 @@ kujirad config chain-id $CHAIN_ID
 kujirad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/Team-Kujira/networks/master/mainnet/kaiyo-1.json > $HOME/.kujira/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/kujira/addrbook.json > $HOME/.kujira/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/kujira/addrbook.json > $HOME/.kujira/config/addrbook.json
 
 SEEDS="63158c2af0d639d8105a8e6ca2c53dc243dd156f@seed.kujira.mintserve.org:31897,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:18656,400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@kujira.rpc.kjnodes.com:13659"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 kujirad tendermint unsafe-reset-all --home $HOME/.kujira --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/kujira/info.json | jq -r .fileName)
-curl "https://snapshots2.nodejumper.io/kujira/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.kujira"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/kujira/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/kujira/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.kujira"
 
 sudo systemctl daemon-reload
 sudo systemctl enable kujirad

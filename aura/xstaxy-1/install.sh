@@ -36,7 +36,7 @@ aurad config chain-id $CHAIN_ID
 aurad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/aura-nw/mainnet-artifacts/main/xstaxy-1/genesis.json > $HOME/.aura/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/aura/addrbook.json > $HOME/.aura/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/aura/addrbook.json > $HOME/.aura/config/addrbook.json
 
 SEEDS="22a0ca5f64187bb477be1d82166b1e9e184afe50@18.143.52.13:26656,0b8bd8c1b956b441f036e71df3a4d96e85f843b8@13.250.159.219:26656"
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 aurad tendermint unsafe-reset-all --home $HOME/.aura --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/aura/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/aura/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.aura"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/aura/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/aura/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.aura"
 
 sudo systemctl daemon-reload
 sudo systemctl enable aurad

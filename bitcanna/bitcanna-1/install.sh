@@ -36,7 +36,7 @@ bcnad config chain-id $CHAIN_ID
 bcnad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json > $HOME/.bcna/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/bitcanna/addrbook.json > $HOME/.bcna/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/bitcanna/addrbook.json > $HOME/.bcna/config/addrbook.json
 
 SEEDS="d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,e2e7c704f766ef6b9e2c8dd61d963f8393b87966@seed3.bitcanna.io:26656"
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 bcnad tendermint unsafe-reset-all --home $HOME/.bcna --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/bitcanna/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/bitcanna/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.bcna"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/bitcanna/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/bitcanna/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.bcna"
 
 sudo systemctl daemon-reload
 sudo systemctl enable bcnad

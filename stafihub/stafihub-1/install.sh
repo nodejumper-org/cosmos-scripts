@@ -36,7 +36,7 @@ stafihubd config chain-id $CHAIN_ID
 stafihubd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/stafihub/network/main/mainnets/stafihub-1/genesis.json > $HOME/.stafihub/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/stafihub/addrbook.json > $HOME/.stafihub/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/stafihub/addrbook.json > $HOME/.stafihub/config/addrbook.json
 
 SEEDS="bf8328b66dceb4987e5cd94430af66045e59899f@xxx:26656,cfd785a4224c7940e9a10f6c1ab24c343e923bec@xxxx:26656,d72b3011ed46d783e369fdf8ae2055b99a1e5074@xxxx:26656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 stafihubd tendermint unsafe-reset-all --home $HOME/.stafihub --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/stafihub/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/stafihub/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.stafihub"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/stafihub/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/stafihub/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.stafihub"
 
 sudo systemctl daemon-reload
 sudo systemctl enable stafihubd

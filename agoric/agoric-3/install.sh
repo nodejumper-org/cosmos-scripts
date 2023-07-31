@@ -47,7 +47,7 @@ agd config chain-id $CHAIN_ID
 agd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://main.rpc.agoric.net/genesis | jq .result.genesis > $HOME/.agoric/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/agoric/addrbook.json > $HOME/.agoric/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/agoric/addrbook.json > $HOME/.agoric/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -79,8 +79,8 @@ EOF
 
 agd tendermint unsafe-reset-all --home $HOME/.agoric --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/agoric/info.json | jq -r .fileName)
-curl "https://snapshots2.nodejumper.io/agoric/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.agoric"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/agoric/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/agoric/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.agoric"
 
 sudo systemctl daemon-reload
 sudo systemctl enable agd

@@ -36,7 +36,7 @@ teritorid config chain-id $CHAIN_ID
 teritorid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://github.com/TERITORI/teritori-mainnet-genesis/blob/main/genesis.json?raw=true > $HOME/.teritorid/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/teritori/addrbook.json > $HOME/.teritorid/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/teritori/addrbook.json > $HOME/.teritorid/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 teritorid tendermint unsafe-reset-all --home $HOME/.teritorid --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/teritori/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/teritori/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.teritorid"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/teritori/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/teritori/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.teritorid"
 
 sudo systemctl daemon-reload
 sudo systemctl enable teritorid

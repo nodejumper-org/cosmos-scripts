@@ -36,7 +36,7 @@ canined config chain-id $CHAIN_ID
 canined init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/JackalLabs/canine-mainnet-genesis/main/genesis/genesis.json > $HOME/.canine/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/jackal/addrbook.json > $HOME/.canine/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/jackal/addrbook.json > $HOME/.canine/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 canined tendermint unsafe-reset-all --home $HOME/.canine --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/jackal/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/jackal/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.canine"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/jackal/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/jackal/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.canine"
 
 sudo systemctl daemon-reload
 sudo systemctl enable canined

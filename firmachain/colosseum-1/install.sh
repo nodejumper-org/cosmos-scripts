@@ -37,7 +37,7 @@ firmachaind config chain-id $CHAIN_ID
 firmachaind init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/firmachain/mainnet/main/colosseum-1/genesis.json > $HOME/.firmachain/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/firmachain/addrbook.json > $HOME/.firmachain/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/firmachain/addrbook.json > $HOME/.firmachain/config/addrbook.json
 
 SEEDS="f89dcc15241e30323ae6f491011779d53f9a5487@mainnet-seed1.firmachain.dev:26656,04cce0da4cf5ceb5ffc04d158faddfc5dc419154@mainnet-seed2.firmachain.dev:26656,940977bdc070422b3a62e4985f2fe79b7ee737f7@mainnet-seed3.firmachain.dev:26656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 firmachaind tendermint unsafe-reset-all --home $HOME/.firmachain --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/firmachain/info.json | jq -r .fileName)
-curl "https://snapshots2.nodejumper.io/firmachain/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.firmachain"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/firmachain/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/firmachain/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.firmachain"
 
 sudo systemctl daemon-reload
 sudo systemctl enable firmachaind

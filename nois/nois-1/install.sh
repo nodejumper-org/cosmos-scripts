@@ -36,7 +36,7 @@ noisd config chain-id $CHAIN_ID
 noisd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/noislabs/networks/main/nois-1/genesis.json > $HOME/.noisd/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/nois/addrbook.json > $HOME/.noisd/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/nois/addrbook.json > $HOME/.noisd/config/addrbook.json
 
 SEEDS="b3e3bd436ee34c39055a4c9946a02feec232988c@seeds.cros-nest.com:56656,20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:17356,c8db99691545545402a1c45fa897f3cb1a05aea6@nois-mainnet-seed.itrocket.net:36656"
 PEERS="6d514b525db3a3a010848648a35c7118b844b330@65.108.44.149:46656,47e99c3e8bbd881952cf4a642c8c2c8d178f56de@51.79.77.103:36656"
@@ -68,8 +68,8 @@ EOF
 
 noisd tendermint unsafe-reset-all --home $HOME/.noisd --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/nois/info.json | jq -r .fileName)
-curl "https://snapshots2.nodejumper.io/nois/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.noisd"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/nois/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/nois/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.noisd"
 
 sudo systemctl daemon-reload
 sudo systemctl enable noisd

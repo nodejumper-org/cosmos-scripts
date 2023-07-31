@@ -37,7 +37,7 @@ terpd config chain-id $CHAIN_ID
 terpd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/terpnetwork/mainnet/main/morocco-1/genesis.json > $HOME/.terp/config/genesis.json
-curl -s https://snapshots2.nodejumper.io/terpnetwork/addrbook.json > $HOME/.terp/config/addrbook.json
+curl -s https://snapshots.nodejumper.io/terpnetwork/addrbook.json > $HOME/.terp/config/addrbook.json
 
 SEEDS="c71e63b5da517984d55d36d00dc0dc2413d0ce03@seed.terp.network:26656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2.nodejumper.io/terpnetwork/info.json | jq -r .fileName)
-curl "https://snapshots2.nodejumper.io/terpnetwork/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.terp"
+SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/terpnetwork/info.json | jq -r .fileName)
+curl "https://snapshots.nodejumper.io/terpnetwork/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.terp"
 
 sudo systemctl daemon-reload
 sudo systemctl enable terpd
