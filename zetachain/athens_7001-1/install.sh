@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="athens_7001-1"
 CHAIN_DENOM="azeta"
 BINARY_NAME="zetacored"
-BINARY_VERSION_TAG="v6.2.0"
+BINARY_VERSION_TAG="v7.0.0"
 CHEAT_SHEET="https://nodejumper.io/zetachain-testnet/cheat-sheet"
 
 printLine
@@ -25,7 +25,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 mkdir -p $HOME/go/bin
-curl -L https://zetachain-external-files.s3.amazonaws.com/binaries/athens3/v6.2.0/zetacored-ubuntu-20-amd64 > $HOME/go/bin/zetacored
+curl -L https://zetachain-external-files.s3.amazonaws.com/binaries/athens3/v7.0.0/zetacored-ubuntu-20-amd64 > $HOME/go/bin/zetacored
 chmod +x $HOME/go/bin/zetacored
 
 zetacored config chain-id $CHAIN_ID
