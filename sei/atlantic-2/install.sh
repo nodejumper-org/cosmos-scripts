@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="atlantic-2"
 CHAIN_DENOM="usei"
 BINARY_NAME="seid"
-BINARY_VERSION_TAG="3.0.7"
+BINARY_VERSION_TAG="3.0.8"
 CHEAT_SHEET="https://nodejumper.io/sei-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain || return
-git checkout 3.0.7
+git checkout 3.0.8
 make install
-seid version # 3.0.7
+seid version # 3.0.8
 
 seid config keyring-backend test
 seid config chain-id $CHAIN_ID
