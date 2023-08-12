@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="messenger"
 CHAIN_DENOM="ugrain"
 BINARY_NAME="palomad"
-BINARY_VERSION_TAG="v1.6.1"
+BINARY_VERSION_TAG="v1.7.0"
 CHEAT_SHEET="https://nodejumper.io/paloma/cheat-sheet"
 
 printLine
@@ -32,16 +32,16 @@ cd || return
 rm -rf paloma
 git clone https://github.com/palomachain/paloma.git
 cd paloma || return
-git checkout v1.6.1
+git checkout v1.7.0
 make install
 sudo mv -f $HOME/go/bin/palomad /usr/local/bin/palomad
-palomad version # v1.6.1
+palomad version # v1.7.0
 
-curl -L https://github.com/palomachain/pigeon/releases/download/v1.5.3/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
+curl -L https://github.com/palomachain/pigeon/releases/download/v1.5.4/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
 tar -xvzf pigeon.tar.gz
 rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
-pigeon version # v1.5.3
+pigeon version # v1.5.4
 
 palomad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 palomad config chain-id $CHAIN_ID
@@ -106,6 +106,22 @@ evm:
     keyring-dir: ~/.pigeon/keys/evm/matic-main
     gas-adjustment: 2
     tx-type: 2
+  op-main:
+    chain-id: 10
+    base-rpc-url: \${OP_RPC_URL}
+    keyring-pass-env-name: "OP_PASSWORD"
+    signing-key: \${OP_SIGNING_KEY}
+    keyring-dir: ~/.pigeon/keys/evm/op-main
+    gas-adjustment: 2
+    tx-type: 2
+  kava-main:
+    chain-id: 2222
+    base-rpc-url: \${KAVA_RPC_URL}
+    keyring-pass-env-name: "KAVA_PASSWORD"
+    signing-key: \${KAVA_SIGNING_KEY}
+    keyring-dir: ~/.pigeon/keys/evm/kava-main
+    gas-adjustment: 2
+    tx-type: 2
 EOF
 
 sudo tee $HOME/.pigeon/env.sh > /dev/null << EOF
@@ -122,6 +138,14 @@ BNB_SIGNING_KEY=YOUR_BNB_SIGNING_KEY
 MATIC_RPC_URL=YOUR_MATIC_RPC_URL
 MATIC_PASSWORD=YOUR_MATIC_PASSWORD
 MATIC_SIGNING_KEY=YOUR_MATIC_SIGNING_KEY
+
+OP_RPC_URL=YOUR_OP_RPC_URL
+OP_PASSWORD=YOUR_OP_PASSWORD
+OP_SIGNING_KEY=YOUR_OP_SIGNING_KEY
+
+KAVA_RPC_URL=YOUR_KAVA_RPC_URL
+KAVA_PASSWORD=YOUR_KAVA_PASSWORD
+KAVA_SIGNING_KEY=YOUR_KAVA_SIGNING_KEY
 EOF
 
 printCyan "5. Starting service and synchronization..." && sleep 1
