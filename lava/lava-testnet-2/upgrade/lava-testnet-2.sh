@@ -37,5 +37,7 @@ sed -i \
 
 sed -i -e 's/broadcast-mode = ".*"/broadcast-mode = "sync"/g' $HOME/.lava/config/client.toml
 
+lavad config chain-id lava-testnet-2
+
 # start the node
 sudo systemctl start lavad
