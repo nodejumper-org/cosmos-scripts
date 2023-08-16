@@ -1,6 +1,7 @@
 [
   {
     "height": 0,
-    "version": "lava-testnet-2"
+    "version": "lava-testnet-2",
+    "automaticUpgradeDisabled": true
   }
 ]
