@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="lava-testnet-2"
 CHAIN_DENOM="ulava"
 BINARY_NAME="lavad"
-BINARY_VERSION_TAG="v0.21.0"
+BINARY_VERSION_TAG="v0.21.1.2"
 CHEAT_SHEET="https://nodejumper.io/lava-testnet/cheat-sheet"
 
 printLine
@@ -25,12 +25,12 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
-curl -Ls https://lava-binary-upgrades.s3.amazonaws.com/testnet-2/cosmovisor-upgrades/cosmovisor-upgrades.zip > cosmovisor-upgrades.zip
-unzip cosmovisor-upgrades.zip
-chmod +x cosmovisor-upgrades/genesis/bin/lavad
-mv cosmovisor-upgrades/genesis/bin/lavad $HOME/go/bin/lavad
-rm cosmovisor-upgrades.zip
-rm -rf cosmovisor-upgrades
+rm -rf lava
+git clone https://github.com/lavanet/lava
+cd lava || return
+git checkout v0.21.1.2
+make install
+lavad version
 
 lavad config keyring-backend test
 lavad config chain-id $CHAIN_ID

@@ -14,13 +14,14 @@ lavad tendermint unsafe-reset-all
 # download new genesis file
 curl -s https://raw.githubusercontent.com/lavanet/lava-config/main/testnet-2/genesis_json/genesis.json > $HOME/.lava/config/genesis.json
 
-# download new binary file
-curl -Ls https://lava-binary-upgrades.s3.amazonaws.com/testnet-2/cosmovisor-upgrades/cosmovisor-upgrades.zip > cosmovisor-upgrades.zip
-unzip cosmovisor-upgrades.zip
-chmod +x cosmovisor-upgrades/genesis/bin/lavad
-mv cosmovisor-upgrades/genesis/bin/lavad $HOME/go/bin/lavad
-rm cosmovisor-upgrades.zip
-rm -rf cosmovisor-upgrades
+# build new binary file
+cd || return
+rm -rf lava
+git clone https://github.com/lavanet/lava
+cd lava || return
+git checkout v0.21.1.2
+make install
+lavad version
 
 # set new configs
 sed -i \
