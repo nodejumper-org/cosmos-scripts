@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="mantle-1"
 CHAIN_DENOM="umntl"
 BINARY_NAME="mantleNode"
-BINARY_VERSION_TAG="v1.0.0-RC1"
+BINARY_VERSION_TAG="v1.0.0"
 CHEAT_SHEET="https://nodejumper.io/assetmantle/cheat-sheet"
 
 printLine
@@ -28,7 +28,7 @@ cd || return
 rm -rf node
 git clone https://github.com/AssetMantle/node.git
 cd node || return
-git checkout v1.0.0-RC1
+git checkout v1.0.0
 make install
 
 mantleNode config chain-id $CHAIN_ID
