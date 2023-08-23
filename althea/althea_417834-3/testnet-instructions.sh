@@ -32,7 +32,7 @@ althea tx staking create-validator \
 --amount=9000000000000000000ualthea \
 --pubkey=$(althea tendermint show-validator) \
 --moniker="$NODE_MONIKER" \
---chain-id=althea_7357-1 \
+--chain-id=althea_417834-3 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
