@@ -36,7 +36,7 @@ centaurid config keyring-backend test
 centaurid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -L https://raw.githubusercontent.com/notional-labs/composable-networks/main/banksy-testnet-3/genesis.json > $HOME/.banksy/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/banksy-testnet-3/addrbook.json > $HOME/.banksy/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/banksy-testnet-3/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 SEEDS="364b8245e72f083b0aa3e0d59b832020b66e9e9d@65.109.80.150:21500"
 PEERS=""
@@ -68,8 +68,8 @@ EOF
 
 centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/banksy-testnet-3/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/banksy-testnet-3/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.banksy"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/banksy-testnet-3/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/banksy-testnet-3/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.banksy"
 
 sudo systemctl daemon-reload
 sudo systemctl enable centaurid

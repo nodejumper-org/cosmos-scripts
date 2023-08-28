@@ -69,8 +69,8 @@ EOF
 rm -rf ~/.sei/data
 rm -rf ~/.sei/wasm
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/sei-testnet/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/sei-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.sei"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/sei-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/sei-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.sei"
 
 sudo systemctl daemon-reload
 sudo systemctl enable seid

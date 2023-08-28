@@ -37,7 +37,7 @@ andromedad config chain-id $CHAIN_ID
 andromedad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/andromedaprotocol/testnets/galileo-3/genesis.json > $HOME/.andromedad/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/andromeda-testnet/addrbook.json > $HOME/.andromedad/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/andromeda-testnet/addrbook.json > $HOME/.andromedad/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 andromedad tendermint unsafe-reset-all --home $HOME/.andromedad --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/andromeda-testnet/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/andromeda-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.andromedad"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/andromeda-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/andromeda-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.andromedad"
 
 sudo systemctl daemon-reload
 sudo systemctl enable andromedad

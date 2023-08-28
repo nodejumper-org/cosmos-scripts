@@ -43,7 +43,7 @@ curl -s https://server.gitopia.com/raw/gitopia/testnets/master/gitopia-janus-tes
 gunzip -c ~/.gitopia/config/genesis.zip > ~/.gitopia/config/genesis.json
 rm -rf ~/.gitopia/config/genesis.zip
 
-curl -s https://snapshots1-testnet.nodejumper.io/gitopia-testnet/addrbook.json > $HOME/.gitopia/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/gitopia-testnet/addrbook.json > $HOME/.gitopia/config/addrbook.json
 
 SEEDS="399d4e19186577b04c23296c4f7ecc53e61080cb@seed.gitopia.com:26656"
 PEERS=""
@@ -75,8 +75,8 @@ EOF
 
 gitopiad tendermint unsafe-reset-all --home $HOME/.gitopia --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/gitopia-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/gitopia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.gitopia"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/gitopia-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/gitopia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.gitopia"
 
 sudo systemctl daemon-reload
 sudo systemctl enable gitopiad

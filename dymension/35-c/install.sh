@@ -37,7 +37,7 @@ dymd config chain-id $CHAIN_ID
 dymd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/dymensionxyz/testnets/main/dymension-hub/35-C/genesis.json > $HOME/.dymension/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/dymension-testnet/addrbook.json > $HOME/.dymension/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/dymension-testnet/addrbook.json > $HOME/.dymension/config/addrbook.json
 
 SEEDS="f97a75fb69d3a5fe893dca7c8d238ccc0bd66a8f@dymension-testnet.seed.brocha.in:30584,ebc272824924ea1a27ea3183dd0b9ba713494f83@dymension-testnet-seed.autostake.net:27086,b78dd0e25e28ec0b43412205f7c6780be8775b43@dym.seed.takeshi.team:10356,babc3f3f7804933265ec9c40ad94f4da8e9e0017@testnet-seed.rhinostake.com:20556,c6cdcc7f8e1a33f864956a8201c304741411f219@3.214.163.125:26656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 dymd tendermint unsafe-reset-all --home $HOME/.dymension --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/dymension-testnet/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/dymension-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.dymension"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/dymension-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/dymension-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.dymension"
 
 sudo systemctl daemon-reload
 sudo systemctl enable dymd

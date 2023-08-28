@@ -37,7 +37,7 @@ noisd config chain-id $CHAIN_ID
 noisd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-004/genesis.json > $HOME/.noisd/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/nois-testnet/addrbook.json > $HOME/.noisd/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/nois-testnet/addrbook.json > $HOME/.noisd/config/addrbook.json
 
 SEEDS="72cd4222818d25da5206092c3efc2c0dd0ec34fe@161.97.96.91:36656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 noisd tendermint unsafe-reset-all --home $HOME/.noisd --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/nois-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/nois-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.noisd"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/nois-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/nois-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.noisd"
 
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:38658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:38657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:7260\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:38656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":38660\"%" $HOME/.noisd/config/config.toml && sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:10290\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:10291\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:2517\"%" $HOME/.noisd/config/app.toml && sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:38657\"%" $HOME/.noisd/config/client.toml
 

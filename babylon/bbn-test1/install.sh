@@ -41,7 +41,7 @@ tar -xjf genesis.tar.bz2
 rm -rf genesis.tar.bz2
 mv genesis.json ~/.babylond/config/genesis.json
 
-curl -s https://snapshots1-testnet.nodejumper.io/babylon-testnet/addrbook.json > $HOME/.babylond/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/babylon-testnet/addrbook.json > $HOME/.babylond/config/addrbook.json
 
 SEEDS="03ce5e1b5be3c9a81517d415f65378943996c864@18.207.168.204:26656,a5fabac19c732bf7d814cf22e7ffc23113dc9606@34.238.169.221:26656"
 PEERS=""
@@ -75,8 +75,8 @@ EOF
 
 babylond tendermint unsafe-reset-all --home $HOME/.babylond --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/babylon-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/babylon-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.babylond"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/babylon-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/babylon-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.babylond"
 
 sudo systemctl daemon-reload
 sudo systemctl enable babylond

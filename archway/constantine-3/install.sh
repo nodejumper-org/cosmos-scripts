@@ -36,7 +36,7 @@ archwayd config chain-id $CHAIN_ID
 archwayd config keyring-backend test
 
 curl -s https://raw.githubusercontent.com/archway-network/networks/main/constantine-3/genesis.json > $HOME/.archway/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/archway-testnet/addrbook.json > $HOME/.archway/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/archway-testnet/addrbook.json > $HOME/.archway/config/addrbook.json
 
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.archway/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.archway/config/app.toml
@@ -67,8 +67,8 @@ EOF
 
 archwayd tendermint unsafe-reset-all --home $HOME/.archway --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/archway-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/archway-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.archway"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/archway-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/archway-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.archway"
 
 sudo systemctl daemon-reload
 sudo systemctl enable archwayd

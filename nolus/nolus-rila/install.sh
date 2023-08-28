@@ -37,7 +37,7 @@ nolusd config chain-id $CHAIN_ID
 nolusd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/Nolus-Protocol/nolus-networks/main/testnet/nolus-rila/genesis.json > $HOME/.nolus/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/nolus-testnet/addrbook.json > $HOME/.nolus/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/nolus-testnet/addrbook.json > $HOME/.nolus/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 nolusd tendermint unsafe-reset-all --home $HOME/.nolus --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/nolus-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/nolus-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.nolus"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/nolus-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/nolus-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.nolus"
 
 sudo systemctl daemon-reload
 sudo systemctl enable nolusd

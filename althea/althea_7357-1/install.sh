@@ -37,7 +37,7 @@ althea config chain-id $CHAIN_ID
 althea init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/althea-net/althea-chain-docs/main/testnet-3-genesis.json > $HOME/.althea/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/althea-testnet/addrbook.json > $HOME/.althea/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/althea-testnet/addrbook.json > $HOME/.althea/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 althea tendermint unsafe-reset-all --home $HOME/.althea --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/althea-testnet/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/althea-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.althea
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/althea-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/althea-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.althea
 
 sudo systemctl daemon-reload
 sudo systemctl enable althead

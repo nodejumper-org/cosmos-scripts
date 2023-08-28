@@ -37,7 +37,7 @@ neutrond config chain-id $CHAIN_ID
 neutrond init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/neutron-org/cosmos-testnets/master/replicated-security/baryon-1/baryon-1-genesis.json > $HOME/.neutrond/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/neutron-testnet/addrbook.json > $HOME/.neutrond/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/neutron-testnet/addrbook.json > $HOME/.neutrond/config/addrbook.json
 
 SEEDS="e2c07e8e6e808fb36cca0fc580e31216772841df@p2p.baryon.ntrn.info:26656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 neutrond tendermint unsafe-reset-all --home $HOME/.neutrond --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/neutron-testnet/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/neutron-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.neutrond"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/neutron-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/neutron-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.neutrond"
 
 sudo systemctl daemon-reload
 sudo systemctl enable neutrond

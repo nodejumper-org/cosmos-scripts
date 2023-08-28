@@ -37,7 +37,7 @@ ojod config chain-id $CHAIN_ID
 ojod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://rpc.devnet-n0.ojo-devnet.node.ojo.network/genesis > $HOME/.ojo/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/ojo-testnet/addrbook.json > $HOME/.ojo/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/ojo-testnet/addrbook.json > $HOME/.ojo/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -70,8 +70,8 @@ EOF
 
 ojod tendermint unsafe-reset-all --home $HOME/.ojo --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/ojo-testnet/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/ojo-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.ojo
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/ojo-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/ojo-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.ojo
 
 sudo systemctl daemon-reload
 sudo systemctl enable ojod

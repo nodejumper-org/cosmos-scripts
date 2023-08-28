@@ -37,7 +37,7 @@ celestia-appd config chain-id $CHAIN_ID
 celestia-appd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/celestiaorg/networks/master/mocha-3/genesis.json > $HOME/.celestia-app/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/celestia-testnet/addrbook.json > $HOME/.celestia-app/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/celestia-testnet/addrbook.json > $HOME/.celestia-app/config/addrbook.json
 
 SEEDS="3314051954fc072a0678ec0cbac690ad8676ab98@65.108.66.220:26656"
 PEERS="ec11f3be74010b78882de2cbd170d7ad4458d8ac@157.245.250.63:26656"
@@ -69,8 +69,8 @@ EOF
 
 celestia-appd tendermint unsafe-reset-all --home $HOME/.celestia-app --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/celestia-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.celestia-app"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/celestia-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/celestia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.celestia-app"
 
 sudo systemctl daemon-reload
 sudo systemctl enable celestia-appd

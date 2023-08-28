@@ -37,7 +37,7 @@ Cardchaind config chain-id $CHAIN_ID
 Cardchaind init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json > $HOME/.Cardchain/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/cardchain-testnet/addrbook.json > $HOME/.Cardchain/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/addrbook.json > $HOME/.Cardchain/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -69,9 +69,9 @@ EOF
 
 Cardchaind unsafe-reset-all
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/cardchain-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/cardchain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.Cardchain"
-curl -s https://snapshots1-testnet.nodejumper.io/cardchain-testnet/addrbook.json > "$HOME/.Cardchain/config/addrbook.json"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/cardchain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.Cardchain"
+curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/addrbook.json > "$HOME/.Cardchain/config/addrbook.json"
 
 sudo systemctl daemon-reload
 sudo systemctl enable Cardchaind

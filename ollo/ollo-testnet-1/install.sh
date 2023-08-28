@@ -37,7 +37,7 @@ ollod config chain-id $CHAIN_ID
 ollod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/OllO-Station/networks/master/ollo-testnet-1/genesis.json > $HOME/.ollo/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/ollo-testnet/addrbook.json > $HOME/.ollo/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/ollo-testnet/addrbook.json > $HOME/.ollo/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 ollod tendermint unsafe-reset-all --home $HOME/.ollo --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/ollo-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/ollo-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.ollo"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/ollo-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/ollo-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.ollo"
 
 sudo systemctl daemon-reload
 sudo systemctl enable ollod

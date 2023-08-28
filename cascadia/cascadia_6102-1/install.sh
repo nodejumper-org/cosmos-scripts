@@ -37,7 +37,7 @@ curl -L https://github.com/CascadiaFoundation/chain-configuration/raw/master/tes
 gunzip -c ~/.cascadiad/config/genesis.zip > ~/.cascadiad/config/genesis.json
 rm -rf ~/.cascadiad/config/genesis.zip
 
-curl -s https://snapshots1-testnet.nodejumper.io/cascadia-testnet/addrbook.json > $HOME/.cascadiad/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/cascadia-testnet/addrbook.json > $HOME/.cascadiad/config/addrbook.json
 
 SEEDS="42c4a78f39935df1c20b51c4b0d0a21db8f01c88@cascadia-testnet-seed.itrocket.net:40656"
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 cascadiad tendermint unsafe-reset-all --home $HOME/.cascadiad --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/cascadia-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/cascadia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.cascadiad"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/cascadia-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/cascadia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.cascadiad"
 
 sudo systemctl daemon-reload
 sudo systemctl enable cascadiad

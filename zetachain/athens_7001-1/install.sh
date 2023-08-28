@@ -33,7 +33,7 @@ zetacored config keyring-backend test
 zetacored init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -L https://raw.githubusercontent.com/zeta-chain/network-athens3/main/network_files/config/genesis.json > $HOME/.zetacored/config/genesis.json
-curl -L https://snapshots1-testnet.nodejumper.io/zetachain-testnet/addrbook.json > $HOME/.zetacored/config/addrbook.json
+curl -L https://snapshots-testnet.nodejumper.io/zetachain-testnet/addrbook.json > $HOME/.zetacored/config/addrbook.json
 
 SEEDS="3f472746f46493309650e5a033076689996c8881@zetachain-testnet.rpc.kjnodes.com:16059"
 PEERS=""
@@ -65,8 +65,8 @@ EOF
 
 zetacored tendermint unsafe-reset-all --home $HOME/.zetacored --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/zetachain-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/zetachain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.zetacored"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/zetachain-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/zetachain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.zetacored"
 
 sudo systemctl daemon-reload
 sudo systemctl enable zetacored

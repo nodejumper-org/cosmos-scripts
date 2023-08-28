@@ -37,7 +37,7 @@ humansd config chain-id $CHAIN_ID
 humansd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/humansdotai/testnets/master/friction/mission-2/genesis-m2-p2.json > $HOME/.humansd/config/genesis.json
-curl -s https://snapshots1-testnet.nodejumper.io/humans-testnet/addrbook.json > $HOME/.humansd/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/humans-testnet/addrbook.json > $HOME/.humansd/config/addrbook.json
 
 SEEDS="6ce9a9acc23594ec75516617647286fe546f83ca@humans-testnet-seed.itrocket.net:17656"
 PEERS=""
@@ -74,8 +74,8 @@ EOF
 
 humansd tendermint unsafe-reset-all --home $HOME/.humansd --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/humans-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/humans-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.humansd"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/humans-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/humans-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.humansd"
 
 sudo systemctl daemon-reload
 sudo systemctl enable humansd

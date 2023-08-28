@@ -37,7 +37,7 @@ noriad config chain-id $CHAIN_ID
 noriad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://raw.githubusercontent.com/noria-net/noria/main/genesis.json > $HOME/.noria/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/noria-testnet/addrbook.json > $HOME/.noria/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/noria-testnet/addrbook.json > $HOME/.noria/config/addrbook.json
 
 SEEDS=""
 PEERS=""
@@ -69,8 +69,8 @@ EOF
 
 noriad tendermint unsafe-reset-all --home $HOME/.noria --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/noria-testnet/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/noria-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.noria"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/noria-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/noria-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.noria"
 
 sudo systemctl daemon-reload
 sudo systemctl enable noriad
