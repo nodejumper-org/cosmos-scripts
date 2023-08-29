@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="banksy-testnet-3"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v4.0.1"
+BINARY_VERSION_TAG="v5.0.0"
 CHEAT_SHEET="https://nodejumper.io/сomposable-testnet-3/cheat-sheet"
 
 printLine
@@ -28,7 +28,7 @@ cd || return
 rm -rf composable-centauri
 git clone https://github.com/notional-labs/composable-centauri
 cd composable-centauri || return
-git checkout v4.0.1
+git checkout v5.0.0
 make install
 
 centaurid config chain-id $CHAIN_ID
