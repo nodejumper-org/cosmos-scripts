@@ -24,22 +24,18 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-cd || return
-rm -rf arkeo
-git clone https://github.com/arkeonetwork/arkeo
-cd arkeo || return
-git checkout ab05b124336ace257baa2cac07f7d1bfeed9ac02
-make proto-gen install
+wget https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/arkeod
+chmod +x arkeod
+mv arkeod $HOME/go/bin/
 
 arkeod config keyring-backend test
 arkeod config chain-id $CHAIN_ID
 arkeod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s http://seed.arkeo.network:26657/genesis | jq '.result.genesis' > $HOME/.arkeo/config/genesis.json
-curl -s https://snapshots.lavenderfive.com/testnet-addrbooks/arkeo/addrbook.json > $HOME/.arkeo/config/addrbook.json
-# todo: curl -s https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/addrbook.json > $HOME/.arkeo/config/addrbook.json
+curl -s https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/addrbook.json > $HOME/.arkeo/config/addrbook.json
 
-SEEDS=""
+SEEDS="20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:22856"
 PEERS=""
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.arkeo/config/config.toml
 
@@ -62,16 +58,15 @@ User=$USER
 ExecStart=$(which arkeod) start
 Restart=on-failure
 RestartSec=10
-LimitNOFILE=10000
+LimitNOFILE=65535
 [Install]
 WantedBy=multi-user.target
 EOF
 
 arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
 
-# TODO: add snaps
-# SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/info.json | jq -r .fileName)
-# curl "https://snapshots-testnet.nodejumper.io/arkeo-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.arkeo"
+SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/info.json | jq -r .fileName)
+curl "https://snapshots-testnet.nodejumper.io/arkeo-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.arkeo"
 
 sudo systemctl daemon-reload
 sudo systemctl enable arkeod
