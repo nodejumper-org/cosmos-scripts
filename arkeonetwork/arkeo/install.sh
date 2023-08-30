@@ -66,7 +66,7 @@ EOF
 arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
 
 SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/info.json | jq -r .fileName)
-curl "https://snapshots-testnet.nodejumper.io/arkeo-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.arkeo"
+curl "https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.arkeo"
 
 sudo systemctl daemon-reload
 sudo systemctl enable arkeod
