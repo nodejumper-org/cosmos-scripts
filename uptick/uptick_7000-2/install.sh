@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="uptick_7000-2"
 CHAIN_DENOM="auptick"
 BINARY_NAME="uptickd"
-BINARY_VERSION_TAG="v0.2.6"
+BINARY_VERSION_TAG="v0.2.11"
 CHEAT_SHEET="https://nodejumper.io/uptick-testnet/cheat-sheet"
 
 printLine
@@ -28,10 +28,10 @@ cd $HOME || return
 rm -rf uptick
 git clone https://github.com/UptickNetwork/uptick.git
 cd uptick || return
-git checkout v0.2.6
+git checkout v0.2.11
 make build -B
 sudo mv build/uptickd /usr/local/bin/uptickd
-uptickd version # v0.2.6
+uptickd version # v0.2.11
 
 uptickd config keyring-backend test
 uptickd config chain-id $CHAIN_ID
