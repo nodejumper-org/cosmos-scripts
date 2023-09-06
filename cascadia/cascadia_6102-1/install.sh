@@ -59,7 +59,7 @@ Description=Cascadia Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which cascadiad) start
+ExecStart=$(which cascadiad) start --chain-id cascadia_6102-1
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
