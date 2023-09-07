@@ -27,7 +27,6 @@ printCyan "4. Building binaries..." && sleep 1
 curl -L https://github.com/CascadiaFoundation/cascadia/releases/download/v0.1.5/cascadiad -o cascadiad
 chmod +x cascadiad
 sudo mv cascadiad /usr/local/bin
-cascadiad version # ac03925
 
 cascadiad config keyring-backend test
 cascadiad config chain-id $CHAIN_ID
