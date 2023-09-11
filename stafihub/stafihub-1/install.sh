@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="stafihub-1"
 CHAIN_DENOM="ufis"
 BINARY_NAME="stafihubd"
-BINARY_VERSION_TAG="v0.4.3"
+BINARY_VERSION_TAG="v0.5.0"
 CHEAT_SHEET="https://nodejumper.io/stafihub/cheat-sheet"
 
 printLine
@@ -28,9 +28,9 @@ cd || return
 rm -rf stafihub
 git clone https://github.com/stafihub/stafihub
 cd stafihub || return
-git checkout v0.4.3
+git checkout v0.5.0
 make install
-stafihubd version # 0.4.3
+stafihubd version # v0.5.0
 
 stafihubd config chain-id $CHAIN_ID
 stafihubd init "$NODE_MONIKER" --chain-id $CHAIN_ID

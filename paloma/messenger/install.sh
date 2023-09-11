@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="messenger"
 CHAIN_DENOM="ugrain"
 BINARY_NAME="palomad"
-BINARY_VERSION_TAG="v1.7.2"
+BINARY_VERSION_TAG="v1.8.0"
 CHEAT_SHEET="https://nodejumper.io/paloma/cheat-sheet"
 
 printLine
