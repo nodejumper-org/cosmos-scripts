@@ -1,6 +1,7 @@
 [
   {
     "height": 0,
-    "version": "nibiru-itn-2"
+    "version": "nibiru-itn-2",
+    "automaticUpgradeDisabled": true
   }
 ]
