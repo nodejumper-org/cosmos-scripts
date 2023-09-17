@@ -1,5 +1,5 @@
 # stop node service
-sudo systemctl stop banksyd
+sudo systemctl stop gitopiad
 
 cd $HOME || return
 rm -rf gitopia
@@ -9,4 +9,4 @@ git checkout v3.0.0
 make install
 
 # start node service
-sudo systemctl start centaurid
+sudo systemctl start gitopiad
