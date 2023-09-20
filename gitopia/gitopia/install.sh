@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="gitopia"
 CHAIN_DENOM="ulore"
 BINARY_NAME="gitopiad"
-BINARY_VERSION_TAG="v3.0.0"
+BINARY_VERSION_TAG="v3.1.0"
 CHEAT_SHEET="https://nodejumper.io/gitopia/cheat-sheet"
 
 printLine
@@ -29,7 +29,7 @@ cd $HOME || return
 rm -rf gitopia
 git clone https://github.com/gitopia/gitopia.git
 cd gitopia || return
-git checkout v3.0.0
+git checkout v3.1.0
 make install
 
 gitopiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
