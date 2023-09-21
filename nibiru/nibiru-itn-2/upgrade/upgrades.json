@@ -3,5 +3,9 @@
     "height": 0,
     "version": "nibiru-itn-2",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 1400000,
+    "version": "v0.21.10"
   }
 ]

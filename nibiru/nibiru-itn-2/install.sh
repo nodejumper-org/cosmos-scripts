@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="nibiru-itn-2"
 CHAIN_DENOM="unibi"
 BINARY_NAME="nibid"
-BINARY_VERSION_TAG="v0.21.9"
+BINARY_VERSION_TAG="v0.21.10"
 CHEAT_SHEET="https://nodejumper.io/nibiru-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,8 @@ cd || return
 rm -rf nibiru
 git clone https://github.com/NibiruChain/nibiru
 cd nibiru || return
-git checkout v0.21.9
+git checkout v0.21.10
 make install
-nibid version # v0.21.9
 
 nibid config keyring-backend test
 nibid config chain-id $CHAIN_ID
