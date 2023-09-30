@@ -1,6 +1,13 @@
 sudo systemctl stop pigeond
 sudo systemctl stop palomad
 
+# upgrade libwasmvm lib
+curl -L https://github.com/CosmWasm/wasmvm/releases/download/v1.4.0/libwasmvm.x86_64.so > libwasmvm.x86_64.so
+sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
+
+# clear wasm cache
+rm -rf $HOME/.paloma/data/wasm/cache
+
 # upgrade paloma
 cd || return
 rm -rf paloma

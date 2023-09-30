@@ -25,7 +25,7 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
-curl -L https://github.com/CosmWasm/wasmvm/raw/main/internal/api/libwasmvm.x86_64.so > libwasmvm.x86_64.so
+curl -L https://github.com/CosmWasm/wasmvm/releases/download/v1.4.0/libwasmvm.x86_64.so > libwasmvm.x86_64.so
 sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
 
 cd || return
