@@ -25,9 +25,9 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
-rm -rf terp-core
+rm -rf terpnetwork-core
 git clone https://github.com/terpnetwork/terp-core.git
-cd terp-core || return
+cd terpnetwork-core || return
 git checkout v2.0.0
 make install
 
@@ -35,20 +35,20 @@ terpd config keyring-backend test
 terpd config chain-id $CHAIN_ID
 terpd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/terpnetwork/mainnet/main/morocco-1/genesis.json > $HOME/.terp/config/genesis.json
-curl -s https://snapshots.nodejumper.io/terpnetwork/addrbook.json > $HOME/.terp/config/addrbook.json
+curl -s https://raw.githubusercontent.com/terpnetwork/mainnet/main/morocco-1/genesis.json > $HOME/.terpnetwork/config/genesis.json
+curl -s https://snapshots.nodejumper.io/terpnetwork/addrbook.json > $HOME/.terpnetwork/config/addrbook.json
 
 SEEDS="c71e63b5da517984d55d36d00dc0dc2413d0ce03@seed.terp.network:26656"
 PEERS=""
-sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.terp/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.terpnetwork/config/config.toml
 
-sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.terp/config/app.toml
-sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.terp/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $HOME/.terp/config/app.toml
-sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.terp/config/app.toml
+sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.terpnetwork/config/app.toml
+sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.terpnetwork/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $HOME/.terpnetwork/config/app.toml
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.terpnetwork/config/app.toml
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001uterp"|g' $HOME/.terp/config/app.toml
-sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.terp/config/config.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001uterp"|g' $HOME/.terpnetwork/config/app.toml
+sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.terpnetwork/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
@@ -66,7 +66,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
+terpd tendermint unsafe-reset-all --home $HOME/.terpnetwork --keep-addr-book
 
 SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/terpnetwork/info.json | jq -r .fileName)
 curl "https://snapshots.nodejumper.io/terpnetwork/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.terp"
