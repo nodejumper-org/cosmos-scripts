@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="morocco-1"
 CHAIN_DENOM="uterp"
 BINARY_NAME="terpd"
-BINARY_VERSION_TAG="v1.0.0-stable"
+BINARY_VERSION_TAG="v2.0.0"
 CHEAT_SHEET="https://nodejumper.io/terpnetwork/cheat-sheet"
 
 printLine
@@ -28,9 +28,8 @@ cd || return
 rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
-git checkout v1.0.0-stable
+git checkout v2.0.0
 make install
-terpd version # 1.0.0
 
 terpd config keyring-backend test
 terpd config chain-id $CHAIN_ID
