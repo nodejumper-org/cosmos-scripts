@@ -49,3 +49,5 @@ if [ -z "$PATH_INCLUDES_GO" ]; then
   echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
   echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
 fi
+
+source $HOME/.bash_profile
