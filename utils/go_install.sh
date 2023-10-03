@@ -2,18 +2,46 @@
 
 while getopts v: flag; do
   case "${flag}" in
-  v) VER=$OPTARG ;;
+  v) V=$OPTARG ;;
   *) echo "WARN: unknown parameter: ${OPTARG}"
   esac
 done
 
-version=${VER:-"1.20.5"}
+# Determine the go version
+LATEST_VERSION=$(curl -s https://go.dev/dl/?mode=json | jq -r '.[0].version')
+if [ -n "$V" ]; then
+  VERSION="go$V"
+else
+  VERSION="$LATEST_VERSION"
+fi
 
-curl -L -# -O "https://golang.org/dl/go$version.linux-amd64.tar.gz"
+# Determine the operating system
+if [[ "$(uname -s)" == "Linux" ]]; then
+  OS="linux"
+elif [[ "$(uname -s)" == "Darwin" ]]; then
+  OS="darwin"
+else
+  echo "Unsupported operating system"
+  exit 1
+fi
+
+# Determine the architecture
+if [[ "$(uname -m)" == "x86_64" ]]; then
+  ARCH="amd64"
+elif [[ "$(uname -m)" == "aarch64" ]]; then
+  ARCH="arm64"
+else
+  echo "Unsupported architecture"
+  exit 1
+fi
+
+# Install the binaries
+curl -L -# -O "https://golang.org/dl/$VERSION.$OS-$ARCH.tar.gz"
 sudo rm -rf /usr/local/go
-sudo tar -C /usr/local -xzf "go$version.linux-amd64.tar.gz"
-rm "go$version.linux-amd64.tar.gz"
+sudo tar -C /usr/local -xzf "$VERSION.$OS-$ARCH.tar.gz"
+rm "$VERSION.$OS-$ARCH.tar.gz"
 
+# Set the path if needed
 touch $HOME/.bash_profile
 source $HOME/.bash_profile
 PATH_INCLUDES_GO=$(grep "$HOME/go/bin" $HOME/.bash_profile)
