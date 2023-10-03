@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="lava-testnet-2"
 CHAIN_DENOM="ulava"
 BINARY_NAME="lavad"
-BINARY_VERSION_TAG="v0.23.5"
+BINARY_VERSION_TAG="v0.24.0"
 CHEAT_SHEET="https://nodejumper.io/lava-testnet/cheat-sheet"
 
 printLine
@@ -24,11 +24,13 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
+export LAVA_BINARY=lavad
+
 cd || return
 rm -rf lava
 git clone https://github.com/lavanet/lava
 cd lava || return
-git checkout v0.23.5
+git checkout v0.24.0
 make install
 
 lavad config keyring-backend test
