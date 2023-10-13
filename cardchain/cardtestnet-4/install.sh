@@ -37,22 +37,22 @@ mv Cardchaind $HOME/go/bin/cardchaind
 
 cardchaind config keyring-backend test
 cardchaind config chain-id $CHAIN_ID
-cardchaind init "$NODE_MONIKER" --chain-id $CHAIN_ID --home $HOME/.cardchain
+cardchaind init "$NODE_MONIKER" --chain-id $CHAIN_ID --home $HOME/.Cardchain
 
-curl -s http://45.136.28.158:3000/genesis.json > $HOME/.cardchain/config/genesis.json
-curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/addrbook.json > $HOME/.cardchain/config/addrbook.json
+curl -s http://45.136.28.158:3000/genesis.json > $HOME/.Cardchain/config/genesis.json
+curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/addrbook.json > $HOME/.Cardchain/config/addrbook.json
 
 SEEDS=""
 PEERS="1ed98c796bcdd0faf5a7ad8793d229e3c7d89543@lxgr.xyz:26656"
-sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.cardchain/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.Cardchain/config/config.toml
 
-sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.cardchain/config/app.toml
-sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.cardchain/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.cardchain/config/app.toml
-sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.cardchain/config/app.toml
+sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.Cardchain/config/app.toml
+sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.Cardchain/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.Cardchain/config/app.toml
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.Cardchain/config/app.toml
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubpf"|g' $HOME/.cardchain/config/app.toml
-sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.cardchain/config/config.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubpf"|g' $HOME/.Cardchain/config/app.toml
+sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.Cardchain/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
@@ -62,7 +62,7 @@ Description=Cardchain Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which cardchaind) start --home $HOME/.cardchain
+ExecStart=$(which cardchaind) start --home $HOME/.Cardchain
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
@@ -70,11 +70,11 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-cardchaind tendermint unsafe-reset-all --keep-addr-book --home $HOME/.cardchain
+cardchaind tendermint unsafe-reset-all --keep-addr-book --home $HOME/.Cardchain
 
 SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/info.json | jq -r .fileName)
-curl "https://snapshots-testnet.nodejumper.io/cardchain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.cardchain"
-curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/addrbook.json > "$HOME/.cardchain/config/addrbook.json"
+curl "https://snapshots-testnet.nodejumper.io/cardchain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.Cardchain"
+curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/addrbook.json > "$HOME/.Cardchain/config/addrbook.json"
 
 sudo systemctl daemon-reload
 sudo systemctl enable cardchaind
