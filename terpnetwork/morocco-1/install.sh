@@ -25,9 +25,9 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
-rm -rf terpnetwork-core
+rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
-cd terpnetwork-core || return
+cd terp-core || return
 git checkout v2-pigeonfall
 make install
 
