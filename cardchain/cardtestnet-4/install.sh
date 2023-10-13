@@ -28,7 +28,7 @@ cd || return
 rm -rf Cardchain
 git clone https://github.com/DecentralCardGame/Cardchain
 cd Cardchain || return
-git checkout v0.9.0
+git checkout ef6a47b
 cd cmd/Cardchaind || return
 go mod download
 go build
