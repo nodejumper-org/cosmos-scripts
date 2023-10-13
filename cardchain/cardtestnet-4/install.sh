@@ -25,13 +25,19 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 printCyan "4. Building binaries..." && sleep 1
 
 cd || return
+rm -rf Cardchain
+git clone https://github.com/DecentralCardGame/Cardchain
+cd Cardchain || return
+git checkout v0.9.0
+cd cmd/Cardchaind || return
+go mod download
+go build
 mkdir -p $HOME/go/bin
-curl -L https://github.com/DecentralCardGame/Cardchain/releases/download/v0.9.0/Cardchaind > $HOME/go/bin/cardchaind
-chmod +x $HOME/go/bin/cardchaind
+mv Cardchaind $HOME/go/bin/cardchaind
 
 cardchaind config keyring-backend test
 cardchaind config chain-id $CHAIN_ID
-cardchaind init "$NODE_MONIKER" --chain-id $CHAIN_ID
+cardchaind init "$NODE_MONIKER" --chain-id $CHAIN_ID --home $HOME/.cardchain
 
 curl -s http://45.136.28.158:3000/genesis.json > $HOME/.cardchain/config/genesis.json
 curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/addrbook.json > $HOME/.cardchain/config/addrbook.json
@@ -56,7 +62,7 @@ Description=Cardchain Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which cardchaind) start
+ExecStart=$(which cardchaind) start --home $HOME/.cardchain
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
@@ -64,7 +70,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-cardchaind tendermint unsafe-reset-all
+cardchaind tendermint unsafe-reset-all --keep-addr-book --home $HOME/.cardchain
 
 SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/cardchain-testnet/info.json | jq -r .fileName)
 curl "https://snapshots-testnet.nodejumper.io/cardchain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.cardchain"
