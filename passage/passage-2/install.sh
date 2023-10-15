@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="passage-2"
 CHAIN_DENOM="upasg"
 BINARY_NAME="passage"
-BINARY_VERSION_TAG="v2.0.1"
+BINARY_VERSION_TAG="v2.2.0"
 CHEAT_SHEET="https://nodejumper.io/passage/cheat-sheet"
 
 printLine
@@ -28,9 +28,8 @@ cd || return
 rm -rf Passage3D
 git clone https://github.com/envadiv/Passage3D
 cd Passage3D || return
-git checkout v2.0.1
+git checkout v2.2.0
 make install
-passage version # v2.0.1
 
 passage config chain-id $CHAIN_ID
 passage config keyring-backend file
