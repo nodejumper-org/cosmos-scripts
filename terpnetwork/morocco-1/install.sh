@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="morocco-1"
 CHAIN_DENOM="uterp"
 BINARY_NAME="terpd"
-BINARY_VERSION_TAG="v2-pigeonfall"
+BINARY_VERSION_TAG="v3-pigeonfall"
 CHEAT_SHEET="https://nodejumper.io/terpnetwork/cheat-sheet"
 
 printLine
@@ -28,7 +28,7 @@ cd || return
 rm -rf terp-core
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core || return
-git checkout v2-pigeonfall
+git checkout v3-pigeonfall
 make install
 
 terpd config keyring-backend test
