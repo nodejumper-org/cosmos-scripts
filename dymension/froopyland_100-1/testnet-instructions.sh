@@ -29,7 +29,7 @@ dymd q bank balances $(dymd keys show wallet -a)
 
 # create validator
 dymd tx staking create-validator \
---amount=1000000udym \
+--amount=190000000000000000000udym \
 --pubkey=$(dymd tendermint show-validator) \
 --moniker="$NODE_MONIKER" \
 --chain-id=froopyland_100-1 \
