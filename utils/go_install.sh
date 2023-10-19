@@ -51,3 +51,5 @@ if [ -z "$PATH_INCLUDES_GO" ]; then
 fi
 
 source $HOME/.bash_profile
+
+go version
