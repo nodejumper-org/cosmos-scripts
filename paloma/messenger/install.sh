@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="messenger"
 CHAIN_DENOM="ugrain"
 BINARY_NAME="palomad"
-BINARY_VERSION_TAG="v1.9.1"
+BINARY_VERSION_TAG="v1.9.2"
 CHEAT_SHEET="https://nodejumper.io/paloma/cheat-sheet"
 
 printLine
@@ -32,11 +32,11 @@ cd || return
 rm -rf paloma
 git clone https://github.com/palomachain/paloma.git
 cd paloma || return
-git checkout v1.9.1
+git checkout v1.9.2
 make install
 sudo mv -f $HOME/go/bin/palomad /usr/local/bin/palomad
 
-curl -L https://github.com/palomachain/pigeon/releases/download/v1.9.2/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
+curl -L https://github.com/palomachain/pigeon/releases/download/v1.9.4/pigeon_Linux_x86_64.tar.gz > pigeon.tar.gz
 tar -xvzf pigeon.tar.gz
 rm -rf pigeon.tar.gz
 sudo mv -f pigeon /usr/local/bin/pigeon
