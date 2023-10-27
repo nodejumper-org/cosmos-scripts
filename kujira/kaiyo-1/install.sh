@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="kaiyo-1"
 CHAIN_DENOM="ukuji"
 BINARY_NAME="kujirad"
-BINARY_VERSION_TAG="v0.9.0"
+BINARY_VERSION_TAG="v0.9.1"
 CHEAT_SHEET="https://nodejumper.io/kujira/cheat-sheet"
 
 printLine
@@ -28,7 +28,7 @@ cd || return
 rm -rf core
 git clone https://github.com/Team-Kujira/core.git
 cd core || return
-git checkout v0.9.0
+git checkout v0.9.1
 make install
 
 kujirad config chain-id $CHAIN_ID
