@@ -4,7 +4,7 @@ cd || return
 rm -rf bcna
 git clone https://github.com/BitCannaGlobal/bcna.git
 cd bcna || return
-git checkout v3.0.3-rc3
+git checkout v3.0.0-rc3
 make install
 
 sudo systemctl start bcnad
