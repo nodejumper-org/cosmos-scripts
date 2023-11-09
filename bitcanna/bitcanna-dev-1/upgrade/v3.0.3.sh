@@ -1,4 +1,4 @@
-sudo systemctl stop banksyd
+sudo systemctl stop bcnad
 
 cd || return
 rm -rf bcna
@@ -7,4 +7,4 @@ cd bcna || return
 git checkout v3.0.3
 make install
 
-sudo systemctl start centaurid
+sudo systemctl start bcnad
