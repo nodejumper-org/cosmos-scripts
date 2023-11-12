@@ -35,20 +35,20 @@ terpd config keyring-backend test
 terpd config chain-id $CHAIN_ID
 terpd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/terpnetwork/mainnet/main/morocco-1/genesis.json > $HOME/.terpnetwork/config/genesis.json
-curl -s https://snapshots.nodejumper.io/terpnetwork/addrbook.json > $HOME/.terpnetwork/config/addrbook.json
+curl -s https://raw.githubusercontent.com/terpnetwork/mainnet/main/morocco-1/genesis.json > $HOME/.terp/config/genesis.json
+curl -s https://snapshots.nodejumper.io/terpnetwork/addrbook.json > $HOME/.terp/config/addrbook.json
 
 SEEDS="c71e63b5da517984d55d36d00dc0dc2413d0ce03@seed.terp.network:26656"
 PEERS=""
-sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.terpnetwork/config/config.toml
+sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.terp/config/config.toml
 
-sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.terpnetwork/config/app.toml
-sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.terpnetwork/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $HOME/.terpnetwork/config/app.toml
-sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.terpnetwork/config/app.toml
+sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.terp/config/app.toml
+sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.terp/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $HOME/.terp/config/app.toml
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.terp/config/app.toml
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001uterp"|g' $HOME/.terpnetwork/config/app.toml
-sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.terpnetwork/config/config.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025uterp"|g' $HOME/.terp/config/app.toml
+sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.terp/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
 
@@ -58,7 +58,7 @@ Description=TerpNetwork Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which terpd) start
+ExecStart=$(which terpd) start --unsafe-skip-upgrades 3341663
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
@@ -66,7 +66,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-terpd tendermint unsafe-reset-all --home $HOME/.terpnetwork --keep-addr-book
+terpd tendermint unsafe-reset-all --home $HOME/.terp --keep-addr-book
 
 SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/terpnetwork/info.json | jq -r .fileName)
 curl "https://snapshots.nodejumper.io/terpnetwork/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.terp"
