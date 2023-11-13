@@ -10,7 +10,7 @@ CHAIN_ID="xstaxy-1"
 CHAIN_DENOM="uaura"
 BINARY_NAME="aurad"
 CHEAT_SHEET="https://nodejumper.io/aura/cheat-sheet"
-BINARY_VERSION_TAG="aura_v0.4.5"
+BINARY_VERSION_TAG="v0.7.1"
 
 printLine
 echo -e "Node moniker: ${CYAN}$NODE_MONIKER${NC}"
@@ -28,9 +28,8 @@ cd || return
 rm -rf aura
 git clone https://github.com/aura-nw/aura
 cd aura || return
-git checkout aura_v0.4.5
+git checkout v0.7.1
 make install
-aurad version # main_v0.4.5
 
 aurad config chain-id $CHAIN_ID
 aurad init "$NODE_MONIKER" --chain-id $CHAIN_ID
