@@ -68,8 +68,8 @@ EOF
 
 injectived tendermint unsafe-reset-all --home $HOME/.injectived --keep-addr-book
 
-nohup sudo aws s3 sync --no-sign-request --delete s3://injective-snapshots/mainnet/pruned/injectived/data $HOME/.injectived/data
-nohup sudo aws s3 sync --no-sign-request --delete s3://injective-snapshots/mainnet/pruned/injectived/wasm $HOME/.injectived/wasm
+nohup sudo aws s3 sync --no-sign-request --delete s3://injective-snapshots/mainnet/pruned/injectived/data $HOME/.injectived/data &
+nohup sudo aws s3 sync --no-sign-request --delete s3://injective-snapshots/mainnet/pruned/injectived/wasm $HOME/.injectived/wasm &
 
 sudo systemctl daemon-reload
 sudo systemctl enable injectived
