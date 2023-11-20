@@ -69,7 +69,7 @@ EOF
 injectived tendermint unsafe-reset-all --home $HOME/.injectived --keep-addr-book
 rm -rf $HOME/.injectived/wasm
 
-curl -# https://tools.highstakes.ch/files/injective.tar.gz | tar -xz -c $HOME/.injectived
+curl -# https://tools.highstakes.ch/files/injective.tar.gz | tar -xz -C $HOME/.injectived
 
 sudo systemctl daemon-reload
 sudo systemctl enable injectived
