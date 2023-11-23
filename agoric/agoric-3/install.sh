@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="agoric-3"
 CHAIN_DENOM="ubld"
 BINARY_NAME="agd"
-BINARY_VERSION_TAG="mainnet1B-rc3"
+BINARY_VERSION_TAG="agoric-upgrade-12"
 CHEAT_SHEET="https://nodejumper.io/agoric/cheat-sheet"
 
 printLine
@@ -24,22 +24,25 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-curl -Ls https://deb.nodesource.com/setup_16.x | sudo bash
-curl -s https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+NODE_MAJOR=18
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 
 sudo apt update
-sudo apt install -y nodejs=16.* yarn
+sudo apt install -y nodejs=18.* yarn
 
-cd || return
+cd
 rm -rf agoric-sdk
 git clone https://github.com/Agoric/agoric-sdk.git
-cd agoric-sdk || return
-git checkout mainnet1B-rc3
-yarn install
-yarn build
-cd packages/cosmic-swingset || return
-make build
+cd agoric-sdk
+git checkout agoric-upgrade-12
+yarn install && yarn build
+
+cd packages/cosmic-swingset
+make
 
 ln -s $HOME/agoric-sdk/bin/agd $HOME/go/bin/agd
 
@@ -58,7 +61,7 @@ sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.agori
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.agoric/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.agoric/config/app.toml
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001ubld"|g' $HOME/.agoric/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025ubld"|g' $HOME/.agoric/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.agoric/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
