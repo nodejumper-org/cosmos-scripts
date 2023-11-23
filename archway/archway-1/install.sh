@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="archway-1"
 CHAIN_DENOM="aarch"
 BINARY_NAME="archwayd"
-BINARY_VERSION_TAG="v1.0.1"
+BINARY_VERSION_TAG="v4.0.2"
 CHEAT_SHEET="https://nodejumper.io/archway/cheat-sheet"
 
 printLine
@@ -24,24 +24,26 @@ source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts
 
 printCyan "4. Building binaries..." && sleep 1
 
-mkdir -p $HOME/go/bin
-curl -L https://github.com/archway-network/archway/releases/download/v1.0.1/archwayd_linux_amd64 > $HOME/go/bin/archwayd
-chmod +x $HOME/go/bin/archwayd
+cd $HOME
+rm -rf archway
+git clone https://github.com/archway-network/archway.git
+cd archway
+git checkout v4.0.2
 
 archwayd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 archwayd config chain-id $CHAIN_ID
 archwayd config keyring-backend file
 
 rm $HOME/.archway/config/genesis.json
-curl -Ls https://github.com/archway-network/networks/raw/main/archway-1/genesis/genesis.json.gz > $HOME/.archway/config/genesis.json.gz
+curl -Ls https://github.com/archway-network/networks/raw/main/archway/genesis/genesis.json.gz > $HOME/.archway/config/genesis.json.gz
 gzip -d $HOME/.archway/config/genesis.json.gz
 curl -s https://snapshots.nodejumper.io/archway/addrbook.json > $HOME/.archway/config/addrbook.json
 
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.archway/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.archway/config/app.toml
-sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.archway/config/app.toml
+sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $HOME/.archway/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.archway/config/app.toml
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001aarch"|g' $HOME/.archway/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "1000000000000aarch"|g' $HOME/.archway/config/app.toml
 
 SEEDS="3ba7bf08f00e228026177e9cdc027f6ef6eb2b39@35.232.234.58:26656"
 PEERS=""
