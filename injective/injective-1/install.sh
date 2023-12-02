@@ -26,7 +26,7 @@ printCyan "4. Building binaries..." && sleep 1
 
 cd || return
 wget https://github.com/InjectiveLabs/injective-chain-releases/releases/download/v1.11.5-1687535916/linux-amd64.zip
-unzip linux-amd64.zip
+unzip -o linux-amd64.zip
 sudo mv peggo /usr/bin
 sudo mv injectived /usr/bin
 sudo mv libwasmvm.x86_64.so /usr/lib
@@ -65,7 +65,7 @@ After=network-online.target
 Type=simple
 User=$USER
 WorkingDirectory=/usr/bin
-ExecStart=/bin/bash -c '/usr/bin/injectived --log-level=error start'
+ExecStart=/bin/bash -c '/usr/bin/injectived start'
 Restart=always
 RestartSec=5
 LimitNOFILE=10000
