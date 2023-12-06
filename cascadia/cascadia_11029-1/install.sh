@@ -44,7 +44,7 @@ sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.casca
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.cascadiad/config/app.toml
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.cascadiad/config/app.toml
 
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.1aCC"|g' $HOME/.cascadiad/config/app.toml
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "10aCC"|g' $HOME/.cascadiad/config/app.toml
 sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.cascadiad/config/config.toml
 
 printCyan "5. Starting service and synchronization..." && sleep 1
