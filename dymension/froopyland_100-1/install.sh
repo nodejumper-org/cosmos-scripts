@@ -9,7 +9,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="froopyland_100-1"
 CHAIN_DENOM="udym"
 BINARY_NAME="dymd"
-BINARY_VERSION_TAG="v1.0.2-beta"
+BINARY_VERSION_TAG="v2.0.0-alpha.1"
 CHEAT_SHEET="https://nodejumper.io/dymension-testnet/cheat-sheet"
 
 printLine
@@ -28,9 +28,8 @@ cd || return
 rm -rf dymension
 git clone https://github.com/dymensionxyz/dymension.git
 cd dymension || return
-git checkout v1.0.2-beta
+git checkout v2.0.0-alpha.1
 make install
-dymd version # v1.0.2-beta
 
 dymd config keyring-backend test
 dymd config chain-id $CHAIN_ID
