@@ -42,7 +42,7 @@ cascadiad tx staking create-validator \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
 --gas-prices=70000000000000aCC \
---gas-adjustment=1.5 \
+--gas-adjustment=2.5 \
 --gas=auto \
 --from=wallet \
 -y
