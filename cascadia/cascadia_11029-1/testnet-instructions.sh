@@ -21,6 +21,7 @@ cascadiad status 2>&1 | jq .SyncInfo.catching_up
 cascadiad address-converter $(cascadiad keys show wallet -a)
 
 # go to https://www.cascadia.foundation/faucet and faucet some tokens to the EVM wallet
+# or use faucet channel in discord to get some tokens
 
 # verify the balance
 cascadiad q bank balances $(cascadiad keys show wallet -a)
@@ -35,7 +36,7 @@ cascadiad tx staking create-validator \
 --amount=1000000000000000000aCC \
 --pubkey=$(cascadiad tendermint show-validator) \
 --moniker="$NODE_MONIKER" \
---chain-id=cascadia_6102-1 \
+--chain-id=cascadia_11029-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
