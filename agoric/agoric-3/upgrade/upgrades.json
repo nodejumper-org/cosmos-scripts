@@ -2,5 +2,9 @@
   {
     "height": 10403035,
     "version": "mainnet1B-rc3"
+  },
+  {
+    "height": 13017175,
+    "version": "agoric-upgrade-13"
   }
 ]
