@@ -160,7 +160,7 @@ aut validator bond \
 
 # import nodekey as keyfile, and rename UTC--2023... to nodekey
 aut account import-private-key $HOME/autonity-chaindata/autonity/nodekey
-mv $HOME/autonity-chaindata/autonity/UTC--* $HOME/.autonity/keystore/nodekey
+mv $HOME/.autonity/keystore/UTC--* $HOME/.autonity/keystore/nodekey
 
 # use validator computed address from one of previous step
 sudo tee <<EOF >/dev/null $HOME/.autrc
@@ -171,5 +171,7 @@ validator=0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B
 EOF
 
 aut account sign-message "validator onboarded"
+
+aut account sign-message "public rpc"
 
 # register a validator here: https://game.autonity.org/awards/register-validator.html
