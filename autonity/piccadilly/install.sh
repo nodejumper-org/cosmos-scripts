@@ -21,7 +21,7 @@ make autonity
 sudo cp build/bin/autonity /usr/local/bin/autonity
 
 # install aut CLI binary
-pipx install --force 'https://github.com/autonity/aut/releases/download/v0.3.0.dev1/aut-0.3.0.dev1-py3-none-any.whl'
+pipx install --force 'https://github.com/autonity/aut/releases/download/v0.3.0.dev4/aut-0.3.0.dev4-py3-none-any.whl'
 sudo mv $HOME/.local/bin/aut /usr/local/bin/aut
 
 # create dirs
@@ -158,10 +158,9 @@ aut validator bond \
  --keyfile $HOME/.autonity/keystore/treasure.key \
  --validator 0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B 0.7 | aut tx sign -k $HOME/.autonity/keystore/treasure.key - | aut tx send -
 
-# import nodekey as keyfile
+# import nodekey as keyfile, and rename UTC--2023... to nodekey
 aut account import-private-key $HOME/autonity-chaindata/autonity/nodekey
-# 0x3Cb27571B006C1342BA3c9e986955DF8E4A833CF  /root/.autonity/keystore/UTC--2023-12-08T20-30-19.520537000Z--3cb27571b006c1342ba3c9e986955df8e4a833cf
-# переименовать фаил кошелька (UTC--2023...) на nodekey
+mv $HOME/autonity-chaindata/autonity/UTC--* $HOME/.autonity/keystore/nodekey
 
 # use validator computed address from one of previous step
 sudo tee <<EOF >/dev/null $HOME/.autrc
