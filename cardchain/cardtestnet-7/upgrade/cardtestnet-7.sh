@@ -16,7 +16,7 @@ sudo mv Cardchaind "$(which Cardchaind)"
 curl -s http://45.136.28.158:3000/genesis.json > $HOME/.Cardchain/config/genesis.json
 
 # set new chain-id
-cardchaind config chain-id cardtestnet-6
+cardchaind config chain-id cardtestnet-7
 
 # update peers
 SEEDS=""
