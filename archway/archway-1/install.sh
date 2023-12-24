@@ -29,6 +29,7 @@ rm -rf archway
 git clone https://github.com/archway-network/archway.git
 cd archway
 git checkout v4.0.2
+make install
 
 archwayd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 archwayd config chain-id $CHAIN_ID
