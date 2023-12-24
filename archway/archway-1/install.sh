@@ -42,7 +42,6 @@ curl -s https://snapshots.nodejumper.io/archway/addrbook.json > $HOME/.archway/c
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.archway/config/app.toml
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.archway/config/app.toml
 sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $HOME/.archway/config/app.toml
-sed -i 's|^snapshot-interval *=.*|snapshot-interval = 0|g' $HOME/.archway/config/app.toml
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "1000000000000aarch"|g' $HOME/.archway/config/app.toml
 
 SEEDS="3ba7bf08f00e228026177e9cdc027f6ef6eb2b39@35.232.234.58:26656"
