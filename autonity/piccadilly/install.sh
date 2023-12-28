@@ -7,11 +7,7 @@ python3 -m pip install --user pipx
 sudo mv $HOME/.local/bin/* /usr/local/bin
 
 # install go
-sudo rm -rf /usr/local/go
-curl -Ls https://go.dev/dl/go1.20.12.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
-eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
-eval $(echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' | tee -a $HOME/.bash_profile)
-source $HOME/.bash_profile
+source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/go_install.sh)
 
 # build autonity node binary
 git clone https://github.com/autonity/autonity.git
@@ -134,7 +130,7 @@ aut account sign-message "I have read and agree to comply with the Piccadilly Ci
 # after the command you will see the private key from the oracle account! It must be used in the item getownershipproof.
 ethkey inspect --private $HOME/.autonity/keystore/oracle.key
 
-# nodekey, oraclekey, treasure address
+# nodekey file, oracle private key file, treasure address
 autonity genOwnershipProof \
  --nodekey $HOME/autonity-chaindata/autonity/nodekey \
  --oraclekey $HOME/.autonity/pk/oracle.pk \
@@ -142,23 +138,24 @@ autonity genOwnershipProof \
 # Signature:
 # 0xd783aa5ed1c15b2c3ca86e6ae34f0fd53b24705a4e69397bd290cc2150447d611567cefd84a0245b0a55ebc9d593b9dbd890f451a7b8975010a0ab1bb13856b5018daa13f0aa3fbbc97764805706100acffb69fabfd3af01cf968bddc06efe8c042a38114fbd030803928b3c6782cebb1b50300a186ceba8edca3bfd6053d2f33300
 
-# get enode - aut node info
+# compute validator address
 aut validator compute-address enode://a91e9bec3fa443ec78122074838e27103ccf9c0a3f1ab08235df3d2ff6868661dfcb3914e51625de9f36b74094b117c6609ec89fe19507e057cc4e4fbf53765d@65.109.120.190:30303
+# computed validator address:
 # 0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B
 
-# treasure key, enode, oracle address, ownerproof signature
+# treasure key file, computed validator address, oracle address, ownerproof signature
 aut validator register \
  --keyfile $HOME/.autonity/keystore/treasure.key \
- enode://a91e9bec3fa443ec78122074838e27103ccf9c0a3f1ab08235df3d2ff6868661dfcb3914e51625de9f36b74094b117c6609ec89fe19507e057cc4e4fbf53765d@65.109.120.190:30303 \
+ 0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B \
  0x03b0132591b5D0498449097787993B1C0e917A53 \
  0xd783aa5ed1c15b2c3ca86e6ae34f0fd53b24705a4e69397bd290cc2150447d611567cefd84a0245b0a55ebc9d593b9dbd890f451a7b8975010a0ab1bb13856b5018daa13f0aa3fbbc97764805706100acffb69fabfd3af01cf968bddc06efe8c042a38114fbd030803928b3c6782cebb1b50300a186ceba8edca3bfd6053d2f33300 | aut tx sign -k $HOME/.autonity/keystore/treasure.key - | aut tx send -
 
-# bond your validator tx
+# bond your validator tx (0.7 ATN from treasure address)
 aut validator bond \
  --keyfile $HOME/.autonity/keystore/treasure.key \
  --validator 0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B 0.7 | aut tx sign -k $HOME/.autonity/keystore/treasure.key - | aut tx send -
 
-# import nodekey as keyfile, and rename UTC--2023... to nodekey
+# import nodekey as keyfile, and rename UTC--2023... to nodekey and move it to keystore
 aut account import-private-key $HOME/autonity-chaindata/autonity/nodekey
 mv $HOME/.autonity/keystore/UTC--* $HOME/.autonity/keystore/nodekey
 
@@ -170,8 +167,10 @@ keyfile=$HOME/.autonity/keystore/nodekey
 validator=0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B
 EOF
 
+# sign message with nodekey
 aut account sign-message "validator onboarded"
 
-# register a validator here: https://game.autonity.org/awards/register-validator.html
+# now you can register a validator here: https://game.autonity.org/awards/register-validator.html
 
+# sign message with nodekey for Open door task: https://game.autonity.org/round-4/node-tasks/open-door/
 aut account sign-message "public rpc"
