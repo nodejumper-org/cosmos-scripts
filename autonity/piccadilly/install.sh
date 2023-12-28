@@ -130,10 +130,10 @@ aut account sign-message "I have read and agree to comply with the Piccadilly Ci
 # after the command you will see the private key from the oracle account! It must be used in the item getownershipproof.
 ethkey inspect --private $HOME/.autonity/keystore/oracle.key
 
-# nodekey file, oracle private key file, treasure address
+# nodekey file, oracle private key hex, treasure address
 autonity genOwnershipProof \
  --nodekey $HOME/autonity-chaindata/autonity/nodekey \
- --oraclekey $HOME/.autonity/pk/oracle.pk \
+ --oraclekeyhex feeaaa12c4c005432f830174e9cfc77dc31ae4021a208d260583c68d5b9ccbe5 \
  0xC0BE9AD3146Da5595705600F15aA89830fd79Ee8
 # Signature:
 # 0xd783aa5ed1c15b2c3ca86e6ae34f0fd53b24705a4e69397bd290cc2150447d611567cefd84a0245b0a55ebc9d593b9dbd890f451a7b8975010a0ab1bb13856b5018daa13f0aa3fbbc97764805706100acffb69fabfd3af01cf968bddc06efe8c042a38114fbd030803928b3c6782cebb1b50300a186ceba8edca3bfd6053d2f33300
