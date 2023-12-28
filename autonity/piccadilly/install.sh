@@ -9,6 +9,12 @@ sudo mv $HOME/.local/bin/* /usr/local/bin
 # install go
 source <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/utils/go_install.sh)
 
+# install ethkey
+cd $HOME
+git clone https://github.com/ethereum/go-ethereum
+cd go-ethereum
+go install -v ./cmd/ethkey
+
 # build autonity node binary
 git clone https://github.com/autonity/autonity.git
 cd autonity
