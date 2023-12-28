@@ -150,7 +150,8 @@ aut validator register \
  0x03b0132591b5D0498449097787993B1C0e917A53 \
  0xd783aa5ed1c15b2c3ca86e6ae34f0fd53b24705a4e69397bd290cc2150447d611567cefd84a0245b0a55ebc9d593b9dbd890f451a7b8975010a0ab1bb13856b5018daa13f0aa3fbbc97764805706100acffb69fabfd3af01cf968bddc06efe8c042a38114fbd030803928b3c6782cebb1b50300a186ceba8edca3bfd6053d2f33300 | aut tx sign -k $HOME/.autonity/keystore/treasure.key - | aut tx send -
 
-# bond your validator tx (0.7 ATN from treasure address)
+# bond your validator tx
+# treasure key file, computed validator address, amount (0.7 ATN)
 aut validator bond \
  --keyfile $HOME/.autonity/keystore/treasure.key \
  --validator 0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B 0.7 | aut tx sign -k $HOME/.autonity/keystore/treasure.key - | aut tx send -
