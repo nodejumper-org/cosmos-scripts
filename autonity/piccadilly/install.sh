@@ -143,10 +143,10 @@ aut validator compute-address enode://a91e9bec3fa443ec78122074838e27103ccf9c0a3f
 # computed validator address:
 # 0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B
 
-# treasure key file, computed validator address, oracle address, ownerproof signature
+# treasure key file, enode, oracle address, ownerproof signature
 aut validator register \
  --keyfile $HOME/.autonity/keystore/treasure.key \
- 0xd6B351f977a28aaAace7C873Ff8f91C3550fdf0B \
+ enode://a91e9bec3fa443ec78122074838e27103ccf9c0a3f1ab08235df3d2ff6868661dfcb3914e51625de9f36b74094b117c6609ec89fe19507e057cc4e4fbf53765d@65.109.120.190:30303 \
  0x03b0132591b5D0498449097787993B1C0e917A53 \
  0xd783aa5ed1c15b2c3ca86e6ae34f0fd53b24705a4e69397bd290cc2150447d611567cefd84a0245b0a55ebc9d593b9dbd890f451a7b8975010a0ab1bb13856b5018daa13f0aa3fbbc97764805706100acffb69fabfd3af01cf968bddc06efe8c042a38114fbd030803928b3c6782cebb1b50300a186ceba8edca3bfd6053d2f33300 | aut tx sign -k $HOME/.autonity/keystore/treasure.key - | aut tx send -
 
