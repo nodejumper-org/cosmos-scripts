@@ -1,9 +1,6 @@
-# Clone project repository
+# Download binary
 cd $HOME
-rm -rf node
-git clone https://github.com/zeta-chain/node
-cd node
-git checkout v11.0.0
-
-# Build binary
-make install-testnet
+curl -s https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/arkeod > arkeod
+chmod +x arkeod
+mkdir -p $HOME/go/bin/
+mv arkeod $HOME/go/bin/
