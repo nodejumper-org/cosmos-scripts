@@ -1,4 +1,4 @@
-sudo systemctl stop cardchaind
+sudo systemctl stop Cardchaind
 
 # build new binary
 cd || return
@@ -16,7 +16,7 @@ sudo mv Cardchaind "$(which Cardchaind)"
 curl -s http://45.136.28.158:3000/genesis.json > $HOME/.Cardchain/config/genesis.json
 
 # set new chain-id
-cardchaind config chain-id cardtestnet-8
+Cardchaind config chain-id cardtestnet-8
 
 # update peers
 SEEDS=""
@@ -27,6 +27,6 @@ sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_p
 sed -i '/\[statesync\]/,/^\[.*\]/{s/enable = true/enable = false/}' $HOME/.Cardchain/config/config.toml
 
 # reset a chain data and validator state
-cardchaind tendermint unsafe-reset-all --keep-addr-book --home $HOME/.Cardchain
+Cardchaind tendermint unsafe-reset-all --keep-addr-book --home $HOME/.Cardchain
 
-sudo systemctl start cardchaind
+sudo systemctl start Cardchaind
