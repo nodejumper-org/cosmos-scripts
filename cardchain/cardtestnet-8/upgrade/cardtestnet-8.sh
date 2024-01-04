@@ -23,7 +23,10 @@ SEEDS=""
 PEERS="58bb9f1dcde0408fe4c3e7f8c6ccb7f8e410ca9c@202.61.225.157:26656"
 sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.Cardchain/config/config.toml
 
-# reset a chain data and start the service
+# disable state-sync
+sed -i '/\[statesync\]/,/^\[.*\]/{s/enable = true/enable = false/}' $HOME/.Cardchain/config/config.toml
+
+# reset a chain data and validator state
 cardchaind tendermint unsafe-reset-all --keep-addr-book --home $HOME/.Cardchain
 
 sudo systemctl start cardchaind
