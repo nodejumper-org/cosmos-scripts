@@ -36,6 +36,7 @@ cascadiad tx staking create-validator \
 --amount=1000000000000000000aCC \
 --pubkey=$(cascadiad tendermint show-validator) \
 --moniker="$NODE_MONIKER" \
+--details="Noderunner who is grateful to the NODEJUMPER team for their support" \
 --chain-id=cascadia_11029-1 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
