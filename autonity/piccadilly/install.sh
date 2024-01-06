@@ -16,9 +16,10 @@ cd go-ethereum
 go install -v ./cmd/ethkey
 
 # build autonity node binary
+cd $HOME
 git clone https://github.com/autonity/autonity.git
 cd autonity
-git checkout tags/v0.12.2 -b v0.12.2
+git checkout v0.12.3
 make autonity
 sudo cp build/bin/autonity /usr/local/bin/autonity
 
