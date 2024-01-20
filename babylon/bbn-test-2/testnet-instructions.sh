@@ -11,9 +11,6 @@ babylond keys add wallet
 #!!! SAVE SEED PHRASE (example)
 kite upset hip dirt pet winter thunder slice parent flag sand express suffer chest custom pencil mother bargain remember patient other curve cancel sweet
 
-#!!! SAVE PRIVATE VALIDATOR KEY
-cat $HOME/.babylond/config/priv_validator_key.json
-
 # wait util the node is synced, should return FALSE
 babylond status 2>&1 | jq .SyncInfo.catching_up
 
@@ -29,7 +26,15 @@ babylond q bank balances $(babylond keys show wallet -a)
 #    denom: ubbn
 
 babylond create-bls-key $(babylond keys show wallet -a)
+
+#!!! SAVE PRIVATE VALIDATOR KEY
+cat $HOME/.babylond/config/priv_validator_key.json
+
+# restart a node service
 sudo systemctl restart babylond
+
+# set your validator moniker
+NODE_MONIKER="YOUR_VALIDATOR_MONIKER"
 
 # create validator
 babylond tx checkpointing create-validator \
