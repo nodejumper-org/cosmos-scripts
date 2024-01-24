@@ -3,5 +3,9 @@
     "height": 0,
     "version": "cascadia_11029-1",
     "automaticUpgradeDisabled": true
+  },
+  {
+    "height": 1245000,
+    "version": "v0.3.0"
   }
 ]
