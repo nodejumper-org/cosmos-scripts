@@ -1,6 +1,5 @@
 sudo systemctl stop cascadiad
 
-
 cd && rm -rf cascadia
 git clone https://github.com/CascadiaFoundation/cascadia
 cd cascadia
