@@ -33,7 +33,7 @@ lavad tx staking create-validator \
 --amount=9000000ulava \
 --pubkey=$(lavad tendermint show-validator) \
 --moniker="$NODE_MONIKER" \
---chain-id=lava-testnet-1 \
+--chain-id=lava-testnet-2 \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
