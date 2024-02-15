@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Create user sei and switch to it
+sudo adduser sei --disabled-password --gecos "" -q
+sudo -u sei -i
+
+# Install dependencies
+sudo apt update
+sudo apt install -y curl git jq lz4 build-essential
+
+# Install Go
+sudo rm -rf /usr/local/go
+curl -L https://go.dev/dl/go1.21.6.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
+echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.bash_profile
+source .bash_profile
+
 # Clone project repository
 cd && rm -rf sei-chain
 git clone https://github.com/sei-protocol/sei-chain.git
@@ -51,6 +65,10 @@ sudo systemctl enable seid
 # Download latest chain data snapshot
 # go to the Polkachu's website and download the latest snapshot
 # https://polkachu.com/tendermint_snapshots/sei
+# curl -o - -L <LINK_TO_SNAPSHOT> | lz4 -c -d - | tar -x -C $HOME/.sei
 
 # Start the service
 sudo systemctl start seid
+
+# Check the logs
+sudo journalctl -u seid -f --no-hostname -o cat
