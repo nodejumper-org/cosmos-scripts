@@ -77,6 +77,7 @@ sed -i \
 Visit https://polkachu.com/tendermint_snapshots/sei to find the latest snapshot link
 ```bash
 # Example command to download and extract the snapshot
+# curl -o - -L https://snapshots.polkachu.com/snapshots/sei/sei_58061725.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.sei
 curl -o - -L <LINK_TO_SNAPSHOT> | lz4 -c -d - | tar -x -C $HOME/.sei
 ```
 
