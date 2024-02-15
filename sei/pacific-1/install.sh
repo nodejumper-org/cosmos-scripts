@@ -2,6 +2,7 @@
 
 # Create user sei and switch to it
 sudo adduser sei --disabled-password --gecos "" -q
+echo "sei ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 sudo -u sei -i
 
 # Install dependencies
