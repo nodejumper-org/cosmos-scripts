@@ -58,13 +58,18 @@ curl -s https://raw.githubusercontent.com/sei-protocol/testnet/main/pacific-1/ge
 ```
 
 ### Step 7: Set Seeds
+Replace the seeds in the `config.toml` file with the following:
+`400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@sei.rpc.kjnodes.com:16859,20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:11956,ebc272824924ea1a27ea3183dd0b9ba713494f83@sei-mainnet-seed.autostake.com:26806,c28827cb96c14c905b127b92065a3fb4cd77d7f6@seeds.whispernode.com:11956`
 ```bash
 SEEDS="400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@sei.rpc.kjnodes.com:16859,20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:11956,ebc272824924ea1a27ea3183dd0b9ba713494f83@sei-mainnet-seed.autostake.com:26806,c28827cb96c14c905b127b92065a3fb4cd77d7f6@seeds.whispernode.com:11956"
 sed -i 's|^bootstrap-peers *=.*|bootstrap-peers = "'$SEEDS'"|' $HOME/.sei/config/config.toml
 ```
 
 ### Step 8: Adjust Configuration
-Set minimum gas prices, enable RPC and allow CORS.
+#### Set minimum gas prices, enable RPC and allow CORS.
+Set `minimum-gas-prices` to `0.1usei` in `$HOME/.sei/config/app.toml`
+Enable the RPC by setting `laddr` to `tcp://0.0.0.0:26657` in `$HOME/.sei/config/config.toml`
+Allow CORS by setting `cors_allowed_origins` to `["*"]` in `$HOME/.sei/config/config.toml`
 ```bash
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.1usei"|g' $HOME/.sei/config/app.toml
 
