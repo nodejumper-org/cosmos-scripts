@@ -68,7 +68,9 @@ sed -i 's|^bootstrap-peers *=.*|bootstrap-peers = "'$SEEDS'"|' $HOME/.sei/config
 ### Step 8: Adjust Configuration
 #### Set minimum gas prices, enable RPC and allow CORS.
 Set `minimum-gas-prices` to `0.1usei` in `$HOME/.sei/config/app.toml`
+
 Enable the RPC by setting `laddr` to `tcp://0.0.0.0:26657` in `$HOME/.sei/config/config.toml`
+
 Allow CORS by setting `cors_allowed_origins` to `["*"]` in `$HOME/.sei/config/config.toml`
 ```bash
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.1usei"|g' $HOME/.sei/config/app.toml
