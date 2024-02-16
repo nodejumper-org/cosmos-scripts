@@ -108,7 +108,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable seid
 ```
 
-### Step 12: Start the Service and Check the Logs
+### Step 11: Start the Service and Check the Logs
 ```bash
 sudo systemctl start seid
 sudo journalctl -u seid -f --no-hostname -o cat
