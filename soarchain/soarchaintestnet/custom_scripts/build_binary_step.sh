@@ -6,4 +6,5 @@ mkdir -p $HOME/go/bin/
 mv soarchaind $HOME/go/bin/
 
 # Install libwasmvm
-curl -L https://snapshots-testnet.nodejumper.io/soarchain-testnet/libwasmvm.x86_64.so > /var/lib/libwasmvm.x86_64.so
+curl -L https://snapshots-testnet.nodejumper.io/soarchain-testnet/libwasmvm.x86_64.so > libwasmvm.x86_64.so
+sudo mv libwasmvm.x86_64.so /var/lib/libwasmvm.x86_64.so
