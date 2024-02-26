@@ -11,7 +11,7 @@ git checkout v0.8.3
 make install
 
 # Update node CLI configuration
-babylond config chain-id bbn-test-3
+babylond config set client chain-id bbn-test-3
 
 # Download new genesis and addrbook files
 curl -L https://snapshots-testnet.nodejumper.io/babylon-testnet/genesis.json > $HOME/.babylond/config/genesis.json
