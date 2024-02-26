@@ -20,6 +20,9 @@ curl -L https://snapshots-testnet.nodejumper.io/babylon-testnet/addrbook.json > 
 # Update seeds
 sed -i -e 's|^seeds *=.*|seeds = "49b4685f16670e784a0fe78f37cd37d56c7aff0e@3.14.89.82:26656,9cb1974618ddd541c9a4f4562b842b96ffaf1446@3.16.63.237:26656"|' $HOME/.babylond/config/config.toml
 
+# Update btc network type
+sed -i 's|^network *=.*|network = "signet"|g' $HOME/.babylond/config/app.toml
+
 # Reset node data
 babylond tendermint unsafe-reset-all --home $HOME/.babylond --keep-addr-book
 
