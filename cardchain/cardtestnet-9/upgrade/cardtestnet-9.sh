@@ -27,6 +27,9 @@ sed -i -e 's|^seeds *=.*|seeds = "2aa407243c982ce2d9ee607b15418cf45b5002f7@202.6
 sed -i '/\[statesync\]/,/^\[.*\]/{s/enable = true/enable = false/}' $HOME/.cardchaind/config/config.toml
 
 # reset a chain data and validator state
-Cardchaind tendermint unsafe-reset-all --keep-addr-book --home $HOME/.cardchaind
+Cardchaind tendermint unsafe-reset-all --home $HOME/.cardchaind
+
+# download fresh address book
+curl -L https://snapshots-testnet.nodejumper.io/cardchain-testnet/addrbook.json > $HOME/.Cardchain/config/addrbook.json
 
 sudo systemctl start Cardchaind
