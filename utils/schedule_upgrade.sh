@@ -22,9 +22,9 @@ echo ""
 
 for (( ; ; )); do
   if [ -z "$PORT_RPC" ]; then
-    height=$($BINARY status 2>&1 | jq -r .SyncInfo.latest_block_height)
+    height=$($BINARY status 2>&1 | jq -r '.SyncInfo.latest_block_height // .sync_info.latest_block_height')
   else
-    height=$($BINARY status --node="tcp://127.0.0.1:$PORT_RPC" 2>&1 | jq -r .SyncInfo.latest_block_height)
+    height=$($BINARY status --node="tcp://127.0.0.1:$PORT_RPC" 2>&1 | jq -r '.SyncInfo.latest_block_height // .sync_info.latest_block_height')
   fi
   if ((height >= TARGET_BLOCK)); then
     bash <(curl -s https://raw.githubusercontent.com/nodejumper-org/cosmos-scripts/master/${CHAIN_NAME,,}/$CHAIN_ID/upgrade/$VERSION.sh)
@@ -39,5 +39,5 @@ done
 
 printLine
 echo -e "Check logs:            ${CYAN}sudo journalctl -u $BINARY_NAME -f --no-hostname -o cat ${NC}"
-echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up${NC}"
+echo -e "Check synchronization: ${CYAN}$BINARY_NAME status 2>&1 | jq -r '.SyncInfo.latest_block_height // .sync_info.latest_block_height'${NC}"
 echo -e "More commands:         ${CYAN}$CHEAT_SHEET${NC}"
