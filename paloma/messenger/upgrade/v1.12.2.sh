@@ -15,4 +15,6 @@ tar -xvzf pigeon.tar.gz
 rm pigeon.tar.gz
 sudo mv -f pigeon "$(which pigeon)"
 
+sudo systemctl restart pigeond
+
 sudo systemctl start palomad
