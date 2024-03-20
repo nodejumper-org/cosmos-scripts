@@ -5,6 +5,7 @@ mkdir -p $HOME/hyperbridge-data/data
 
 # run hyperbridge node
 docker run -d \
+  --name=hyperbridge \
   --restart=always \
   -p 30333:30333 \
   -p 30334:30334 \
