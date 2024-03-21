@@ -7,29 +7,11 @@ mkdir -p $HOME/hyperbridge-data/data
 docker run -d \
   --name=hyperbridge \
   --restart=always \
-  -p 30333:30333 \
-  -p 30334:30334 \
-  -p 9933:9933 \
-  -p 9615:9615 \
   -p 9944:9944 \
-  -p 9616:9616 \
   -v $HOME/hyperbridge-data/data:/data \
   polytopelabs/hyperbridge:latest  \
   --chain=gargantua \
-  --name=NODEJUMPER \
-  --enable-offchain-indexing=true \
-  --base-path /data \
-  --pruning=archive \
-  --prometheus-external \
-  --prometheus-port 9615 \
-  --collator \
-  --rpc-port 9933 \
-  --rpc-cors all \
-  --rpc-external \
-  --rpc-methods=unsafe \
-  --async-backing \
-  --telemetry-url 'wss://telemetry.blockops.network/submit 1' \
-  --telemetry-url 'wss://telemetry.polkadot.io/submit 1'
+  --name=NODEJUMPER
 
 # create configs
 ETHERSCAN_API_KEY=
