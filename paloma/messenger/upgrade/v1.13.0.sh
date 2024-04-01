@@ -14,8 +14,8 @@ sudo mv -f $HOME/go/bin/palomad "$(which palomad)"
 cd && rm -rf pigeon
 git clone -b v1.11.0 https://github.com/palomachain/pigeon
 cd pigeon
-make install
-sudo mv -f $HOME/go/bin/pigeon "$(which pigeon)"
+make build
+sudo mv -f build/pigeon "$(which pigeon)"
 
 sudo systemctl restart pigeond
 sudo systemctl restart palomad
