@@ -1,6 +1,5 @@
 # Clone project repository
-cd $HOME
-rm -rf paloma
+cd && rm -rf paloma
 git clone https://github.com/palomachain/paloma
 cd paloma
 git checkout ${tag}
