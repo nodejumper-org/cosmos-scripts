@@ -1,7 +1,7 @@
 cd && rm -rf andromedad
 git clone https://github.com/andromedaprotocol/andromedad
 cd andromedad
-git checkout andromeda-1-v0.1.1
+git checkout v0.1.1-patch
 
 make install
 
