@@ -1,10 +1,7 @@
-sudo systemctl stop dymd
-
-cd || return
-rm -rf dymension
+cd && rm -rf dymension
 git clone https://github.com/dymensionxyz/dymension.git
-cd dymension || return
+cd dymension
 git checkout v2.0.0-alpha.8
 make install
 
-sudo systemctl start dymd
+sudo systemctl restart dymd
