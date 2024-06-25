@@ -1,7 +1,7 @@
 cd && rm -rf elys
 git clone https://github.com/elys-network/elys
 cd elys
-git checkout v0.33.0
+git checkout v0.35.0
 make install
 
 sudo systemctl restart elysd
