@@ -6,5 +6,9 @@
   {
     "height": 9325555,
     "version": "v0.4.7-rc7"
+  },
+  {
+    "height": 9325556,
+    "version": "v0.4.7-rc7-fix-execution"
   }
 ]
