@@ -6,7 +6,7 @@ git checkout v0.4.7-rc7
 make install
 
 # download aspect lib
-mkdir -p $HOME/.artela/libs && cd $HOME/.artela/libs
+mkdir -p $HOME/.artelad/libs && cd $HOME/.artelad/libs
 curl -L https://github.com/artela-network/artela/releases/download/v0.4.7-rc7/artelad_0.4.7_rc7_Linux_amd64.tar.gz -o artelad_0.4.7_rc7_Linux_amd64.tar.gz
 tar -xvzf artelad_0.4.7_rc7_Linux_amd64.tar.gz
 rm artelad_0.4.7_rc7_Linux_amd64.tar.gz
@@ -20,7 +20,7 @@ Description=Artela node service
 After=network-online.target
 [Service]
 User=$USER
-Environment="LD_LIBRARY_PATH=$HOME/.artela/libs:\$LD_LIBRARY_PATH"
+Environment="LD_LIBRARY_PATH=$HOME/.artelad/libs:\$LD_LIBRARY_PATH"
 ExecStart=$(which artelad) start
 Restart=on-failure
 RestartSec=10
