@@ -12,5 +12,5 @@ cd pigeon
 make build
 sudo mv -f build/pigeon "$(which pigeon)"
 
-sudo systemctl start pigeond
+sudo systemctl restart pigeond
 sudo systemctl restart palomad
