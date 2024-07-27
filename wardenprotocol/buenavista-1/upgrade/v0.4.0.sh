@@ -31,7 +31,7 @@ tar -xzf slinky-1.0.4-linux-amd64.tar.gz
 sudo mv slinky-1.0.4-linux-amd64/slinky $HOME/go/bin/slinky
 
 # Determine the node's gRPC port
-GRPC_PORT=$(grep -oP '(?<=address = ".*:)\d+90(?=")' "$HOME/.warden/config/app.toml")
+GRPC_PORT=$(grep 'address = ' "$HOME/.warden/config/app.toml" | awk -F: '{print $NF}' | grep '90"$' | tr -d '"')
 
 # Create a systemd service for slinky
 sudo tee /etc/systemd/system/warden-slinky.service > /dev/null << EOF
