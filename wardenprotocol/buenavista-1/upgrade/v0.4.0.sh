@@ -40,7 +40,7 @@ Description=Slinky for Warden Protocol service
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which slinky) --market-map-endpoint="127.0.0.1:$GRPC_PORT"
+ExecStart=$(which slinky) --market-map-endpoint="127.0.0.1:$GRPC_PORT" --log-disable-file-rotation
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535
