@@ -12,7 +12,6 @@ sudo mv wardend $(which wardend)
 cd && curl -L https://buenavista-genesis.s3.eu-west-1.amazonaws.com/genesis.json.tar.xz | tar xJf -
 mv genesis.json $HOME/.warden/config/genesis.json
 rm -rf genesis.json.tar.xz
-mv genesis.json $HOME/.warden/config/genesis.json
 
 # Reset chain data
 cp $HOME/.warden/data/priv_validator_state.json $HOME/.warden/priv_validator_state.json.backup
