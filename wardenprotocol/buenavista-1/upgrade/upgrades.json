@@ -1,6 +1,7 @@
 [
   {
     "height": 1534600,
-    "version": "v0.3.2"
+    "version": "v0.3.2",
+    "automaticUpgradeDisabled": true
   }
 ]
