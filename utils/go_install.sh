@@ -42,14 +42,14 @@ sudo tar -C /usr/local -xzf "$VERSION.$OS-$ARCH.tar.gz"
 rm "$VERSION.$OS-$ARCH.tar.gz"
 
 # Set the path if needed
-touch $HOME/.bash_profile
-source $HOME/.bash_profile
-PATH_INCLUDES_GO=$(grep "$HOME/go/bin" $HOME/.bash_profile)
+touch $HOME/.profile
+source $HOME/.profile
+PATH_INCLUDES_GO=$(grep "$HOME/go/bin" $HOME/.profile)
 if [ -z "$PATH_INCLUDES_GO" ]; then
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
-  echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
+  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.profile
+  echo "export GOPATH=$HOME/go" >> $HOME/.profile
 fi
 
-source $HOME/.bash_profile
+source $HOME/.profile
 
 go version
