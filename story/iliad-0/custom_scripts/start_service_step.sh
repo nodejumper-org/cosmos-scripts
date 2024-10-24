@@ -6,7 +6,7 @@ After=network-online.target
 
 [Service]
 User=$USER
-WorkingDirectory=~
+WorkingDirectory=$HOME/.story/geth
 ExecStart=$HOME/go/bin/geth --iliad --syncmode full --http --ws
 Restart=on-failure
 RestartSec=5
