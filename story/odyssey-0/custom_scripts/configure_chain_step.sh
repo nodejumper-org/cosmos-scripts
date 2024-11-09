@@ -1,5 +1,5 @@
 # Initialize the node
-story init --moniker ${moniker} --network odyssey
+story init --moniker "${moniker}" --network odyssey
 
 # Add seeds
 sed -i -e "s|^seeds *=.*|seeds = \"${seeds}\"|" $HOME/.story/story/config/config.toml
