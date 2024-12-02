@@ -12,7 +12,7 @@ go build -o $HOME/go/bin/story ./client
 cd && rm -rf story-geth
 git clone https://github.com/piplabs/story-geth.git
 cd story-geth
-git checkout v0.10.0
+git checkout v0.10.1
 
 # Build execution client binary
 make geth
