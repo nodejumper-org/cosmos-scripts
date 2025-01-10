@@ -4,4 +4,4 @@ cd paloma
 make build
 sudo mv -f build/palomad "$(which palomad)"
 
-sudo systemctl restart palomad
+sudo systemctl restart paloma
