@@ -30,6 +30,8 @@ if [[ "$(uname -m)" == "x86_64" ]]; then
   ARCH="amd64"
 elif [[ "$(uname -m)" == "aarch64" ]]; then
   ARCH="arm64"
+elif [[ "$(uname -m)" == "arm64" ]]; then
+  ARCH="arm64"
 else
   echo "Unsupported architecture"
   exit 1
