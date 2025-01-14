@@ -37,6 +37,8 @@ else
   exit 1
 fi
 
+echo "Installing go $VERSION for $OS-$ARCH"
+
 # Install the binaries
 curl -L -# -O "https://golang.org/dl/$VERSION.$OS-$ARCH.tar.gz"
 sudo rm -rf /usr/local/go
